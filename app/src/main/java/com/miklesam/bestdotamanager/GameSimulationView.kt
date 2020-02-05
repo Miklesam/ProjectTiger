@@ -54,10 +54,10 @@ class GameSimulationView : View {
 
         canvas.drawRGB(129, 156, 169)
         mDrawable?.setBounds(
-            -200,
-            -200,
-            200,
-            200
+            (sizeX/4).toInt(),
+            0,
+            3*(sizeX/4).toInt(),
+            sizeY.toInt()
         )
 
         mDrawable?.draw(canvas)
