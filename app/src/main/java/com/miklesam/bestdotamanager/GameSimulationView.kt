@@ -4,10 +4,17 @@ import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
+import android.graphics.Typeface
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.view.View
 import androidx.core.content.ContextCompat
+import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+
 
 class GameSimulationView : View {
 
@@ -16,7 +23,6 @@ class GameSimulationView : View {
     internal var myPaint = Paint()
     internal var sizeX: Float = 0.toFloat()
     internal var sizeY: Float = 0.toFloat()
-
 
     constructor(context: Context) : super(context) {
         init()
@@ -52,14 +58,13 @@ class GameSimulationView : View {
 
     override fun onDraw(canvas: Canvas) {
 
-        canvas.drawRGB(129, 156, 169)
+        canvas.drawRGB(63, 63, 63)
         mDrawable?.setBounds(
-            (sizeX/4).toInt(),
             0,
-            3*(sizeX/4).toInt(),
+            0,
+            (sizeX).toInt(),
             sizeY.toInt()
         )
-
         mDrawable?.draw(canvas)
 
 
@@ -74,8 +79,6 @@ class GameSimulationView : View {
     override fun onDetachedFromWindow() {
         super.onDetachedFromWindow()
     }
-
-
 
 
 }
