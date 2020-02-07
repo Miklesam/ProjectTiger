@@ -1,55 +1,53 @@
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#3f3f3f"
-    android:orientation="horizontal"
-    >
+    android:orientation="horizontal">
 
     <androidx.constraintlayout.widget.Guideline
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:id="@+id/firsthorizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.15"/>
+        app:layout_constraintGuide_percent="0.15" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:id="@+id/firstvertical"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.25"/>
-
-    <androidx.constraintlayout.widget.Guideline
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.25" />
+
+    <androidx.constraintlayout.widget.Guideline
         android:id="@+id/secondvertical"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.75"/>
-
-    <androidx.constraintlayout.widget.Guideline
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/centralvertical"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.5"/>
+        app:layout_constraintGuide_percent="0.75" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/centralvertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
 
     <com.miklesam.bestdotamanager.GameSimulationView
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@id/firstvertical"
         app:layout_constraintEnd_toEndOf="@id/secondvertical"
-        app:layout_constraintTop_toTopOf="@id/firsthorizontal"/>
+        app:layout_constraintStart_toStartOf="@id/firstvertical"
+        app:layout_constraintTop_toTopOf="@id/firsthorizontal" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="@id/firsthorizontal"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="@id/centralvertical"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
@@ -58,9 +56,9 @@
             android:layout_height="30dp"
             android:layout_marginStart="5dp"
             android:src="@drawable/navi_min_logo"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tagName"
@@ -70,9 +68,9 @@
             android:gravity="center"
             android:text="NAVI"
             android:textColor="#f9fcff"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/tagImage"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -80,9 +78,9 @@
             android:layout_marginEnd="15dp"
             android:text="0"
             android:textColor="#f9fcff"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <View
             android:layout_width="match_parent"
@@ -91,15 +89,14 @@
             app:layout_constraintTop_toBottomOf="@+id/tagImage" />
 
 
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="@id/firsthorizontal"
-        app:layout_constraintStart_toStartOf="@id/centralvertical"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/centralvertical"
         app:layout_constraintTop_toTopOf="parent">
 
 
@@ -109,32 +106,31 @@
             android:layout_marginStart="15dp"
             android:text="0"
             android:textColor="#f9fcff"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:layout_marginEnd="5dp"
             android:id="@+id/tagImage2"
             android:layout_width="30dp"
             android:layout_height="30dp"
+            android:layout_marginEnd="5dp"
             android:src="@drawable/navi_min_logo"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tagName2"
-            android:layout_marginEnd="5dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
             android:gravity="center"
             android:text="NAVI"
             android:textColor="#f9fcff"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/tagImage2"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <View
             android:layout_width="match_parent"
@@ -143,9 +139,134 @@
             app:layout_constraintTop_toBottomOf="@+id/tagImage2" />
 
 
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/firstvertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/firsthorizontal">
+
+        <ImageView
+            android:id="@+id/firstRadiantPlayerHeroImage"
+            android:layout_width="30dp"
+            android:layout_height="40dp"
+            android:src="@drawable/navi_min_logo"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/firstRadiantPlayerName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Position 1"
+            android:textColor="#f9fcff"
+            app:layout_constraintStart_toEndOf="@id/firstRadiantPlayerHeroImage"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hero 1"
+            android:textColor="#f9fcff"
+            app:layout_constraintStart_toEndOf="@id/firstRadiantPlayerHeroImage"
+            app:layout_constraintTop_toBottomOf="@id/firstRadiantPlayerName" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/firstRadiantPlayerName"
+            android:text="0/0/0"
+            android:textColor="#f9fcff"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/secondvertical"
+        app:layout_constraintTop_toTopOf="@id/firsthorizontal">
+
+        <ImageView
+            android:id="@+id/firstDirePlayerHeroImage"
+            android:layout_width="30dp"
+            android:layout_height="40dp"
+            android:src="@drawable/navi_min_logo"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/firstDirePlayerName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Position 1"
+            android:textColor="#f9fcff"
+            app:layout_constraintEnd_toStartOf="@id/firstDirePlayerHeroImage"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hero 1"
+            android:textColor="#f9fcff"
+            app:layout_constraintEnd_toStartOf="@id/firstDirePlayerHeroImage"
+            app:layout_constraintTop_toBottomOf="@id/firstDirePlayerName" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/firstDirePlayerName"
+            android:text="0/0/0"
+            android:textColor="#f9fcff"
+            />
+
+        <ImageView
+            android:id="@+id/secondDirePlayerHeroImage"
+            android:layout_width="30dp"
+            android:layout_height="40dp"
+            android:src="@drawable/navi_min_logo"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/firstDirePlayerHeroImage" />
+
+        <ImageView
+            android:id="@+id/thirdDirePlayerHeroImage"
+            android:layout_width="30dp"
+            android:layout_height="40dp"
+            android:src="@drawable/navi_min_logo"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/secondDirePlayerHeroImage" />
+
+        <ImageView
+        android:id="@+id/forthDirePlayerHeroImage"
+        android:layout_width="30dp"
+        android:layout_height="40dp"
+        android:src="@drawable/navi_min_logo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/thirdDirePlayerHeroImage" />
+
+        <ImageView
+            android:id="@+id/fifthDirePlayerHeroImage"
+            android:layout_width="30dp"
+            android:layout_height="40dp"
+            android:src="@drawable/navi_min_logo"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/forthDirePlayerHeroImage" />
+
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 
 
