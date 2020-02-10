@@ -1,6 +1,8 @@
 package com.miklesam.bestdotamanager
 
+import android.media.AudioAttributes
 import android.media.MediaPlayer
+import android.media.SoundPool
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.util.Log
@@ -11,18 +13,50 @@ import kotlinx.android.synthetic.main.fragment_game.*
 
 class FragmentGame :Fragment(R.layout.fragment_game) {
     var gameGame: GameSimulationView? =null
-    var player : MediaPlayer? = null
+    lateinit var soundPull :SoundPool
+    var soundOne:Int = 0
+    var soundTwo:Int = 0
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val audioAtributes = AudioAttributes.Builder()
+            .setUsage(AudioAttributes.USAGE_ASSISTANCE_SONIFICATION)
+            .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+            .build()
+
+        soundPull= SoundPool.Builder()
+            .setMaxStreams(6)
+            .setAudioAttributes(audioAtributes)
+            .build()
+
+
+        soundOne=soundPull.load(context,R.raw.hello_casper,1)
+        soundTwo=soundPull.load(context,R.raw.hello_v1lat,1)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         gameGame=view.findViewById<GameSimulationView>(R.id.gameGame)
+
         val tagName=view.findViewById<TextView>(R.id.tagName)
         val tagName2=view.findViewById<TextView>(R.id.tagName2)
         gameGame?.Start()
 
+
         tagName.setOnClickListener {
+            gameGame?.setBasePosition()
             gameGame?.CalcilateSpeed(0F,300F)
-            play()
+            soundPull.play(soundOne, 1F, 1F,0,0, 1F)
+            val timer = object: CountDownTimer(1500, 100) {
+                override fun onTick(millisUntilFinished: Long) {}
+
+                override fun onFinish() {
+                    soundPull.play(soundTwo, 1F, 1F,0,0, 1F)
+                }
+            }
+            timer.start()
+
+
         }
         tagName2.setOnClickListener {
             gameGame?.CalcilateSpeed(300F,0F)
@@ -44,19 +78,5 @@ class FragmentGame :Fragment(R.layout.fragment_game) {
 */
     }
 
-    fun play(){
-        if(player==null){
-            player=MediaPlayer.create(context,R.raw.hello_vp_navi)
-        }
-        player?.start()
-    }
-
-    fun stopPlayer(){
-        if(player!=null){
-            player!!.release()
-            player=null
-
-        }
-    }
 
 }

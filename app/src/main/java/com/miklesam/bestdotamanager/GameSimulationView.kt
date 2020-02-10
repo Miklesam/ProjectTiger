@@ -1,22 +1,14 @@
 package com.miklesam.bestdotamanager
 
-import android.animation.AnimatorSet
-import android.animation.ObjectAnimator
 import android.animation.TimeAnimator
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
-import android.graphics.Typeface
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.view.View
 import androidx.core.content.ContextCompat
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 import android.util.Log
 
 
@@ -90,6 +82,14 @@ class GameSimulationView : View {
         )
         mDrawable?.draw(canvas)
         mHero?.draw(canvas)
+    }
+
+    fun setBasePosition(){
+        heroOne.positionX= (0.15*sizeX).toInt()
+        heroOne.positionY= (0.85*sizeY).toInt()
+
+        Log.w("BasePosition X", heroOne.positionX.toString())
+        Log.w("BasePosition Y", heroOne.positionY.toString())
     }
 
 
