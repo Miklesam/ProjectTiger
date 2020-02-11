@@ -51,6 +51,8 @@ class GameSimulationView : View {
     private fun init() {
         mDrawable = ContextCompat.getDrawable(context, R.drawable.minimap_7_23)
         mHero=ContextCompat.getDrawable(context,R.drawable.ogremagi_mipmap)
+        Log.w("InitSizeX=", sizeX.toString())
+        Log.w("InitSizeY=", sizeY.toString())
 
     }
 
@@ -59,14 +61,11 @@ class GameSimulationView : View {
         super.onSizeChanged(width, height, oldw, oldh)
         sizeX = getWidth().toFloat()
         sizeY = getHeight().toFloat()
-
-        Log.w("SizeX=", sizeX.toString())
-        Log.w("SizeY=", sizeY.toString())
+        Log.w("onSizeChangedSizeX=", sizeX.toString())
+        Log.w("onSizeChangedSizeY=", sizeY.toString())
         myPaint.setColor(Color.rgb(0, 0, 0))
         myPaint.setStyle(Paint.Style.STROKE)
         myPaint.setStrokeWidth(1f)
-
-
     }
 
     override fun onDraw(canvas: Canvas) {
