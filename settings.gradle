@@ -1,2 +1,2 @@
 include ':app'
-rootProject.name='Best Dota Manager'
+rootProject.name='Dota Manager'

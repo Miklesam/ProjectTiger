@@ -1,4 +1,4 @@
-package com.miklesam.bestdotamanager
+package com.miklesam.dotamanager
 
 import android.app.AlertDialog
 import android.app.Dialog
@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.*
 import androidx.appcompat.app.AppCompatDialogFragment
+import com.miklesam.dotamanager.R
 
 
 class CreateDialog(heroList: ArrayList<Int>,Title : String,first:Boolean,myListener:NoticeDialogListener):AppCompatDialogFragment(){

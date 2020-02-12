@@ -11,7 +11,7 @@
         android:id="@+id/playGame"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="@string/play_game"
+        android:text="@string/lobby_bttn"
         android:theme="@style/ButtonSwitchColor"
         app:layout_constraintBottom_toBottomOf="@+id/guideline"
         android:layout_marginTop="8dp"

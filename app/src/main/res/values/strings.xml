@@ -1,7 +1,12 @@
 <resources>
-    <string name="app_name">Best Dota Manager</string>
+    <string name="app_name">Dota Manager</string>
+    <string name="lobby_bttn">Lobby</string>
 
-    <string name="play_game">Game</string>
+
+    <string name="game_bttn">G\na\nm\ne</string>
+    <string name="market_bttn">M\n\a\nr\nk\ne\nt</string>
+    <string name="team_bttn">Team</string>
+    <string name="training_bttn">Training</string>
 
     <string-array name="lineList">
         <item>Top</item>
@@ -19,5 +24,4 @@
         <item>Enemy Triangle</item>
         <item>Rosh</item>
     </string-array>
-
 </resources>

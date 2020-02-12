@@ -1,4 +1,4 @@
-package com.miklesam.bestdotamanager
+package com.miklesam.dotamanager
 
 import org.junit.Test
 

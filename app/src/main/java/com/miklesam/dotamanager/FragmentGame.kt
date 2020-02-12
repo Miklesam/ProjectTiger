@@ -1,4 +1,4 @@
-package com.miklesam.bestdotamanager
+package com.miklesam.dotamanager
 
 import android.media.AudioAttributes
 import android.media.MediaPlayer
