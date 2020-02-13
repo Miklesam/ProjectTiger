@@ -53,6 +53,10 @@ class FragmentGame : Fragment(R.layout.fragment_game), CreateDialog.NoticeDialog
         tagName.setOnClickListener {
             gameGame?.setBasePosition()
             gameGame?.CalcilateSpeed(0F, 300F)
+            val myList=ArrayList<Int>()
+            myList.add(0)
+            myList.add(1)
+            CreateDeskDialog(myList, "Radiant", true)
             soundPull.play(soundOne, 1F, 1F, 0, 0, 1F)
             val timer = object : CountDownTimer(1500, 100) {
                 override fun onTick(millisUntilFinished: Long) {}
@@ -86,10 +90,7 @@ class FragmentGame : Fragment(R.layout.fragment_game), CreateDialog.NoticeDialog
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         Log.w(TAG, "onActivityCreated")
-        val myList=ArrayList<Int>()
-        myList.add(0)
-        myList.add(1)
-        CreateDeskDialog(myList, "Radiant", true)
+
     }
 
     private fun CreateDeskDialog(ah: ArrayList<Int>, Title: String, first: Boolean) {
