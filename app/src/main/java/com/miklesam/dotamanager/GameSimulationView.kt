@@ -170,6 +170,7 @@ class GameSimulationView : View {
     }
 
     override fun onDetachedFromWindow() {
+        mTimeAnimator.cancel()
         super.onDetachedFromWindow()
     }
 

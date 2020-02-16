@@ -24,4 +24,6 @@
         <item>Enemy Triangle</item>
         <item>Rosh</item>
     </string-array>
+
+    <string name="title_beer_name">Beer Name</string>
 </resources>

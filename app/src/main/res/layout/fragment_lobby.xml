@@ -100,7 +100,7 @@
     <ImageView
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@drawable/bottomblack"
+        android:background="@drawable/bottomwalli"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -116,16 +116,16 @@
         app:layout_constraintTop_toTopOf="parent" />
 
 
-
     <com.miklesam.dotamanager.WeatherView
+        android:id="@+id/weatherAnim"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@drawable/panorama"
-        android:id="@+id/weatherAnim"
         app:layout_constraintBottom_toBottomOf="@id/half"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/ceilingHeight" />
+        app:layout_constraintTop_toTopOf="@id/ceilingHeight"
+        app:layout_constraintVertical_bias="0.0" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

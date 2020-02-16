@@ -11,17 +11,24 @@ import androidx.appcompat.app.AppCompatDialogFragment
 import com.miklesam.dotamanager.R
 
 
-class CreateDialog(heroList: ArrayList<Int>,Title : String,first:Boolean,myListener:NoticeDialogListener):AppCompatDialogFragment(){
+class CreateDialog():AppCompatDialogFragment(){
+    constructor(heroList: ArrayList<Int>,Title : String,first:Boolean,myListener:NoticeDialogListener):this(){
+         sideTitle=Title
+         side=first
+         mListener=myListener
+    }
 
-    var HeroList=heroList
-    var sideTitle=Title
+
     var Lock=true
-    val side=first
+    var sideTitle="as"
+    var side=true
+    var mListener: NoticeDialogListener?=null
+
     interface NoticeDialogListener {
         fun onDialogPositiveClick(dialog: String)
         }
 
-    var mListener: NoticeDialogListener=myListener
+
 
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -48,7 +55,7 @@ class CreateDialog(heroList: ArrayList<Int>,Title : String,first:Boolean,myListe
             lining+=spiner4.selectedItemPosition.toString()
             lining+=spiner5.selectedItemPosition.toString()
 
-            mListener.onDialogPositiveClick(lining)
+            mListener?.onDialogPositiveClick(lining)
             Lock=false
 
         }

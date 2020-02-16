@@ -32,7 +32,6 @@ class MainActivity : AppCompatActivity(), FragmentMenu.MenuListener, FragmentLob
             WindowManager.LayoutParams.FLAG_FULLSCREEN,
             WindowManager.LayoutParams.FLAG_FULLSCREEN
         )
-
         if (savedInstanceState == null) {
             showFragmentMain()
         }

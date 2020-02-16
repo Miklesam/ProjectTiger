@@ -16,7 +16,6 @@ class FragmentGame : Fragment(R.layout.fragment_game), CreateDialog.NoticeDialog
     override fun onDialogPositiveClick(dialog: String) {
         Log.w(TAG, "onDialogPositiveClick")
     }
-
     var gameGame: GameSimulationView? = null
     lateinit var soundPull: SoundPool
     var soundOne: Int = 0
@@ -35,8 +34,6 @@ class FragmentGame : Fragment(R.layout.fragment_game), CreateDialog.NoticeDialog
             .setMaxStreams(6)
             .setAudioAttributes(audioAtributes)
             .build()
-
-
         soundOne = soundPull.load(context, R.raw.hello_casper, 1)
         soundTwo = soundPull.load(context, R.raw.hello_v1lat, 1)
     }
@@ -71,20 +68,6 @@ class FragmentGame : Fragment(R.layout.fragment_game), CreateDialog.NoticeDialog
             gameGame?.CalcilateSpeed(300F, 0F)
         }
 
-
-        /*
-         val cd = object : CountDownTimer(2000, 100) {
-
-             override fun onTick(l: Long) {
-                 Log.w("GameView", "Click")
-             }
-
-             override fun onFinish() {
-                 Log.w("GameView", "Finish")
-                 gameGame.pause()
-             }
-         }.start()
- */
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -102,6 +85,11 @@ class FragmentGame : Fragment(R.layout.fragment_game), CreateDialog.NoticeDialog
     override fun onStart() {
         super.onStart()
         Log.w(TAG, "onStart")
+    }
+
+    override fun onDestroyView() {
+        gameGame=null
+        super.onDestroyView()
     }
 
     override fun onResume() {

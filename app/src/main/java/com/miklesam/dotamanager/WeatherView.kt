@@ -17,17 +17,18 @@ class WeatherView : View {
     internal var sizeY: Float = 0.toFloat()
 
     private var mTimeAnimator: TimeAnimator? = null
-    internal var myPaint = Paint()
 
     internal var noStroke = Paint()
     internal var choosePaint = Paint()
-    private var mBaseSpeed: Float = 0.toFloat()
     private var mCurrentPlayTime: Long = 0
     private var mDrawable: Drawable? = null
-
+    private var mPartition: Drawable? = null
+    private var mWall: Drawable? = null
     private var mPosition: Int = 0
     private var Night = false
+    private var mView: View? = null
     //viewingview
+
 
     constructor(context: Context) : super(context) {
         init()
@@ -47,69 +48,72 @@ class WeatherView : View {
 
     private fun init() {
         mDrawable = ContextCompat.getDrawable(context, R.drawable.sun)
-        mBaseSpeed = BASE_SPEED * resources.displayMetrics.density
+        mPartition = ContextCompat.getDrawable(context, R.drawable.newpartition)
+        mWall = ContextCompat.getDrawable(context, R.drawable.wall)
+
     }
 
-    fun setBaseSpeed(speed: Int) {
-        BASE_SPEED = speed
-        mBaseSpeed = BASE_SPEED * resources.displayMetrics.density
-    }
 
     override fun onSizeChanged(width: Int, height: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(width, height, oldw, oldh)
         sizeX = getWidth().toFloat()
         sizeY = getHeight().toFloat()
         kubikSize = getWidth().toFloat() / 10
-        myPaint.setColor(Color.rgb(0, 0, 0))
-        myPaint.setStyle(Paint.Style.STROKE)
-        myPaint.setStrokeWidth(1f)
 
         choosePaint.setColor(Color.rgb(195, 167, 153))
         choosePaint.setStyle(Paint.Style.STROKE)
         choosePaint.setStrokeWidth(35f)
-
-
-
         noStroke.setColor(Color.rgb(195, 167, 153))
 
     }
 
     override fun onDraw(canvas: Canvas) {
+
         mDrawable?.setBounds(
-            (mPosition + 9*sizeX/10 + (-kubikSize).toInt()).toInt(),
-            (sizeY / 2 + (-kubikSize).toInt()).toInt(),
-            (mPosition + 9*sizeX/10 + kubikSize.toInt()).toInt(),
-            (sizeY / 2 + (kubikSize).toInt()).toInt()
+            (mPosition + 98 * sizeX / 100 + (-kubikSize).toInt()).toInt(),
+            (30 * sizeY / 100 + (-kubikSize).toInt()).toInt(),
+            (mPosition + 98 * sizeX / 100 + kubikSize.toInt()).toInt(),
+            (30 * sizeY / 100 + (kubikSize).toInt()).toInt()
         )
         mDrawable?.draw(canvas)
-        canvas.drawLine(
-            sizeX / 2,
-            sizeY / 2 - kubikSize, sizeX / 2, sizeY / 2 - kubikSize + 2 * kubikSize, choosePaint
+
+        mPartition?.setBounds(
+            (49 * sizeX / 100).toInt(),
+            0, (51 * sizeX / 100).toInt(), sizeY.toInt()
         )
+        mPartition?.draw(canvas)
 
-        canvas.drawLine(
-            29*sizeX / 100,
-            sizeY / 2 - kubikSize, 29*sizeX / 100, sizeY / 2 - kubikSize + 2 * kubikSize, choosePaint
+        mPartition?.setBounds(
+            (28 * sizeX / 100).toInt(),
+            0, (30 * sizeX / 100).toInt(), sizeY.toInt()
         )
-        canvas.drawLine(
-            71*sizeX / 100,
-            sizeY / 2 - kubikSize, 71*sizeX / 100, sizeY / 2 - kubikSize + 2 * kubikSize, choosePaint
+        mPartition?.draw(canvas)
+
+        mPartition?.setBounds(
+            (70 * sizeX / 100).toInt(),
+            0, (72 * sizeX / 100).toInt(), sizeY.toInt()
         )
+        mPartition?.draw(canvas)
 
-        canvas.drawLine(
-            0F,
-            0F, sizeX, 0F, choosePaint
+        mWall?.setBounds(
+            0,
+            0, (10 * sizeX / 100).toInt(), sizeY.toInt()
         )
+        mWall?.draw(canvas)
 
 
-        canvas.drawRect(0F,
-            0F, 11*sizeX/100, sizeY, noStroke)
-
-
+        mWall?.setBounds(
+            (90 * sizeX / 100).toInt(),
+            0, (sizeX).toInt(), sizeY.toInt()
+        )
+        mWall?.draw(canvas)
     }
 
 
-    fun Start() {
+    fun start(view: View) {
+        mView = view
+        val layout = mView?.findViewById<WeatherView>(R.id.weatherAnim)
+        layout?.setBackgroundResource(R.drawable.panoramanew)
         mTimeAnimator = TimeAnimator()
         mTimeAnimator!!.setTimeListener(object : TimeAnimator.TimeListener {
             override fun onTimeUpdate(animation: TimeAnimator, totalTime: Long, deltaTime: Long) {
@@ -125,11 +129,6 @@ class WeatherView : View {
     }
 
 
-    override fun onAttachedToWindow() {
-        super.onAttachedToWindow()
-
-    }
-
     override fun onDetachedFromWindow() {
         super.onDetachedFromWindow()
         mTimeAnimator!!.cancel()
@@ -138,9 +137,6 @@ class WeatherView : View {
         mTimeAnimator = null
     }
 
-    /**
-     * Pause the animation if it's running
-     */
     fun pause() {
         if (mTimeAnimator != null && mTimeAnimator!!.isRunning()) {
             // Store the current play time for later.
@@ -149,9 +145,6 @@ class WeatherView : View {
         }
     }
 
-    /**
-     * Resume the animation if not already running
-     */
     fun resume() {
         if (mTimeAnimator != null && mTimeAnimator!!.isPaused()) {
             mTimeAnimator!!.start()
@@ -169,32 +162,25 @@ class WeatherView : View {
      * @param deltaMs time delta since the last frame, in millis
      */
     private fun updateState(deltaMs: Float) {
-        // Converting to seconds since PX/S constants are easier to understand
-        val deltaSeconds = deltaMs / 1000f
-        val viewWidth = width.toFloat()
-        val viewHeight = height
         mPosition--
-        if (mPosition<-8*sizeX/10){
+        if (mPosition < -98 * sizeX / 100) {
             swap()
-            mPosition=0
-        }
-
-
-    }
-    fun swap(){
-        Night=!Night
-        mDrawable = if (Night){
-            ContextCompat.getDrawable(context, R.drawable.moon)
-        }else{
-            ContextCompat.getDrawable(context, R.drawable.sun)
+            mPosition = 0
         }
 
     }
 
-    companion object {
-        private var BASE_SPEED = 1200
-        private val COUNT = 35
+    private fun swap() {
+        Night = !Night
+        if (Night) {
+            mDrawable = ContextCompat.getDrawable(context, R.drawable.moonlite)
+            val layout = mView?.findViewById<WeatherView>(R.id.weatherAnim)
+            layout?.setBackgroundResource(R.drawable.panoramanew_dark)
+        } else {
+            mDrawable = ContextCompat.getDrawable(context, R.drawable.sun)
+            val layout = mView?.findViewById<WeatherView>(R.id.weatherAnim)
+            layout?.setBackgroundResource(R.drawable.panoramanew)
+
+        }
     }
-
-
 }
