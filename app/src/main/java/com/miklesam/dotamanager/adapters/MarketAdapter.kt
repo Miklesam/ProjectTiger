@@ -2,6 +2,7 @@ package com.miklesam.dotamanager.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.miklesam.dotamanager.R
@@ -30,6 +31,7 @@ class MarketAdapter(playerListener: OnPlayerListener) : RecyclerView.Adapter<Mar
         holder.name.text=currentPlayer.name
         holder.position.text=currentPlayer.position
         holder.cost.text=currentPlayer.cost
+        ViewCompat.setTransitionName(holder.photo, position.toString() + "_photo")
     }
 
     fun setPlayers(playersSet:List<Player>){

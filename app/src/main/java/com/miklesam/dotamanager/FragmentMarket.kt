@@ -1,19 +1,39 @@
 package com.miklesam.dotamanager
 
 import android.os.Bundle
+import android.transition.Fade
 import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.miklesam.dotamanager.adapters.MarketAdapter
+import com.miklesam.dotamanager.adapters.MarketPlayerHolder
 import com.miklesam.dotamanager.adapters.OnPlayerListener
 import com.miklesam.dotamanager.datamodels.Player
 import java.util.ArrayList
 
 class FragmentMarket :Fragment(R.layout.fragment_market),OnPlayerListener{
-    override fun onPlayerClick(position: Int) {
+    override fun onPlayerClick(position: Int,holder: MarketPlayerHolder) {
         Log.w("FragmentMarket","Clicked "+position)
+        val fragment = FragmentPlayerProfile()
+
+        fragment.setSharedElementEnterTransition(DetailsTransition())
+        val fade = Fade()
+        fragment.setEnterTransition(fade)
+        exitTransition = fade
+        fragment.setSharedElementReturnTransition(DetailsTransition())
+
+        val transaction=
+            activity?.supportFragmentManager?.beginTransaction()
+                ?.addSharedElement(holder.photo, "playerImage")
+        //transaction?.setCustomAnimations(R.anim.enter_right_to_left,R.anim.exit_right_to_left,R.anim.enter_left_to_right,R.anim.exit_left_to_right)
+        transaction?.replace(R.id.fragment_holder, fragment)
+        transaction?.addToBackStack(null)
+        transaction?.commit()
+
+
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
