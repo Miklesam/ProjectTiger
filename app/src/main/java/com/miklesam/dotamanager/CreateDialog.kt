@@ -10,7 +10,7 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatDialogFragment
 import com.miklesam.dotamanager.R
 
-
+//New Line Of Code
 class CreateDialog():AppCompatDialogFragment(){
     constructor(heroList: ArrayList<Int>,Title : String,first:Boolean,myListener:NoticeDialogListener):this(){
          sideTitle=Title
