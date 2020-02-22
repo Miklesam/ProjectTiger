@@ -10,93 +10,78 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatDialogFragment
 import com.miklesam.dotamanager.R
 
-//New Line Of Code
-class CreateDialog():AppCompatDialogFragment(){
-    constructor(heroList: ArrayList<Int>,Title : String,first:Boolean,myListener:NoticeDialogListener):this(){
-         sideTitle=Title
-         side=first
-         mListener=myListener
+class CreateDialog() : AppCompatDialogFragment() {
+    constructor(myListener: NoticeDialogListener) : this() {
+        mListener = myListener
     }
 
-
-    var Lock=true
-    var sideTitle="as"
-    var side=true
-    var mListener: NoticeDialogListener?=null
+    var Lock = true
+    var side = true
+    var mListener: NoticeDialogListener? = null
 
     interface NoticeDialogListener {
         fun onDialogPositiveClick(dialog: String)
-        }
-
-
-
+    }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val builder=AlertDialog.Builder(requireContext())
+        val builder = AlertDialog.Builder(requireContext())
         val inflater = activity!!.layoutInflater
-        val mycustomview=inflater.inflate(R.layout.layout_dialog, null)
-        val spiner1=mycustomview.findViewById<Spinner>(R.id.spiner1)
-        val spiner2=mycustomview.findViewById<Spinner>(R.id.spiner2)
-        val spiner3=mycustomview.findViewById<Spinner>(R.id.spiner3)
-        val spiner4=mycustomview.findViewById<Spinner>(R.id.spiner4)
-        val spiner5=mycustomview.findViewById<Spinner>(R.id.spiner5)
+        val mycustomview = inflater.inflate(R.layout.layout_dialog, null)
+        val spiner1 = mycustomview.findViewById<Spinner>(R.id.spiner1)
 
         //AllHeroes.clear()
         //HeroInit()
 
         builder.setView(mycustomview)
-        builder.setTitle("Line up the heroes "+"You are "+sideTitle)
-        builder.setPositiveButton("Assign"){
-            dialog, which ->
-            var lining=""
-            lining+=spiner1.selectedItemPosition.toString()
-            lining+=spiner2.selectedItemPosition.toString()
-            lining+=spiner3.selectedItemPosition.toString()
-            lining+=spiner4.selectedItemPosition.toString()
-            lining+=spiner5.selectedItemPosition.toString()
-
+        builder.setTitle("Раставьте героев по линиям ")
+        builder.setPositiveButton("Расставить") { _, _ ->
+            var lining = ""
+            lining += spiner1.selectedItemPosition.toString()
             mListener?.onDialogPositiveClick(lining)
-            Lock=false
+            Lock = false
 
         }
 
 
-
-        val imaopl=mycustomview.findViewById<ImageView>(R.id.ima1)
-        val imaop2=mycustomview.findViewById<ImageView>(R.id.ima2)
-        val imaop3=mycustomview.findViewById<ImageView>(R.id.ima3)
-        val imaop4=mycustomview.findViewById<ImageView>(R.id.ima4)
-        val imaop5=mycustomview.findViewById<ImageView>(R.id.ima5)
-
-        //imaopl.setImageResource(AllHeroes.get(HeroList.get(0)).picked)
+        val imaopl = mycustomview.findViewById<ImageView>(R.id.ima1)
+        imaopl.setImageResource(R.drawable.ogremagi_mipmap)
+         //imaopl.setImageResource(AllHeroes.get(HeroList.get(0)).picked)
         //imaop2.setImageResource(AllHeroes.get(HeroList.get(1)).picked)
         //imaop3.setImageResource(AllHeroes.get(HeroList.get(2)).picked)
         //imaop4.setImageResource(AllHeroes.get(HeroList.get(3)).picked)
         //imaop5.setImageResource(AllHeroes.get(HeroList.get(4)).picked)
-        val mad:ArrayAdapter<String>
-        if(side)  mad= context?.let { ArrayAdapter(it, R.layout.spinner_item,resources.getStringArray(R.array.lineList)) }!!
-        else mad= context?.let { ArrayAdapter(it, R.layout.spinner_item,resources.getStringArray(R.array.modernlineList)) }!!
-        spiner1!!.adapter=mad
-        spiner2!!.adapter=mad
-        spiner3!!.adapter=mad
-        spiner4!!.adapter=mad
-        spiner5!!.adapter=mad
+        val mad: ArrayAdapter<String>
+        if (side) mad = context?.let {
+            ArrayAdapter(
+                it,
+                R.layout.spinner_item,
+                resources.getStringArray(R.array.lineList)
+            )
+        }!!
+        else mad = context?.let {
+            ArrayAdapter(
+                it,
+                R.layout.spinner_item,
+                resources.getStringArray(R.array.modernlineList)
+            )
+        }!!
+        spiner1!!.adapter = mad
 
 
-
-        return  builder.create()
+        return builder.create()
     }
 
     override fun onDismiss(dialog: DialogInterface) {
         super.onDismiss(dialog)
-        Log.w("onDismiss","inDialog")
-    if(Lock){
-    val activity = activity
-    if (activity is DialogInterface.OnDismissListener) {
-        (activity as DialogInterface.OnDismissListener).onDismiss(dialog)
-    }
 
-    }
+        if (Lock) {
+            Log.w("onDismiss", "inDialog")
+            val activity = activity
+            if (activity is DialogInterface.OnDismissListener) {
+                (activity as DialogInterface.OnDismissListener).onDismiss(dialog)
+            }
+
+        }
 
     }
 

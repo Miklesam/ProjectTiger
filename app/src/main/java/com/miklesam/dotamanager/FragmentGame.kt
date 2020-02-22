@@ -14,8 +14,16 @@ import java.util.ArrayList
 
 class FragmentGame : Fragment(R.layout.fragment_game), CreateDialog.NoticeDialogListener {
     override fun onDialogPositiveClick(dialog: String) {
-        Log.w(TAG, "onDialogPositiveClick")
+        Log.w(TAG, "onDialogPositiveClick $dialog")
+        if(dialog.toInt()==0){
+            gameGame?.CalcilateSpeed(0F, 300F)
+        }else if(dialog.toInt()==1){
+            gameGame?.CalcilateSpeed(0F, 600F)
+        }else{
+            gameGame?.CalcilateSpeed(0F, 150F)
+        }
     }
+
     var gameGame: GameSimulationView? = null
     lateinit var soundPull: SoundPool
     var soundOne: Int = 0
@@ -45,15 +53,9 @@ class FragmentGame : Fragment(R.layout.fragment_game), CreateDialog.NoticeDialog
         val tagName = view.findViewById<TextView>(R.id.tagName)
         val tagName2 = view.findViewById<TextView>(R.id.tagName2)
         gameGame?.Start()
-
-
         tagName.setOnClickListener {
             gameGame?.setBasePosition()
             gameGame?.CalcilateSpeed(0F, 300F)
-            val myList=ArrayList<Int>()
-            myList.add(0)
-            myList.add(1)
-            CreateDeskDialog(myList, "Radiant", true)
             soundPull.play(soundOne, 1F, 1F, 0, 0, 1F)
             val timer = object : CountDownTimer(1500, 100) {
                 override fun onTick(millisUntilFinished: Long) {}
@@ -68,6 +70,17 @@ class FragmentGame : Fragment(R.layout.fragment_game), CreateDialog.NoticeDialog
             gameGame?.CalcilateSpeed(300F, 0F)
         }
 
+
+        val timerAssignLine = object : CountDownTimer(2000, 100) {
+            override fun onTick(millisUntilFinished: Long) {
+                gameGame?.setBasePosition()
+            }
+            override fun onFinish() {
+                CreateDeskDialog()
+            }
+        }
+        timerAssignLine.start()
+
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -76,8 +89,8 @@ class FragmentGame : Fragment(R.layout.fragment_game), CreateDialog.NoticeDialog
 
     }
 
-    private fun CreateDeskDialog(ah: ArrayList<Int>, Title: String, first: Boolean) {
-        val dialog = CreateDialog(ah, Title, first,this)
+    private fun CreateDeskDialog() {
+        val dialog = CreateDialog(this)
         fragmentManager?.let { dialog.show(it, "CreateDeskDialog") }
     }
 
@@ -88,7 +101,7 @@ class FragmentGame : Fragment(R.layout.fragment_game), CreateDialog.NoticeDialog
     }
 
     override fun onDestroyView() {
-        gameGame=null
+        gameGame = null
         super.onDestroyView()
     }
 

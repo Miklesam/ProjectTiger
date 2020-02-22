@@ -2,7 +2,9 @@ package com.miklesam.dotamanager
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.WindowManager
+import com.miklesam.dotamanager.datamodels.Heroes
 
 class MainActivity : AppCompatActivity(), FragmentMenu.MenuListener, FragmentLobby.LobbyListener {
     override fun gameClicked() {

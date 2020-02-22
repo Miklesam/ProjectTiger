@@ -44,6 +44,7 @@ class FragmentMarket :Fragment(R.layout.fragment_market),OnPlayerListener{
         val adapter = MarketAdapter(this)
         recycler.adapter = adapter
         val players=ArrayList<Player>()
+        players.add(Player("Ник","Имя","Позиция","Цена"))
         players.add(Player("Solo","Алексей\nБерезин","5","1500"))
         players.add(Player("No[o]ne","Владимир\nМиненко","2","350"))
         players.add(Player("Fng","Артем\nБаршак","5","1350"))
