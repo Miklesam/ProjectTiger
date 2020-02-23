@@ -118,7 +118,7 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_marginEnd="5dp"
-            android:src="@drawable/navi_min_logo"
+            android:src="@drawable/vp_min_logo"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -129,7 +129,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="5dp"
             android:gravity="center"
-            android:text="NAVI"
+            android:text="Virtus Pro"
             android:textColor="#f9fcff"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/tagImage2"

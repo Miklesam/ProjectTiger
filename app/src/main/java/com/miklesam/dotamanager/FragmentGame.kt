@@ -15,13 +15,19 @@ import java.util.ArrayList
 class FragmentGame : Fragment(R.layout.fragment_game), CreateDialog.NoticeDialogListener {
     override fun onDialogPositiveClick(dialog: String) {
         Log.w(TAG, "onDialogPositiveClick $dialog")
-        if(dialog.toInt()==0){
-            gameGame?.CalcilateSpeed(0F, 300F)
-        }else if(dialog.toInt()==1){
-            gameGame?.CalcilateSpeed(0F, 600F)
-        }else{
-            gameGame?.CalcilateSpeed(0F, 150F)
+        gameGame?.CalcilateSpeed(dialog.toInt())
+        val timerAssignLine = object : CountDownTimer(3000, 100) {
+            override fun onTick(millisUntilFinished: Long) {
+                //gameGame?.setBasePosition()
+            }
+            override fun onFinish() {
+                CreateDeskDialog()
+            }
         }
+        timerAssignLine.start()
+
+
+
     }
 
     var gameGame: GameSimulationView? = null
@@ -54,8 +60,6 @@ class FragmentGame : Fragment(R.layout.fragment_game), CreateDialog.NoticeDialog
         val tagName2 = view.findViewById<TextView>(R.id.tagName2)
         gameGame?.Start()
         tagName.setOnClickListener {
-            gameGame?.setBasePosition()
-            gameGame?.CalcilateSpeed(0F, 300F)
             soundPull.play(soundOne, 1F, 1F, 0, 0, 1F)
             val timer = object : CountDownTimer(1500, 100) {
                 override fun onTick(millisUntilFinished: Long) {}
@@ -65,9 +69,6 @@ class FragmentGame : Fragment(R.layout.fragment_game), CreateDialog.NoticeDialog
                 }
             }
             timer.start()
-        }
-        tagName2.setOnClickListener {
-            gameGame?.CalcilateSpeed(300F, 0F)
         }
 
 

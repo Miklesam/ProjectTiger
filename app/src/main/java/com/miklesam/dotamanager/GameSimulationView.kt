@@ -10,6 +10,7 @@ import android.util.AttributeSet
 import android.view.View
 import androidx.core.content.ContextCompat
 import android.util.Log
+import android.util.Size
 
 
 class GameSimulationView : View {
@@ -24,11 +25,11 @@ class GameSimulationView : View {
     internal var deltaX: Int=0
     internal var deltaY: Int=0
     internal var blockX: Int=0
-
-    internal var reverse: Boolean=false
-
+    internal var blockY: Int=0
     val mTimeAnimator = TimeAnimator()
     var mCurrentPlayTime:Long=0
+    var reverseX=false
+    var reverseY=false
 
     val heroOne=Hero(0,0)
 
@@ -115,7 +116,8 @@ class GameSimulationView : View {
         myDeltaSec=deltaSeconds
         val viewWidth = width.toFloat()
         val viewHeight = height
-        if(reverse){
+
+        if(reverseX){
             if (heroOne.positionX>blockX){
                 heroOne.positionX+=deltaX
             }
@@ -124,15 +126,31 @@ class GameSimulationView : View {
                 heroOne.positionX+=deltaX
             }
         }
-
-        heroOne.positionY+=deltaY
+        if(reverseY){
+            if (heroOne.positionY>blockY){
+                heroOne.positionY+=deltaY
+            }
+        }else{
+            if (blockY>heroOne.positionY){
+                heroOne.positionY+=deltaY
+            }
+        }
 
     }
 
-    fun CalcilateSpeed(startX: Float,endX: Float){
-        reverse = endX<startX
-        blockX= endX.toInt()
-        deltaX= ((blockX-startX)/130).toInt()
+    fun CalcilateSpeed(cardPosition:Int){
+
+        val currentX=heroOne.positionX
+        val currentY=heroOne.positionY
+
+        reverseX=Lanes.values()[cardPosition].positionX*sizeX/100<heroOne.positionX
+        reverseY=Lanes.values()[cardPosition].positionY*sizeY/100<heroOne.positionY
+        //reverse = endX<startX
+        blockX= (Lanes.values()[cardPosition].positionX*sizeX/100).toInt()
+        blockY=(Lanes.values()[cardPosition].positionY*sizeY/100).toInt()
+
+        deltaX= ((blockX-currentX)/130)
+        deltaY=((blockY-currentY)/130)
         Log.w("deltaX = ", deltaX.toString())
         Log.w("Hero.posX", heroOne.positionX.toString())
     }
