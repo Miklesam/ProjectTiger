@@ -19,6 +19,7 @@ class GameSimulationView : View {
     private var mDrawable: Drawable? = null
     private var mHero: Drawable? = null
     internal var myPaint = Paint()
+    internal var radiantPaint = Paint()
     internal var sizeX: Float = 0.toFloat()
     internal var sizeY: Float = 0.toFloat()
     internal var myDeltaSec: Float = 0.toFloat()
@@ -67,6 +68,7 @@ class GameSimulationView : View {
         myPaint.setColor(Color.rgb(0, 0, 0))
         myPaint.setStyle(Paint.Style.STROKE)
         myPaint.setStrokeWidth(1f)
+        radiantPaint.setColor(Color.rgb(15,215,15))
     }
 
     override fun onDraw(canvas: Canvas) {
@@ -82,10 +84,24 @@ class GameSimulationView : View {
         )
         mDrawable?.draw(canvas)
         mHero?.draw(canvas)
+
+        //canvas.drawRect(10*sizeX/100, 80*sizeY/100, 15*sizeX/100, 85*sizeY/100,radiantPaint)
+
+        //canvas.drawRoundRect(10*sizeX/100, 80*sizeY/100, 15*sizeX/100, 85*sizeY/100,
+          //  50F, 50F,radiantPaint)
+        canvas.drawCircle(14*sizeX/100,82*sizeY/100,4*sizeX/100,radiantPaint)
+
+
+        canvas.drawRect(41*sizeX/100, 53*sizeY/100, 44*sizeX/100, 56*sizeY/100,radiantPaint)
+
+        //Radiant[0].endCoordinates(width / 2 - width / 10, height / 2 + 45)//RT1M
+        //Radiant[1].endCoordinates(width / 3 - width / 30, 2 * height / 3 - height / 30)//RT2M
+        //Radiant[2].endCoordinates(width / 6 + 5 * width / 100, 3 * height / 4 - 4 * height / 100)//RT3M
+
     }
 
     fun setBasePosition(){
-        heroOne.positionX= (0.15*sizeX).toInt()
+        heroOne.positionX= (0.05*sizeX).toInt()
         heroOne.positionY= (0.85*sizeY).toInt()
 
         Log.w("BasePosition X", heroOne.positionX.toString())
