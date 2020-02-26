@@ -1,7 +1,6 @@
-package com.miklesam.dotamanager
+package com.miklesam.dotamanager.ui
 
 import android.media.AudioAttributes
-import android.media.MediaPlayer
 import android.media.SoundPool
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -9,10 +8,12 @@ import android.util.Log
 import android.view.View
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import kotlinx.android.synthetic.main.fragment_game.*
-import java.util.ArrayList
+import com.miklesam.dotamanager.CreateDialog
+import com.miklesam.dotamanager.GameSimulationView
+import com.miklesam.dotamanager.R
 
-class FragmentGame : Fragment(R.layout.fragment_game), CreateDialog.NoticeDialogListener {
+class FragmentGame : Fragment(R.layout.fragment_game),
+    CreateDialog.NoticeDialogListener {
     override fun onDialogPositiveClick(dialog: String) {
         Log.w(TAG, "onDialogPositiveClick $dialog")
         gameGame?.CalcilateSpeed(dialog.toInt())
