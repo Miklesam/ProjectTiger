@@ -31,13 +31,16 @@ class MarketAdapter(playerListener: OnPlayerListener) : RecyclerView.Adapter<Mar
         holder.name.text=currentPlayer.name
         holder.position.text=currentPlayer.position
         holder.cost.text=currentPlayer.cost
-        ViewCompat.setTransitionName(holder.photo, position.toString() + "_photo")
+        holder.flag.setImageResource(currentPlayer.flag)
+        //ViewCompat.setTransitionName(holder.photo, position.toString() + "_photo")
     }
 
     fun setPlayers(playersSet:List<Player>){
-        playerOld=players
         players=playersSet
-        updatelist(playerOld,players)
+        notifyDataSetChanged()
+        //playerOld=players
+        //players=playersSet
+        //updatelist(playerOld,players)
     }
 
     private fun updatelist( old:List<Player>,new:List<Player>){

@@ -20,7 +20,7 @@ class CreateDialog() : AppCompatDialogFragment() {
     var mListener: NoticeDialogListener? = null
 
     interface NoticeDialogListener {
-        fun onDialogPositiveClick(dialog: String)
+        fun onDialogPositiveClick(position: Array<Int>)
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -28,6 +28,10 @@ class CreateDialog() : AppCompatDialogFragment() {
         val inflater = activity!!.layoutInflater
         val mycustomview = inflater.inflate(R.layout.layout_dialog, null)
         val spiner1 = mycustomview.findViewById<Spinner>(R.id.spiner1)
+        val spiner2 = mycustomview.findViewById<Spinner>(R.id.spiner2)
+        val spiner3 = mycustomview.findViewById<Spinner>(R.id.spiner3)
+        val spiner4 = mycustomview.findViewById<Spinner>(R.id.spiner4)
+        val spiner5 = mycustomview.findViewById<Spinner>(R.id.spiner5)
 
         //AllHeroes.clear()
         //HeroInit()
@@ -35,17 +39,30 @@ class CreateDialog() : AppCompatDialogFragment() {
         builder.setView(mycustomview)
         builder.setTitle("Раставьте героев по линиям ")
         builder.setPositiveButton("Расставить") { _, _ ->
-            var lining = ""
-            lining += spiner1.selectedItemPosition.toString()
-            mListener?.onDialogPositiveClick(lining)
+            mListener?.onDialogPositiveClick(
+                arrayOf(
+                    spiner1.selectedItemPosition, spiner2.selectedItemPosition,
+                    spiner3.selectedItemPosition, spiner4.selectedItemPosition,
+                    spiner5.selectedItemPosition
+                )
+            )
             Lock = false
+            val what = spiner3.selectedItemPosition
 
         }
 
 
         val imaopl = mycustomview.findViewById<ImageView>(R.id.ima1)
-        imaopl.setImageResource(R.drawable.ogremagi_mipmap)
-         //imaopl.setImageResource(AllHeroes.get(HeroList.get(0)).picked)
+        val imaop2 = mycustomview.findViewById<ImageView>(R.id.ima2)
+        val imaop3 = mycustomview.findViewById<ImageView>(R.id.ima3)
+        val imaop4 = mycustomview.findViewById<ImageView>(R.id.ima4)
+        val imaop5 = mycustomview.findViewById<ImageView>(R.id.ima5)
+        imaopl.setImageResource(R.drawable.dazzle_mipmap)
+        imaop2.setImageResource(R.drawable.abadon_mipmap)
+        imaop3.setImageResource(R.drawable.kunnka_mipmap)
+        imaop4.setImageResource(R.drawable.monkeyking_mipmap)
+        imaop5.setImageResource(R.drawable.zeus_mipmap)
+        //imaopl.setImageResource(AllHeroes.get(HeroList.get(0)).picked)
         //imaop2.setImageResource(AllHeroes.get(HeroList.get(1)).picked)
         //imaop3.setImageResource(AllHeroes.get(HeroList.get(2)).picked)
         //imaop4.setImageResource(AllHeroes.get(HeroList.get(3)).picked)
@@ -65,7 +82,11 @@ class CreateDialog() : AppCompatDialogFragment() {
                 resources.getStringArray(R.array.modernlineList)
             )
         }!!
-        spiner1!!.adapter = mad
+        spiner1.adapter = mad
+        spiner2.adapter = mad
+        spiner3.adapter = mad
+        spiner4.adapter = mad
+        spiner5.adapter = mad
 
 
         return builder.create()

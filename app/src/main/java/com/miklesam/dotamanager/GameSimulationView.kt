@@ -17,22 +17,27 @@ class GameSimulationView : View {
 
 
     private var mDrawable: Drawable? = null
-    private var mHero: Drawable? = null
+    val mHero:Array<Drawable?> = arrayOfNulls(5)
     internal var myPaint = Paint()
     internal var radiantPaint = Paint()
+    internal var direPaint = Paint()
     internal var sizeX: Float = 0.toFloat()
     internal var sizeY: Float = 0.toFloat()
     internal var myDeltaSec: Float = 0.toFloat()
-    internal var deltaX: Int=0
-    internal var deltaY: Int=0
-    internal var blockX: Int=0
-    internal var blockY: Int=0
+
+    internal val deltaX =arrayOf(0,0,0,0,0)
+    internal val deltaY =arrayOf(0,0,0,0,0)
+    internal val blockX =arrayOf(0,0,0,0,0)
+    internal val blockY =arrayOf(0,0,0,0,0)
+    internal val reverseX =arrayOf(false,false,false,false,false)
+    internal val reverseY =arrayOf(false,false,false,false,false)
+
+
     val mTimeAnimator = TimeAnimator()
     var mCurrentPlayTime:Long=0
-    var reverseX=false
-    var reverseY=false
 
-    val heroOne=Hero(0,0)
+    internal val hero =arrayOf(Hero(0,0),Hero(0,0),
+        Hero(0,0),Hero(0,0),Hero(0,0))
 
     constructor(context: Context) : super(context) {
         init()
@@ -52,7 +57,11 @@ class GameSimulationView : View {
 
     private fun init() {
         mDrawable = ContextCompat.getDrawable(context, R.drawable.minimap_7_23)
-        mHero=ContextCompat.getDrawable(context,R.drawable.ogremagi_mipmap)
+        mHero[0]=ContextCompat.getDrawable(context,R.drawable.dazzle_mipmap)
+        mHero[1]=ContextCompat.getDrawable(context,R.drawable.abadon_mipmap)
+        mHero[2]=ContextCompat.getDrawable(context,R.drawable.kunnka_mipmap)
+        mHero[3]=ContextCompat.getDrawable(context,R.drawable.monkeyking_mipmap)
+        mHero[4]=ContextCompat.getDrawable(context,R.drawable.zeus_mipmap)
         Log.w("InitSizeX=", sizeX.toString())
         Log.w("InitSizeY=", sizeY.toString())
 
@@ -68,7 +77,8 @@ class GameSimulationView : View {
         myPaint.setColor(Color.rgb(0, 0, 0))
         myPaint.setStyle(Paint.Style.STROKE)
         myPaint.setStrokeWidth(1f)
-        radiantPaint.setColor(Color.rgb(15,215,15))
+        radiantPaint.setColor(Color.rgb(76,255,0))
+        direPaint.setColor(Color.rgb(255,0,0))
     }
 
     override fun onDraw(canvas: Canvas) {
@@ -79,37 +89,51 @@ class GameSimulationView : View {
             (sizeX).toInt(),
             sizeY.toInt()
         )
-        mHero?.setBounds(heroOne.positionX,heroOne.positionY,
-            (0.0875*sizeX+heroOne.positionX).toInt(), (0.0875*sizeY+heroOne.positionY).toInt()
-        )
+
         mDrawable?.draw(canvas)
-        mHero?.draw(canvas)
+        for(i in 0 until mHero.size){
+            mHero[i]?.setBounds(hero[i].positionX,hero[i].positionY,
+                (0.07*sizeX+hero[i].positionX).toInt(), (0.07*sizeY+hero[i].positionY).toInt()
+            )
+            mHero[i]?.draw(canvas)
+        }
 
-        //canvas.drawRect(10*sizeX/100, 80*sizeY/100, 15*sizeX/100, 85*sizeY/100,radiantPaint)
-
-        //canvas.drawRoundRect(10*sizeX/100, 80*sizeY/100, 15*sizeX/100, 85*sizeY/100,
-          //  50F, 50F,radiantPaint)
         canvas.drawCircle(14*sizeX/100,82*sizeY/100,4*sizeX/100,radiantPaint)
 
+        canvas.drawRect(41*sizeX/100, 53*sizeY/100, 44*sizeX/100, 56*sizeY/100,radiantPaint)    //RMT1
+        canvas.drawRect(29*sizeX/100, 64*sizeY/100, 32*sizeX/100, 67*sizeY/100,radiantPaint)    //RMT2
+        canvas.drawRect(21*sizeX/100, 72*sizeY/100, 24*sizeX/100, 75*sizeY/100,radiantPaint)    //RMT3
 
-        canvas.drawRect(41*sizeX/100, 53*sizeY/100, 44*sizeX/100, 56*sizeY/100,radiantPaint)
+        canvas.drawRect(26*sizeX/100, 85*sizeY/100, 29*sizeX/100, 88*sizeY/100,radiantPaint)    //RBT3
+        canvas.drawRect(46*sizeX/100, 86*sizeY/100, 49*sizeX/100, 89*sizeY/100,radiantPaint)    //RBT2
+        canvas.drawRect(83*sizeX/100, 85*sizeY/100, 86*sizeX/100, 88*sizeY/100,radiantPaint)    //RBT1
 
-        //Radiant[0].endCoordinates(width / 2 - width / 10, height / 2 + 45)//RT1M
-        //Radiant[1].endCoordinates(width / 3 - width / 30, 2 * height / 3 - height / 30)//RT2M
-        //Radiant[2].endCoordinates(width / 6 + 5 * width / 100, 3 * height / 4 - 4 * height / 100)//RT3M
+        canvas.drawRect(8*sizeX/100, 68*sizeY/100, 11*sizeX/100, 71*sizeY/100,radiantPaint)    //RTT3
+        canvas.drawRect(9*sizeX/100, 54*sizeY/100, 12*sizeX/100, 57*sizeY/100,radiantPaint)    //RTT2
+        canvas.drawRect(9*sizeX/100, 36*sizeY/100, 12*sizeX/100, 39*sizeY/100,radiantPaint)    //RTT1
 
+        canvas.drawRect(51*sizeX/100, 44*sizeY/100, 54*sizeX/100, 47*sizeY/100,direPaint)    //DMT1
+        canvas.drawRect(63*sizeX/100, 34*sizeY/100, 66*sizeX/100, 37*sizeY/100,direPaint)    //DMT2
+        canvas.drawRect(74*sizeX/100, 25*sizeY/100, 77*sizeX/100, 28*sizeY/100,direPaint)    //DMT3
+
+
+        canvas.drawRect(87*sizeX/100, 32*sizeY/100, 90*sizeX/100, 35*sizeY/100,direPaint)    //DBT3
+        canvas.drawRect(87*sizeX/100, 45*sizeY/100, 90*sizeX/100, 48*sizeY/100,direPaint)    //DBT2
+        canvas.drawRect(87*sizeX/100, 62*sizeY/100, 90*sizeX/100, 65*sizeY/100,direPaint)    //DBT1
+
+        canvas.drawRect(69*sizeX/100, 13*sizeY/100, 72*sizeX/100, 16*sizeY/100,direPaint)    //DTT3
+        canvas.drawRect(47*sizeX/100, 11*sizeY/100, 50*sizeX/100, 14*sizeY/100,direPaint)    //DTT2
+        canvas.drawRect(19*sizeX/100, 12*sizeY/100, 22*sizeX/100, 15*sizeY/100,direPaint)    //DTT1
+
+        canvas.drawCircle(84*sizeX/100,20*sizeY/100,4*sizeX/100,direPaint)
     }
 
     fun setBasePosition(){
-        heroOne.positionX= (0.05*sizeX).toInt()
-        heroOne.positionY= (0.85*sizeY).toInt()
-
-        Log.w("BasePosition X", heroOne.positionX.toString())
-        Log.w("BasePosition Y", heroOne.positionY.toString())
+        for (i in 0 until hero.size){
+            hero[i].positionX= ((0.05+i*0.01)*sizeX).toInt()
+            hero[i].positionY= ((0.85-i*0.01)*sizeY).toInt()
+        }
     }
-
-
-
 
 
     fun Start() {
@@ -133,42 +157,40 @@ class GameSimulationView : View {
         val viewWidth = width.toFloat()
         val viewHeight = height
 
-        if(reverseX){
-            if (heroOne.positionX>blockX){
-                heroOne.positionX+=deltaX
+        for (i in 0 until hero.size){
+            if(reverseX[i]){
+                if (hero[i].positionX>blockX[i]){
+                    hero[i].positionX+=deltaX[i]
+                }
+            }else{
+                if (blockX[i]>hero[i].positionX){
+                    hero[i].positionX+=deltaX[i]
+                }
             }
-        }else{
-            if (blockX>heroOne.positionX){
-                heroOne.positionX+=deltaX
+            if(reverseY[i]){
+                if (hero[i].positionY>blockY[i]){
+                    hero[i].positionY+=deltaY[i]
+                }
+            }else{
+                if (blockY[i]>hero[i].positionY){
+                    hero[i].positionY+=deltaY[i]
+                }
             }
         }
-        if(reverseY){
-            if (heroOne.positionY>blockY){
-                heroOne.positionY+=deltaY
-            }
-        }else{
-            if (blockY>heroOne.positionY){
-                heroOne.positionY+=deltaY
-            }
-        }
-
     }
 
-    fun CalcilateSpeed(cardPosition:Int){
-
-        val currentX=heroOne.positionX
-        val currentY=heroOne.positionY
-
-        reverseX=Lanes.values()[cardPosition].positionX*sizeX/100<heroOne.positionX
-        reverseY=Lanes.values()[cardPosition].positionY*sizeY/100<heroOne.positionY
-        //reverse = endX<startX
-        blockX= (Lanes.values()[cardPosition].positionX*sizeX/100).toInt()
-        blockY=(Lanes.values()[cardPosition].positionY*sizeY/100).toInt()
-
-        deltaX= ((blockX-currentX)/130)
-        deltaY=((blockY-currentY)/130)
-        Log.w("deltaX = ", deltaX.toString())
-        Log.w("Hero.posX", heroOne.positionX.toString())
+    fun CalcilateSpeed(position:Array<Int>){
+        //cardPosition:Int,secondPosition:Int)
+        for(i in 0 until hero.size){
+            val currentX=hero[i].positionX
+            val currentY=hero[i].positionY
+            reverseX[i]=Lanes.values()[position[i]].positionX*sizeX/100<hero[i].positionX
+            reverseY[i]=Lanes.values()[position[i]].positionY*sizeY/100<hero[i].positionY
+            blockX[i]= (Lanes.values()[position[i]].positionX*sizeX/100).toInt()
+            blockY[i]=(Lanes.values()[position[i]].positionY*sizeY/100).toInt()
+            deltaX[i]= ((blockX[i]-currentX)/130)
+            deltaY[i]=((blockY[i]-currentY)/130)
+        }
     }
 
 

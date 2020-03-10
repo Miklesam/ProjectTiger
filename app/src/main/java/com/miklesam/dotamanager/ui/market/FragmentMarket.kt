@@ -25,18 +25,18 @@ class FragmentMarket :Fragment(R.layout.fragment_market),OnPlayerListener{
         Log.w("FragmentMarket","Clicked "+position)
         val fragment = FragmentPlayerProfile()
 
-        fragment.setSharedElementEnterTransition(DetailsTransition())
-        val fade = Fade()
-        fragment.setEnterTransition(fade)
-        exitTransition = fade
-        fragment.setSharedElementReturnTransition(DetailsTransition())
+        //fragment.setSharedElementEnterTransition(DetailsTransition())
+        //val fade = Fade()
+        //fragment.setEnterTransition(fade)
+        //exitTransition = fade
+        //fragment.setSharedElementReturnTransition(DetailsTransition())
 
         val transaction=
             activity?.supportFragmentManager?.beginTransaction()
-                ?.addSharedElement(holder.photo, "playerImage")
+                //?.addSharedElement(holder.photo, "playerImage")
         //transaction?.setCustomAnimations(R.anim.enter_right_to_left,R.anim.exit_right_to_left,R.anim.enter_left_to_right,R.anim.exit_left_to_right)
         transaction?.replace(R.id.fragment_holder, fragment)
-        transaction?.addToBackStack(null)
+        //transaction?.addToBackStack(null)
         transaction?.commit()
 
     }
@@ -50,19 +50,11 @@ class FragmentMarket :Fragment(R.layout.fragment_market),OnPlayerListener{
         recycler.setHasFixedSize(true)
         val adapter = MarketAdapter(this)
         recycler.adapter = adapter
-        val players=ArrayList<Player>()
-        players.add(Player("Ник","Имя","Позиция","Цена"))
-        players.add(Player("Solo","Алексей\nБерезин","5","1500"))
-        players.add(Player("No[o]ne","Владимир\nМиненко","2","350"))
-        players.add(Player("Fng","Артем\nБаршак","5","1350"))
-        players.add(Player("Nix","Александр\nЛевин","2","650"))
-        adapter.setPlayers(players)
 
         marketViewModel.getPlayers().observe(this, Observer {
-          Log.w("In Market", it.toString())
-        });
-
-
+            adapter.setPlayers(it)
+        })
     }
+
 }
 

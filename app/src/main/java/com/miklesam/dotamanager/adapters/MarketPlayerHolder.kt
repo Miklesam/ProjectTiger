@@ -11,7 +11,7 @@ class MarketPlayerHolder (itemView:View,var playerListener: OnPlayerListener):Re
     override fun onClick(p0: View?) {
         playerListener.onPlayerClick(adapterPosition,this)
     }
-
+    val flag :ImageView
     val nickName:TextView
     val name :TextView
     val position :TextView
@@ -23,6 +23,7 @@ class MarketPlayerHolder (itemView:View,var playerListener: OnPlayerListener):Re
         position=itemView.playerPosition
         cost=itemView.playerCost
         photo=itemView.playerPhoto
+        flag=itemView.playerCountryImage
         itemView.setOnClickListener(this)
     }
 }

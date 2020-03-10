@@ -6,6 +6,8 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "players_table")
 data class Player(
+    @ColumnInfo(name = "flag")
+    var flag: Int,
     @ColumnInfo(name = "nickname")
     var nickname:String,
     @ColumnInfo(name = "name")

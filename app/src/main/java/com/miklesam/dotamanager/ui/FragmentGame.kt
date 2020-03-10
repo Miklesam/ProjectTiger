@@ -14,10 +14,9 @@ import com.miklesam.dotamanager.R
 
 class FragmentGame : Fragment(R.layout.fragment_game),
     CreateDialog.NoticeDialogListener {
-    override fun onDialogPositiveClick(dialog: String) {
-        Log.w(TAG, "onDialogPositiveClick $dialog")
-        gameGame?.CalcilateSpeed(dialog.toInt())
-        val timerAssignLine = object : CountDownTimer(3000, 100) {
+    override fun onDialogPositiveClick(position: Array<Int>) {
+        gameGame?.CalcilateSpeed(position)
+        val timerAssignLine = object : CountDownTimer(45000, 100) {
             override fun onTick(millisUntilFinished: Long) {
                 //gameGame?.setBasePosition()
             }
