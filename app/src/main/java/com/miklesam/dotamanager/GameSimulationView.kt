@@ -17,7 +17,7 @@ class GameSimulationView : View {
 
 
     private var mDrawable: Drawable? = null
-    val mHero:Array<Drawable?> = arrayOfNulls(5)
+    val mHero:Array<Drawable?> = arrayOfNulls(10)
     internal var myPaint = Paint()
     internal var radiantPaint = Paint()
     internal var direPaint = Paint()
@@ -25,19 +25,19 @@ class GameSimulationView : View {
     internal var sizeY: Float = 0.toFloat()
     internal var myDeltaSec: Float = 0.toFloat()
 
-    internal val deltaX =arrayOf(0,0,0,0,0)
-    internal val deltaY =arrayOf(0,0,0,0,0)
-    internal val blockX =arrayOf(0,0,0,0,0)
-    internal val blockY =arrayOf(0,0,0,0,0)
-    internal val reverseX =arrayOf(false,false,false,false,false)
-    internal val reverseY =arrayOf(false,false,false,false,false)
-
+    internal val deltaX =arrayOf(0,0,0,0,0,0,0,0,0,0)
+    internal val deltaY =arrayOf(0,0,0,0,0,0,0,0,0,0)
+    internal val blockX =arrayOf(0,0,0,0,0,0,0,0,0,0)
+    internal val blockY =arrayOf(0,0,0,0,0,0,0,0,0,0)
+    internal val reverseX =arrayOf(false,false,false,false,false,false,false,false,false,false)
+    internal val reverseY =arrayOf(false,false,false,false,false,false,false,false,false,false)
 
     val mTimeAnimator = TimeAnimator()
     var mCurrentPlayTime:Long=0
 
     internal val hero =arrayOf(Hero(0,0),Hero(0,0),
-        Hero(0,0),Hero(0,0),Hero(0,0))
+        Hero(0,0),Hero(0,0),Hero(0,0),Hero(0,0)
+        ,Hero(0,0),Hero(0,0),Hero(0,0),Hero(0,0))
 
     constructor(context: Context) : super(context) {
         init()
@@ -62,6 +62,14 @@ class GameSimulationView : View {
         mHero[2]=ContextCompat.getDrawable(context,R.drawable.kunnka_mipmap)
         mHero[3]=ContextCompat.getDrawable(context,R.drawable.monkeyking_mipmap)
         mHero[4]=ContextCompat.getDrawable(context,R.drawable.zeus_mipmap)
+
+        mHero[5]=ContextCompat.getDrawable(context,R.drawable.lifestealer_mipmap)
+        mHero[6]=ContextCompat.getDrawable(context,R.drawable.sandking_mipmap)
+        mHero[7]=ContextCompat.getDrawable(context,R.drawable.pudge_mipmap)
+        mHero[8]=ContextCompat.getDrawable(context,R.drawable.slardar_mipmap)
+        mHero[9]=ContextCompat.getDrawable(context,R.drawable.mars_mipmap)
+
+
         Log.w("InitSizeX=", sizeX.toString())
         Log.w("InitSizeY=", sizeY.toString())
 
@@ -129,10 +137,13 @@ class GameSimulationView : View {
     }
 
     fun setBasePosition(){
-        for (i in 0 until hero.size){
+        for (i in 0 until 5){
             hero[i].positionX= ((0.05+i*0.01)*sizeX).toInt()
             hero[i].positionY= ((0.85-i*0.01)*sizeY).toInt()
+            hero[i+5].positionX= ((0.9-i*0.01)*sizeX).toInt()
+            hero[i+5].positionY= ((0.1+i*0.01)*sizeY).toInt()
         }
+
     }
 
 
@@ -180,14 +191,19 @@ class GameSimulationView : View {
     }
 
     fun CalcilateSpeed(position:Array<Int>){
-        //cardPosition:Int,secondPosition:Int)
         for(i in 0 until hero.size){
             val currentX=hero[i].positionX
             val currentY=hero[i].positionY
-            reverseX[i]=Lanes.values()[position[i]].positionX*sizeX/100<hero[i].positionX
-            reverseY[i]=Lanes.values()[position[i]].positionY*sizeY/100<hero[i].positionY
-            blockX[i]= (Lanes.values()[position[i]].positionX*sizeX/100).toInt()
-            blockY[i]=(Lanes.values()[position[i]].positionY*sizeY/100).toInt()
+            var pointer = if(i<5){
+                -2*i
+            }else{
+                2*(i-4)
+            }
+
+            reverseX[i]=(Lanes.values()[position[i]].positionX+pointer)*sizeX/100<hero[i].positionX
+            reverseY[i]=(Lanes.values()[position[i]].positionY*sizeY-pointer)/100<hero[i].positionY
+            blockX[i]= ((Lanes.values()[position[i]].positionX+pointer)*sizeX/100).toInt()
+            blockY[i]=((Lanes.values()[position[i]].positionY-pointer)*sizeY/100).toInt()
             deltaX[i]= ((blockX[i]-currentX)/130)
             deltaY[i]=((blockY[i]-currentY)/130)
         }

@@ -11,17 +11,18 @@ import androidx.fragment.app.Fragment
 import com.miklesam.dotamanager.CreateDialog
 import com.miklesam.dotamanager.GameSimulationView
 import com.miklesam.dotamanager.R
+import kotlin.random.Random
 
 class FragmentGame : Fragment(R.layout.fragment_game),
     CreateDialog.NoticeDialogListener {
     override fun onDialogPositiveClick(position: Array<Int>) {
-        gameGame?.CalcilateSpeed(position)
-        val timerAssignLine = object : CountDownTimer(45000, 100) {
+        gameGame?.CalcilateSpeed(arrayOf(position[0],position[1],position[2],position[3],position[4],3,5,5,4,3))
+        val timerAssignLine = object : CountDownTimer(25000, 100) {
             override fun onTick(millisUntilFinished: Long) {
-                //gameGame?.setBasePosition()
             }
             override fun onFinish() {
-                CreateDeskDialog()
+                //CreateDeskDialog()
+                nextStage()
             }
         }
         timerAssignLine.start()
@@ -31,6 +32,10 @@ class FragmentGame : Fragment(R.layout.fragment_game),
     }
 
     var gameGame: GameSimulationView? = null
+    var radiantTotalScore: TextView? = null
+    var direTotalScore: TextView? = null
+
+
     lateinit var soundPull: SoundPool
     var soundOne: Int = 0
     var soundTwo: Int = 0
@@ -56,28 +61,25 @@ class FragmentGame : Fragment(R.layout.fragment_game),
         super.onViewCreated(view, savedInstanceState)
         Log.w(TAG, "onViewCreated")
         gameGame = view.findViewById<GameSimulationView>(R.id.gameGame)
-        val tagName = view.findViewById<TextView>(R.id.tagName)
-        val tagName2 = view.findViewById<TextView>(R.id.tagName2)
+        radiantTotalScore=view.findViewById(R.id.radiantTotalScore)
+        direTotalScore=view.findViewById(R.id.direTotalScore)
         gameGame?.Start()
-        tagName.setOnClickListener {
-            soundPull.play(soundOne, 1F, 1F, 0, 0, 1F)
-            val timer = object : CountDownTimer(1500, 100) {
-                override fun onTick(millisUntilFinished: Long) {}
-
-                override fun onFinish() {
-                    soundPull.play(soundTwo, 1F, 1F, 0, 0, 1F)
-                }
-            }
-            timer.start()
-        }
-
 
         val timerAssignLine = object : CountDownTimer(2000, 100) {
             override fun onTick(millisUntilFinished: Long) {
                 gameGame?.setBasePosition()
             }
             override fun onFinish() {
-                CreateDeskDialog()
+                soundPull.play(soundOne, 1F, 1F, 0, 0, 1F)
+                val timer = object : CountDownTimer(1500, 100) {
+                    override fun onTick(millisUntilFinished: Long) {}
+
+                    override fun onFinish() {
+                        soundPull.play(soundTwo, 1F, 1F, 0, 0, 1F)
+                        CreateDeskDialog()
+                    }
+                }
+                timer.start()
             }
         }
         timerAssignLine.start()
@@ -110,4 +112,11 @@ class FragmentGame : Fragment(R.layout.fragment_game),
         super.onResume()
         Log.w(TAG, "onResume")
     }
+
+    fun nextStage(){
+        direTotalScore?.text= Random.nextInt(0, 10).toString()
+        radiantTotalScore?.text=Random.nextInt(0, 10).toString()
+        //soundPull.play(soundTwo, 1F, 1F, 0, 0, 1F)
+    }
+
 }

@@ -1,7 +1,10 @@
 package com.miklesam.dotamanager
 
 enum class Lanes (val positionX:Int,val positionY:Int){
-    TOP(15,15),
-    MID(45,45),
-    BOT(80,80);
+    RTOP(14,16),
+    RMID(44,46),
+    RBOT(79,81),
+    DTOP(16,14),
+    DMID(46,44),
+    DBOT(81,79);
 }
