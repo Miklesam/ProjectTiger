@@ -1,4 +1,4 @@
-package com.miklesam.dotamanager.ui
+package com.miklesam.dotamanager.ui.game
 
 import android.media.AudioAttributes
 import android.media.SoundPool
@@ -8,16 +8,20 @@ import android.util.Log
 import android.view.View
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import com.miklesam.dotamanager.CreateDialog
 import com.miklesam.dotamanager.GameSimulationView
 import com.miklesam.dotamanager.R
+import kotlinx.android.synthetic.main.fragment_game.*
 import kotlin.random.Random
 
 class FragmentGame : Fragment(R.layout.fragment_game),
     CreateDialog.NoticeDialogListener {
     override fun onDialogPositiveClick(position: Array<Int>) {
         gameGame?.CalcilateSpeed(arrayOf(position[0],position[1],position[2],position[3],position[4],3,5,5,4,3))
-        val timerAssignLine = object : CountDownTimer(25000, 100) {
+        gameViewModel.calculateLineAssign(arrayOf(position[0],position[1],position[2],position[3],position[4],3,5,5,4,3))
+        val timerAssignLine = object : CountDownTimer(5000, 100) {
             override fun onTick(millisUntilFinished: Long) {
             }
             override fun onFinish() {
@@ -32,17 +36,18 @@ class FragmentGame : Fragment(R.layout.fragment_game),
     }
 
     var gameGame: GameSimulationView? = null
-    var radiantTotalScore: TextView? = null
-    var direTotalScore: TextView? = null
-
-
     lateinit var soundPull: SoundPool
     var soundOne: Int = 0
     var soundTwo: Int = 0
     val TAG = "FragmentGame"
 
+    private lateinit var gameViewModel: GameViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        gameViewModel =
+            ViewModelProviders.of(this).get(GameViewModel::class.java)
+
         Log.w(TAG, "onCreate")
         val audioAtributes = AudioAttributes.Builder()
             .setUsage(AudioAttributes.USAGE_ASSISTANCE_SONIFICATION)
@@ -61,8 +66,6 @@ class FragmentGame : Fragment(R.layout.fragment_game),
         super.onViewCreated(view, savedInstanceState)
         Log.w(TAG, "onViewCreated")
         gameGame = view.findViewById<GameSimulationView>(R.id.gameGame)
-        radiantTotalScore=view.findViewById(R.id.radiantTotalScore)
-        direTotalScore=view.findViewById(R.id.direTotalScore)
         gameGame?.Start()
 
         val timerAssignLine = object : CountDownTimer(2000, 100) {
@@ -83,6 +86,26 @@ class FragmentGame : Fragment(R.layout.fragment_game),
             }
         }
         timerAssignLine.start()
+
+
+        gameViewModel.getPlayersMatchStatistic().observe(this, Observer {
+            Log.w("FragmentGame", it.toString())
+            radiantStat1.text=it[0]
+            radiantStat2.text=it[1]
+            radiantStat3.text=it[2]
+            radiantStat4.text=it[3]
+            radiantStat5.text=it[4]
+
+            direStat1.text=it[5]
+            direStat2.text=it[6]
+            direStat3.text=it[7]
+            direStat4.text=it[8]
+            direStat5.text=it[9]
+
+            radiantTotalScore.text=it[10]
+            direTotalScore.text=it[11]
+
+        });
 
     }
 
@@ -116,6 +139,7 @@ class FragmentGame : Fragment(R.layout.fragment_game),
     fun nextStage(){
         direTotalScore?.text= Random.nextInt(0, 10).toString()
         radiantTotalScore?.text=Random.nextInt(0, 10).toString()
+        gameViewModel.setStats(9)
         //soundPull.play(soundTwo, 1F, 1F, 0, 0, 1F)
     }
 
