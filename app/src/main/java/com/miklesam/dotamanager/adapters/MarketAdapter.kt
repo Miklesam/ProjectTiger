@@ -7,12 +7,12 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.miklesam.dotamanager.R
 import com.miklesam.dotamanager.datamodels.Player
+import com.miklesam.dotamanager.utils.DataConverter
 import java.util.ArrayList
 
 class MarketAdapter(playerListener: OnPlayerListener) : RecyclerView.Adapter<MarketPlayerHolder>() {
 
     private var players:List<Player> = ArrayList()
-    private var playerOld:List<Player> = ArrayList()
     private val mOnPlayerListener=playerListener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MarketPlayerHolder {
@@ -31,8 +31,15 @@ class MarketAdapter(playerListener: OnPlayerListener) : RecyclerView.Adapter<Mar
         holder.name.text=currentPlayer.name
         holder.position.text=currentPlayer.position
         holder.cost.text=currentPlayer.cost
-        holder.flag.setImageResource(currentPlayer.flag)
-        //ViewCompat.setTransitionName(holder.photo, position.toString() + "_photo")
+        //holder.flag.setImageResource(currentPlayer.flag)
+        holder.flag.setImageBitmap(DataConverter.convertByteArray2Image(currentPlayer.flag))
+       // holder.photo.setImageResource(currentPlayer.photo)
+        holder.photo.setImageBitmap(DataConverter.convertByteArray2Image(currentPlayer.photo))
+
+        ViewCompat.setTransitionName(holder.photo, position.toString() + "_photo")
+        ViewCompat.setTransitionName(holder.name, position.toString() + "_name")
+        ViewCompat.setTransitionName(holder.position, position.toString() + "_position")
+        ViewCompat.setTransitionName(holder.cost, position.toString() + "_cost")
     }
 
     fun setPlayers(playersSet:List<Player>){

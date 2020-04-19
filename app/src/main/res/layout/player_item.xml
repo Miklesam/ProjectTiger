@@ -6,9 +6,14 @@
     android:layout_marginStart="@dimen/card_padding"
     android:layout_marginTop="@dimen/card_padding"
     android:layout_marginEnd="@dimen/card_padding"
+    app:cardElevation="5dp"
+    app:cardCornerRadius="3dp"
+    app:contentPadding="2dp"
+    app:cardBackgroundColor="@color/textMain"
     android:orientation="vertical">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:background="@color/fon"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -55,32 +60,42 @@
             android:id="@+id/playerCountryImage"
             android:layout_width="40dp"
             android:layout_height="20dp"
+            android:layout_marginStart="5dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/playerNickname"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:ellipsize="end"
-            android:maxLines="1"
+            android:orientation="vertical"
             android:layout_marginStart="10dp"
-            android:text="NickName"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/playerCountryImage"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
 
-        <TextView
-            android:id="@+id/playerName"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="Name"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@id/firstvertical"
-            app:layout_constraintEnd_toEndOf="@id/secondvertical"
-            app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:id="@+id/playerNickname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="NickName"
+                android:textSize="15sp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                 />
+
+            <TextView
+                android:id="@+id/playerName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:text="Name"
+                />
+
+        </LinearLayout>
+
+
 
         <ImageView
             android:id="@+id/playerPhoto"

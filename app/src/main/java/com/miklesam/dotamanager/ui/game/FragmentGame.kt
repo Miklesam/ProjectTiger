@@ -6,32 +6,52 @@ import android.os.Bundle
 import android.os.CountDownTimer
 import android.util.Log
 import android.view.View
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import com.miklesam.dotamanager.CreateDialog
+import com.miklesam.dotamanager.EndMatchDialog
+import com.miklesam.dotamanager.LineningDialog
 import com.miklesam.dotamanager.GameSimulationView
 import com.miklesam.dotamanager.R
 import kotlinx.android.synthetic.main.fragment_game.*
-import kotlin.random.Random
 
-class FragmentGame : Fragment(R.layout.fragment_game),
-    CreateDialog.NoticeDialogListener {
+class FragmentGame(myListener: backToLobby) : Fragment(R.layout.fragment_game),
+    LineningDialog.NoticeDialogListener, EndMatchDialog.toLobbyInterface {
+    var mListener: backToLobby = myListener
+
+    interface backToLobby{
+        fun backToLobbyCLicked()
+    }
+
+    var gameEnd=false
     override fun onDialogPositiveClick(position: Array<Int>) {
         gameGame?.CalcilateSpeed(arrayOf(position[0],position[1],position[2],position[3],position[4],3,5,5,4,3))
         gameViewModel.calculateLineAssign(arrayOf(position[0],position[1],position[2],position[3],position[4],3,5,5,4,3))
-        val timerAssignLine = object : CountDownTimer(5000, 100) {
+        val timerAssignLine = object : CountDownTimer(15000, 100) {
             override fun onTick(millisUntilFinished: Long) {
             }
             override fun onFinish() {
-                //CreateDeskDialog()
                 nextStage()
             }
         }
         timerAssignLine.start()
 
 
+
+    }
+
+    override fun onDialogDismissClick(position: Array<Int>) {
+        Log.w("Dialog", "dismiss")
+        gameGame?.CalcilateSpeed(arrayOf(position[0],position[1],position[2],position[3],position[4],3,5,5,4,3))
+        gameViewModel.calculateLineAssign(arrayOf(position[0],position[1],position[2],position[3],position[4],3,5,5,4,3))
+        val timerAssignLine = object : CountDownTimer(8000, 100) {
+            override fun onTick(millisUntilFinished: Long) {
+            }
+            override fun onFinish() {
+                nextStage()
+            }
+        }
+        timerAssignLine.start()
 
     }
 
@@ -67,7 +87,6 @@ class FragmentGame : Fragment(R.layout.fragment_game),
         Log.w(TAG, "onViewCreated")
         gameGame = view.findViewById<GameSimulationView>(R.id.gameGame)
         gameGame?.Start()
-
         val timerAssignLine = object : CountDownTimer(2000, 100) {
             override fun onTick(millisUntilFinished: Long) {
                 gameGame?.setBasePosition()
@@ -105,7 +124,20 @@ class FragmentGame : Fragment(R.layout.fragment_game),
             radiantTotalScore.text=it[10]
             direTotalScore.text=it[11]
 
-        });
+        })
+
+        gameViewModel.getradiantTowers().observe(this, Observer {
+            Log.w("Fragment Game", "Current TowerState= $it")
+            gameGame?.setTowers(it)
+            gameEnd = !it[9]||!it[19]
+            if(!it[9])
+            {
+                initiateEnd(2)
+            }else{
+                if(!it[19])initiateEnd(1)
+            }
+
+        })
 
     }
 
@@ -116,7 +148,7 @@ class FragmentGame : Fragment(R.layout.fragment_game),
     }
 
     private fun CreateDeskDialog() {
-        val dialog = CreateDialog(this)
+        val dialog = LineningDialog(this)
         fragmentManager?.let { dialog.show(it, "CreateDeskDialog") }
     }
 
@@ -137,10 +169,26 @@ class FragmentGame : Fragment(R.layout.fragment_game),
     }
 
     fun nextStage(){
-        direTotalScore?.text= Random.nextInt(0, 10).toString()
-        radiantTotalScore?.text=Random.nextInt(0, 10).toString()
-        gameViewModel.setStats(9)
+        //gameViewModel.setStats(9)
         //soundPull.play(soundTwo, 1F, 1F, 0, 0, 1F)
+        if(!gameEnd){
+            CreateDeskDialog()
+        }
+    }
+    fun initiateEnd(side:Int){
+        Log.w(TAG, "Initiate End")
+        gameGame?.initiateWin(side)
+        CreateEndMatchDialogDialog(side)
+    }
+
+    private fun CreateEndMatchDialogDialog(side: Int) {
+        val dialog = EndMatchDialog(this,side)
+        fragmentManager?.let { dialog.show(it, "CreateEndMatchDialogDialog") }
+    }
+
+    override fun goToLobbyClick() {
+        Log.w("FragmentGame","EndGameClicked")
+        mListener.backToLobbyCLicked()
     }
 
 }

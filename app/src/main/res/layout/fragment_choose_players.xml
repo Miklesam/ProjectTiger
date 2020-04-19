@@ -1,0 +1,568 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/fon">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/forthvertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.75" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/halfvertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/playerInfo"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/halfvertical"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="5dp"
+            android:layout_marginStart="@dimen/card_padding"
+            app:cardBackgroundColor="@color/textMain"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="1dp"
+            app:contentPadding="4dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/fon">
+
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/horizontal35"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_percent="0.45" />
+
+
+                <FrameLayout
+                    android:id="@+id/backFlag"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/horizontal35"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:id='@+id/image'
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="2dp"
+                        android:transitionName="playerImage"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.499"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                </FrameLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/signatures"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/backFlag">
+
+                    <ImageView
+                        android:id="@+id/signature1"
+                        android:layout_width="60dp"
+                        android:layout_height="35dp"
+                        android:transitionName="signature1"
+                        app:srcCompat="@drawable/abadon_picked"
+
+                        />
+
+                    <ImageView
+                        android:id="@+id/signature2"
+                        android:layout_width="60dp"
+                        android:layout_height="35dp"
+                        android:layout_marginStart="5dp"
+                        android:transitionName="signature2"
+                        app:srcCompat="@drawable/abadon_picked"
+
+                        />
+
+                    <ImageView
+                        android:id="@+id/signature3"
+                        android:layout_width="60dp"
+                        android:layout_height="35dp"
+                        android:layout_marginStart="5dp"
+                        android:transitionName="signature3"
+                        app:srcCompat="@drawable/abadon_picked"
+
+                        />
+
+
+                </LinearLayout>
+
+
+                <TextView
+                    android:id="@+id/playerName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/signatures" />
+
+                <TextView
+                    android:id="@+id/playerFullName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/playerName" />
+
+                <TextView
+                    android:id="@+id/microControl"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Микроконтроль"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                    android:textSize="8sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/playerFullName" />
+
+                <TextView
+                    android:id="@+id/macroControl"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Макроконтроль"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                    android:textSize="8sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/playerFullName" />
+
+
+                <TextView
+                    android:id="@+id/microControlNum"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                    android:textSize="8sp"
+                    app:layout_constraintStart_toEndOf="@+id/verical55line"
+                    app:layout_constraintTop_toBottomOf="@+id/playerFullName" />
+
+                <TextView
+                    android:id="@+id/macroControlNum"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                    android:textSize="8sp"
+                    app:layout_constraintEnd_toStartOf="@+id/verical45line"
+                    app:layout_constraintTop_toBottomOf="@+id/playerFullName" />
+
+
+                <TextView
+                    android:id="@+id/creativity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Креативность"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                    android:textSize="8sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/microControl" />
+
+                <TextView
+                    android:id="@+id/heroPool"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Разнообразие"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                    android:textSize="8sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/macroControl" />
+
+                <TextView
+                    android:id="@+id/heroPoolNum"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                    android:textSize="8sp"
+                    app:layout_constraintEnd_toStartOf="@+id/verical45line"
+                    app:layout_constraintTop_toBottomOf="@+id/macroControl" />
+
+                <TextView
+                    android:id="@+id/creativityNum"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                    android:textSize="8sp"
+                    app:layout_constraintStart_toEndOf="@+id/verical55line"
+                    app:layout_constraintTop_toBottomOf="@+id/microControl" />
+
+                <TextView
+                    android:id="@+id/motivation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Мотивация"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                    android:textSize="8sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/creativity" />
+
+                <TextView
+                    android:id="@+id/mediation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Медийность"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                    android:textSize="8sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/heroPool" />
+
+                <TextView
+                    android:id="@+id/mediationNum"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                    android:textSize="8sp"
+                    app:layout_constraintEnd_toStartOf="@+id/verical45line"
+                    app:layout_constraintTop_toBottomOf="@+id/heroPool" />
+
+                <TextView
+                    android:id="@+id/motivationNum"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                    android:textSize="8sp"
+                    app:layout_constraintStart_toEndOf="@+id/verical55line"
+                    app:layout_constraintTop_toBottomOf="@+id/creativity" />
+
+                <TextView
+                    android:id="@+id/laning"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Лэйнинг"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                    android:textSize="8sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/motivation" />
+
+
+                <TextView
+                    android:id="@+id/fighting"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Файтинг"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                    android:textSize="8sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/mediation" />
+
+                <TextView
+                    android:id="@+id/laningNum"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                    android:textSize="8sp"
+                    app:layout_constraintStart_toEndOf="@+id/verical55line"
+                    app:layout_constraintTop_toBottomOf="@+id/motivation" />
+
+                <TextView
+                    android:id="@+id/fightingNum"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                    android:textSize="8sp"
+                    app:layout_constraintEnd_toStartOf="@+id/verical45line"
+                    app:layout_constraintTop_toBottomOf="@+id/mediation" />
+
+                <TextView
+                    android:id="@+id/tactic"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Тактика"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                    android:textSize="8sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/laning" />
+
+                <TextView
+                    android:id="@+id/moral"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Мораль"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                    android:textSize="8sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/fighting" />
+
+                <TextView
+                    android:id="@+id/moralNum"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                    android:textSize="8sp"
+                    app:layout_constraintEnd_toStartOf="@+id/verical45line"
+                    app:layout_constraintTop_toBottomOf="@+id/fighting" />
+
+
+                <TextView
+                    android:id="@+id/tacticNum"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                    android:textSize="8sp"
+                    app:layout_constraintStart_toEndOf="@+id/verical55line"
+                    app:layout_constraintTop_toBottomOf="@+id/laning" />
+
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/verical40line"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.4" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/verical60line"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.6" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/verical45line"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.45" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/verical55line"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.55" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </androidx.cardview.widget.CardView>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerPlayers"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/forthvertical"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        tools:listitem="@layout/player_item" />
+
+    <TextView
+        android:id="@+id/teamName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="Your Team Name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@id/forthvertical"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/position1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="5dp"
+        android:text="Position 1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@id/forthvertical"
+        app:layout_constraintTop_toBottomOf="@+id/teamName" />
+
+    <TextView
+        android:id="@+id/position2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="5dp"
+        android:text="Position 2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@id/forthvertical"
+        app:layout_constraintTop_toBottomOf="@+id/position1"
+        />
+    <TextView
+        android:id="@+id/position3"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="5dp"
+        android:text="Position 3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@id/forthvertical"
+        app:layout_constraintTop_toBottomOf="@+id/position2"
+        />
+
+    <TextView
+        android:id="@+id/position4"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="5dp"
+        android:text="Position 4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@id/forthvertical"
+        app:layout_constraintTop_toBottomOf="@+id/position3"
+        />
+
+    <TextView
+        android:id="@+id/position5"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="5dp"
+        android:text="Position 5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@id/forthvertical"
+        app:layout_constraintTop_toBottomOf="@+id/position4"
+        />
+
+
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/nextBttn"
+        android:visibility="gone"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/button_selector"
+        android:gravity="center"
+        android:text="Next"
+        android:theme="@style/ButtonSwitchColor"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/forthvertical" />
+
+    <LinearLayout
+        android:visibility="gone"
+        android:layout_width="0dp"
+        android:id="@+id/bttn_layout"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/forthvertical"
+        app:layout_constraintStart_toStartOf="@id/halfvertical">
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/position1Bttn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="2dp"
+            android:background="@drawable/button_selector"
+            android:gravity="center"
+            android:text="Buy Position1"
+            android:textSize="10sp"
+            android:theme="@style/ButtonSwitchColor" />
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/position2Bttn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="2dp"
+            android:background="@drawable/button_selector"
+            android:gravity="center"
+            android:text="Buy Position 2"
+            android:textSize="10sp"
+            android:theme="@style/ButtonSwitchColor" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/position3Bttn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="2dp"
+            android:background="@drawable/button_selector"
+            android:gravity="center"
+            android:text="Buy Position 3"
+            android:textSize="10sp"
+            android:theme="@style/ButtonSwitchColor" />
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/position4Bttn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="2dp"
+            android:background="@drawable/button_selector"
+            android:gravity="center"
+            android:text="Buy Position 4"
+            android:textSize="10sp"
+            android:theme="@style/ButtonSwitchColor" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/position5Bttn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="2dp"
+            android:background="@drawable/button_selector"
+            android:gravity="center"
+            android:text="Buy Position 5"
+            android:textSize="10sp"
+            android:theme="@style/ButtonSwitchColor" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/cancelBttn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/button_selector"
+            android:gravity="center"
+            android:text="Cancel"
+            android:textSize="10sp"
+            android:theme="@style/ButtonSwitchColor" />
+
+
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

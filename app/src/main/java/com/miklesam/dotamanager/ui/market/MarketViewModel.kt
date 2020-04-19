@@ -8,10 +8,6 @@ import com.miklesam.dotamanager.datamodels.Player
 class MarketViewModel(application: Application) :AndroidViewModel(application){
 
     private var repository: MarketRepository = MarketRepository(application)
-    init {
-
-    }
-
 
     fun getPlayers(): LiveData<List<Player>> {
         return repository.getPlayers()

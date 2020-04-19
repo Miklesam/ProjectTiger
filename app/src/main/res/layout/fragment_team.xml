@@ -1,193 +1,80 @@
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/fon">
 
 
     <androidx.constraintlayout.widget.Guideline
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:id="@+id/percent5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.05"/>
+        app:layout_constraintGuide_percent="0.05" />
 
     <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/percent45"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/percent35"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.45"/>
+        app:layout_constraintGuide_percent="0.25" />
 
     <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/percent55"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/percent5vertical"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.04"/>
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.55" />
 
-    <androidx.constraintlayout.widget.Guideline
+
+
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/percent20vertical"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.19"/>
+        app:layout_constraintTop_toBottomOf="@+id/percent55"
+        app:layout_constraintStart_toStartOf="parent"
+        android:orientation="vertical">
 
-    <androidx.constraintlayout.widget.Guideline
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/percent25vertical"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.23"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Сыгранность : 85"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Мотивация : 82"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Тактика : 87"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Скилл : 84"
+            />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/percent40vertical"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.38"/>
+    </LinearLayout>
 
-    <androidx.constraintlayout.widget.Guideline
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/percent45vertical"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.42"/>
 
-    <androidx.constraintlayout.widget.Guideline
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/percent60vertical"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.57"/>
 
-    <androidx.constraintlayout.widget.Guideline
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/percent65vertical"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.61"/>
-
-    <androidx.constraintlayout.widget.Guideline
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/percent80vertical"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.76"/>
-
-    <androidx.constraintlayout.widget.Guideline
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/percent85vertical"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.80"/>
-
-    <androidx.constraintlayout.widget.Guideline
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/percent95vertical"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.95"/>
-
-    <ImageView
+    <androidx.recyclerview.widget.RecyclerView
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:id="@+id/player1"
-        app:layout_constraintBottom_toBottomOf="@+id/percent35"
-        app:layout_constraintTop_toTopOf="@+id/percent5"
-        app:layout_constraintStart_toStartOf="@+id/percent5vertical"
-        app:layout_constraintEnd_toEndOf="@+id/percent20vertical"
-        android:src="@drawable/crystalize"/>
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/percent55"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:id="@+id/teamRecycler"/>
 
-    <ImageView
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:id="@+id/player2"
-        app:layout_constraintBottom_toBottomOf="@+id/percent35"
-        app:layout_constraintTop_toTopOf="@+id/percent5"
-        app:layout_constraintStart_toStartOf="@+id/percent25vertical"
-        app:layout_constraintEnd_toEndOf="@+id/percent40vertical"
-        android:src="@drawable/magical"/>
 
-    <ImageView
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:id="@+id/player3"
-        app:layout_constraintBottom_toBottomOf="@+id/percent35"
-        app:layout_constraintTop_toTopOf="@+id/percent5"
-        app:layout_constraintStart_toStartOf="@+id/percent45vertical"
-        app:layout_constraintEnd_toEndOf="@+id/percent60vertical"
-        android:src="@drawable/pasha9"/>
 
-    <ImageView
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:id="@+id/player4"
-        app:layout_constraintBottom_toBottomOf="@+id/percent35"
-        app:layout_constraintTop_toTopOf="@+id/percent5"
-        app:layout_constraintStart_toStartOf="@+id/percent65vertical"
-        app:layout_constraintEnd_toEndOf="@+id/percent80vertical"
-        android:src="@drawable/cematheslayer"/>
-
-    <ImageView
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:id="@+id/player5"
-        app:layout_constraintBottom_toBottomOf="@+id/percent35"
-        app:layout_constraintTop_toTopOf="@+id/percent5"
-        app:layout_constraintStart_toStartOf="@+id/percent85vertical"
-        app:layout_constraintEnd_toEndOf="@+id/percent95vertical"
-        android:src="@drawable/illias"/>
-
-    <TextView
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/player1"
-        app:layout_constraintStart_toStartOf="@+id/percent5vertical"
-        app:layout_constraintEnd_toEndOf="@+id/percent20vertical"
-        android:gravity="center"
-        android:text="Crystallize"
-        />
-
-    <TextView
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/player2"
-        app:layout_constraintStart_toStartOf="@+id/percent25vertical"
-        app:layout_constraintEnd_toEndOf="@+id/percent40vertical"
-        android:gravity="center"
-        android:text="Magical"
-        />
-
-    <TextView
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/player3"
-        app:layout_constraintStart_toStartOf="@+id/percent45vertical"
-        app:layout_constraintEnd_toEndOf="@+id/percent60vertical"
-        android:gravity="center"
-        android:text="9pasha"
-        />
-
-    <TextView
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/player4"
-        app:layout_constraintStart_toStartOf="@+id/percent65vertical"
-        app:layout_constraintEnd_toEndOf="@+id/percent80vertical"
-        android:gravity="center"
-        android:text="CemaTheSlayer"
-        />
-
-    <TextView
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/player5"
-        app:layout_constraintStart_toStartOf="@+id/percent85vertical"
-        app:layout_constraintEnd_toEndOf="@+id/percent95vertical"
-        android:gravity="center"
-        android:text="Illias"
-        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,4 +1,5 @@
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -10,6 +11,8 @@
         android:layout_height="wrap_content"
         android:text="@string/media_bttn"
         android:theme="@style/ButtonSwitchColor"
+        android:background="@drawable/button_selector"
+        android:textSize="13sp"
         app:layout_constraintBottom_toBottomOf="@+id/horizontalTop"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -51,6 +54,8 @@
         android:layout_height="wrap_content"
         android:text="@string/team_bttn"
         android:theme="@style/ButtonSwitchColor"
+        android:background="@drawable/button_selector"
+        android:textSize="13sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -63,6 +68,8 @@
         android:layout_height="120dp"
         android:text="@string/market_bttn"
         android:theme="@style/ButtonSwitchColor"
+        android:background="@drawable/button_selector"
+        android:textSize="13sp"
         app:layout_constraintBottom_toTopOf="@id/horizontalBottom"
         app:layout_constraintEnd_toEndOf="@id/verticalLeft"
         app:layout_constraintHorizontal_bias="1.0"
@@ -75,6 +82,8 @@
         android:layout_height="120dp"
         android:text="@string/game_bttn"
         android:theme="@style/ButtonSwitchColor"
+        android:background="@drawable/button_selector"
+        android:textSize="13sp"
         app:layout_constraintBottom_toTopOf="@id/horizontalBottom"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -106,15 +115,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/half" />
 
+
     <ImageView
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@drawable/ceiling"
         app:layout_constraintBottom_toBottomOf="@id/ceilingHeight"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
     <com.miklesam.dotamanager.WeatherView
         android:id="@+id/weatherAnim"
@@ -126,6 +137,105 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/ceilingHeight"
         app:layout_constraintVertical_bias="0.0" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:gravity="center"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/horizontalBottom"
+        app:layout_constraintEnd_toStartOf="@+id/trainingBttn"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Y"
+            android:textColor="@color/textMain"
+            android:gravity="center"
+            android:textSize="20sp"/>
+
+        <TextView
+            android:layout_marginStart="2dp"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/kalendar_empty"
+            android:textColor="@color/textMain"
+            android:text="0"
+            android:gravity="center"
+            android:textSize="16sp"/>
+
+        <TextView
+            android:layout_marginStart="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textColor="@color/textMain"
+            android:text="M"
+            android:gravity="center"
+            android:textSize="20sp"/>
+
+        <TextView
+            android:layout_marginStart="2dp"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:textColor="@color/textMain"
+            android:background="@drawable/kalendar_empty"
+            android:text="0"
+            android:gravity="center"
+            android:textSize="16sp"/>
+
+        <TextView
+            android:layout_marginStart="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textColor="@color/textMain"
+            android:text="D"
+            android:gravity="center"
+            android:textSize="20sp"/>
+
+        <TextView
+            android:layout_marginStart="2dp"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/kalendar_empty"
+            android:textColor="@color/textMain"
+            android:text="1"
+            android:gravity="center"
+            android:textSize="16sp"/>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:gravity="end"
+      app:layout_constraintStart_toEndOf="@id/trainingBttn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginEnd="5dp"
+        app:layout_constraintBottom_toTopOf="@+id/horizontalTop">
+
+        <ImageView
+        android:layout_width="40dp"
+        android:layout_height="match_parent"
+        android:src="@drawable/fans_half"
+        android:gravity="center" />
+
+        <TextView
+            android:layout_marginStart="2dp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textColor="@color/textMain"
+            android:text="0"
+            android:gravity="center"
+            android:textSize="20sp"/>
+
+
+
+    </LinearLayout>
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

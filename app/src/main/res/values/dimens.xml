@@ -9,7 +9,7 @@
     <dimen name="fab_margin">60dp</dimen>
     <dimen name="big_fab_margin">110dp</dimen>
     <dimen name="fab_text">20sp</dimen>
-    <dimen name="card_padding">8dp</dimen>
+    <dimen name="card_padding">3dp</dimen>
     <dimen name="preImageSize">100dp</dimen>
     <dimen name="preImageCategory">70dp</dimen>
     <dimen name="big_card_padding">15dp</dimen>

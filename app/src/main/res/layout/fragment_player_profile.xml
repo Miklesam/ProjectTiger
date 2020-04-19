@@ -1,243 +1,380 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center_horizontal">
+    android:background="@color/fon"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
 
-    <ImageView
-        android:layout_marginTop="35dp"
-        android:id='@+id/image'
-        android:layout_width="140dp"
-        android:layout_height="140dp"
-        android:src="@drawable/solo_face"
-        android:transitionName="playerImage"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/playerName"
-        android:text="Solo"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/image"
-        android:textAppearance="@style/TextAppearance.AppCompat.Headline"/>
+    <androidx.cardview.widget.CardView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="@dimen/card_padding"
+        app:cardElevation="1dp"
+        app:cardCornerRadius="10dp"
+        android:layout_margin="5dp"
+        app:contentPadding="4dp"
+        app:cardBackgroundColor="@color/textMain"
+        app:layout_constraintStart_toStartOf="@+id/verical15line"
+        app:layout_constraintEnd_toEndOf="@+id/verical85line"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Алексей Березин"
-        android:id="@+id/playerFullName"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/playerName"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body2"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Микроконтроль"
-        android:id="@+id/microControl"
-        app:layout_constraintEnd_toEndOf="@id/verical40line"
-        app:layout_constraintTop_toBottomOf="@+id/playerFullName"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body2"/>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/fon">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/macroControl"
-        android:text="Макроконтроль"
-        app:layout_constraintStart_toStartOf="@id/verical60line"
-        app:layout_constraintTop_toBottomOf="@+id/playerFullName"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body2"/>
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/horizontal35"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.45" />
+
+
+
+            <FrameLayout
+                android:id="@+id/backFlag"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="@+id/horizontal35"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id='@+id/image'
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="2dp"
+                    android:transitionName="playerImage"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.499"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+            </FrameLayout>
+
+
+        <LinearLayout
+            android:layout_marginTop="5dp"
+            android:id="@+id/signatures"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/backFlag">
+
+            <ImageView
+                android:id="@+id/signature1"
+                android:transitionName="signature1"
+                android:layout_width="60dp"
+                android:layout_height="35dp"
+                app:srcCompat="@drawable/abadon_picked"
+
+                />
+
+            <ImageView
+                android:id="@+id/signature2"
+                android:transitionName="signature2"
+                android:layout_marginStart="5dp"
+                android:layout_width="60dp"
+                android:layout_height="35dp"
+                app:srcCompat="@drawable/abadon_picked"
+
+                />
+
+            <ImageView
+                android:id="@+id/signature3"
+                android:transitionName="signature3"
+                android:layout_width="60dp"
+                android:layout_height="35dp"
+                android:layout_marginStart="5dp"
+                app:srcCompat="@drawable/abadon_picked"
+
+                />
+
+
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/playerName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/signatures" />
+
+        <TextView
+            android:id="@+id/playerFullName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/playerName" />
+
+        <TextView
+            android:id="@+id/microControl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Микроконтроль"
+            android:textSize="10sp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/playerFullName" />
+
+        <TextView
+            android:id="@+id/macroControl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Макроконтроль"
+            android:textSize="10sp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/playerFullName" />
+
+
+
+        <TextView
+            android:id="@+id/microControlNum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="10sp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            app:layout_constraintStart_toEndOf="@+id/verical55line"
+            app:layout_constraintTop_toBottomOf="@+id/playerFullName" />
+
+        <TextView
+            android:id="@+id/macroControlNum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="10sp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            app:layout_constraintEnd_toStartOf="@+id/verical45line"
+            app:layout_constraintTop_toBottomOf="@+id/playerFullName" />
+
+
+        <TextView
+            android:id="@+id/creativity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="10sp"
+            android:text="Креативность"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/microControl" />
+
+        <TextView
+            android:id="@+id/heroPool"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="10sp"
+            android:text="Разнообразие"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/macroControl" />
+
+        <TextView
+            android:id="@+id/heroPoolNum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="10sp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            app:layout_constraintEnd_toStartOf="@+id/verical45line"
+            app:layout_constraintTop_toBottomOf="@+id/macroControl" />
+
+        <TextView
+            android:id="@+id/creativityNum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="10sp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            app:layout_constraintStart_toEndOf="@+id/verical55line"
+            app:layout_constraintTop_toBottomOf="@+id/microControl" />
+
+        <TextView
+            android:id="@+id/motivation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Мотивация"
+            android:textSize="10sp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/creativity" />
+
+        <TextView
+            android:id="@+id/mediation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Медийность"
+            android:textSize="10sp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/heroPool" />
+
+        <TextView
+            android:id="@+id/mediationNum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="10sp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            app:layout_constraintEnd_toStartOf="@+id/verical45line"
+            app:layout_constraintTop_toBottomOf="@+id/heroPool" />
+
+        <TextView
+            android:id="@+id/motivationNum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="10sp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            app:layout_constraintStart_toEndOf="@+id/verical55line"
+            app:layout_constraintTop_toBottomOf="@+id/creativity" />
+
+        <TextView
+            android:id="@+id/laning"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Лэйнинг"
+            android:textSize="10sp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/motivation" />
+
+
+        <TextView
+            android:id="@+id/fighting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Файтинг"
+            android:textSize="10sp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/mediation" />
+
+        <TextView
+            android:id="@+id/laningNum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="10sp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            app:layout_constraintStart_toEndOf="@+id/verical55line"
+            app:layout_constraintTop_toBottomOf="@+id/motivation" />
+
+        <TextView
+            android:id="@+id/fightingNum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="10sp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            app:layout_constraintEnd_toStartOf="@+id/verical45line"
+            app:layout_constraintTop_toBottomOf="@+id/mediation" />
+
+        <TextView
+            android:id="@+id/tactic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Тактика"
+            android:textSize="10sp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/laning" />
+
+        <TextView
+            android:id="@+id/moral"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Мораль"
+            android:textSize="10sp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/fighting" />
+
+        <TextView
+            android:id="@+id/moralNum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="10sp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            app:layout_constraintEnd_toStartOf="@+id/verical45line"
+            app:layout_constraintTop_toBottomOf="@+id/fighting" />
+
+
+        <TextView
+            android:id="@+id/tacticNum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="10sp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            app:layout_constraintStart_toEndOf="@+id/verical55line"
+            app:layout_constraintTop_toBottomOf="@+id/laning" />
+
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/verical40line"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.4" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/verical60line"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.6" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/verical45line"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.45" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/verical55line"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.55" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+    </androidx.cardview.widget.CardView>
+
+
+
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/verical40line"
+        android:id="@+id/verical85line"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.4" />
+        app:layout_constraintGuide_percent="0.80" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/verical60line"
+        android:id="@+id/verical15line"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.6" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/verical45line"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.45" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/verical55line"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.55" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="79"
-        app:layout_constraintEnd_toEndOf="@id/verical45line"
-        app:layout_constraintTop_toBottomOf="@+id/playerFullName"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body2"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="81"
-        app:layout_constraintStart_toStartOf="@id/verical55line"
-        app:layout_constraintTop_toBottomOf="@+id/playerFullName"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body2"/>
+        app:layout_constraintGuide_percent="0.2" />
 
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Креативность"
-        android:id="@+id/creativity"
-        app:layout_constraintEnd_toEndOf="@id/verical40line"
-        app:layout_constraintTop_toBottomOf="@+id/microControl"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body2"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Разнообразие героев"
-        android:id="@+id/heroPool"
-        app:layout_constraintStart_toStartOf="@id/verical60line"
-        app:layout_constraintTop_toBottomOf="@+id/macroControl"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body2"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="82"
-        app:layout_constraintStart_toStartOf="@id/verical55line"
-        app:layout_constraintTop_toBottomOf="@+id/macroControl"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body2"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="78"
-        app:layout_constraintEnd_toEndOf="@id/verical45line"
-        app:layout_constraintTop_toBottomOf="@+id/microControl"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body2"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Мотивация"
-        android:id="@+id/motivation"
-        app:layout_constraintEnd_toEndOf="@id/verical40line"
-        app:layout_constraintTop_toBottomOf="@+id/creativity"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body2"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Медийность"
-        android:id="@+id/mediation"
-        app:layout_constraintStart_toStartOf="@id/verical60line"
-        app:layout_constraintTop_toBottomOf="@+id/heroPool"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body2"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="83"
-        app:layout_constraintStart_toStartOf="@id/verical55line"
-        app:layout_constraintTop_toBottomOf="@+id/heroPool"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body2"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="77"
-        app:layout_constraintEnd_toEndOf="@id/verical45line"
-        app:layout_constraintTop_toBottomOf="@+id/creativity"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body2"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Лэйнинг"
-        android:id="@+id/laning"
-        app:layout_constraintEnd_toEndOf="@id/verical40line"
-        app:layout_constraintTop_toBottomOf="@+id/motivation"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body2"/>
 
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Файтинг"
-        android:id="@+id/fighting"
-        app:layout_constraintStart_toStartOf="@id/verical60line"
-        app:layout_constraintTop_toBottomOf="@+id/mediation"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body2"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="76"
-        app:layout_constraintEnd_toEndOf="@id/verical45line"
-        app:layout_constraintTop_toBottomOf="@+id/motivation"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body2"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="84"
-        app:layout_constraintStart_toStartOf="@id/verical55line"
-        app:layout_constraintTop_toBottomOf="@+id/mediation"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body2"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Тактика"
-        android:id="@+id/tactic"
-        app:layout_constraintEnd_toEndOf="@id/verical40line"
-        app:layout_constraintTop_toBottomOf="@+id/laning"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body2"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Мораль"
-        android:id="@+id/moral"
-        app:layout_constraintStart_toStartOf="@id/verical60line"
-        app:layout_constraintTop_toBottomOf="@+id/fighting"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body2"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="85"
-        app:layout_constraintStart_toStartOf="@id/verical55line"
-        app:layout_constraintTop_toBottomOf="@+id/fighting"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body2"/>
-
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="75"
-        app:layout_constraintEnd_toEndOf="@id/verical45line"
-        app:layout_constraintTop_toBottomOf="@+id/laning"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body2"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
