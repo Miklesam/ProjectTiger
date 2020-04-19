@@ -22,7 +22,7 @@ class FragmentGame(myListener: backToLobby) : Fragment(R.layout.fragment_game),
     interface backToLobby{
         fun backToLobbyCLicked()
     }
-
+        //
     var gameEnd=false
     override fun onDialogPositiveClick(position: Array<Int>) {
         gameGame?.CalcilateSpeed(arrayOf(position[0],position[1],position[2],position[3],position[4],3,5,5,4,3))
