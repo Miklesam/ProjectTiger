@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.miklesam.dotamanager.R
 import com.miklesam.dotamanager.datamodels.Player
 import com.miklesam.dotamanager.datamodels.Team
@@ -26,7 +27,9 @@ class TeamAdapter(val teamListener: OnTeamListener) : RecyclerView.Adapter<TeamH
 
     override fun onBindViewHolder(holder: TeamHolder, position: Int) {
         val currentTeam: Team= teams.get(position)
-        holder.teamLogo.setImageResource(currentTeam.teamLogo)
+        Glide.with(holder.itemView.context)
+            .load(currentTeam.teamLogo)
+            .into(holder.teamLogo)
         holder.teamName.text=currentTeam.teamName
     }
 

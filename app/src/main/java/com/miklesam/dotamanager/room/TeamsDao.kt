@@ -12,6 +12,9 @@ interface TeamsDao {
     @Insert
     fun insertTeams(data: List<Team>)
 
+    @Insert
+    fun insertTeam(data: Team)
+
     @Query("SELECT * FROM teams_table ")
     fun getAllTeams(): LiveData<List<Team>>
 }

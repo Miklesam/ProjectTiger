@@ -1,26 +1,25 @@
 package com.miklesam.dotamanager.ui.choosePlayers
 
 import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.widget.Toast
-import androidx.appcompat.content.res.AppCompatResources
+import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.gms.games.Player
+import com.bumptech.glide.Glide
 import com.miklesam.dotamanager.utils.PrefsHelper
 import com.miklesam.dotamanager.R
 import com.miklesam.dotamanager.adapters.MarketAdapter
-import com.miklesam.dotamanager.adapters.MarketPlayerHolder
 import com.miklesam.dotamanager.adapters.OnPlayerListener
 import com.miklesam.dotamanager.datamodels.Heroes
-import com.miklesam.dotamanager.utils.DataConverter
 import com.miklesam.dotamanager.utils.showCustomToast
 import kotlinx.android.synthetic.main.fragment_choose_players.*
 import kotlinx.android.synthetic.main.fragment_choose_players.backFlag
@@ -165,12 +164,11 @@ class FragmentChoosePlayers : Fragment(R.layout.fragment_choose_players), OnPlay
         recycler?.visibility = GONE
         playerInfo.visibility = VISIBLE
         bttn_layout.visibility = VISIBLE
-        //buyBttn.visibility= VISIBLE
-        //cancelBttn.visibility= VISIBLE
         player = playerSortedList?.get(position)
         playerName.text = player!!.nickname
-        //image.setImageResource(player!!.photo)
-        image.setImageBitmap(DataConverter.convertByteArray2Image(player!!.photo))
+        Glide.with(this)
+            .load(player!!.photo)
+            .into(image)
         playerFullName.text = player!!.name
         microControlNum.text = player!!.microcontrol.toString()
         macroControlNum.text = player!!.macrocontrol.toString()
@@ -182,9 +180,9 @@ class FragmentChoosePlayers : Fragment(R.layout.fragment_choose_players), OnPlay
         fightingNum.text = player!!.fighting.toString()
         tacticNum.text = player!!.tactics.toString()
         moralNum.text = player!!.morals.toString()
-        //backFlag.background = context?.let { AppCompatResources.getDrawable(it, player!!.flag) }
-
-        backFlag.background=context?.let{ BitmapDrawable(DataConverter.convertByteArray2Image(player!!.flag)) }
+        val inputStream =  context?.contentResolver?.openInputStream(player!!.flag.toUri())
+        val drawable = Drawable.createFromStream(inputStream, player!!.flag)
+        backFlag.background=drawable
         signature1.setImageResource(Heroes.values()[player!!.signature1].image_pick)
         signature2.setImageResource(Heroes.values()[player!!.signature2].image_pick)
         signature3.setImageResource(Heroes.values()[player!!.signature3].image_pick)

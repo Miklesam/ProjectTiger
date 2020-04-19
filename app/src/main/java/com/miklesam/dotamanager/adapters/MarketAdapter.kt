@@ -5,9 +5,9 @@ import android.view.ViewGroup
 import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.miklesam.dotamanager.R
 import com.miklesam.dotamanager.datamodels.Player
-import com.miklesam.dotamanager.utils.DataConverter
 import java.util.ArrayList
 
 class MarketAdapter(playerListener: OnPlayerListener) : RecyclerView.Adapter<MarketPlayerHolder>() {
@@ -31,11 +31,12 @@ class MarketAdapter(playerListener: OnPlayerListener) : RecyclerView.Adapter<Mar
         holder.name.text=currentPlayer.name
         holder.position.text=currentPlayer.position
         holder.cost.text=currentPlayer.cost
-        //holder.flag.setImageResource(currentPlayer.flag)
-        holder.flag.setImageBitmap(DataConverter.convertByteArray2Image(currentPlayer.flag))
-       // holder.photo.setImageResource(currentPlayer.photo)
-        holder.photo.setImageBitmap(DataConverter.convertByteArray2Image(currentPlayer.photo))
-
+        Glide.with(holder.itemView.context)
+            .load(currentPlayer.flag)
+            .into(holder.flag)
+        Glide.with(holder.itemView.context)
+            .load(currentPlayer.photo)
+            .into(holder.photo)
         ViewCompat.setTransitionName(holder.photo, position.toString() + "_photo")
         ViewCompat.setTransitionName(holder.name, position.toString() + "_name")
         ViewCompat.setTransitionName(holder.position, position.toString() + "_position")

@@ -1,18 +1,17 @@
 package com.miklesam.dotamanager.adapters
 
 import android.content.Context
-import android.graphics.BitmapFactory
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.appcompat.content.res.AppCompatResources.getDrawable
+import androidx.core.net.toUri
 import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.miklesam.dotamanager.R
 import com.miklesam.dotamanager.datamodels.Player
-import com.miklesam.dotamanager.utils.DataConverter
 import java.util.ArrayList
 
 class TeamPlayersAdapter(val context : Context?,playerListener: OnPlayerListener) : RecyclerView.Adapter<TeamPlayerHolder>() {
@@ -34,10 +33,12 @@ class TeamPlayersAdapter(val context : Context?,playerListener: OnPlayerListener
         val currentPlayer: Player= players.get(position)
         holder.nickName.text=currentPlayer.nickname
         holder.name.text=currentPlayer.name
-        //holder.photo.setImageResource(currentPlayer.photo)
-        holder.photo.setImageBitmap(DataConverter.convertByteArray2Image(currentPlayer.photo))
-        //holder.backGround.background= context?.let { getDrawable(it,currentPlayer.flag) }
-        holder.backGround.background=context?.let{BitmapDrawable(DataConverter.convertByteArray2Image(currentPlayer.flag))}
+        Glide.with(holder.itemView.context)
+            .load(currentPlayer.photo)
+            .into(holder.photo)
+        val inputStream =  holder.itemView.context.contentResolver.openInputStream(currentPlayer.flag.toUri())
+        val drawable = Drawable.createFromStream(inputStream, currentPlayer.flag)
+        holder.backGround.background=drawable
         ViewCompat.setTransitionName(holder.photo, position.toString() + "_photo")
         ViewCompat.setTransitionName(holder.name, position.toString() + "_name")
     }

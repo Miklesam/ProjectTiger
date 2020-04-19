@@ -9,7 +9,7 @@ data class Team(
     @ColumnInfo(name = "teamName")
     var teamName: String,
     @ColumnInfo(name = "teamLogo")
-    var teamLogo: Int,
+    var teamLogo: String,
     @ColumnInfo(name = "teamDescription")
     var teamDescription: String?,
     @ColumnInfo(name = "playerPosition1")
@@ -23,7 +23,7 @@ data class Team(
     @ColumnInfo(name = "playerPosition5")
     var playerPosition5: String,
     @ColumnInfo(name = "teamTrophy")
-    var teamTrophy: Int
+    var teamTrophy: String
 ){
     @PrimaryKey(autoGenerate = true)
     var id_key:Int=0
