@@ -1,6 +1,5 @@
 package com.miklesam.dotamanager.utils
 
-import android.app.Activity
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
