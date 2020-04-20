@@ -14,14 +14,14 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 
-@Database(entities = [Team::class], version = 2)
+@Database(entities = [Team::class], version = 1)
 abstract class TeamsDatabase :RoomDatabase(){
     abstract fun noteDao(): TeamsDao
     companion object {
         val scope = CoroutineScope(Dispatchers.IO + SupervisorJob())
         @Volatile
         private var INSTANCE: TeamsDatabase? = null
-        val MIGRATION_1_2 = Migration1To2()
+        //val MIGRATION_1_2 = Migration1To2()
         fun getInstance(context: Context): TeamsDatabase =
             INSTANCE ?: synchronized(this) {
                 INSTANCE ?: buildDatabase(context).also { INSTANCE = it }
@@ -39,13 +39,19 @@ abstract class TeamsDatabase :RoomDatabase(){
                             getInstance(context).noteDao().insertTeam(TeamsList.Navi)
                             getInstance(context).noteDao().insertTeam(TeamsList.Gambit)
                             getInstance(context).noteDao().insertTeam(TeamsList.VP)
+                            getInstance(context).noteDao().insertTeam(TeamsList.Secret)
+                            getInstance(context).noteDao().insertTeam(TeamsList.ViciGaming)
+                            getInstance(context).noteDao().insertTeam(TeamsList.EG)
+                            getInstance(context).noteDao().insertTeam(TeamsList.Alliance)
+                            getInstance(context).noteDao().insertTeam(TeamsList.TNC)
+                            getInstance(context).noteDao().insertTeam(TeamsList.Liquid)
                         }
                     }
                 })
-                .addMigrations(MIGRATION_1_2)
+               // .addMigrations(MIGRATION_1_2)
                 .build()
     }
-
+/*
     class Migration1To2() : Migration(1,2) {
         override fun migrate(database: SupportSQLiteDatabase) {
             scope.launch {
@@ -54,4 +60,6 @@ abstract class TeamsDatabase :RoomDatabase(){
 
         }
     }
+
+ */
 }

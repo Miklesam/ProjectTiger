@@ -76,9 +76,9 @@ class FragmentChoosePlayers : Fragment(R.layout.fragment_choose_players), OnPlay
             nextChoosen.nextChoosenClicked()
         }
 
-        choosenViewModel?.getPlayers()?.observe(this, Observer {
-            Log.w("Choosen", it.toString())
-            playerSortedList = it.sortedWith(compareBy { it.cost })
+        choosenViewModel?.getPlayers()?.observe(this, Observer { playerList ->
+            Log.w("Choosen", playerList.toString())
+            playerSortedList = playerList.sortedWith(compareBy { it.cost.toInt() })
             adapter?.setPlayers(playerSortedList!!)
         })
         cancelBttn.setOnClickListener {
@@ -180,9 +180,9 @@ class FragmentChoosePlayers : Fragment(R.layout.fragment_choose_players), OnPlay
         fightingNum.text = player!!.fighting.toString()
         tacticNum.text = player!!.tactics.toString()
         moralNum.text = player!!.morals.toString()
-        val inputStream =  context?.contentResolver?.openInputStream(player!!.flag.toUri())
+        val inputStream = context?.contentResolver?.openInputStream(player!!.flag.toUri())
         val drawable = Drawable.createFromStream(inputStream, player!!.flag)
-        backFlag.background=drawable
+        backFlag.background = drawable
         signature1.setImageResource(Heroes.values()[player!!.signature1].image_pick)
         signature2.setImageResource(Heroes.values()[player!!.signature2].image_pick)
         signature3.setImageResource(Heroes.values()[player!!.signature3].image_pick)
