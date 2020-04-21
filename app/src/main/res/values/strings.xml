@@ -7,12 +7,16 @@
     <string name="about">About</string>
     <string name="team">Teams</string>
     <string name="continue_str">Continue</string>
+    <string name="team_trainning">Team\nTraining</string>
+    <string name="solo_trainning">Solo\nTraining</string>
+
 
 
     <string name="game_bttn">G\na\nm\ne</string>
     <string name="market_bttn">M\n\a\nr\nk\ne\nt</string>
     <string name="team_bttn">Team</string>
     <string name="media_bttn">Media</string>
+    <string name="practice_bttn">P\nr\na\nc\nt\ni\nc\ne</string>
 
     <string name="app_id">903146747204</string>
 

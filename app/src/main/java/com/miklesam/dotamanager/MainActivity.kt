@@ -16,6 +16,7 @@ import com.miklesam.dotamanager.simplefragments.*
 import com.miklesam.dotamanager.ui.choosePlayers.FragmentChoosePlayers
 import com.miklesam.dotamanager.ui.game.FragmentGame
 import com.miklesam.dotamanager.ui.market.FragmentMarket
+import com.miklesam.dotamanager.ui.practice.FragmentPractice
 import com.miklesam.dotamanager.ui.team.FragmentTeam
 import com.miklesam.dotamanager.ui.teams.FragmentTeams
 import com.miklesam.dotamanager.ui.teamsprofile.FragmentTeamsProfile
@@ -135,7 +136,7 @@ class MainActivity : AppCompatActivity(), FragmentMenu.MenuListener, FragmentLob
 
     private fun showGame() {
         val transaction = supportFragmentManager.beginTransaction()
-        val fragment = FragmentGame(this)
+        val fragment = FragmentPractice()
         transaction.setCustomAnimations(
             R.anim.enter_right_to_left,
             R.anim.exit_right_to_left,
