@@ -23,7 +23,6 @@ class FragmentPractice : Fragment(R.layout.fragment_practice), OnPlayerListener,
     private var practiceViewModel: PracticeViewModel?=null
     var recycler: RecyclerView?=null
     var adapter : TeamPlayersAdapter?=null
-    var teamAdapter : TeamAdapter?=null
     var teams: List<Team>? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -32,7 +31,6 @@ class FragmentPractice : Fragment(R.layout.fragment_practice), OnPlayerListener,
         recycler?.layoutManager = GridLayoutManager(context,5)
         recycler?.setHasFixedSize(true)
         adapter = TeamPlayersAdapter(context,this)
-        teamAdapter=TeamAdapter(this)
         recycler?.adapter = adapter
 
         practiceViewModel= ViewModelProviders.of(this).get(PracticeViewModel::class.java)
@@ -42,13 +40,10 @@ class FragmentPractice : Fragment(R.layout.fragment_practice), OnPlayerListener,
         })
         practiceViewModel?.getTeams()?.observe(this, Observer {
             Log.w("Teams Hello",it.toString())
-            teams=it
-            teamAdapter?.setTeams(it)
         })
 
         teamTraining.setOnClickListener {
-            recycler?.layoutManager = LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL, false)
-            recycler?.adapter=teamAdapter
+            //
         }
         soloTraining.setOnClickListener {
             recycler?.layoutManager = GridLayoutManager(context,5)
