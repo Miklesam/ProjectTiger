@@ -15,6 +15,7 @@ import com.miklesam.dotamanager.adapters.OnTeamListener
 import com.miklesam.dotamanager.adapters.TeamAdapter
 import com.miklesam.dotamanager.adapters.TeamPlayersAdapter
 import com.miklesam.dotamanager.datamodels.Team
+import com.miklesam.dotamanager.simplefragments.FragmentMenu
 import kotlinx.android.synthetic.main.fragment_menu.*
 import kotlinx.android.synthetic.main.fragment_practice.*
 
@@ -25,8 +26,13 @@ class FragmentPractice : Fragment(R.layout.fragment_practice), OnPlayerListener,
     var adapter : TeamPlayersAdapter?=null
     var teams: List<Team>? = null
 
+    interface PracticeListener {
+        fun teamTrainingClicked()
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val practiceListener = activity as PracticeListener
         recycler=view.findViewById(R.id.teamRecycler)
         recycler?.layoutManager = GridLayoutManager(context,5)
         recycler?.setHasFixedSize(true)
@@ -43,7 +49,7 @@ class FragmentPractice : Fragment(R.layout.fragment_practice), OnPlayerListener,
         })
 
         teamTraining.setOnClickListener {
-            //
+            practiceListener.teamTrainingClicked()
         }
         soloTraining.setOnClickListener {
             recycler?.layoutManager = GridLayoutManager(context,5)

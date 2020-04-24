@@ -16,17 +16,19 @@ import com.miklesam.dotamanager.simplefragments.*
 import com.miklesam.dotamanager.ui.choosePlayers.FragmentChoosePlayers
 import com.miklesam.dotamanager.ui.game.FragmentGame
 import com.miklesam.dotamanager.ui.market.FragmentMarket
+import com.miklesam.dotamanager.ui.pickstage.PickStage
 import com.miklesam.dotamanager.ui.practice.FragmentPractice
 import com.miklesam.dotamanager.ui.team.FragmentTeam
 import com.miklesam.dotamanager.ui.teams.FragmentTeams
 import com.miklesam.dotamanager.ui.teamsprofile.FragmentTeamsProfile
-import com.miklesam.dotamanager.utils.DetailsTransition
+import com.miklesam.dotamanager.utils.*
 
 
 class MainActivity : AppCompatActivity(), FragmentMenu.MenuListener, FragmentLobby.LobbyListener,
     FragmentMarket.playerChoose, FragmentGame.backToLobby, FragmentNewGame.startListener,
     FragmentDescription.nextListener, FragmentChoosePlayers.nextChoosenListener,
-    FragmentTeams.teamShow, FragmentTeamSigning.gotoLobby {
+    FragmentTeams.teamShow, FragmentTeamSigning.gotoLobby,
+    FragmentPractice.PracticeListener {
 
     private var googleSignInClient: GoogleSignInClient? = null
     private var achievementClient: AchievementsClient? = null
@@ -135,116 +137,36 @@ class MainActivity : AppCompatActivity(), FragmentMenu.MenuListener, FragmentLob
     }
 
     private fun showGame() {
-        val transaction = supportFragmentManager.beginTransaction()
-        val fragment = FragmentPractice()
-        transaction.setCustomAnimations(
-            R.anim.enter_right_to_left,
-            R.anim.exit_right_to_left,
-            R.anim.enter_left_to_right,
-            R.anim.exit_left_to_right
-        )
-        transaction.replace(R.id.fragment_holder, fragment)
-        transaction.addToBackStack(null)
-        transaction.commit()
+        replaceFragmentFromRightToLeft(FragmentPractice(),true)
     }
 
     private fun showMarket() {
-        val transaction = supportFragmentManager.beginTransaction()
-        val fragment = FragmentMarket()
-        transaction.setCustomAnimations(
-            R.anim.enter_left_to_right,
-            R.anim.exit_left_to_right,
-            R.anim.enter_right_to_left,
-            R.anim.exit_right_to_left
-        )
-        transaction.replace(R.id.fragment_holder, fragment)
-        transaction.addToBackStack(null)
-        transaction.commit()
+        replaceFragmentFromLeftToRight(FragmentMarket())
     }
 
     private fun showTeam() {
-        val transaction = supportFragmentManager.beginTransaction()
-        val fragment = FragmentTeam()
-        transaction.setCustomAnimations(
-            R.anim.enter_top_to_bottom,
-            R.anim.exit_top_to_bottom,
-            R.anim.enter_bottom_to_top,
-            R.anim.exit_bottom_to_top
-        )
-        transaction.replace(R.id.fragment_holder, fragment)
-        transaction.addToBackStack(null)
-        transaction.commit()
+        replaceFragmentFromBottomToTop(FragmentTeam())
     }
 
     private fun showTrainning() {
-        val transaction = supportFragmentManager.beginTransaction()
-        val fragment = FragmentMedia()
-        transaction.setCustomAnimations(
-            R.anim.enter_bottom_to_top,
-            R.anim.exit_bottom_to_top,
-            R.anim.enter_top_to_bottom,
-            R.anim.exit_top_to_bottom
-        )
-        transaction.replace(R.id.fragment_holder, fragment)
-        transaction.addToBackStack(null)
-        transaction.commit()
+        replaceFragmentFromTopToBottom(FragmentMedia())
     }
 
     private fun showLobby() {
-        val transaction = supportFragmentManager.beginTransaction()
-        val fragment = FragmentLobby()
-        transaction.setCustomAnimations(
-            R.anim.enter_right_to_left,
-            R.anim.exit_right_to_left,
-            R.anim.enter_left_to_right,
-            R.anim.exit_left_to_right
-        )
-        transaction.replace(R.id.fragment_holder, fragment)
-        transaction.addToBackStack(null)
-        transaction.commit()
+        replaceFragmentFromRightToLeft(FragmentLobby(),true)
     }
 
     private fun showTeams() {
-        val transaction = supportFragmentManager.beginTransaction()
-        val fragment = FragmentTeams()
-        transaction.setCustomAnimations(
-            R.anim.enter_right_to_left,
-            R.anim.exit_right_to_left,
-            R.anim.enter_left_to_right,
-            R.anim.exit_left_to_right
-        )
-        transaction.replace(R.id.fragment_holder, fragment)
-        transaction.addToBackStack(null)
-        transaction.commit()
+        replaceFragmentFromRightToLeft(FragmentTeams(),true)
     }
 
 
     private fun showNewGame() {
-        val transaction = supportFragmentManager.beginTransaction()
-        val fragment = FragmentNewGame()
-        transaction.setCustomAnimations(
-            R.anim.enter_right_to_left,
-            R.anim.exit_right_to_left,
-            R.anim.enter_left_to_right,
-            R.anim.exit_left_to_right
-        )
-        transaction.replace(R.id.fragment_holder, fragment)
-        transaction.addToBackStack(null)
-        transaction.commit()
+        replaceFragmentFromRightToLeft(FragmentNewGame(),true)
     }
 
     private fun showNoBackStackLobby() {
-        val transaction = supportFragmentManager.beginTransaction()
-        val fragment = FragmentLobby()
-        transaction.setCustomAnimations(
-            R.anim.enter_right_to_left,
-            R.anim.exit_right_to_left,
-            R.anim.enter_left_to_right,
-            R.anim.exit_left_to_right
-        )
-        transaction.replace(R.id.fragment_holder, fragment)
-        //transaction.addToBackStack(null)
-        transaction.commit()
+        replaceFragmentFromRightToLeft(FragmentLobby(),false)
     }
 
     override fun onPlayerClickFragment(player: Player, holder: MarketPlayerHolder) {
@@ -273,41 +195,23 @@ class MainActivity : AppCompatActivity(), FragmentMenu.MenuListener, FragmentLob
 
     override fun backToLobbyCLicked() {
         Log.w("Activity", "onEnd Clicked")
-        //showNoBackStackLobby()
         onBackPressed()
     }
 
     override fun startClickedClicked() {
-        val transaction = supportFragmentManager.beginTransaction()
-        val fragment = FragmentDescription()
-        transaction.setCustomAnimations(
-            R.anim.enter_right_to_left,
-            R.anim.exit_right_to_left,
-            R.anim.enter_left_to_right,
-            R.anim.exit_left_to_right
-        )
-        transaction.replace(R.id.fragment_holder, fragment)
-        transaction.commit()
+        replaceFragmentFromRightToLeft(FragmentDescription(),false)
     }
 
     override fun nextClicked() {
-        val transaction = supportFragmentManager.beginTransaction()
-        val fragment = FragmentChoosePlayers()
-        transaction.setCustomAnimations(
-            R.anim.enter_right_to_left,
-            R.anim.exit_right_to_left,
-            R.anim.enter_left_to_right,
-            R.anim.exit_left_to_right
-        )
-        transaction.replace(R.id.fragment_holder, fragment)
-        transaction.commit()
+        replaceFragmentFromRightToLeft(FragmentChoosePlayers(),false)
     }
 
     override fun nextChoosenClicked() {
-        val transaction = supportFragmentManager.beginTransaction()
-        val fragment = FragmentTeamSigning()
-        transaction.replace(R.id.fragment_holder, fragment)
-        transaction.commit()
+        //val transaction = supportFragmentManager.beginTransaction()
+        //val fragment = FragmentTeamSigning()
+        //transaction.replace(R.id.fragment_holder, fragment)
+        //transaction.commit()
+        replaceFragmentFromRightToLeft(FragmentTeamSigning(),false)
 
     }
 
@@ -329,6 +233,13 @@ class MainActivity : AppCompatActivity(), FragmentMenu.MenuListener, FragmentLob
 
     override fun toLobby() {
         showNoBackStackLobby()
+    }
+
+    override fun teamTrainingClicked() {
+        val transaction = supportFragmentManager.beginTransaction()
+        val fragment = PickStage()
+        transaction.replace(R.id.fragment_holder, fragment)
+        transaction.commit()
     }
 
 
