@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity(), FragmentMenu.MenuListener, FragmentLob
     FragmentMarket.playerChoose, FragmentGame.backToLobby, FragmentNewGame.startListener,
     FragmentDescription.nextListener, FragmentChoosePlayers.nextChoosenListener,
     FragmentTeams.teamShow, FragmentTeamSigning.gotoLobby,
-    FragmentPractice.PracticeListener {
+    FragmentPractice.PracticeListener, PickStage.nextFromPick {
 
     private var googleSignInClient: GoogleSignInClient? = null
     private var achievementClient: AchievementsClient? = null
@@ -240,6 +240,10 @@ class MainActivity : AppCompatActivity(), FragmentMenu.MenuListener, FragmentLob
         val fragment = PickStage()
         transaction.replace(R.id.fragment_holder, fragment)
         transaction.commit()
+    }
+
+    override fun pickEnded() {
+        replaceFragmentFromRightToLeft(FragmentGame(this),true)
     }
 
 

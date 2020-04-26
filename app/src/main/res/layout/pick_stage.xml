@@ -1095,6 +1095,7 @@
         android:id="@+id/Plan_state"
         android:layout_width="150sp"
         android:layout_height="40sp"
+        android:visibility="gone"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         app:srcCompat="@drawable/next_bttn_canv_2" />

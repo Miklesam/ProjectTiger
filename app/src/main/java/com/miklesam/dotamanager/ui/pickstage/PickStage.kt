@@ -3,18 +3,85 @@ package com.miklesam.dotamanager.ui.pickstage
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.view.View
+import android.view.View.VISIBLE
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.miklesam.dotamanager.R
 import com.miklesam.dotamanager.datamodels.Heroes
+import com.miklesam.dotamanager.utils.showCustomToast
 import kotlinx.android.synthetic.main.pick_stage.*
 
 class PickStage : Fragment(R.layout.pick_stage) {
     var Heros_icon =
         arrayOfNulls<ImageView>(117)
+    val Pick_stage =
+        arrayOfNulls<ImageView>(22)
+    var arrayHero: MutableList<Heroes>? = null
+    var block = false
+    var pick_state = 0
+
+    interface nextFromPick {
+        fun pickEnded()
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val endedListener = activity as nextFromPick
+        arrayHero = Heroes.values().toMutableList()
+        initViews()
+        Plan_state.setOnClickListener { endedListener.pickEnded() }
+
+
+        val timer = object : CountDownTimer(20000, 1000) {
+            override fun onTick(millisUntilFinished: Long) {
+                timeleft.text = ("" + millisUntilFinished / 1000)
+            }
+
+            override fun onFinish() {
+                randomPick()
+            }
+        }
+        timer.start()
+
+        for (i in 0 until 117) {
+            Heros_icon[i]!!.setOnClickListener {
+                if (!block) {
+                    block = true
+                    if (arrayHero!!.contains(Heroes.values().find { it.id == i })) {
+                        Heros_icon[i]!!.setImageResource(
+                            Heroes.values().find { it.id == i }!!.largeBan
+                        )
+                        val chooseHero = Heroes.values().find { it.id == i }
+                        if (pick_state == 8 || pick_state == 11 || pick_state == 15 || pick_state == 17 || pick_state == 20) {
+                            Pick_stage[pick_state]?.setImageResource(chooseHero!!.image_pick)
+                        } else {
+                            Pick_stage[pick_state]?.setImageResource(chooseHero!!.minBan)
+                            block = false
+                        }
+
+                        arrayHero!!.remove(chooseHero)
+                        pick_state++
+                        if (pick_state != 12 && pick_state != 20)
+                        {
+                            randomPick()
+                        }else{
+                            block=false
+                        }
+                        timer.cancel()
+                    } else {
+                        showCustomToast("Забанен", Toast.LENGTH_SHORT)
+                    }
+                }
+
+
+            }
+
+        }
+        Help.text = "Ваша очередь бана"
+    }
+
+    private fun initViews() {
         Heros_icon[0] = Abadon
         Heros_icon[1] = Alcemic
         Heros_icon[2] = Axe
@@ -292,19 +359,49 @@ class PickStage : Fragment(R.layout.pick_stage) {
         Heros_icon[115]!!.setImageResource(Heroes.WITCH_DOCTOR.icon)
         Heros_icon[116]!!.setImageResource(Heroes.ZEUS.icon)
 
-        for (i in 0 until  117){
-            Heros_icon[i]!!.setOnClickListener { Heros_icon[i]!!.setImageResource(Heroes.values().find { it.id==i }!!.largeBan) }
+        Pick_stage[0] = ban1
+        Pick_stage[1] = ban2
+        Pick_stage[2] = ban3
+        Pick_stage[3] = ban4
+        Pick_stage[4] = ban5
+        Pick_stage[5] = ban6
+        Pick_stage[6] = ban7
+        Pick_stage[7] = ban8
+        Pick_stage[8] = pick1
+        Pick_stage[9] = pick2
+        Pick_stage[10] = pick3
+        Pick_stage[11] = pick4
+        Pick_stage[12] = ban9
+        Pick_stage[13] = ban10
+        Pick_stage[14] = pick5
+        Pick_stage[15] = pick6
+        Pick_stage[16] = pick7
+        Pick_stage[17] = pick8
+        Pick_stage[18] = ban12
+        Pick_stage[19] = ban11
+        Pick_stage[20] = pick9
+        Pick_stage[21] = pick10
+    }
+
+
+    fun randomPick() {
+        val rnds = (0 until arrayHero!!.size).random()
+        val what = arrayHero!![rnds]
+        Heros_icon[what.id]?.setImageResource(what!!.largeBan)
+        if (pick_state == 9 || pick_state == 10 || pick_state == 14 || pick_state == 16 || pick_state == 21) {
+            Pick_stage[pick_state]?.setImageResource(what!!.image_pick)
+        } else {
+            Pick_stage[pick_state]?.setImageResource(what!!.minBan)
         }
-        Help.text="Ваша очередь бана"
-
-        val timer = object: CountDownTimer(20000, 1000) {
-            override fun onTick(millisUntilFinished: Long) {
-                timeleft.text=(""+ millisUntilFinished / 1000)
-            }
-
-            override fun onFinish() {}
+        arrayHero!!.remove(what)
+        pick_state++
+        if (pick_state == 10 || pick_state == 14) {
+            randomPick()
         }
-        timer.start()
-
+        block = false
+        if (pick_state == 22) {
+            Plan_state.visibility = VISIBLE
+            block = true
+        }
     }
 }
