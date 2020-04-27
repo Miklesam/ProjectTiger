@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.miklesam.dotamanager.R
 import com.miklesam.dotamanager.datamodels.Heroes
+import com.miklesam.dotamanager.utils.PrefsHelper
 import com.miklesam.dotamanager.utils.showCustomToast
 import kotlinx.android.synthetic.main.pick_stage.*
 
@@ -20,9 +21,11 @@ class PickStage : Fragment(R.layout.pick_stage) {
     var arrayHero: MutableList<Heroes>? = null
     var block = false
     var pick_state = 0
+    var timer: CountDownTimer? = null
+    val radiantPicks: ArrayList<Int> = ArrayList()
 
     interface nextFromPick {
-        fun pickEnded()
+        fun pickEnded(radiant:ArrayList<Int>)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -30,19 +33,21 @@ class PickStage : Fragment(R.layout.pick_stage) {
         val endedListener = activity as nextFromPick
         arrayHero = Heroes.values().toMutableList()
         initViews()
-        Plan_state.setOnClickListener { endedListener.pickEnded() }
-
-
-        val timer = object : CountDownTimer(20000, 1000) {
+        Yourteam.text = PrefsHelper.read(PrefsHelper.TEAM_NAME, "")
+        Plan_state.setOnClickListener { endedListener.pickEnded(radiantPicks) }
+        timer = object : CountDownTimer(5000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 timeleft.text = ("" + millisUntilFinished / 1000)
             }
 
             override fun onFinish() {
-                randomPick()
+                if (pick_state != 22) {
+                    block = true
+                    randomPlayerPick()
+                }
             }
         }
-        timer.start()
+        timer?.start()
 
         for (i in 0 until 117) {
             Heros_icon[i]!!.setOnClickListener {
@@ -54,6 +59,7 @@ class PickStage : Fragment(R.layout.pick_stage) {
                         )
                         val chooseHero = Heroes.values().find { it.id == i }
                         if (pick_state == 8 || pick_state == 11 || pick_state == 15 || pick_state == 17 || pick_state == 20) {
+                            radiantPicks.add(chooseHero!!.id)
                             Pick_stage[pick_state]?.setImageResource(chooseHero!!.image_pick)
                         } else {
                             Pick_stage[pick_state]?.setImageResource(chooseHero!!.minBan)
@@ -62,15 +68,15 @@ class PickStage : Fragment(R.layout.pick_stage) {
 
                         arrayHero!!.remove(chooseHero)
                         pick_state++
-                        if (pick_state != 12 && pick_state != 20)
-                        {
-                            randomPick()
-                        }else{
-                            block=false
+                        if (pick_state != 12 && pick_state != 20) {
+                            randomComputerPick()
+                        } else {
+                            block = false
                         }
-                        timer.cancel()
+                        //timer?.cancel()
                     } else {
                         showCustomToast("Забанен", Toast.LENGTH_SHORT)
+                        block = false
                     }
                 }
 
@@ -384,7 +390,7 @@ class PickStage : Fragment(R.layout.pick_stage) {
     }
 
 
-    fun randomPick() {
+    private fun randomComputerPick() {
         val rnds = (0 until arrayHero!!.size).random()
         val what = arrayHero!![rnds]
         Heros_icon[what.id]?.setImageResource(what!!.largeBan)
@@ -396,12 +402,35 @@ class PickStage : Fragment(R.layout.pick_stage) {
         arrayHero!!.remove(what)
         pick_state++
         if (pick_state == 10 || pick_state == 14) {
-            randomPick()
+            randomComputerPick()
         }
+        timer!!.start()
         block = false
         if (pick_state == 22) {
+            timer?.cancel()
             Plan_state.visibility = VISIBLE
             block = true
         }
     }
+
+    private fun randomPlayerPick() {
+        val rnds = (0 until arrayHero!!.size).random()
+        val what = arrayHero!![rnds]
+        Heros_icon[what.id]?.setImageResource(what!!.largeBan)
+        if (pick_state == 8 || pick_state == 11 || pick_state == 15 || pick_state == 17 || pick_state == 20) {
+            Pick_stage[pick_state]?.setImageResource(what!!.image_pick)
+            radiantPicks.add(what!!.id)
+        } else {
+            Pick_stage[pick_state]?.setImageResource(what!!.minBan)
+        }
+        pick_state++
+        arrayHero!!.remove(what)
+        block = false
+        if (pick_state != 12 && pick_state != 20) {
+            randomComputerPick()
+        } else {
+            timer?.start()
+        }
+    }
+
 }

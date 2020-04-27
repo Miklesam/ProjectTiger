@@ -17,6 +17,7 @@ import com.miklesam.dotamanager.ui.choosePlayers.FragmentChoosePlayers
 import com.miklesam.dotamanager.ui.game.FragmentGame
 import com.miklesam.dotamanager.ui.market.FragmentMarket
 import com.miklesam.dotamanager.ui.pickstage.PickStage
+import com.miklesam.dotamanager.ui.plainingstage.PlainingStage
 import com.miklesam.dotamanager.ui.practice.FragmentPractice
 import com.miklesam.dotamanager.ui.team.FragmentTeam
 import com.miklesam.dotamanager.ui.teams.FragmentTeams
@@ -28,7 +29,7 @@ class MainActivity : AppCompatActivity(), FragmentMenu.MenuListener, FragmentLob
     FragmentMarket.playerChoose, FragmentGame.backToLobby, FragmentNewGame.startListener,
     FragmentDescription.nextListener, FragmentChoosePlayers.nextChoosenListener,
     FragmentTeams.teamShow, FragmentTeamSigning.gotoLobby,
-    FragmentPractice.PracticeListener, PickStage.nextFromPick {
+    FragmentPractice.PracticeListener, PickStage.nextFromPick, PlainingStage.nextFromPlaining {
 
     private var googleSignInClient: GoogleSignInClient? = null
     private var achievementClient: AchievementsClient? = null
@@ -242,8 +243,18 @@ class MainActivity : AppCompatActivity(), FragmentMenu.MenuListener, FragmentLob
         transaction.commit()
     }
 
-    override fun pickEnded() {
-        replaceFragmentFromRightToLeft(FragmentGame(this),true)
+    override fun pickEnded(radiant:ArrayList<Int>) {
+        val transaction = supportFragmentManager.beginTransaction()
+        val fragment = PlainingStage()
+        val bundle = Bundle()
+        bundle.putIntegerArrayList("radiant",radiant)
+        fragment.arguments = bundle
+        transaction.replace(R.id.fragment_holder, fragment)
+        transaction.commit()
+    }
+
+    override fun plainingEnded() {
+        replaceFragmentFromRightToLeft(FragmentGame(this),false)
     }
 
 

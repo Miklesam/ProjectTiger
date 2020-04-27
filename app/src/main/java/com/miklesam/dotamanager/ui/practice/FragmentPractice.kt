@@ -52,8 +52,7 @@ class FragmentPractice : Fragment(R.layout.fragment_practice), OnPlayerListener,
             practiceListener.teamTrainingClicked()
         }
         soloTraining.setOnClickListener {
-            recycler?.layoutManager = GridLayoutManager(context,5)
-            recycler?.adapter=adapter
+
         }
 
 
