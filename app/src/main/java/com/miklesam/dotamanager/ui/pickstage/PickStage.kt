@@ -1,5 +1,8 @@
 package com.miklesam.dotamanager.ui.pickstage
 
+import android.media.AudioAttributes
+import android.media.MediaPlayer
+import android.media.SoundPool
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.view.View
@@ -13,6 +16,7 @@ import com.miklesam.dotamanager.utils.PrefsHelper
 import com.miklesam.dotamanager.utils.showCustomToast
 import kotlinx.android.synthetic.main.pick_stage.*
 
+
 class PickStage : Fragment(R.layout.pick_stage) {
     var Heros_icon =
         arrayOfNulls<ImageView>(117)
@@ -23,9 +27,37 @@ class PickStage : Fragment(R.layout.pick_stage) {
     var pick_state = 0
     var timer: CountDownTimer? = null
     val radiantPicks: ArrayList<Int> = ArrayList()
+    var player: MediaPlayer? = null
+    lateinit var soundPull: SoundPool
+    var soundOne: Int = 0
 
     interface nextFromPick {
         fun pickEnded(radiant:ArrayList<Int>)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        player?.pause()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        player?.release()
+        player=null
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val audioAtributes = AudioAttributes.Builder()
+            .setUsage(AudioAttributes.USAGE_ASSISTANCE_SONIFICATION)
+            .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+            .build()
+
+        soundPull = SoundPool.Builder()
+            .setMaxStreams(6)
+            .setAudioAttributes(audioAtributes)
+            .build()
+        soundOne = soundPull.load(context, R.raw.your_turn_to_pick, 1)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -33,9 +65,13 @@ class PickStage : Fragment(R.layout.pick_stage) {
         val endedListener = activity as nextFromPick
         arrayHero = Heroes.values().toMutableList()
         initViews()
+        player = MediaPlayer.create(context, R.raw.pick_music)
+        player?.setOnCompletionListener { player?.start() }
+        player?.start()
+
         Yourteam.text = PrefsHelper.read(PrefsHelper.TEAM_NAME, "")
         Plan_state.setOnClickListener { endedListener.pickEnded(radiantPicks) }
-        timer = object : CountDownTimer(5000, 1000) {
+        timer = object : CountDownTimer(10000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 timeleft.text = ("" + millisUntilFinished / 1000)
             }
@@ -85,6 +121,7 @@ class PickStage : Fragment(R.layout.pick_stage) {
 
         }
         Help.text = "Ваша очередь бана"
+        soundPull.play(soundOne, 1F, 1F, 0, 0, 1F)
     }
 
     private fun initViews() {
@@ -404,6 +441,7 @@ class PickStage : Fragment(R.layout.pick_stage) {
         if (pick_state == 10 || pick_state == 14) {
             randomComputerPick()
         }
+        soundPull.play(soundOne, 1F, 1F, 0, 0, 1F)
         timer!!.start()
         block = false
         if (pick_state == 22) {
