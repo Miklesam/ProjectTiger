@@ -5,6 +5,7 @@ import android.media.MediaPlayer
 import android.media.SoundPool
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.util.Log
 import android.view.View
 import android.view.View.VISIBLE
 import android.widget.ImageView
@@ -28,7 +29,7 @@ class PickStage : Fragment(R.layout.pick_stage) {
     var timer: CountDownTimer? = null
     val radiantPicks: ArrayList<Int> = ArrayList()
     var player: MediaPlayer? = null
-    lateinit var soundPull: SoundPool
+    var soundPull: SoundPool?= null
     var soundOne: Int = 0
 
     interface nextFromPick {
@@ -36,14 +37,21 @@ class PickStage : Fragment(R.layout.pick_stage) {
     }
 
     override fun onPause() {
+        Log.w("Pick"," Freagment Pick Pause")
         super.onPause()
         player?.pause()
     }
 
     override fun onStop() {
         super.onStop()
+        Log.w("Pick","Freagment PickStop")
+        player?.stop()
         player?.release()
         player=null
+        timer?.cancel()
+        timer=null
+        soundPull?.stop(soundOne)
+        soundPull=null
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,7 +65,7 @@ class PickStage : Fragment(R.layout.pick_stage) {
             .setMaxStreams(6)
             .setAudioAttributes(audioAtributes)
             .build()
-        soundOne = soundPull.load(context, R.raw.your_turn_to_pick, 1)
+        soundOne = soundPull!!.load(context, R.raw.your_turn_to_pick, 1)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -121,7 +129,7 @@ class PickStage : Fragment(R.layout.pick_stage) {
 
         }
         Help.text = "Ваша очередь бана"
-        soundPull.play(soundOne, 1F, 1F, 0, 0, 1F)
+        callYourPick()
     }
 
     private fun initViews() {
@@ -426,6 +434,19 @@ class PickStage : Fragment(R.layout.pick_stage) {
         Pick_stage[21] = pick10
     }
 
+    private fun callYourPick(){
+       val timer2 = object : CountDownTimer(500, 100) {
+            override fun onTick(millisUntilFinished: Long) {
+
+            }
+
+            override fun onFinish() {
+                soundPull?.play(soundOne, 1F, 1F, 0, 0, 1F)
+            }
+        }
+        timer2.start()
+    }
+
 
     private fun randomComputerPick() {
         val rnds = (0 until arrayHero!!.size).random()
@@ -441,7 +462,7 @@ class PickStage : Fragment(R.layout.pick_stage) {
         if (pick_state == 10 || pick_state == 14) {
             randomComputerPick()
         }
-        soundPull.play(soundOne, 1F, 1F, 0, 0, 1F)
+        soundPull?.play(soundOne, 1F, 1F, 0, 0, 1F)
         timer!!.start()
         block = false
         if (pick_state == 22) {

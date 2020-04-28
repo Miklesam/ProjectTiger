@@ -2,6 +2,8 @@ package com.miklesam.dotamanager.simplefragments
 
 import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.speech.tts.TextToSpeech
+import android.util.Log
 import android.view.View
 import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
@@ -11,10 +13,12 @@ import com.miklesam.dotamanager.R
 import com.miklesam.dotamanager.ui.team.TeamViewModel
 import com.miklesam.dotamanager.utils.PrefsHelper
 import kotlinx.android.synthetic.main.fragment_about.*
+import java.util.*
 
-class FragmentTeamSigning :Fragment(R.layout.fragment_about){
+class FragmentTeamSigning :Fragment(R.layout.fragment_about),TextToSpeech.OnInitListener{
 
     private var teamViewModel: TeamViewModel?=null
+    private var tts: TextToSpeech? = null
 
     interface gotoLobby{
         fun toLobby()
@@ -23,6 +27,7 @@ class FragmentTeamSigning :Fragment(R.layout.fragment_about){
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        tts = TextToSpeech(context, this)
         teamViewModel= ViewModelProviders.of(this).get(TeamViewModel::class.java)
         teamViewModel?.getPlayer()?.observe(this, Observer {
              val inputStream1 =  context?.contentResolver?.openInputStream(it[0].photo.toUri())
@@ -48,9 +53,37 @@ class FragmentTeamSigning :Fragment(R.layout.fragment_about){
         val listener = activity as gotoLobby
         answer1.setOnClickListener { listener.toLobby() }
         answer2.setOnClickListener { listener.toLobby() }
+        teamNameText.setOnClickListener { speakOut() }
+
 
         val teamNaming=PrefsHelper.read(PrefsHelper.TEAM_NAME,"")
         teamNameText.text="Команда $teamNaming \n подписывает перспективный состав"
+
+    }
+
+    override fun onInit(p0: Int) {
+        if (p0 === TextToSpeech.SUCCESS) {
+            val result: Int = tts?.setLanguage(Locale.ENGLISH) ?: 0
+
+            tts?.setPitch(1.2F) // set pitch level
+
+            tts?.setSpeechRate(0.9F) // set speech speed rate
+            if (result == TextToSpeech.LANG_MISSING_DATA
+                || result == TextToSpeech.LANG_NOT_SUPPORTED
+            ) {
+                Log.e("TTS", "Language is not supported")
+            } else {
+                //btnSpeak.setEnabled(true)
+                //speakOut()
+            }
+        } else {
+            Log.e("TTS", "Initilization Failed")
+        }
+    }
+
+    private fun speakOut() {
+        val text = PrefsHelper.read(PrefsHelper.TEAM_NAME,"")
+        tts?.speak(text, TextToSpeech.QUEUE_FLUSH, null)
     }
 
 }

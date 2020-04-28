@@ -1,6 +1,7 @@
 package com.miklesam.dotamanager.simplefragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
@@ -33,6 +34,7 @@ class FragmentMenu :Fragment(R.layout.fragment_menu){
         super.onViewCreated(view, savedInstanceState)
         val menuListener = activity as MenuListener
         val bttn=view.findViewById<Button>(R.id.playGame)
+        Log.w("Pick"," Freagment Menu ViewCreated")
         bttn.setOnClickListener {
             PrefsHelper.write(SHOW_CONTINUE,"0")
             PrefsHelper.write(POSITION_1,"")

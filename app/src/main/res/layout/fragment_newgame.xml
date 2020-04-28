@@ -26,7 +26,7 @@
         android:id="@+id/editText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:imeOptions="flagNoExtractUi"
+        android:imeOptions="flagNoExtractUi|flagForceAscii|actionDone"
         app:layout_constraintBottom_toTopOf="@+id/startBttn"
         android:layout_marginTop="8dp"
         android:gravity="center"
@@ -34,10 +34,11 @@
         android:maxLength="45"
         android:textColor="@color/textMain"
         android:layout_marginRight="8dp"
+        android:digits="abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginLeft="8dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:hint="Your team name ..."
+        android:hint="Your team name ...(Only english signs)"
         android:inputType="text" />
 
 

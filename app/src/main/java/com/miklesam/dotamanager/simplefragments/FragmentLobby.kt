@@ -1,6 +1,7 @@
 package com.miklesam.dotamanager.simplefragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import androidx.fragment.app.Fragment
@@ -33,22 +34,25 @@ class FragmentLobby : Fragment(R.layout.fragment_lobby) {
             R.id.weatherAnim
         )
         weatherAnim?.start(view)
-
+        Log.w("Pick"," Freagment Lobby ViewCreated")
 
     }
 
     override fun onResume() {
         weatherAnim?.resume()
         super.onResume()
+        Log.w("Pick"," Freagment Lobby Resume")
     }
 
     override fun onPause() {
         weatherAnim?.pause()
         super.onPause()
+        Log.w("Pick"," Freagment Lobby Pause")
     }
 
     override fun onDestroyView() {
         weatherAnim=null
         super.onDestroyView()
+        Log.w("Pick"," Freagment Lobby DestroyView")
     }
 }

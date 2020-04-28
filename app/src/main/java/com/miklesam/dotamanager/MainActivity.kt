@@ -240,6 +240,7 @@ class MainActivity : AppCompatActivity(), FragmentMenu.MenuListener, FragmentLob
         val transaction = supportFragmentManager.beginTransaction()
         val fragment = PickStage()
         transaction.replace(R.id.fragment_holder, fragment)
+            .addToBackStack(null)
         transaction.commit()
     }
 
@@ -250,6 +251,7 @@ class MainActivity : AppCompatActivity(), FragmentMenu.MenuListener, FragmentLob
         bundle.putIntegerArrayList("radiant",radiant)
         fragment.arguments = bundle
         transaction.replace(R.id.fragment_holder, fragment)
+        .addToBackStack(null)
         transaction.commit()
     }
 
