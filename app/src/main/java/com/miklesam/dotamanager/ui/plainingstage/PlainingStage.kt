@@ -21,15 +21,15 @@ class PlainingStage :Fragment(R.layout.fragment_plaining_stage),OnPlayerListener
     var recycler: RecyclerView?=null
     var adapter : TeamPlayersAdapter?=null
     val heroArray : ArrayList<Heroes> = ArrayList()
+    var heroes : ArrayList<Int>? = null
 
     interface nextFromPlaining {
-        fun plainingEnded()
+        fun plainingEnded(heroes: ArrayList<Int>?)
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //teamProfileViewModel = ViewModelProviders.of(this).get(TeamsProfileViewModel::class.java)
         if (arguments != null) {
-            val heroes = arguments!!.getIntegerArrayList(("radiant")!!)
+            heroes = arguments!!.getIntegerArrayList(("radiant")!!)
             heroes?.forEach { heroId->
                 heroArray.add(Heroes.values().find { it.id == heroId}!!) }
 
@@ -51,7 +51,7 @@ class PlainingStage :Fragment(R.layout.fragment_plaining_stage),OnPlayerListener
             adapter?.setPlayers(it)
 
         })
-        continue_bttn.setOnClickListener { endedListener.plainingEnded() }
+        continue_bttn.setOnClickListener { endedListener.plainingEnded(heroes) }
 
        val ClipcodesText = arrayOf(
            heroArray[0].heroName,

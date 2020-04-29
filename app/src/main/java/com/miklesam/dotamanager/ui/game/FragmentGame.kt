@@ -13,6 +13,7 @@ import com.miklesam.dotamanager.EndMatchDialog
 import com.miklesam.dotamanager.LineningDialog
 import com.miklesam.dotamanager.GameSimulationView
 import com.miklesam.dotamanager.R
+import com.miklesam.dotamanager.datamodels.Heroes
 import kotlinx.android.synthetic.main.fragment_game.*
 
 class FragmentGame(myListener: backToLobby) : Fragment(R.layout.fragment_game),
@@ -60,13 +61,16 @@ class FragmentGame(myListener: backToLobby) : Fragment(R.layout.fragment_game),
     var soundOne: Int = 0
     var soundTwo: Int = 0
     val TAG = "FragmentGame"
-
+    var heroes : ArrayList<Int>? = null
     private lateinit var gameViewModel: GameViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         gameViewModel =
             ViewModelProviders.of(this).get(GameViewModel::class.java)
+        if (arguments != null) {
+            heroes = arguments!!.getIntegerArrayList(("radiant")!!)
+        }
 
         Log.w(TAG, "onCreate")
         val audioAtributes = AudioAttributes.Builder()
@@ -85,7 +89,8 @@ class FragmentGame(myListener: backToLobby) : Fragment(R.layout.fragment_game),
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         Log.w(TAG, "onViewCreated")
-        gameGame = view.findViewById<GameSimulationView>(R.id.gameGame)
+        gameGame = view.findViewById(R.id.gameGame)
+        heroes?.let { gameGame?.initHeroes(it) }
         gameGame?.Start()
         val timerAssignLine = object : CountDownTimer(2000, 100) {
             override fun onTick(millisUntilFinished: Long) {

@@ -255,8 +255,16 @@ class MainActivity : AppCompatActivity(), FragmentMenu.MenuListener, FragmentLob
         transaction.commit()
     }
 
-    override fun plainingEnded() {
-        replaceFragmentFromRightToLeft(FragmentGame(this),false)
+    override fun plainingEnded(heroes: ArrayList<Int>?) {
+        val transaction = supportFragmentManager.beginTransaction()
+        val fragment = FragmentGame(this)
+        val bundle = Bundle()
+        bundle.putIntegerArrayList("radiant",heroes)
+        fragment.arguments = bundle
+        transaction.replace(R.id.fragment_holder, fragment)
+            .addToBackStack(null)
+        transaction.commit()
+        //replaceFragmentFromRightToLeft(FragmentGame(this),false)
     }
 
 

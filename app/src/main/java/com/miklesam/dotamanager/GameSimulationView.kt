@@ -11,6 +11,7 @@ import android.view.View
 import androidx.core.content.ContextCompat
 import android.util.Log
 import com.miklesam.dotamanager.datamodels.Hero
+import com.miklesam.dotamanager.datamodels.Heroes
 import com.miklesam.dotamanager.utils.Lanes
 
 
@@ -75,18 +76,6 @@ class GameSimulationView : View {
 
     private fun init() {
         mDrawable = ContextCompat.getDrawable(context, R.drawable.minimap_7_23)
-        mHero[0]=ContextCompat.getDrawable(context,R.drawable.monkeyking_mipmap)
-        mHero[1]=ContextCompat.getDrawable(context,R.drawable.zeus_mipmap)
-        mHero[2]=ContextCompat.getDrawable(context,R.drawable.abadon_mipmap)
-        mHero[3]=ContextCompat.getDrawable(context,R.drawable.kunnka_mipmap)
-        mHero[4]=ContextCompat.getDrawable(context,R.drawable.dazzle_mipmap)
-
-        mHero[5]=ContextCompat.getDrawable(context,R.drawable.lifestealer_mipmap)
-        mHero[6]=ContextCompat.getDrawable(context,R.drawable.sandking_mipmap)
-        mHero[7]=ContextCompat.getDrawable(context,R.drawable.pudge_mipmap)
-        mHero[8]=ContextCompat.getDrawable(context,R.drawable.slardar_mipmap)
-        mHero[9]=ContextCompat.getDrawable(context,R.drawable.mars_mipmap)
-
 
         Log.w("InitSizeX=", sizeX.toString())
         Log.w("InitSizeY=", sizeY.toString())
@@ -288,6 +277,21 @@ class GameSimulationView : View {
     override fun onDetachedFromWindow() {
         mTimeAnimator.cancel()
         super.onDetachedFromWindow()
+    }
+
+
+    fun initHeroes(radiant:ArrayList<Int>){
+        mHero[0]=ContextCompat.getDrawable(context, Heroes.values().find { it.id==radiant[0]}!!.mipmap)
+        mHero[1]=ContextCompat.getDrawable(context,Heroes.values().find { it.id==radiant[1]}!!.mipmap)
+        mHero[2]=ContextCompat.getDrawable(context,Heroes.values().find { it.id==radiant[2]}!!.mipmap)
+        mHero[3]=ContextCompat.getDrawable(context,Heroes.values().find { it.id==radiant[3]}!!.mipmap)
+        mHero[4]=ContextCompat.getDrawable(context,Heroes.values().find { it.id==radiant[4]}!!.mipmap)
+
+        mHero[5]=ContextCompat.getDrawable(context,R.drawable.lifestealer_mipmap)
+        mHero[6]=ContextCompat.getDrawable(context,R.drawable.sandking_mipmap)
+        mHero[7]=ContextCompat.getDrawable(context,R.drawable.pudge_mipmap)
+        mHero[8]=ContextCompat.getDrawable(context,R.drawable.slardar_mipmap)
+        mHero[9]=ContextCompat.getDrawable(context,R.drawable.mars_mipmap)
     }
 
 
