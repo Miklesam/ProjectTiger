@@ -29,7 +29,8 @@ class MainActivity : AppCompatActivity(), FragmentMenu.MenuListener, FragmentLob
     FragmentMarket.playerChoose, FragmentGame.backToLobby, FragmentNewGame.startListener,
     FragmentDescription.nextListener, FragmentChoosePlayers.nextChoosenListener,
     FragmentTeams.teamShow, FragmentTeamSigning.gotoLobby,
-    FragmentPractice.PracticeListener, PickStage.nextFromPick, PlainingStage.nextFromPlaining {
+    FragmentPractice.PracticeListener, PickStage.nextFromPick, PlainingStage.nextFromPlaining,
+    FragmentMedia.MediaListener {
 
     private var googleSignInClient: GoogleSignInClient? = null
     private var achievementClient: AchievementsClient? = null
@@ -265,6 +266,10 @@ class MainActivity : AppCompatActivity(), FragmentMenu.MenuListener, FragmentLob
             .addToBackStack(null)
         transaction.commit()
         //replaceFragmentFromRightToLeft(FragmentGame(this),false)
+    }
+
+    override fun morfClicked() {
+        replaceFragmentFromRightToLeft(MorfNews(),true)
     }
 
 
