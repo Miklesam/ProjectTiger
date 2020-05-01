@@ -280,18 +280,18 @@ class GameSimulationView : View {
     }
 
 
-    fun initHeroes(radiant:ArrayList<Int>){
+    fun initHeroes(radiant:ArrayList<Int>,dire:ArrayList<Int>){
         mHero[0]=ContextCompat.getDrawable(context, Heroes.values().find { it.id==radiant[0]}!!.mipmap)
         mHero[1]=ContextCompat.getDrawable(context,Heroes.values().find { it.id==radiant[1]}!!.mipmap)
         mHero[2]=ContextCompat.getDrawable(context,Heroes.values().find { it.id==radiant[2]}!!.mipmap)
         mHero[3]=ContextCompat.getDrawable(context,Heroes.values().find { it.id==radiant[3]}!!.mipmap)
         mHero[4]=ContextCompat.getDrawable(context,Heroes.values().find { it.id==radiant[4]}!!.mipmap)
 
-        mHero[5]=ContextCompat.getDrawable(context,R.drawable.lifestealer_mipmap)
-        mHero[6]=ContextCompat.getDrawable(context,R.drawable.sandking_mipmap)
-        mHero[7]=ContextCompat.getDrawable(context,R.drawable.pudge_mipmap)
-        mHero[8]=ContextCompat.getDrawable(context,R.drawable.slardar_mipmap)
-        mHero[9]=ContextCompat.getDrawable(context,R.drawable.mars_mipmap)
+        mHero[5]=ContextCompat.getDrawable(context, Heroes.values().find { it.id==dire[0]}!!.mipmap)
+        mHero[6]=ContextCompat.getDrawable(context, Heroes.values().find { it.id==dire[1]}!!.mipmap)
+        mHero[7]=ContextCompat.getDrawable(context, Heroes.values().find { it.id==dire[2]}!!.mipmap)
+        mHero[8]=ContextCompat.getDrawable(context, Heroes.values().find { it.id==dire[3]}!!.mipmap)
+        mHero[9]=ContextCompat.getDrawable(context, Heroes.values().find { it.id==dire[4]}!!.mipmap)
     }
 
 

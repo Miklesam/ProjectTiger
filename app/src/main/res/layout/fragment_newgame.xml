@@ -31,7 +31,7 @@
         android:layout_marginTop="8dp"
         android:gravity="center"
         android:maxLines="1"
-        android:maxLength="45"
+        android:maxLength="25"
         android:textColor="@color/textMain"
         android:layout_marginRight="8dp"
         android:digits="abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ"

@@ -9,16 +9,19 @@ import android.util.Log
 import android.widget.*
 import androidx.appcompat.app.AppCompatDialogFragment
 import com.miklesam.dotamanager.R
+import com.miklesam.dotamanager.datamodels.Heroes
 import kotlinx.android.synthetic.main.layout_dialog.*
 
 class LineningDialog() : AppCompatDialogFragment() {
-    constructor(myListener: NoticeDialogListener) : this() {
+    constructor(myListener: NoticeDialogListener, heroes: ArrayList<Int>?) : this() {
         mListener = myListener
+        heroesList = heroes
     }
 
     var Lock = true
     var side = true
     var mListener: NoticeDialogListener? = null
+    var heroesList: ArrayList<Int>? = null
     lateinit var spiner1: Spinner
     lateinit var spiner2: Spinner
     lateinit var spiner3: Spinner
@@ -63,11 +66,11 @@ class LineningDialog() : AppCompatDialogFragment() {
         val imaop3 = mycustomview.findViewById<ImageView>(R.id.ima3)
         val imaop4 = mycustomview.findViewById<ImageView>(R.id.ima4)
         val imaop5 = mycustomview.findViewById<ImageView>(R.id.ima5)
-        imaopl.setImageResource(R.drawable.monkeyking_mipmap)
-        imaop2.setImageResource(R.drawable.zeus_mipmap)
-        imaop3.setImageResource(R.drawable.abadon_mipmap)
-        imaop4.setImageResource(R.drawable.kunnka_mipmap)
-        imaop5.setImageResource(R.drawable.dazzle_mipmap)
+        imaopl.setImageResource(Heroes.values().find { it.id == heroesList?.get(0) ?: 0 }!!.mipmap)
+        imaop2.setImageResource(Heroes.values().find { it.id == heroesList?.get(1) ?: 0 }!!.mipmap)
+        imaop3.setImageResource(Heroes.values().find { it.id == heroesList?.get(2) ?: 0 }!!.mipmap)
+        imaop4.setImageResource(Heroes.values().find { it.id == heroesList?.get(3) ?: 0 }!!.mipmap)
+        imaop5.setImageResource(Heroes.values().find { it.id == heroesList?.get(4) ?: 0 }!!.mipmap)
         val mad: ArrayAdapter<String>
         if (side) mad = context?.let {
             ArrayAdapter(

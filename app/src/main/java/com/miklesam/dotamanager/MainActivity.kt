@@ -245,22 +245,30 @@ class MainActivity : AppCompatActivity(), FragmentMenu.MenuListener, FragmentLob
         transaction.commit()
     }
 
-    override fun pickEnded(radiant:ArrayList<Int>) {
+    override fun pickEnded(
+        radiant: ArrayList<Int>,
+        direPicks: ArrayList<Int>
+    ) {
         val transaction = supportFragmentManager.beginTransaction()
         val fragment = PlainingStage()
         val bundle = Bundle()
         bundle.putIntegerArrayList("radiant",radiant)
+        bundle.putIntegerArrayList("dire",direPicks)
         fragment.arguments = bundle
         transaction.replace(R.id.fragment_holder, fragment)
         .addToBackStack(null)
         transaction.commit()
     }
 
-    override fun plainingEnded(heroes: ArrayList<Int>?) {
+    override fun plainingEnded(
+        heroes: ArrayList<Int>?,
+        direHeroes: ArrayList<Int>?
+    ) {
         val transaction = supportFragmentManager.beginTransaction()
         val fragment = FragmentGame(this)
         val bundle = Bundle()
         bundle.putIntegerArrayList("radiant",heroes)
+        bundle.putIntegerArrayList("dire",direHeroes)
         fragment.arguments = bundle
         transaction.replace(R.id.fragment_holder, fragment)
             .addToBackStack(null)

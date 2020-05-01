@@ -17,7 +17,6 @@ class MorfView : View {
 
     private var mTimeAnimator: TimeAnimator? = null
 
-
     private var mCurrentPlayTime: Long = 0
     private var mDrawable: Drawable? = null
     private var mPartition: Drawable? = null

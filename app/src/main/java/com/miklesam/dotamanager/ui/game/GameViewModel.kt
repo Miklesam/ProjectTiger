@@ -1,19 +1,39 @@
 package com.miklesam.dotamanager.ui.game
 
+import android.app.Application
 import android.os.CountDownTimer
 import android.util.Log
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.miklesam.dotamanager.datamodels.HeroStats
+import com.miklesam.dotamanager.datamodels.Player
 import com.miklesam.dotamanager.datamodels.Side
+import com.miklesam.dotamanager.ui.market.MarketRepository
+import com.miklesam.dotamanager.utils.PrefsHelper
 import kotlin.collections.ArrayList
 
-class GameViewModel : ViewModel() {
+class GameViewModel(application: Application) : AndroidViewModel(application) {
     private val allPlayersStats = MutableLiveData<List<String>>()
     private val allTowers = MutableLiveData<List<Boolean>>()
     fun getPlayersMatchStatistic(): LiveData<List<String>> = allPlayersStats
     fun getradiantTowers(): LiveData<List<Boolean>> = allTowers
+    private var repository: MarketRepository = MarketRepository(application)
+
+    val pos1: String
+    val pos2: String
+    val pos3: String
+    val pos4: String
+    val pos5: String
+
+    init {
+        pos1 = PrefsHelper.read(PrefsHelper.POSITION_1, "").toString()
+        pos2 = PrefsHelper.read(PrefsHelper.POSITION_2, "").toString()
+        pos3 = PrefsHelper.read(PrefsHelper.POSITION_3, "").toString()
+        pos4 = PrefsHelper.read(PrefsHelper.POSITION_4, "").toString()
+        pos5 = PrefsHelper.read(PrefsHelper.POSITION_5, "").toString()
+    }
 
     val RadiantTeam = arrayListOf<HeroStats>(
         HeroStats(0, 0, 0, 1),
@@ -36,12 +56,10 @@ class GameViewModel : ViewModel() {
     val radiantTowers = Side(arrayListOf(true,true,true),arrayListOf(true,true,true),arrayListOf(true,true,true))
     val direTowers = Side(arrayListOf(true,true,true),arrayListOf(true,true,true),arrayListOf(true,true,true))
 
-
-
-
-    init {
-
+    fun getPlayer(): LiveData<List<Player>> {
+        return repository.getPlayerByName(listOf(pos1, pos2, pos3, pos4, pos5))
     }
+
 
     private fun assignStats(): List<String> {
         val r1 = "${RadiantTeam[0].kills}/${RadiantTeam[0].death}/${RadiantTeam[0].assist}"

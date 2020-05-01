@@ -19,39 +19,47 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/Yourteam"
-                android:layout_width="100sp"
-                android:layout_height="20sp"
-                android:gravity="right"
-                android:text="team1"
-                android:textColor="#45283c" />
+            android:layout_height="wrap_content">
 
 
-            <TextView
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10sp"
-                android:layout_marginRight="10sp"
-                android:text="vs"
-                android:textColor="#45283c" />
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <TextView
+                    android:id="@+id/Yourteam"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20sp"
+                    android:gravity="right"
+                    android:text="team1"
+                    android:textColor="#45283c" />
 
 
-            <TextView
-                android:id="@+id/EnemyteamName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Virtus Pro"
-                android:textColor="#45283c" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10sp"
+                    android:layout_marginRight="10sp"
+                    android:text="vs"
+                    android:textColor="#45283c" />
 
 
-        </LinearLayout>
+                <TextView
+                    android:id="@+id/EnemyteamName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Virtus Pro"
+                    android:textColor="#45283c" />
+
+
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
             android:id="@+id/Help"
@@ -1095,9 +1103,9 @@
         android:id="@+id/Plan_state"
         android:layout_width="150sp"
         android:layout_height="40sp"
-        android:visibility="gone"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
+        android:visibility="gone"
         app:srcCompat="@drawable/next_bttn_canv_2" />
 
 

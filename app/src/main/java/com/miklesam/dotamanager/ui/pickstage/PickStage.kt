@@ -28,12 +28,16 @@ class PickStage : Fragment(R.layout.pick_stage) {
     var pick_state = 0
     var timer: CountDownTimer? = null
     val radiantPicks: ArrayList<Int> = ArrayList()
+    val direPicks: ArrayList<Int> = ArrayList()
     var player: MediaPlayer? = null
     var soundPull: SoundPool?= null
     var soundOne: Int = 0
 
     interface nextFromPick {
-        fun pickEnded(radiant:ArrayList<Int>)
+        fun pickEnded(
+            radiant: ArrayList<Int>,
+            direPicks: ArrayList<Int>
+        )
     }
 
     override fun onPause() {
@@ -78,7 +82,7 @@ class PickStage : Fragment(R.layout.pick_stage) {
         player?.start()
 
         Yourteam.text = PrefsHelper.read(PrefsHelper.TEAM_NAME, "")
-        Plan_state.setOnClickListener { endedListener.pickEnded(radiantPicks) }
+        Plan_state.setOnClickListener { endedListener.pickEnded(radiantPicks,direPicks) }
         timer = object : CountDownTimer(10000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 timeleft.text = ("" + millisUntilFinished / 1000)
@@ -128,7 +132,7 @@ class PickStage : Fragment(R.layout.pick_stage) {
             }
 
         }
-        Help.text = "Ваша очередь бана"
+        Help.text = "Ваша очередь"
         callYourPick()
     }
 
@@ -453,6 +457,7 @@ class PickStage : Fragment(R.layout.pick_stage) {
         val what = arrayHero!![rnds]
         Heros_icon[what.id]?.setImageResource(what!!.largeBan)
         if (pick_state == 9 || pick_state == 10 || pick_state == 14 || pick_state == 16 || pick_state == 21) {
+            direPicks.add(what.id)
             Pick_stage[pick_state]?.setImageResource(what!!.image_pick)
         } else {
             Pick_stage[pick_state]?.setImageResource(what!!.minBan)
