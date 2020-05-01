@@ -28,6 +28,7 @@ class FragmentMenu :Fragment(R.layout.fragment_menu){
         fun achievementsClicked()
         fun teamsClicked()
         fun aboutClicked()
+        fun multipleerClicked()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -48,7 +49,7 @@ class FragmentMenu :Fragment(R.layout.fragment_menu){
 
 
         multipleer.setOnClickListener {
-            showCustomToast("In Progress",Toast.LENGTH_SHORT)
+            menuListener.multipleerClicked()
         }
         achievments.setOnClickListener { menuListener.achievementsClicked() }
         about.setOnClickListener {

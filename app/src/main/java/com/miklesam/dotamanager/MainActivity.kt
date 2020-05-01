@@ -12,6 +12,8 @@ import com.google.android.gms.games.Games
 import com.google.android.gms.games.LeaderboardsClient
 import com.miklesam.dotamanager.adapters.MarketPlayerHolder
 import com.miklesam.dotamanager.datamodels.Player
+import com.miklesam.dotamanager.multipleer.client.FragmentClient
+import com.miklesam.dotamanager.multipleer.host.FragmentHost
 import com.miklesam.dotamanager.simplefragments.*
 import com.miklesam.dotamanager.ui.choosePlayers.FragmentChoosePlayers
 import com.miklesam.dotamanager.ui.game.FragmentGame
@@ -30,7 +32,8 @@ class MainActivity : AppCompatActivity(), FragmentMenu.MenuListener, FragmentLob
     FragmentDescription.nextListener, FragmentChoosePlayers.nextChoosenListener,
     FragmentTeams.teamShow, FragmentTeamSigning.gotoLobby,
     FragmentPractice.PracticeListener, PickStage.nextFromPick, PlainingStage.nextFromPlaining,
-    FragmentMedia.MediaListener {
+    FragmentMedia.MediaListener, FragmentMultipleer.MultioleerListener, FragmentHost.hostListener,
+    FragmentClient.clientListener {
 
     private var googleSignInClient: GoogleSignInClient? = null
     private var achievementClient: AchievementsClient? = null
@@ -113,6 +116,10 @@ class MainActivity : AppCompatActivity(), FragmentMenu.MenuListener, FragmentLob
 
     }
 
+    override fun multipleerClicked() {
+        replaceFragmentFromRightToLeft(FragmentMultipleer(), true)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -139,7 +146,7 @@ class MainActivity : AppCompatActivity(), FragmentMenu.MenuListener, FragmentLob
     }
 
     private fun showGame() {
-        replaceFragmentFromRightToLeft(FragmentPractice(),true)
+        replaceFragmentFromRightToLeft(FragmentPractice(), true)
     }
 
     private fun showMarket() {
@@ -155,20 +162,20 @@ class MainActivity : AppCompatActivity(), FragmentMenu.MenuListener, FragmentLob
     }
 
     private fun showLobby() {
-        replaceFragmentFromRightToLeft(FragmentLobby(),true)
+        replaceFragmentFromRightToLeft(FragmentLobby(), true)
     }
 
     private fun showTeams() {
-        replaceFragmentFromRightToLeft(FragmentTeams(),true)
+        replaceFragmentFromRightToLeft(FragmentTeams(), true)
     }
 
 
     private fun showNewGame() {
-        replaceFragmentFromRightToLeft(FragmentNewGame(),true)
+        replaceFragmentFromRightToLeft(FragmentNewGame(), true)
     }
 
     private fun showNoBackStackLobby() {
-        replaceFragmentFromRightToLeft(FragmentLobby(),false)
+        replaceFragmentFromRightToLeft(FragmentLobby(), false)
     }
 
     override fun onPlayerClickFragment(player: Player, holder: MarketPlayerHolder) {
@@ -201,11 +208,11 @@ class MainActivity : AppCompatActivity(), FragmentMenu.MenuListener, FragmentLob
     }
 
     override fun startClickedClicked() {
-        replaceFragmentFromRightToLeft(FragmentDescription(),false)
+        replaceFragmentFromRightToLeft(FragmentDescription(), false)
     }
 
     override fun nextClicked() {
-        replaceFragmentFromRightToLeft(FragmentChoosePlayers(),false)
+        replaceFragmentFromRightToLeft(FragmentChoosePlayers(), false)
     }
 
     override fun nextChoosenClicked() {
@@ -213,7 +220,7 @@ class MainActivity : AppCompatActivity(), FragmentMenu.MenuListener, FragmentLob
         //val fragment = FragmentTeamSigning()
         //transaction.replace(R.id.fragment_holder, fragment)
         //transaction.commit()
-        replaceFragmentFromRightToLeft(FragmentTeamSigning(),false)
+        replaceFragmentFromRightToLeft(FragmentTeamSigning(), false)
 
     }
 
@@ -252,11 +259,11 @@ class MainActivity : AppCompatActivity(), FragmentMenu.MenuListener, FragmentLob
         val transaction = supportFragmentManager.beginTransaction()
         val fragment = PlainingStage()
         val bundle = Bundle()
-        bundle.putIntegerArrayList("radiant",radiant)
-        bundle.putIntegerArrayList("dire",direPicks)
+        bundle.putIntegerArrayList("radiant", radiant)
+        bundle.putIntegerArrayList("dire", direPicks)
         fragment.arguments = bundle
         transaction.replace(R.id.fragment_holder, fragment)
-        .addToBackStack(null)
+            .addToBackStack(null)
         transaction.commit()
     }
 
@@ -267,8 +274,8 @@ class MainActivity : AppCompatActivity(), FragmentMenu.MenuListener, FragmentLob
         val transaction = supportFragmentManager.beginTransaction()
         val fragment = FragmentGame(this)
         val bundle = Bundle()
-        bundle.putIntegerArrayList("radiant",heroes)
-        bundle.putIntegerArrayList("dire",direHeroes)
+        bundle.putIntegerArrayList("radiant", heroes)
+        bundle.putIntegerArrayList("dire", direHeroes)
         fragment.arguments = bundle
         transaction.replace(R.id.fragment_holder, fragment)
             .addToBackStack(null)
@@ -277,7 +284,19 @@ class MainActivity : AppCompatActivity(), FragmentMenu.MenuListener, FragmentLob
     }
 
     override fun morfClicked() {
-        replaceFragmentFromRightToLeft(MorfNews(),true)
+        replaceFragmentFromRightToLeft(MorfNews(), true)
+    }
+
+    override fun hostClicked() {
+        replaceFragmentFromRightToLeft(FragmentHost(), true)
+    }
+
+    override fun clientClicked() {
+        replaceFragmentFromRightToLeft(FragmentClient(), true)
+    }
+
+    override fun connectOk() {
+        replaceFragmentFromRightToLeft(PickStage(), true)
     }
 
 
