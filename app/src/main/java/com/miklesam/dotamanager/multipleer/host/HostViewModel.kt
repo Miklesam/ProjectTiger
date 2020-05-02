@@ -22,6 +22,15 @@ class HostViewModel : ViewModel(), getInfo {
         progress.value = 0
         gameArray.value=arrayOf(0,0,0,0,0,0,0,0,0,1)
     }
+    fun startPick(){
+        gameArray.value=arrayOf(1,0,0,0,0,0,0,0,0,0)
+        sendMessage("Pick:1")
+    }
+
+    fun sendPick(){
+
+    }
+
 
     fun setPoint(cell:Int,host:Boolean){
         val curr=gameArray.value
@@ -81,7 +90,6 @@ class HostViewModel : ViewModel(), getInfo {
             threadToClose!!.interrupt()
             serverThread.serverSocket.close()
         }
-
         Log.w("View", "ViewModel is Cleared")
     }
 

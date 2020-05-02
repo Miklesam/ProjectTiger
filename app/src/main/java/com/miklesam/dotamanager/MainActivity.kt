@@ -12,6 +12,7 @@ import com.google.android.gms.games.Games
 import com.google.android.gms.games.LeaderboardsClient
 import com.miklesam.dotamanager.adapters.MarketPlayerHolder
 import com.miklesam.dotamanager.datamodels.Player
+import com.miklesam.dotamanager.multipleer.MultiPick
 import com.miklesam.dotamanager.multipleer.client.FragmentClient
 import com.miklesam.dotamanager.multipleer.host.FragmentHost
 import com.miklesam.dotamanager.simplefragments.*
@@ -295,8 +296,12 @@ class MainActivity : AppCompatActivity(), FragmentMenu.MenuListener, FragmentLob
         replaceFragmentFromRightToLeft(FragmentClient(), true)
     }
 
-    override fun connectOk() {
-        replaceFragmentFromRightToLeft(PickStage(), true)
+    override fun hostOk() {
+        replaceFragmentFromRightToLeft(MultiPick(true), true)
+    }
+
+    override fun clientOk() {
+        replaceFragmentFromRightToLeft(MultiPick(false), true)
     }
 
 

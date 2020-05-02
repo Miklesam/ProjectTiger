@@ -15,61 +15,27 @@ import kotlinx.android.synthetic.main.fragment_client.*
 
 class FragmentClient : Fragment(R.layout.fragment_client) {
     private lateinit var clientViewModel: ClientViewModel
-    var myTurn = false
-    var arrayTrust = arrayOf(0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
     interface clientListener{
-        fun connectOk()
+        fun clientOk()
     }
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val listener= activity as clientListener
         clientViewModel =
-            ViewModelProviders.of(this).get(ClientViewModel::class.java)
+            ViewModelProviders.of(requireActivity()).get(ClientViewModel::class.java)
 
-        val viewArray = arrayOf(
-            button_00, button_01, button_02,
-            button_10, button_11, button_12,
-            button_20, button_21, button_22
-        )
         editText.setText("192.168.1.73")
         connect_to_host_bttn.setOnClickListener {
             hideKeyboard()
             clientViewModel.connectHost(editText.text.toString())
 
         }
-
-        button_resetClient.setOnClickListener {clientViewModel.resetBttn()  }
-
         //send_msg.setOnClickListener { clientViewModel.sendToHost() }
 
         clientViewModel.getToastMessage().observe(this, Observer {
             Toast.makeText(context, it, Toast.LENGTH_LONG).show()
         })
-
-        for (i in 0 until 9) {
-            viewArray[i].setOnClickListener {
-                if (myTurn && arrayTrust[i] == 0) clientViewModel.setPoint(
-                    i
-                )
-            }
-        }
-
-        clientViewModel.getTicTac().observe(this, Observer {
-            arrayTrust = it
-            when (it[9]) {
-                1 -> myTurn = false
-                2 -> myTurn = true
-            }
-            for (i in 0..8) {
-                when (it[i]) {
-                    0 -> viewArray[i].text = ""
-                    1 -> viewArray[i].text = "X"
-                    2 -> viewArray[i].text = "0"
-                }
-            }
-        })
-
 
         clientViewModel.getProgress().observe(this, Observer {
             when (it) {
@@ -88,9 +54,8 @@ class FragmentClient : Fragment(R.layout.fragment_client) {
                     pb.visibility = View.GONE
                     waiting_for_host.visibility = View.GONE
                     connect_to_host_bttn.visibility = View.GONE
-                    gameLine.visibility = View.VISIBLE
                     //
-                    listener.connectOk()
+                    listener.clientOk()
                     clientViewModel.setConnect()
                 }
                 3 -> {

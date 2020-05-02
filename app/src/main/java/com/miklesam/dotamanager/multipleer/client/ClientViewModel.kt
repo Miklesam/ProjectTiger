@@ -48,16 +48,15 @@ class ClientViewModel : ViewModel(), getInfo {
         } else if (mes == "Hello there") {
             progress.postValue(2)
             clientThread.sendMessage("Connection Establish")
-        } else {
-            Log.w("ClientModel", mes)
+        }else if(mes.substring(0,4) == "Pick"){
+            Log.w("ClientModel Pick", mes)
+           val turn=mes.substring(5,6).toInt()
+            gameArray.value=arrayOf(turn, 0, 0, 0, 0, 0, 0, 0, 0, 1)
             val dots = mes.split(".")
-            gameArray.postValue(
-                arrayOf(
-                    dots[0].toInt(), dots[1].toInt(), dots[2].toInt(),
-                    dots[3].toInt(), dots[4].toInt(), dots[5].toInt(), dots[6].toInt(),
-                    dots[7].toInt(), dots[8].toInt(), dots[9].toInt()
-                )
-            )
+            gameArray.value
+        }
+        else {
+
         }
 
 
