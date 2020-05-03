@@ -3,10 +3,18 @@ package com.miklesam.dotamanager.multipleer
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProviders
 import com.miklesam.dotamanager.R
+import com.miklesam.dotamanager.datamodels.Heroes
+import com.miklesam.dotamanager.multipleer.client.ClientViewModel
+import com.miklesam.dotamanager.multipleer.host.HostViewModel
 import kotlinx.android.synthetic.main.fragment_game.*
 
-class MultiGame(host: Boolean) : Fragment(R.layout.fragment_game){
+class MultiGame(isHost: Boolean) : Fragment(R.layout.fragment_game){
+    private lateinit var myViewModel: ViewModel
+    var host = isHost
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         tagName.text=""
@@ -27,6 +35,46 @@ class MultiGame(host: Boolean) : Fragment(R.layout.fragment_game){
         fifthDirePlayerName.text=""
         tagImage2.setImageResource(android.R.color.transparent)
 
+        if (host) {
+            myViewModel = ViewModelProviders.of(requireActivity()).get(HostViewModel::class.java)
+            (myViewModel as HostViewModel).startPick()
+            (myViewModel as HostViewModel).getTicTac().observe(this, Observer { picksArray ->
+                showImages(picksArray)
 
+
+            })
+        } else {
+            myViewModel = ViewModelProviders.of(requireActivity()).get(ClientViewModel::class.java)
+            (myViewModel as ClientViewModel).getTicTac().observe(this, Observer { picksArray ->
+                showImages(picksArray)
+            })
+        }
+
+
+    }
+
+    private fun showImages(picksArray: Array<Int>) {
+        firstRadiantPlayerHeroImage.setImageResource(Heroes.values().find { it.id==picksArray[8]}!!.icon)
+        secondRadiantPlayerHeroImage.setImageResource(Heroes.values().find { it.id==picksArray[11]}!!.icon)
+        thirdRadiantPlayerHeroImage.setImageResource(Heroes.values().find { it.id==picksArray[15]}!!.icon)
+        forthRadiantPlayerHeroImage.setImageResource(Heroes.values().find { it.id==picksArray[17]}!!.icon)
+        fifthRadiantPlayerHeroImage.setImageResource(Heroes.values().find { it.id==picksArray[20]}!!.icon)
+        heroRad1.text=Heroes.values().find { it.id==picksArray[8]}!!.heroName
+        heroRad2.text=Heroes.values().find { it.id==picksArray[11]}!!.heroName
+        heroRad3.text=Heroes.values().find { it.id==picksArray[15]}!!.heroName
+        heroRad4.text=Heroes.values().find { it.id==picksArray[17]}!!.heroName
+        heroRad5.text=Heroes.values().find { it.id==picksArray[20]}!!.heroName
+
+        firstDirePlayerHeroImage.setImageResource(Heroes.values().find { it.id==picksArray[9]}!!.icon)
+        secondDirePlayerHeroImage.setImageResource(Heroes.values().find { it.id==picksArray[10]}!!.icon)
+        thirdDirePlayerHeroImage.setImageResource(Heroes.values().find { it.id==picksArray[14]}!!.icon)
+        forthDirePlayerHeroImage.setImageResource(Heroes.values().find { it.id==picksArray[16]}!!.icon)
+        fifthDirePlayerHeroImage.setImageResource(Heroes.values().find { it.id==picksArray[21]}!!.icon)
+
+        heroDire1.text=Heroes.values().find { it.id==picksArray[9]}!!.heroName
+        heroDire2.text=Heroes.values().find { it.id==picksArray[10]}!!.heroName
+        heroDire3.text=Heroes.values().find { it.id==picksArray[14]}!!.heroName
+        heroDire4.text=Heroes.values().find { it.id==picksArray[16]}!!.heroName
+        heroDire5.text=Heroes.values().find { it.id==picksArray[21]}!!.heroName
     }
 }

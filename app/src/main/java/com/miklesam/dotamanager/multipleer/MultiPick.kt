@@ -1,5 +1,7 @@
 package com.miklesam.dotamanager.multipleer
 
+import android.media.AudioAttributes
+import android.media.SoundPool
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.view.View
@@ -26,6 +28,28 @@ class MultiPick(isHost: Boolean) : Fragment(R.layout.fragment_multipick) {
     var yourTurn = false
     var lock = false
     var heroesArray=arrayOf(23)
+    var soundPull: SoundPool?= null
+    var soundOne: Int = 0
+
+    override fun onStop() {
+        super.onStop()
+        soundPull?.stop(soundOne)
+        soundPull=null
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val audioAtributes = AudioAttributes.Builder()
+            .setUsage(AudioAttributes.USAGE_ASSISTANCE_SONIFICATION)
+            .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+            .build()
+
+        soundPull = SoundPool.Builder()
+            .setMaxStreams(6)
+            .setAudioAttributes(audioAtributes)
+            .build()
+        soundOne = soundPull!!.load(context, R.raw.your_turn_to_pick, 1)
+    }
 
     interface nextMultiPick {
         fun radiantPickEnded()
@@ -42,6 +66,7 @@ class MultiPick(isHost: Boolean) : Fragment(R.layout.fragment_multipick) {
             (myViewModel as HostViewModel).getTicTac().observe(this, Observer { picksArray ->
                 heroesArray=picksArray
                 if (picksArray[22] == 1) {
+                    soundPull?.play(soundOne, 1F, 1F, 0, 0, 1F)
                     Help.text = "Ваш Ход"
                     yourTurn = true
                 } else {
@@ -152,6 +177,7 @@ class MultiPick(isHost: Boolean) : Fragment(R.layout.fragment_multipick) {
             (myViewModel as ClientViewModel).getTicTac().observe(this, Observer { picksArray ->
                 heroesArray=picksArray
                 if (picksArray[22] == 2) {
+                    soundPull?.play(soundOne, 1F, 1F, 0, 0, 1F)
                     Help.text = "Ваш Ход"
                     yourTurn = true
                 } else {
