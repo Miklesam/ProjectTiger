@@ -12,6 +12,7 @@ import com.google.android.gms.games.Games
 import com.google.android.gms.games.LeaderboardsClient
 import com.miklesam.dotamanager.adapters.MarketPlayerHolder
 import com.miklesam.dotamanager.datamodels.Player
+import com.miklesam.dotamanager.multipleer.MultiGame
 import com.miklesam.dotamanager.multipleer.MultiPick
 import com.miklesam.dotamanager.multipleer.client.FragmentClient
 import com.miklesam.dotamanager.multipleer.host.FragmentHost
@@ -34,7 +35,7 @@ class MainActivity : AppCompatActivity(), FragmentMenu.MenuListener, FragmentLob
     FragmentTeams.teamShow, FragmentTeamSigning.gotoLobby,
     FragmentPractice.PracticeListener, PickStage.nextFromPick, PlainingStage.nextFromPlaining,
     FragmentMedia.MediaListener, FragmentMultipleer.MultioleerListener, FragmentHost.hostListener,
-    FragmentClient.clientListener {
+    FragmentClient.clientListener, MultiPick.nextMultiPick {
 
     private var googleSignInClient: GoogleSignInClient? = null
     private var achievementClient: AchievementsClient? = null
@@ -302,6 +303,14 @@ class MainActivity : AppCompatActivity(), FragmentMenu.MenuListener, FragmentLob
 
     override fun clientOk() {
         replaceFragmentFromRightToLeft(MultiPick(false), true)
+    }
+
+    override fun radiantPickEnded() {
+        replaceFragmentFromRightToLeft(MultiGame(true), true)
+    }
+
+    override fun direPickEnded() {
+        replaceFragmentFromRightToLeft(MultiGame(false), true)
     }
 
 

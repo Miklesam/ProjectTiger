@@ -19,7 +19,11 @@ class ClientViewModel : ViewModel(), getInfo {
 
     init {
         progress.value = 0
-        gameArray.value = arrayOf(0, 0, 0, 0, 0, 0, 0, 0, 0, 1)
+        gameArray.value = arrayOf(
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0
+        )
     }
 
 
@@ -37,8 +41,9 @@ class ClientViewModel : ViewModel(), getInfo {
         threadToClose = Thread(clientThread)
         threadToClose?.start()
     }
-    fun setConnect(){
-        progress.value=4
+
+    fun setConnect() {
+        progress.value = 4
     }
 
     override fun getInfo(mes: String) {
@@ -48,14 +53,25 @@ class ClientViewModel : ViewModel(), getInfo {
         } else if (mes == "Hello there") {
             progress.postValue(2)
             clientThread.sendMessage("Connection Establish")
-        }else if(mes.substring(0,4) == "Pick"){
+        } else if (mes.substring(0, 4) == "Pick") {
             Log.w("ClientModel Pick", mes)
-           val turn=mes.substring(5,6).toInt()
-            gameArray.value=arrayOf(turn, 0, 0, 0, 0, 0, 0, 0, 0, 1)
-            val dots = mes.split(".")
-            gameArray.value
-        }
-        else {
+            val prePayload = mes.split(":")
+            val payload = prePayload[1]
+            val dots = payload.split(".")
+            val pickArray = arrayOf(
+                dots[0].toInt(), dots[1].toInt(), dots[2].toInt(),
+                dots[3].toInt(), dots[4].toInt(), dots[5].toInt(), dots[6].toInt(),
+                dots[7].toInt(), dots[8].toInt(), dots[9].toInt(),
+                dots[10].toInt(), dots[11].toInt(), dots[12].toInt(),
+                dots[13].toInt(), dots[14].toInt(), dots[15].toInt(),
+                dots[16].toInt(), dots[17].toInt(), dots[18].toInt(),
+                dots[19].toInt(), dots[20].toInt(), dots[21].toInt(),
+                dots[22].toInt()
+            )
+            gameArray.postValue(
+                pickArray
+            )
+        } else {
 
         }
 

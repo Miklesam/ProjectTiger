@@ -1,6 +1,7 @@
 package com.miklesam.dotamanager.multipleer
 
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.view.View
 import android.widget.ImageView
 import android.widget.Toast
@@ -22,33 +23,238 @@ class MultiPick(isHost: Boolean) : Fragment(R.layout.fragment_multipick) {
     val Pick_stage =
         arrayOfNulls<ImageView>(22)
     private lateinit var myViewModel: ViewModel
-    var yourTurn=false
-    var turn=0
+    var yourTurn = false
+    var lock = false
+    var heroesArray=arrayOf(23)
+
+    interface nextMultiPick {
+        fun radiantPickEnded()
+        fun direPickEnded()
+    }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if(host){
+        val listener = activity as nextMultiPick
+        if (host) {
             myViewModel = ViewModelProviders.of(requireActivity()).get(HostViewModel::class.java)
             (myViewModel as HostViewModel).startPick()
-            (myViewModel as HostViewModel).getTicTac().observe(this, Observer {
-                if (it[0]==1){
-                    Help.text="Ваш Ход"
-                    yourTurn=true
-                }else{
-                    Help.text="Ход противника"
-                    yourTurn=false
+            (myViewModel as HostViewModel).getTicTac().observe(this, Observer { picksArray ->
+                heroesArray=picksArray
+                if (picksArray[22] == 1) {
+                    Help.text = "Ваш Ход"
+                    yourTurn = true
+                } else {
+                    Help.text = "Ход противника"
+                    yourTurn = false
+                }
+                for (i in 0 until 8) {
+                    if (picksArray[i] != 0) {
+                        Pick_stage[i]?.setImageResource(
+                            Heroes.values().find { it.id == picksArray[i] }!!.minBan
+                        )
+                    }
+                }
+                if (picksArray[8] != 0) {
+                    Pick_stage[8]?.setImageResource(
+                        Heroes.values().find { it.id == picksArray[8] }!!.image_pick
+                    )
+                }
+                if (picksArray[9] != 0) {
+                    Pick_stage[9]?.setImageResource(
+                        Heroes.values().find { it.id == picksArray[9] }!!.image_pick
+                    )
+                }
+                if (picksArray[10] != 0) {
+                    Pick_stage[10]?.setImageResource(
+                        Heroes.values().find { it.id == picksArray[10] }!!.image_pick
+                    )
+                }
+                if (picksArray[11] != 0) {
+                    Pick_stage[11]?.setImageResource(
+                        Heroes.values().find { it.id == picksArray[11] }!!.image_pick
+                    )
+                }
+                if (picksArray[12] != 0) {
+                    Pick_stage[12]?.setImageResource(
+                        Heroes.values().find { it.id == picksArray[12] }!!.minBan
+                    )
+                }
+                if (picksArray[13] != 0) {
+                    Pick_stage[13]?.setImageResource(
+                        Heroes.values().find { it.id == picksArray[13] }!!.minBan
+                    )
+                }
+                if (picksArray[14] != 0) {
+                    Pick_stage[14]?.setImageResource(
+                        Heroes.values().find { it.id == picksArray[14] }!!.image_pick
+                    )
+                }
+                if (picksArray[15] != 0) {
+                    Pick_stage[15]?.setImageResource(
+                        Heroes.values().find { it.id == picksArray[15] }!!.image_pick
+                    )
+                }
+                if (picksArray[16] != 0) {
+                    Pick_stage[16]?.setImageResource(
+                        Heroes.values().find { it.id == picksArray[16] }!!.image_pick
+                    )
+                }
+                if (picksArray[17] != 0) {
+                    Pick_stage[17]?.setImageResource(
+                        Heroes.values().find { it.id == picksArray[17] }!!.image_pick
+                    )
+                }
+                if (picksArray[18] != 0) {
+                    Pick_stage[18]?.setImageResource(
+                        Heroes.values().find { it.id == picksArray[18] }!!.minBan
+                    )
+                }
+                if (picksArray[19] != 0) {
+                    Pick_stage[19]?.setImageResource(
+                        Heroes.values().find { it.id == picksArray[19] }!!.minBan
+                    )
+                }
+                if (picksArray[20] != 0) {
+                    Pick_stage[20]?.setImageResource(
+                        Heroes.values().find { it.id == picksArray[20] }!!.image_pick
+                    )
+                }
+                if (picksArray[21] != 0) {
+                    Pick_stage[21]?.setImageResource(
+                        Heroes.values().find { it.id == picksArray[21] }!!.image_pick
+                    )
+                    lock = true
+                    Help.text = "Игра начнется через 5"
+                    val timer = object : CountDownTimer(5000, 1000) {
+                        override fun onTick(millisUntilFinished: Long) {
+                            val left = (millisUntilFinished / 1000).toInt()
+                            Help.text = "Игра начнется через $left"
+                        }
+
+                        override fun onFinish() {
+                            listener.radiantPickEnded()
+                        }
+                    }
+                    timer.start()
                 }
 
+                for (i in 0 until 22) {
+                    if (picksArray[i] != 0) {
+                        Heros_icon[picksArray[i]]?.setImageResource(
+                            Heroes.values().find { it.id == picksArray[i] }!!.largeBan
+                        )
+                    }
+                }
             })
-        }else{
+        } else {
             myViewModel = ViewModelProviders.of(requireActivity()).get(ClientViewModel::class.java)
-            (myViewModel as ClientViewModel).getTicTac().observe(this, Observer {
-                if (it[0]==2){
-                    Help.text="Ваш Ход"
-                    yourTurn=true
-                }else{
-                    Help.text="Ход противника"
-                    yourTurn=false
+            (myViewModel as ClientViewModel).getTicTac().observe(this, Observer { picksArray ->
+                heroesArray=picksArray
+                if (picksArray[22] == 2) {
+                    Help.text = "Ваш Ход"
+                    yourTurn = true
+                } else {
+                    Help.text = "Ход противника"
+                    yourTurn = false
+                }
+
+                for (i in 0 until 8) {
+                    if (picksArray[i] != 0) {
+                        Pick_stage[i]?.setImageResource(
+                            Heroes.values().find { it.id == picksArray[i] }!!.minBan
+                        )
+                    }
+                }
+                if (picksArray[8] != 0) {
+                    Pick_stage[8]?.setImageResource(
+                        Heroes.values().find { it.id == picksArray[8] }!!.image_pick
+                    )
+                }
+                if (picksArray[9] != 0) {
+                    Pick_stage[9]?.setImageResource(
+                        Heroes.values().find { it.id == picksArray[9] }!!.image_pick
+                    )
+                }
+                if (picksArray[10] != 0) {
+                    Pick_stage[10]?.setImageResource(
+                        Heroes.values().find { it.id == picksArray[10] }!!.image_pick
+                    )
+                }
+                if (picksArray[11] != 0) {
+                    Pick_stage[11]?.setImageResource(
+                        Heroes.values().find { it.id == picksArray[11] }!!.image_pick
+                    )
+                }
+                if (picksArray[12] != 0) {
+                    Pick_stage[12]?.setImageResource(
+                        Heroes.values().find { it.id == picksArray[12] }!!.minBan
+                    )
+                }
+                if (picksArray[13] != 0) {
+                    Pick_stage[13]?.setImageResource(
+                        Heroes.values().find { it.id == picksArray[13] }!!.minBan
+                    )
+                }
+                if (picksArray[14] != 0) {
+                    Pick_stage[14]?.setImageResource(
+                        Heroes.values().find { it.id == picksArray[14] }!!.image_pick
+                    )
+                }
+                if (picksArray[15] != 0) {
+                    Pick_stage[15]?.setImageResource(
+                        Heroes.values().find { it.id == picksArray[15] }!!.image_pick
+                    )
+                }
+                if (picksArray[16] != 0) {
+                    Pick_stage[16]?.setImageResource(
+                        Heroes.values().find { it.id == picksArray[16] }!!.image_pick
+                    )
+                }
+                if (picksArray[17] != 0) {
+                    Pick_stage[17]?.setImageResource(
+                        Heroes.values().find { it.id == picksArray[17] }!!.image_pick
+                    )
+                }
+                if (picksArray[18] != 0) {
+                    Pick_stage[18]?.setImageResource(
+                        Heroes.values().find { it.id == picksArray[18] }!!.minBan
+                    )
+                }
+                if (picksArray[19] != 0) {
+                    Pick_stage[19]?.setImageResource(
+                        Heroes.values().find { it.id == picksArray[19] }!!.minBan
+                    )
+                }
+                if (picksArray[20] != 0) {
+                    Pick_stage[20]?.setImageResource(
+                        Heroes.values().find { it.id == picksArray[20] }!!.image_pick
+                    )
+                }
+                if (picksArray[21] != 0) {
+                    Pick_stage[21]?.setImageResource(
+                        Heroes.values().find { it.id == picksArray[21] }!!.image_pick
+                    )
+                    lock = true
+                    Help.text = "Игра начнется через 5"
+                    val timer = object : CountDownTimer(5000, 1000) {
+                        override fun onTick(millisUntilFinished: Long) {
+                            val left = (millisUntilFinished / 1000).toInt()
+                            Help.text = "Игра начнется через $left"
+                        }
+
+                        override fun onFinish() {
+                            listener.direPickEnded()
+                        }
+                    }
+                    timer.start()
+                }
+                for (i in 0 until 22) {
+                    if (picksArray[i] != 0) {
+                        Heros_icon[picksArray[i]]?.setImageResource(
+                            Heroes.values().find { it.id == picksArray[i] }!!.largeBan
+                        )
+                    }
                 }
 
             })
@@ -57,11 +263,18 @@ class MultiPick(isHost: Boolean) : Fragment(R.layout.fragment_multipick) {
 
         for (i in 0 until 117) {
             Heros_icon[i]!!.setOnClickListener {
-                if (yourTurn) {
-
-                    showCustomToast("Ваш Ход",Toast.LENGTH_SHORT)
-                }else{
-                    showCustomToast("Ход противника",Toast.LENGTH_SHORT)
+                if (yourTurn && !lock) {
+                    if(heroesArray.contains(i)){
+                        showCustomToast("Уже пикнут", Toast.LENGTH_SHORT)
+                    }else{
+                        if (host) {
+                            (myViewModel as HostViewModel).setPoint(i, true)
+                        } else {
+                            (myViewModel as ClientViewModel).setPoint(i)
+                        }
+                    }
+                } else {
+                    showCustomToast("Ход противника", Toast.LENGTH_SHORT)
                 }
 
             }
