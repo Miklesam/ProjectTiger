@@ -186,7 +186,7 @@ class FragmentGame(myListener: backToLobby) : Fragment(R.layout.fragment_game),
         direHeroName[2] = heroDire3
         direHeroName[3] = heroDire4
         direHeroName[4] = heroDire5
-        tagName.text=PrefsHelper.read(PrefsHelper.TEAM_NAME,"")
+        tagName.text = PrefsHelper.read(PrefsHelper.TEAM_NAME, "")
         for (i in 0 until 5) {
             radiantImages[i]?.setImageResource(
                 Heroes.values().find { it.id == heroes?.get(i) ?: 0 }!!.icon
