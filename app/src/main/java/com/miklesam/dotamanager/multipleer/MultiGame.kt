@@ -46,7 +46,7 @@ class MultiGame(isHost: Boolean) : Fragment(R.layout.fragment_game),
 
         if (host) {
             myViewModel = ViewModelProviders.of(requireActivity()).get(HostViewModel::class.java)
-            (myViewModel as HostViewModel).startPick()
+            //(myViewModel as HostViewModel).startPick()
             (myViewModel as HostViewModel).getTicTac().observe(this, Observer { picksArray ->
                 showImages(picksArray)
             })
@@ -78,6 +78,20 @@ class MultiGame(isHost: Boolean) : Fragment(R.layout.fragment_game),
             }
         }
         timerAssignLine.start()
+
+        if(host){
+            (myViewModel as HostViewModel).getMoveLinning().observe(this, Observer {
+                if (it[0]!=7){
+                    multiGame?.CalcilateSpeed(it)
+                }
+            })
+        }else{
+            (myViewModel as ClientViewModel).getMoveLinning().observe(this, Observer {
+                if (it[0]!=7){
+                    multiGame?.CalcilateSpeed(it)
+                }
+            })
+        }
 
 
     }
@@ -157,6 +171,12 @@ class MultiGame(isHost: Boolean) : Fragment(R.layout.fragment_game),
     }
 
     override fun onDialogPositiveClick(position: Array<Int>) {
+        if(host){
+            (myViewModel as HostViewModel).setRadiantLaining(position)
+        }else{
+            (myViewModel as ClientViewModel).setDireLaining(position)
+        }
+        /*
         gameGame?.CalcilateSpeed(
             arrayOf(
                 0,
@@ -171,9 +191,12 @@ class MultiGame(isHost: Boolean) : Fragment(R.layout.fragment_game),
                 3
             )
         )
+         */
+
     }
 
     override fun onDialogDismissClick(position: Array<Int>) {
+        /*
         gameGame?.CalcilateSpeed(
             arrayOf(
                 0,
@@ -188,5 +211,7 @@ class MultiGame(isHost: Boolean) : Fragment(R.layout.fragment_game),
                 3
             )
         )
+
+         */
     }
 }

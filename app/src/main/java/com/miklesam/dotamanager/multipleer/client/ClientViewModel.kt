@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.miklesam.dotamanager.multipleer.getInfo
+import java.lang.StringBuilder
 
 class ClientViewModel : ViewModel(), getInfo {
     lateinit var clientThread: ClientThread
@@ -15,6 +16,8 @@ class ClientViewModel : ViewModel(), getInfo {
     fun getProgress(): LiveData<Int> = progress
     private val gameArray = MutableLiveData<Array<Int>>()
     fun getTicTac(): LiveData<Array<Int>> = gameArray
+    private val showMoveToLinning = MutableLiveData<Array<Int>>()
+    fun getMoveLinning(): LiveData<Array<Int>> = showMoveToLinning
     var myString = ""
 
     init {
@@ -23,6 +26,9 @@ class ClientViewModel : ViewModel(), getInfo {
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0
+        )
+        showMoveToLinning.value=arrayOf(
+            7, 0, 0, 0, 0, 0, 0, 0, 0, 0
         )
     }
 
@@ -44,6 +50,11 @@ class ClientViewModel : ViewModel(), getInfo {
 
     fun setConnect() {
         progress.value = 4
+    }
+    fun setDireLaining(position: Array<Int>) {
+        val sb = StringBuilder("Lain:")
+        position.forEach { sb.append("$it.") }
+        clientThread.sendMessage(sb.toString())
     }
 
     override fun getInfo(mes: String) {
@@ -71,7 +82,19 @@ class ClientViewModel : ViewModel(), getInfo {
             gameArray.postValue(
                 pickArray
             )
-        } else {
+        }else if (mes.substring(0, 4) == "Lain") {
+            val prePayload = mes.split(":")
+            val payload = prePayload[1]
+            val dots = payload.split(".")
+            val heroArray = arrayOf(
+                dots[0].toInt(), dots[1].toInt(), dots[2].toInt(),
+                dots[3].toInt(), dots[4].toInt(), dots[5].toInt(), dots[6].toInt(),
+                dots[7].toInt(), dots[8].toInt(), dots[9].toInt()
+            )
+            showMoveToLinning.postValue(
+                heroArray
+            )
+        }else {
 
         }
 
