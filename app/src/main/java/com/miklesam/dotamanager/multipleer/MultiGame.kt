@@ -2,6 +2,7 @@ package com.miklesam.dotamanager.multipleer
 
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -79,17 +80,72 @@ class MultiGame(isHost: Boolean) : Fragment(R.layout.fragment_game),
         }
         timerAssignLine.start()
 
-        if(host){
+        if (host) {
             (myViewModel as HostViewModel).getMoveLinning().observe(this, Observer {
-                if (it[0]!=7){
+                if (it[0] != 7) {
                     multiGame?.CalcilateSpeed(it)
                 }
             })
-        }else{
+
+            (myViewModel as HostViewModel).getPlayersMatchStatistic().observe(this, Observer {
+                Log.w("FragmentGame", it.toString())
+                radiantStat1.text = it[0]
+                radiantStat2.text = it[1]
+                radiantStat3.text = it[2]
+                radiantStat4.text = it[3]
+                radiantStat5.text = it[4]
+
+                direStat1.text = it[5]
+                direStat2.text = it[6]
+                direStat3.text = it[7]
+                direStat4.text = it[8]
+                direStat5.text = it[9]
+
+                radiantTotalScore.text = it[10]
+                direTotalScore.text = it[11]
+
+            })
+
+            (myViewModel as HostViewModel).getradiantTowers().observe(this, Observer {
+                Log.w("Fragment Game", "Current TowerState= $it")
+                gameGame?.setTowers(it)
+                /*
+                gameEnd = !it[9] || !it[19]
+                if (!it[9]) {
+                    initiateEnd(2)
+                } else {
+                    if (!it[19]) initiateEnd(1)
+                }
+
+                 */
+
+            })
+
+
+        } else {
             (myViewModel as ClientViewModel).getMoveLinning().observe(this, Observer {
-                if (it[0]!=7){
+                if (it[0] != 7) {
                     multiGame?.CalcilateSpeed(it)
                 }
+            })
+
+            (myViewModel as ClientViewModel).getPlayersMatchStatistic().observe(this, Observer {
+                Log.w("FragmentGame", it.toString())
+                radiantStat1.text = it[0]
+                radiantStat2.text = it[1]
+                radiantStat3.text = it[2]
+                radiantStat4.text = it[3]
+                radiantStat5.text = it[4]
+
+                direStat1.text = it[5]
+                direStat2.text = it[6]
+                direStat3.text = it[7]
+                direStat4.text = it[8]
+                direStat5.text = it[9]
+
+                radiantTotalScore.text = it[10]
+                direTotalScore.text = it[11]
+
             })
         }
 
@@ -160,10 +216,10 @@ class MultiGame(isHost: Boolean) : Fragment(R.layout.fragment_game),
     }
 
     private fun CreateDeskDialog() {
-        if(host){
+        if (host) {
             val dialog = LineningDialog(this, radiant)
             fragmentManager?.let { dialog.show(it, "CreateDeskDialog") }
-        }else{
+        } else {
             val dialog = LineningDialog(this, dire)
             fragmentManager?.let { dialog.show(it, "CreateDeskDialog") }
         }
@@ -171,9 +227,9 @@ class MultiGame(isHost: Boolean) : Fragment(R.layout.fragment_game),
     }
 
     override fun onDialogPositiveClick(position: Array<Int>) {
-        if(host){
+        if (host) {
             (myViewModel as HostViewModel).setRadiantLaining(position)
-        }else{
+        } else {
             (myViewModel as ClientViewModel).setDireLaining(position)
         }
         /*

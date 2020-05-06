@@ -51,10 +51,16 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
     )
 
 
-
-
-    val radiantTowers = Side(arrayListOf(true,true,true),arrayListOf(true,true,true),arrayListOf(true,true,true))
-    val direTowers = Side(arrayListOf(true,true,true),arrayListOf(true,true,true),arrayListOf(true,true,true))
+    val radiantTowers = Side(
+        arrayListOf(true, true, true),
+        arrayListOf(true, true, true),
+        arrayListOf(true, true, true)
+    )
+    val direTowers = Side(
+        arrayListOf(true, true, true),
+        arrayListOf(true, true, true),
+        arrayListOf(true, true, true)
+    )
 
     fun getPlayer(): LiveData<List<Player>> {
         return repository.getPlayerByName(listOf(pos1, pos2, pos3, pos4, pos5))
@@ -135,9 +141,30 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
                     }
 
                     override fun onFinish() {
-                        calculateLineTower(radiantMid, direMid,radiantTowers.mid,direTowers.mid,radiantTowers,direTowers)
-                        calculateLineTower(radiantTop, direTop,radiantTowers.top,direTowers.top,radiantTowers,direTowers)
-                        calculateLineTower(radiantBottom, direBottom,radiantTowers.bot,direTowers.bot,radiantTowers,direTowers)
+                        calculateLineTower(
+                            radiantMid,
+                            direMid,
+                            radiantTowers.mid,
+                            direTowers.mid,
+                            radiantTowers,
+                            direTowers
+                        )
+                        calculateLineTower(
+                            radiantTop,
+                            direTop,
+                            radiantTowers.top,
+                            direTowers.top,
+                            radiantTowers,
+                            direTowers
+                        )
+                        calculateLineTower(
+                            radiantBottom,
+                            direBottom,
+                            radiantTowers.bot,
+                            direTowers.bot,
+                            radiantTowers,
+                            direTowers
+                        )
                     }
                 }
                 timer.start()
@@ -147,6 +174,7 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
 
 
     }
+
 
     private fun calculateLineKills(
         radiant: ArrayList<HeroStats>,
@@ -180,21 +208,28 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
         return returningVal
     }
 
-    private fun calculateLineTower(radiant: Int, dire: Int,radTowers:ArrayList<Boolean>,diresTower:ArrayList<Boolean>,r:Side,d:Side) {
+    private fun calculateLineTower(
+        radiant: Int,
+        dire: Int,
+        radTowers: ArrayList<Boolean>,
+        diresTower: ArrayList<Boolean>,
+        r: Side,
+        d: Side
+    ) {
         Log.w("Snos =", "Radiant $radiant  Dire $dire")
-        if(radiant>dire){
-            if(diresTower.isNotEmpty()){
-                diresTower.removeAt(diresTower.size-1)
+        if (radiant > dire) {
+            if (diresTower.isNotEmpty()) {
+                diresTower.removeAt(diresTower.size - 1)
                 d.updateAncient(true)
-            }else{
+            } else {
                 d.updateAncient(false)
             }
 
-        }else{
-            if(radTowers.isNotEmpty()){
-                radTowers.removeAt(radTowers.size-1)
+        } else {
+            if (radTowers.isNotEmpty()) {
+                radTowers.removeAt(radTowers.size - 1)
                 r.updateAncient(true)
-            }else{
+            } else {
                 r.updateAncient(false)
             }
 
@@ -205,10 +240,27 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     private fun calculateTowers(): List<Boolean> {
-        return listOf(radiantTowers.allBuilds[2],radiantTowers.allBuilds[1],radiantTowers.allBuilds[0],
-            radiantTowers.allBuilds[3],radiantTowers.allBuilds[4],radiantTowers.allBuilds[5],radiantTowers.allBuilds[6],
-            radiantTowers.allBuilds[7],radiantTowers.allBuilds[8],radiantTowers.allBuilds[9],
-            direTowers.allBuilds[2],direTowers.allBuilds[1],direTowers.allBuilds[0],
-            direTowers.allBuilds[3],direTowers.allBuilds[4],direTowers.allBuilds[5],direTowers.allBuilds[6],
-            direTowers.allBuilds[7],direTowers.allBuilds[8],direTowers.allBuilds[9])}
+        return listOf(
+            radiantTowers.allBuilds[2],
+            radiantTowers.allBuilds[1],
+            radiantTowers.allBuilds[0],
+            radiantTowers.allBuilds[3],
+            radiantTowers.allBuilds[4],
+            radiantTowers.allBuilds[5],
+            radiantTowers.allBuilds[6],
+            radiantTowers.allBuilds[7],
+            radiantTowers.allBuilds[8],
+            radiantTowers.allBuilds[9],
+            direTowers.allBuilds[2],
+            direTowers.allBuilds[1],
+            direTowers.allBuilds[0],
+            direTowers.allBuilds[3],
+            direTowers.allBuilds[4],
+            direTowers.allBuilds[5],
+            direTowers.allBuilds[6],
+            direTowers.allBuilds[7],
+            direTowers.allBuilds[8],
+            direTowers.allBuilds[9]
+        )
+    }
 }

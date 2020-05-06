@@ -18,6 +18,8 @@ class ClientViewModel : ViewModel(), getInfo {
     fun getTicTac(): LiveData<Array<Int>> = gameArray
     private val showMoveToLinning = MutableLiveData<Array<Int>>()
     fun getMoveLinning(): LiveData<Array<Int>> = showMoveToLinning
+    private val allPlayersStats = MutableLiveData<List<String>>()
+    fun getPlayersMatchStatistic(): LiveData<List<String>> = allPlayersStats
     var myString = ""
 
     init {
@@ -27,7 +29,7 @@ class ClientViewModel : ViewModel(), getInfo {
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0
         )
-        showMoveToLinning.value=arrayOf(
+        showMoveToLinning.value = arrayOf(
             7, 0, 0, 0, 0, 0, 0, 0, 0, 0
         )
     }
@@ -51,6 +53,7 @@ class ClientViewModel : ViewModel(), getInfo {
     fun setConnect() {
         progress.value = 4
     }
+
     fun setDireLaining(position: Array<Int>) {
         val sb = StringBuilder("Lain:")
         position.forEach { sb.append("$it.") }
@@ -82,7 +85,7 @@ class ClientViewModel : ViewModel(), getInfo {
             gameArray.postValue(
                 pickArray
             )
-        }else if (mes.substring(0, 4) == "Lain") {
+        } else if (mes.substring(0, 4) == "Lain") {
             val prePayload = mes.split(":")
             val payload = prePayload[1]
             val dots = payload.split(".")
@@ -94,7 +97,17 @@ class ClientViewModel : ViewModel(), getInfo {
             showMoveToLinning.postValue(
                 heroArray
             )
-        }else {
+        } else if (mes.substring(0, 4) == "Stat") {
+            val prePayload = mes.split(":")
+            val payload = prePayload[1]
+            val dots = payload.split(".")
+            val statArray = listOf(
+                dots[0], dots[1], dots[2],
+                dots[3], dots[4], dots[5], dots[6],
+                dots[7], dots[8], dots[9], dots[10], dots[11]
+            )
+            allPlayersStats.postValue(statArray)
+        } else {
 
         }
 
