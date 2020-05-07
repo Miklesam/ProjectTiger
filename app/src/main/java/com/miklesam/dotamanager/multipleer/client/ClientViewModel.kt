@@ -106,6 +106,7 @@ class ClientViewModel : ViewModel(), getInfo {
                 dots[3], dots[4], dots[5], dots[6],
                 dots[7], dots[8], dots[9], dots[10], dots[11]
             )
+            Log.w("StatArray",statArray.toString())
             allPlayersStats.postValue(statArray)
         } else {
 

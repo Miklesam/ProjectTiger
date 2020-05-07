@@ -229,12 +229,20 @@ class HostViewModel : ViewModel(), getInfo {
                 } else {
                     direBottom++
                 }
+                sendStats()
             }
             calculateLineTower(radiantMid, direMid,radiantTowers.mid,direTowers.mid,radiantTowers,direTowers)
             calculateLineTower(radiantTop, direTop,radiantTowers.top,direTowers.top,radiantTowers,direTowers)
             calculateLineTower(radiantBottom, direBottom,radiantTowers.bot,direTowers.bot,radiantTowers,direTowers)
 
         }
+    }
+    private fun sendStats(){
+        val types=assignStats()
+        allPlayersStats.postValue(types)
+        val sb = StringBuilder("Stat:")
+        types?.forEach { sb.append("$it.") }
+        sendMessage(sb.toString())
     }
 
     private fun calculateLineTower(radiant: Int, dire: Int, radTowers:ArrayList<Boolean>, diresTower:ArrayList<Boolean>, r: Side, d: Side) {
@@ -311,7 +319,6 @@ class HostViewModel : ViewModel(), getInfo {
                 returningVal = true
             }
         }
-        allPlayersStats.postValue(assignStats())
         return returningVal
     }
 
@@ -331,9 +338,6 @@ class HostViewModel : ViewModel(), getInfo {
         val totalRadiantKills = RadiantTeam.map { it.kills }.sum().toString()
         val totalDireKills = DireTeam.map { it.kills }.sum().toString()
         val types=listOf(r1, r2, r3, r4, r5, d1, d2, d3, d4, d5, totalRadiantKills, totalDireKills)
-        val sb = StringBuilder("Stat:")
-        types?.forEach { sb.append("$it.") }
-        sendMessage(sb.toString())
         return types
     }
 
