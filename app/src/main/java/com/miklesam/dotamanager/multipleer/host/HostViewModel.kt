@@ -17,8 +17,10 @@ class HostViewModel : ViewModel(), getInfo {
 
     private val toastMessage = MutableLiveData<String>()
     private val progress = MutableLiveData<Int>()
+    private val stateGame = MutableLiveData<Int>()
     private val showMoveToLinning = MutableLiveData<Array<Int>>()
     private val gameArray = MutableLiveData<Array<Int>>()
+    fun getStateGame(): LiveData<Int> = stateGame
     fun getToastMessage(): LiveData<String> = toastMessage
     fun getMoveLinning(): LiveData<Array<Int>> = showMoveToLinning
     fun getProgress(): LiveData<Int> = progress
@@ -33,8 +35,16 @@ class HostViewModel : ViewModel(), getInfo {
     private val allPlayersStats = MutableLiveData<List<String>>()
     fun getPlayersMatchStatistic(): LiveData<List<String>> = allPlayersStats
     val scope = CoroutineScope(Dispatchers.IO + SupervisorJob())
-    val radiantTowers = Side(arrayListOf(true,true,true),arrayListOf(true,true,true),arrayListOf(true,true,true))
-    val direTowers = Side(arrayListOf(true,true,true),arrayListOf(true,true,true),arrayListOf(true,true,true))
+    val radiantTowers = Side(
+        arrayListOf(true, true, true),
+        arrayListOf(true, true, true),
+        arrayListOf(true, true, true)
+    )
+    val direTowers = Side(
+        arrayListOf(true, true, true),
+        arrayListOf(true, true, true),
+        arrayListOf(true, true, true)
+    )
     private val allTowers = MutableLiveData<List<Boolean>>()
     fun getradiantTowers(): LiveData<List<Boolean>> = allTowers
 
@@ -55,6 +65,7 @@ class HostViewModel : ViewModel(), getInfo {
 
     init {
         Log.w("View", "ViewModel is Init")
+        stateGame.value = 0
         progress.value = 0
         gameArray.value = arrayOf(
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -212,7 +223,7 @@ class HostViewModel : ViewModel(), getInfo {
         }
 
         scope.launch {
-            for(i in 0 until 3){
+            for (i in 0 until 3) {
                 delay(1000)
                 if (calculateLineKills(arrayMidRaddiant, arrayMidDire)) {
                     radiantMid++
@@ -231,35 +242,69 @@ class HostViewModel : ViewModel(), getInfo {
                 }
                 sendStats()
             }
-            calculateLineTower(radiantMid, direMid,radiantTowers.mid,direTowers.mid,radiantTowers,direTowers)
-            calculateLineTower(radiantTop, direTop,radiantTowers.top,direTowers.top,radiantTowers,direTowers)
-            calculateLineTower(radiantBottom, direBottom,radiantTowers.bot,direTowers.bot,radiantTowers,direTowers)
-
+            calculateLineTower(
+                radiantMid,
+                direMid,
+                radiantTowers.mid,
+                direTowers.mid,
+                radiantTowers,
+                direTowers
+            )
+            calculateLineTower(
+                radiantTop,
+                direTop,
+                radiantTowers.top,
+                direTowers.top,
+                radiantTowers,
+                direTowers
+            )
+            calculateLineTower(
+                radiantBottom,
+                direBottom,
+                radiantTowers.bot,
+                direTowers.bot,
+                radiantTowers,
+                direTowers
+            )
+            val nextState = stateGame.value?.plus(1)
+            radInit = false
+            direInit = false
+            delay(10000)
+            stateGame.postValue(nextState)
+            sendMessage("Next:$nextState")
         }
     }
-    private fun sendStats(){
-        val types=assignStats()
+
+    private fun sendStats() {
+        val types = assignStats()
         allPlayersStats.postValue(types)
         val sb = StringBuilder("Stat:")
         types?.forEach { sb.append("$it.") }
         sendMessage(sb.toString())
     }
 
-    private fun calculateLineTower(radiant: Int, dire: Int, radTowers:ArrayList<Boolean>, diresTower:ArrayList<Boolean>, r: Side, d: Side) {
+    private fun calculateLineTower(
+        radiant: Int,
+        dire: Int,
+        radTowers: ArrayList<Boolean>,
+        diresTower: ArrayList<Boolean>,
+        r: Side,
+        d: Side
+    ) {
         Log.w("Snos =", "Radiant $radiant  Dire $dire")
-        if(radiant>dire){
-            if(diresTower.isNotEmpty()){
-                diresTower.removeAt(diresTower.size-1)
+        if (radiant > dire) {
+            if (diresTower.isNotEmpty()) {
+                diresTower.removeAt(diresTower.size - 1)
                 d.updateAncient(true)
-            }else{
+            } else {
                 d.updateAncient(false)
             }
 
-        }else{
-            if(radTowers.isNotEmpty()){
-                radTowers.removeAt(radTowers.size-1)
+        } else {
+            if (radTowers.isNotEmpty()) {
+                radTowers.removeAt(radTowers.size - 1)
                 r.updateAncient(true)
-            }else{
+            } else {
                 r.updateAncient(false)
             }
 
@@ -337,7 +382,8 @@ class HostViewModel : ViewModel(), getInfo {
 
         val totalRadiantKills = RadiantTeam.map { it.kills }.sum().toString()
         val totalDireKills = DireTeam.map { it.kills }.sum().toString()
-        val types=listOf(r1, r2, r3, r4, r5, d1, d2, d3, d4, d5, totalRadiantKills, totalDireKills)
+        val types =
+            listOf(r1, r2, r3, r4, r5, d1, d2, d3, d4, d5, totalRadiantKills, totalDireKills)
         return types
     }
 

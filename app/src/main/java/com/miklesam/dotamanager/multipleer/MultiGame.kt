@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProviders
+import com.miklesam.dotamanager.EndMatchDialog
 import com.miklesam.dotamanager.GameSimulationView
 import com.miklesam.dotamanager.LineningDialog
 import com.miklesam.dotamanager.R
@@ -17,13 +18,13 @@ import com.miklesam.dotamanager.multipleer.host.HostViewModel
 import kotlinx.android.synthetic.main.fragment_game.*
 
 class MultiGame(isHost: Boolean) : Fragment(R.layout.fragment_game),
-    LineningDialog.NoticeDialogListener {
+    LineningDialog.NoticeDialogListener, EndMatchDialog.toLobbyInterface {
     private lateinit var myViewModel: ViewModel
     var host = isHost
     var multiGame: GameSimulationView? = null
     var radiant = ArrayList<Int>()
     var dire = ArrayList<Int>()
-
+    var gameEnd = false
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -51,10 +52,21 @@ class MultiGame(isHost: Boolean) : Fragment(R.layout.fragment_game),
             (myViewModel as HostViewModel).getTicTac().observe(this, Observer { picksArray ->
                 showImages(picksArray)
             })
+            (myViewModel as HostViewModel).getStateGame().observe(this, Observer { state ->
+                if (state != 0 && !gameEnd) {
+                    CreateDeskDialog()
+                }
+            })
         } else {
             myViewModel = ViewModelProviders.of(requireActivity()).get(ClientViewModel::class.java)
             (myViewModel as ClientViewModel).getTicTac().observe(this, Observer { picksArray ->
                 showImages(picksArray)
+            })
+
+            (myViewModel as ClientViewModel).getStateGame().observe(this, Observer { state ->
+                if (state != 0) {
+                    CreateDeskDialog()
+                }
             })
         }
 
@@ -109,15 +121,12 @@ class MultiGame(isHost: Boolean) : Fragment(R.layout.fragment_game),
             (myViewModel as HostViewModel).getradiantTowers().observe(this, Observer {
                 Log.w("Fragment Game", "Current TowerState= $it")
                 gameGame?.setTowers(it)
-                /*
                 gameEnd = !it[9] || !it[19]
                 if (!it[9]) {
                     initiateEnd(2)
                 } else {
                     if (!it[19]) initiateEnd(1)
                 }
-
-                 */
 
             })
 
@@ -215,6 +224,17 @@ class MultiGame(isHost: Boolean) : Fragment(R.layout.fragment_game),
 
     }
 
+    fun initiateEnd(side: Int) {
+        multiGame?.initiateWin(side)
+        CreateEndMatchDialogDialog(side)
+    }
+
+    private fun CreateEndMatchDialogDialog(side: Int) {
+        Log.w("MatchEnd Dialog", "End")
+        val dialog = EndMatchDialog(this, side)
+        fragmentManager?.let { dialog.show(it, "CreateEndMatchDialogDialog") }
+    }
+
     private fun CreateDeskDialog() {
         if (host) {
             val dialog = LineningDialog(this, radiant)
@@ -269,5 +289,9 @@ class MultiGame(isHost: Boolean) : Fragment(R.layout.fragment_game),
         )
 
          */
+    }
+
+    override fun goToLobbyClick() {
+        Log.w("MultiGame", "End")
     }
 }

@@ -20,9 +20,12 @@ class ClientViewModel : ViewModel(), getInfo {
     fun getMoveLinning(): LiveData<Array<Int>> = showMoveToLinning
     private val allPlayersStats = MutableLiveData<List<String>>()
     fun getPlayersMatchStatistic(): LiveData<List<String>> = allPlayersStats
+    private val stateGame = MutableLiveData<Int>()
+    fun getStateGame(): LiveData<Int> = stateGame
     var myString = ""
 
     init {
+        stateGame.value=0
         progress.value = 0
         gameArray.value = arrayOf(
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -108,7 +111,15 @@ class ClientViewModel : ViewModel(), getInfo {
             )
             Log.w("StatArray",statArray.toString())
             allPlayersStats.postValue(statArray)
-        } else {
+        }else if (mes.substring(0, 4) == "Next") {
+            Log.w("ClientModel State", mes)
+            val prePayload = mes.split(":")
+            val payload = prePayload[1].toInt()
+            Log.w("ClientModel Statepay", payload.toString())
+            stateGame.postValue(payload)
+            Log.w("ClientModel Stateval", stateGame.value.toString())
+        }
+        else {
 
         }
 
