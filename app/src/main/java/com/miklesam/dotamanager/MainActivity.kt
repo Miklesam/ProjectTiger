@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity(), FragmentMenu.MenuListener, FragmentLob
     FragmentTeams.teamShow, FragmentTeamSigning.gotoLobby,
     FragmentPractice.PracticeListener, PickStage.nextFromPick, PlainingStage.nextFromPlaining,
     FragmentMedia.MediaListener, FragmentMultipleer.MultioleerListener, FragmentHost.hostListener,
-    FragmentClient.clientListener, MultiPick.nextMultiPick {
+    FragmentClient.clientListener, MultiPick.nextMultiPick, MultiGame.toMain {
 
     private var googleSignInClient: GoogleSignInClient? = null
     private var achievementClient: AchievementsClient? = null
@@ -311,6 +311,10 @@ class MainActivity : AppCompatActivity(), FragmentMenu.MenuListener, FragmentLob
 
     override fun direPickEnded() {
         replaceFragmentFromRightToLeft(MultiGame(false), true)
+    }
+
+    override fun goToMain() {
+        replaceFragmentFromRightToLeft(FragmentMenu(),false)
     }
 
 

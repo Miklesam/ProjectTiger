@@ -266,6 +266,11 @@ class HostViewModel : ViewModel(), getInfo {
                 radiantTowers,
                 direTowers
             )
+            val t = calculateTowers()
+            val sb = StringBuilder("Towe:")
+            t?.forEach { sb.append("$it.") }
+            sendMessage(sb.toString())
+
             val nextState = stateGame.value?.plus(1)
             radInit = false
             direInit = false

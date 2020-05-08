@@ -22,10 +22,12 @@ class ClientViewModel : ViewModel(), getInfo {
     fun getPlayersMatchStatistic(): LiveData<List<String>> = allPlayersStats
     private val stateGame = MutableLiveData<Int>()
     fun getStateGame(): LiveData<Int> = stateGame
+    private val allTowers = MutableLiveData<List<Boolean>>()
+    fun getradiantTowers(): LiveData<List<Boolean>> = allTowers
     var myString = ""
 
     init {
-        stateGame.value=0
+        stateGame.value = 0
         progress.value = 0
         gameArray.value = arrayOf(
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -109,17 +111,43 @@ class ClientViewModel : ViewModel(), getInfo {
                 dots[3], dots[4], dots[5], dots[6],
                 dots[7], dots[8], dots[9], dots[10], dots[11]
             )
-            Log.w("StatArray",statArray.toString())
+            Log.w("StatArray", statArray.toString())
             allPlayersStats.postValue(statArray)
-        }else if (mes.substring(0, 4) == "Next") {
+        } else if (mes.substring(0, 4) == "Next") {
             Log.w("ClientModel State", mes)
             val prePayload = mes.split(":")
             val payload = prePayload[1].toInt()
             Log.w("ClientModel Statepay", payload.toString())
             stateGame.postValue(payload)
             Log.w("ClientModel Stateval", stateGame.value.toString())
-        }
-        else {
+        } else if (mes.substring(0, 4) == "Towe") {
+            val prePayload = mes.split(":")
+            val payload = prePayload[1]
+            val dots = payload.split(".")
+            val towerArray = listOf(
+                dots[0].toBoolean(),
+                dots[1].toBoolean(),
+                dots[2].toBoolean(),
+                dots[3].toBoolean(),
+                dots[4].toBoolean(),
+                dots[5].toBoolean(),
+                dots[6].toBoolean(),
+                dots[7].toBoolean(),
+                dots[8].toBoolean(),
+                dots[9].toBoolean(),
+                dots[10].toBoolean(),
+                dots[11].toBoolean(),
+                dots[12].toBoolean(),
+                dots[13].toBoolean(),
+                dots[14].toBoolean(),
+                dots[15].toBoolean(),
+                dots[16].toBoolean(),
+                dots[17].toBoolean(),
+                dots[18].toBoolean(),
+                dots[19].toBoolean()
+            )
+            allTowers.postValue(towerArray)
+        } else {
 
         }
 

@@ -25,9 +25,15 @@ class MultiGame(isHost: Boolean) : Fragment(R.layout.fragment_game),
     var radiant = ArrayList<Int>()
     var dire = ArrayList<Int>()
     var gameEnd = false
+    lateinit var menuListener:toMain
+
+    interface toMain{
+       fun goToMain()
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        menuListener = activity as toMain
         tagName.text = ""
         tagName2.text = ""
         firstRadiantPlayerName.text = ""
@@ -64,7 +70,7 @@ class MultiGame(isHost: Boolean) : Fragment(R.layout.fragment_game),
             })
 
             (myViewModel as ClientViewModel).getStateGame().observe(this, Observer { state ->
-                if (state != 0) {
+                if (state != 0 && !gameEnd) {
                     CreateDeskDialog()
                 }
             })
@@ -156,6 +162,17 @@ class MultiGame(isHost: Boolean) : Fragment(R.layout.fragment_game),
                 direTotalScore.text = it[11]
 
             })
+
+            (myViewModel as ClientViewModel).getradiantTowers().observe(this, Observer {
+                gameGame?.setTowers(it)
+                gameEnd = !it[9] || !it[19]
+                if (!it[9]) {
+                    initiateEnd(2)
+                } else {
+                    if (!it[19]) initiateEnd(1)
+                }
+
+            })
         }
 
 
@@ -231,7 +248,12 @@ class MultiGame(isHost: Boolean) : Fragment(R.layout.fragment_game),
 
     private fun CreateEndMatchDialogDialog(side: Int) {
         Log.w("MatchEnd Dialog", "End")
-        val dialog = EndMatchDialog(this, side)
+        val dialog = if (host) {
+            EndMatchDialog(this, side)
+        } else {
+            val value = if (side == 2) 1 else 2
+            EndMatchDialog(this, value)
+        }
         fragmentManager?.let { dialog.show(it, "CreateEndMatchDialogDialog") }
     }
 
@@ -293,5 +315,6 @@ class MultiGame(isHost: Boolean) : Fragment(R.layout.fragment_game),
 
     override fun goToLobbyClick() {
         Log.w("MultiGame", "End")
+        menuListener.goToMain()
     }
 }
