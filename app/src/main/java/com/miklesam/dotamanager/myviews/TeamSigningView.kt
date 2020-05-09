@@ -1,8 +1,6 @@
-package com.miklesam.dotamanager
+package com.miklesam.dotamanager.myviews
 
-import android.animation.TimeAnimator
 import android.content.Context
-import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
@@ -10,6 +8,7 @@ import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.view.View
 import androidx.core.content.ContextCompat
+import com.miklesam.dotamanager.R
 
 class TeamSigningView : View {
 
@@ -47,7 +46,9 @@ class TeamSigningView : View {
     }
 
     private fun init() {
-        mDrawable = ContextCompat.getDrawable(context, R.drawable.without_head_champ)
+        mDrawable = ContextCompat.getDrawable(context,
+            R.drawable.without_head_champ
+        )
     }
 
 

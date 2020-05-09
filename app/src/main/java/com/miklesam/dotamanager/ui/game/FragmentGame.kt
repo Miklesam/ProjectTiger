@@ -11,9 +11,9 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import com.miklesam.dotamanager.EndMatchDialog
-import com.miklesam.dotamanager.LineningDialog
-import com.miklesam.dotamanager.GameSimulationView
+import com.miklesam.dotamanager.dialogs.EndMatchDialog
+import com.miklesam.dotamanager.dialogs.LineningDialog
+import com.miklesam.dotamanager.myviews.GameSimulationView
 import com.miklesam.dotamanager.R
 import com.miklesam.dotamanager.datamodels.Heroes
 import com.miklesam.dotamanager.utils.PrefsHelper
@@ -272,7 +272,8 @@ class FragmentGame(myListener: backToLobby) : Fragment(R.layout.fragment_game),
     }
 
     private fun CreateDeskDialog() {
-        val dialog = LineningDialog(this, heroes)
+        val dialog =
+            LineningDialog(this, heroes)
         fragmentManager?.let { dialog.show(it, "CreateDeskDialog") }
     }
 

@@ -1,5 +1,6 @@
 package com.miklesam.dotamanager
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.WindowManager
@@ -34,8 +35,7 @@ class MainActivity : AppCompatActivity(), FragmentMenu.MenuListener, FragmentLob
     FragmentDescription.nextListener, FragmentChoosePlayers.nextChoosenListener,
     FragmentTeams.teamShow, FragmentTeamSigning.gotoLobby,
     FragmentPractice.PracticeListener, PickStage.nextFromPick, PlainingStage.nextFromPlaining,
-    FragmentMedia.MediaListener, FragmentMultipleer.MultioleerListener, FragmentHost.hostListener,
-    FragmentClient.clientListener, MultiPick.nextMultiPick, MultiGame.toMain {
+    FragmentMedia.MediaListener {
 
     private var googleSignInClient: GoogleSignInClient? = null
     private var achievementClient: AchievementsClient? = null
@@ -119,7 +119,9 @@ class MainActivity : AppCompatActivity(), FragmentMenu.MenuListener, FragmentLob
     }
 
     override fun multipleerClicked() {
-        replaceFragmentFromRightToLeft(FragmentMultipleer(), true)
+        //replaceFragmentFromRightToLeft(FragmentMultipleer(), true)
+        val intent = Intent(this, MultipleerActivity::class.java)
+        startActivity(intent)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -130,12 +132,9 @@ class MainActivity : AppCompatActivity(), FragmentMenu.MenuListener, FragmentLob
             WindowManager.LayoutParams.FLAG_FULLSCREEN
         )
 
-
-
         if (savedInstanceState == null) {
             showFragmentMain()
         }
-
         initGoogleClientAndSignin()
     }
 
@@ -288,34 +287,4 @@ class MainActivity : AppCompatActivity(), FragmentMenu.MenuListener, FragmentLob
     override fun morfClicked() {
         replaceFragmentFromRightToLeft(MorfNews(), true)
     }
-
-    override fun hostClicked() {
-        replaceFragmentFromRightToLeft(FragmentHost(), true)
-    }
-
-    override fun clientClicked() {
-        replaceFragmentFromRightToLeft(FragmentClient(), true)
-    }
-
-    override fun hostOk() {
-        replaceFragmentFromRightToLeft(MultiPick(true), true)
-    }
-
-    override fun clientOk() {
-        replaceFragmentFromRightToLeft(MultiPick(false), true)
-    }
-
-    override fun radiantPickEnded() {
-        replaceFragmentFromRightToLeft(MultiGame(true), true)
-    }
-
-    override fun direPickEnded() {
-        replaceFragmentFromRightToLeft(MultiGame(false), true)
-    }
-
-    override fun goToMain() {
-        replaceFragmentFromRightToLeft(FragmentMenu(),false)
-    }
-
-
 }

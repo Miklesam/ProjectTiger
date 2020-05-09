@@ -1,4 +1,4 @@
-package com.miklesam.dotamanager
+package com.miklesam.dotamanager.dialogs
 
 import android.app.AlertDialog
 import android.app.Dialog
@@ -7,7 +7,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatDialogFragment
-import kotlinx.android.synthetic.main.layout_end_match_dialog.*
+import com.miklesam.dotamanager.R
 
 class EndMatchDialog() : AppCompatDialogFragment() {
     constructor(myListener: toLobbyInterface, side: Int) : this() {
@@ -29,8 +29,9 @@ class EndMatchDialog() : AppCompatDialogFragment() {
         val mycustomview = inflater.inflate(R.layout.layout_end_match_dialog, null)
         val match_result_text=mycustomview.findViewById<TextView>(R.id.match_result_text)
         when(sude){
-            1->match_result_text.text="Вы выйграли"
+            1->match_result_text.text="Вы выиграли"
             2->match_result_text.text="Вы проиграли"
+            3->match_result_text.text="Ничья"
         }
 
 

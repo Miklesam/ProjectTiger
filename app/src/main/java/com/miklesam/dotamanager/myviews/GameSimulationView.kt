@@ -1,4 +1,4 @@
-package com.miklesam.dotamanager
+package com.miklesam.dotamanager.myviews
 
 import android.animation.TimeAnimator
 import android.content.Context
@@ -10,6 +10,7 @@ import android.util.AttributeSet
 import android.view.View
 import androidx.core.content.ContextCompat
 import android.util.Log
+import com.miklesam.dotamanager.R
 import com.miklesam.dotamanager.datamodels.Hero
 import com.miklesam.dotamanager.datamodels.Heroes
 import com.miklesam.dotamanager.utils.Lanes
@@ -75,7 +76,9 @@ class GameSimulationView : View {
     }
 
     private fun init() {
-        mDrawable = ContextCompat.getDrawable(context, R.drawable.minimap_7_23)
+        mDrawable = ContextCompat.getDrawable(context,
+            R.drawable.minimap_7_23
+        )
 
         Log.w("InitSizeX=", sizeX.toString())
         Log.w("InitSizeY=", sizeY.toString())

@@ -1,4 +1,4 @@
-package com.miklesam.dotamanager
+package com.miklesam.dotamanager.myviews
 
 import android.animation.TimeAnimator
 import android.content.Context
@@ -9,6 +9,7 @@ import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.view.View
 import androidx.core.content.ContextCompat
+import com.miklesam.dotamanager.R
 
 class WeatherView : View {
 
@@ -47,9 +48,15 @@ class WeatherView : View {
     }
 
     private fun init() {
-        mDrawable = ContextCompat.getDrawable(context, R.drawable.sun)
-        mPartition = ContextCompat.getDrawable(context, R.drawable.newpartition)
-        mWall = ContextCompat.getDrawable(context, R.drawable.wall)
+        mDrawable = ContextCompat.getDrawable(context,
+            R.drawable.sun
+        )
+        mPartition = ContextCompat.getDrawable(context,
+            R.drawable.newpartition
+        )
+        mWall = ContextCompat.getDrawable(context,
+            R.drawable.wall
+        )
 
     }
 
@@ -112,7 +119,9 @@ class WeatherView : View {
 
     fun start(view: View) {
         mView = view
-        val layout = mView?.findViewById<WeatherView>(R.id.weatherAnim)
+        val layout = mView?.findViewById<WeatherView>(
+            R.id.weatherAnim
+        )
         layout?.setBackgroundResource(R.drawable.panoramanew)
         mTimeAnimator = TimeAnimator()
         mTimeAnimator!!.setTimeListener(object : TimeAnimator.TimeListener {
@@ -173,12 +182,20 @@ class WeatherView : View {
     private fun swap() {
         Night = !Night
         if (Night) {
-            mDrawable = ContextCompat.getDrawable(context, R.drawable.moonlite)
-            val layout = mView?.findViewById<WeatherView>(R.id.weatherAnim)
+            mDrawable = ContextCompat.getDrawable(context,
+                R.drawable.moonlite
+            )
+            val layout = mView?.findViewById<WeatherView>(
+                R.id.weatherAnim
+            )
             layout?.setBackgroundResource(R.drawable.panoramanew_dark)
         } else {
-            mDrawable = ContextCompat.getDrawable(context, R.drawable.sun)
-            val layout = mView?.findViewById<WeatherView>(R.id.weatherAnim)
+            mDrawable = ContextCompat.getDrawable(context,
+                R.drawable.sun
+            )
+            val layout = mView?.findViewById<WeatherView>(
+                R.id.weatherAnim
+            )
             layout?.setBackgroundResource(R.drawable.panoramanew)
 
         }

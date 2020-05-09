@@ -18,8 +18,13 @@ import com.miklesam.dotamanager.multipleer.host.HostViewModel
 import com.miklesam.dotamanager.utils.showCustomToast
 import kotlinx.android.synthetic.main.pick_stage.*
 
-class MultiPick(isHost: Boolean) : Fragment(R.layout.fragment_multipick) {
-    var host = isHost
+class MultiPick() : Fragment(R.layout.fragment_multipick) {
+    var host = false
+
+    constructor(isHost: Boolean) : this() {
+        host = isHost
+    }
+
     var Heros_icon =
         arrayOfNulls<ImageView>(117)
     val Pick_stage =
@@ -27,14 +32,16 @@ class MultiPick(isHost: Boolean) : Fragment(R.layout.fragment_multipick) {
     private lateinit var myViewModel: ViewModel
     var yourTurn = false
     var lock = false
-    var heroesArray=arrayOf(23)
-    var soundPull: SoundPool?= null
+    var heroesArray = arrayOf(23)
+    var soundPull: SoundPool? = null
     var soundOne: Int = 0
+    var soundTwo: Int = 0
 
     override fun onStop() {
         super.onStop()
         soundPull?.stop(soundOne)
-        soundPull=null
+        soundPull?.stop(soundTwo)
+        soundPull = null
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,6 +56,7 @@ class MultiPick(isHost: Boolean) : Fragment(R.layout.fragment_multipick) {
             .setAudioAttributes(audioAtributes)
             .build()
         soundOne = soundPull!!.load(context, R.raw.your_turn_to_pick, 1)
+        soundTwo = soundPull!!.load(context, R.raw.your_turn_to_ban, 1)
     }
 
     interface nextMultiPick {
@@ -64,9 +72,15 @@ class MultiPick(isHost: Boolean) : Fragment(R.layout.fragment_multipick) {
             myViewModel = ViewModelProviders.of(requireActivity()).get(HostViewModel::class.java)
             (myViewModel as HostViewModel).startPick()
             (myViewModel as HostViewModel).getTicTac().observe(this, Observer { picksArray ->
-                heroesArray=picksArray
-                if (picksArray[22] == 1) {
-                    soundPull?.play(soundOne, 1F, 1F, 0, 0, 1F)
+                heroesArray = picksArray
+                if (picksArray[22] == 301) {
+                    val turn = (myViewModel as HostViewModel).getTurnNumber()
+                    if (turn == 0 || turn == 2 || turn == 4 || turn == 6 || turn == 12 || turn == 19) {
+                        soundPull?.play(soundTwo, 1F, 1F, 0, 0, 1F)
+                    } else if(turn<22) {
+                        soundPull?.play(soundOne, 1F, 1F, 0, 0, 1F)
+                    }
+
                     Help.text = "Ваш Ход"
                     yourTurn = true
                 } else {
@@ -74,78 +88,78 @@ class MultiPick(isHost: Boolean) : Fragment(R.layout.fragment_multipick) {
                     yourTurn = false
                 }
                 for (i in 0 until 8) {
-                    if (picksArray[i] != 0) {
+                    if (picksArray[i] != 300) {
                         Pick_stage[i]?.setImageResource(
                             Heroes.values().find { it.id == picksArray[i] }!!.minBan
                         )
                     }
                 }
-                if (picksArray[8] != 0) {
+                if (picksArray[8] != 300) {
                     Pick_stage[8]?.setImageResource(
                         Heroes.values().find { it.id == picksArray[8] }!!.image_pick
                     )
                 }
-                if (picksArray[9] != 0) {
+                if (picksArray[9] != 300) {
                     Pick_stage[9]?.setImageResource(
                         Heroes.values().find { it.id == picksArray[9] }!!.image_pick
                     )
                 }
-                if (picksArray[10] != 0) {
+                if (picksArray[10] != 300) {
                     Pick_stage[10]?.setImageResource(
                         Heroes.values().find { it.id == picksArray[10] }!!.image_pick
                     )
                 }
-                if (picksArray[11] != 0) {
+                if (picksArray[11] != 300) {
                     Pick_stage[11]?.setImageResource(
                         Heroes.values().find { it.id == picksArray[11] }!!.image_pick
                     )
                 }
-                if (picksArray[12] != 0) {
+                if (picksArray[12] != 300) {
                     Pick_stage[12]?.setImageResource(
                         Heroes.values().find { it.id == picksArray[12] }!!.minBan
                     )
                 }
-                if (picksArray[13] != 0) {
+                if (picksArray[13] != 300) {
                     Pick_stage[13]?.setImageResource(
                         Heroes.values().find { it.id == picksArray[13] }!!.minBan
                     )
                 }
-                if (picksArray[14] != 0) {
+                if (picksArray[14] != 300) {
                     Pick_stage[14]?.setImageResource(
                         Heroes.values().find { it.id == picksArray[14] }!!.image_pick
                     )
                 }
-                if (picksArray[15] != 0) {
+                if (picksArray[15] != 300) {
                     Pick_stage[15]?.setImageResource(
                         Heroes.values().find { it.id == picksArray[15] }!!.image_pick
                     )
                 }
-                if (picksArray[16] != 0) {
+                if (picksArray[16] != 300) {
                     Pick_stage[16]?.setImageResource(
                         Heroes.values().find { it.id == picksArray[16] }!!.image_pick
                     )
                 }
-                if (picksArray[17] != 0) {
+                if (picksArray[17] != 300) {
                     Pick_stage[17]?.setImageResource(
                         Heroes.values().find { it.id == picksArray[17] }!!.image_pick
                     )
                 }
-                if (picksArray[18] != 0) {
+                if (picksArray[18] != 300) {
                     Pick_stage[18]?.setImageResource(
                         Heroes.values().find { it.id == picksArray[18] }!!.minBan
                     )
                 }
-                if (picksArray[19] != 0) {
+                if (picksArray[19] != 300) {
                     Pick_stage[19]?.setImageResource(
                         Heroes.values().find { it.id == picksArray[19] }!!.minBan
                     )
                 }
-                if (picksArray[20] != 0) {
+                if (picksArray[20] != 300) {
                     Pick_stage[20]?.setImageResource(
                         Heroes.values().find { it.id == picksArray[20] }!!.image_pick
                     )
                 }
-                if (picksArray[21] != 0) {
+                if (picksArray[21] != 300) {
                     Pick_stage[21]?.setImageResource(
                         Heroes.values().find { it.id == picksArray[21] }!!.image_pick
                     )
@@ -165,7 +179,7 @@ class MultiPick(isHost: Boolean) : Fragment(R.layout.fragment_multipick) {
                 }
 
                 for (i in 0 until 22) {
-                    if (picksArray[i] != 0) {
+                    if (picksArray[i] != 300) {
                         Heros_icon[picksArray[i]]?.setImageResource(
                             Heroes.values().find { it.id == picksArray[i] }!!.largeBan
                         )
@@ -175,9 +189,14 @@ class MultiPick(isHost: Boolean) : Fragment(R.layout.fragment_multipick) {
         } else {
             myViewModel = ViewModelProviders.of(requireActivity()).get(ClientViewModel::class.java)
             (myViewModel as ClientViewModel).getTicTac().observe(this, Observer { picksArray ->
-                heroesArray=picksArray
-                if (picksArray[22] == 2) {
-                    soundPull?.play(soundOne, 1F, 1F, 0, 0, 1F)
+                heroesArray = picksArray
+                if (picksArray[22] == 302) {
+                    val turn = (myViewModel as ClientViewModel).getTurnNumber()
+                    if (turn == 1 || turn == 3 || turn == 5 || turn == 7|| turn == 13 || turn == 18) {
+                        soundPull?.play(soundTwo, 1F, 1F, 0, 0, 1F)
+                    } else {
+                        soundPull?.play(soundOne, 1F, 1F, 0, 0, 1F)
+                    }
                     Help.text = "Ваш Ход"
                     yourTurn = true
                 } else {
@@ -186,78 +205,78 @@ class MultiPick(isHost: Boolean) : Fragment(R.layout.fragment_multipick) {
                 }
 
                 for (i in 0 until 8) {
-                    if (picksArray[i] != 0) {
+                    if (picksArray[i] != 300) {
                         Pick_stage[i]?.setImageResource(
                             Heroes.values().find { it.id == picksArray[i] }!!.minBan
                         )
                     }
                 }
-                if (picksArray[8] != 0) {
+                if (picksArray[8] != 300) {
                     Pick_stage[8]?.setImageResource(
                         Heroes.values().find { it.id == picksArray[8] }!!.image_pick
                     )
                 }
-                if (picksArray[9] != 0) {
+                if (picksArray[9] != 300) {
                     Pick_stage[9]?.setImageResource(
                         Heroes.values().find { it.id == picksArray[9] }!!.image_pick
                     )
                 }
-                if (picksArray[10] != 0) {
+                if (picksArray[10] != 300) {
                     Pick_stage[10]?.setImageResource(
                         Heroes.values().find { it.id == picksArray[10] }!!.image_pick
                     )
                 }
-                if (picksArray[11] != 0) {
+                if (picksArray[11] != 300) {
                     Pick_stage[11]?.setImageResource(
                         Heroes.values().find { it.id == picksArray[11] }!!.image_pick
                     )
                 }
-                if (picksArray[12] != 0) {
+                if (picksArray[12] != 300) {
                     Pick_stage[12]?.setImageResource(
                         Heroes.values().find { it.id == picksArray[12] }!!.minBan
                     )
                 }
-                if (picksArray[13] != 0) {
+                if (picksArray[13] != 300) {
                     Pick_stage[13]?.setImageResource(
                         Heroes.values().find { it.id == picksArray[13] }!!.minBan
                     )
                 }
-                if (picksArray[14] != 0) {
+                if (picksArray[14] != 300) {
                     Pick_stage[14]?.setImageResource(
                         Heroes.values().find { it.id == picksArray[14] }!!.image_pick
                     )
                 }
-                if (picksArray[15] != 0) {
+                if (picksArray[15] != 300) {
                     Pick_stage[15]?.setImageResource(
                         Heroes.values().find { it.id == picksArray[15] }!!.image_pick
                     )
                 }
-                if (picksArray[16] != 0) {
+                if (picksArray[16] != 300) {
                     Pick_stage[16]?.setImageResource(
                         Heroes.values().find { it.id == picksArray[16] }!!.image_pick
                     )
                 }
-                if (picksArray[17] != 0) {
+                if (picksArray[17] != 300) {
                     Pick_stage[17]?.setImageResource(
                         Heroes.values().find { it.id == picksArray[17] }!!.image_pick
                     )
                 }
-                if (picksArray[18] != 0) {
+                if (picksArray[18] != 300) {
                     Pick_stage[18]?.setImageResource(
                         Heroes.values().find { it.id == picksArray[18] }!!.minBan
                     )
                 }
-                if (picksArray[19] != 0) {
+                if (picksArray[19] != 300) {
                     Pick_stage[19]?.setImageResource(
                         Heroes.values().find { it.id == picksArray[19] }!!.minBan
                     )
                 }
-                if (picksArray[20] != 0) {
+                if (picksArray[20] != 300) {
                     Pick_stage[20]?.setImageResource(
                         Heroes.values().find { it.id == picksArray[20] }!!.image_pick
                     )
                 }
-                if (picksArray[21] != 0) {
+                if (picksArray[21] != 300) {
                     Pick_stage[21]?.setImageResource(
                         Heroes.values().find { it.id == picksArray[21] }!!.image_pick
                     )
@@ -276,7 +295,7 @@ class MultiPick(isHost: Boolean) : Fragment(R.layout.fragment_multipick) {
                     timer.start()
                 }
                 for (i in 0 until 22) {
-                    if (picksArray[i] != 0) {
+                    if (picksArray[i] != 300) {
                         Heros_icon[picksArray[i]]?.setImageResource(
                             Heroes.values().find { it.id == picksArray[i] }!!.largeBan
                         )
@@ -290,9 +309,9 @@ class MultiPick(isHost: Boolean) : Fragment(R.layout.fragment_multipick) {
         for (i in 0 until 117) {
             Heros_icon[i]!!.setOnClickListener {
                 if (yourTurn && !lock) {
-                    if(heroesArray.contains(i)){
+                    if (heroesArray.contains(i)) {
                         showCustomToast("Уже пикнут", Toast.LENGTH_SHORT)
-                    }else{
+                    } else {
                         if (host) {
                             (myViewModel as HostViewModel).setPoint(i, true)
                         } else {

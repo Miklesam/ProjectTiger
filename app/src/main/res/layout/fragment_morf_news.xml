@@ -2,7 +2,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.miklesam.dotamanager.MorfView
+    <com.miklesam.dotamanager.myviews.MorfView
         android:id="@+id/morf_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

@@ -6,7 +6,7 @@ import android.view.View
 import android.widget.Button
 import androidx.fragment.app.Fragment
 import com.miklesam.dotamanager.R
-import com.miklesam.dotamanager.WeatherView
+import com.miklesam.dotamanager.myviews.WeatherView
 
 class FragmentLobby : Fragment(R.layout.fragment_lobby) {
 

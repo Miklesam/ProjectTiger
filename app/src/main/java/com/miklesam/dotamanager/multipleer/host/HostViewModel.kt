@@ -68,9 +68,9 @@ class HostViewModel : ViewModel(), getInfo {
         stateGame.value = 0
         progress.value = 0
         gameArray.value = arrayOf(
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0
+            300, 300, 300, 300, 300, 300, 300, 300, 300, 300,
+            300, 300, 300, 300, 300, 300, 300, 300, 300, 300,
+            300, 300, 300
         )
         showMoveToLinning.value = arrayOf(
             7, 0, 0, 0, 0, 0, 0, 0, 0, 0
@@ -84,12 +84,17 @@ class HostViewModel : ViewModel(), getInfo {
         setLaining()
     }
 
+    fun getTurnNumber():Int{
+        return turnNumber
+    }
+
     fun startPick() {
         val curr = gameArray.value
-        curr?.set(22, 1)
+        curr?.set(22, 301)
         gameArray.postValue(curr)
         val sb = StringBuilder("Pick:")
         curr?.forEach { sb.append("$it.") }
+        sb.append("$turnNumber")
         sendMessage(sb.toString())
     }
 
@@ -99,22 +104,23 @@ class HostViewModel : ViewModel(), getInfo {
         if (host) {
             curr?.set(turnNumber, value)
             if (turnNumber == 11 || turnNumber == 19) {
-                curr?.set(22, 1)
+                curr?.set(22, 301)
             } else {
-                curr?.set(22, 2)
+                curr?.set(22, 302)
             }
         } else {
             curr?.set(turnNumber, value)
             if (turnNumber == 9 || turnNumber == 13) {
-                curr?.set(22, 2)
+                curr?.set(22, 302)
             } else {
-                curr?.set(22, 1)
+                curr?.set(22, 301)
             }
         }
         turnNumber++
         gameArray.postValue(curr)
         val sb = StringBuilder("Pick:")
         curr?.forEach { sb.append("$it.") }
+        sb.append("$turnNumber")
         sendMessage(sb.toString())
     }
 
@@ -225,19 +231,22 @@ class HostViewModel : ViewModel(), getInfo {
         scope.launch {
             for (i in 0 until 3) {
                 delay(1000)
-                if (calculateLineKills(arrayMidRaddiant, arrayMidDire)) {
+                val midLane=calculateLineKills(arrayMidRaddiant, arrayMidDire)
+                if (midLane==2) {
                     radiantMid++
-                } else {
+                } else if(midLane==1) {
                     direMid++
                 }
-                if (calculateLineKills(arrayTopRaddiant, arrayTopDire)) {
+                val topLane=calculateLineKills(arrayTopRaddiant, arrayTopDire)
+                if (topLane==2) {
                     radiantTop++
-                } else {
+                } else if(topLane==1){
                     direTop++
                 }
-                if (calculateLineKills(arrayBottomRaddiant, arrayBottomDire)) {
+                val bottomLane=calculateLineKills(arrayBottomRaddiant, arrayBottomDire)
+                if (bottomLane==2) {
                     radiantBottom++
-                } else {
+                } else if(bottomLane==1){
                     direBottom++
                 }
                 sendStats()
@@ -305,7 +314,7 @@ class HostViewModel : ViewModel(), getInfo {
                 d.updateAncient(false)
             }
 
-        } else {
+        } else if(dire>radiant){
             if (radTowers.isNotEmpty()) {
                 radTowers.removeAt(radTowers.size - 1)
                 r.updateAncient(true)
@@ -345,8 +354,8 @@ class HostViewModel : ViewModel(), getInfo {
     private fun calculateLineKills(
         radiant: ArrayList<HeroStats>,
         dire: ArrayList<HeroStats>
-    ): Boolean {
-        var returningVal = false
+    ): Int {
+        var returningVal = 0
         if (radiant.isNotEmpty() && dire.isNotEmpty()) {
             val rnds = (0 until (radiant.size + dire.size)).random()
             if (rnds > radiant.size - 1) {
@@ -357,7 +366,7 @@ class HostViewModel : ViewModel(), getInfo {
                     }
                 }
                 radiant[(0 until radiant.size).random()].death++
-                returningVal = false
+                returningVal = 1
             } else {
                 radiant[rnds].kills++
                 for (i in 0 until radiant.size) {
@@ -366,8 +375,12 @@ class HostViewModel : ViewModel(), getInfo {
                     }
                 }
                 dire[(0 until dire.size).random()].death++
-                returningVal = true
+                returningVal = 2
             }
+        }else if(radiant.isNotEmpty() && dire.isEmpty()){
+            returningVal=2
+        }else if(radiant.isEmpty() && dire.isNotEmpty()){
+            returningVal=1
         }
         return returningVal
     }

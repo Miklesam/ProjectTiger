@@ -1,16 +1,13 @@
-package com.miklesam.dotamanager
+package com.miklesam.dotamanager.dialogs
 
 import android.app.AlertDialog
 import android.app.Dialog
-import android.content.Context
 import android.content.DialogInterface
 import android.os.Bundle
-import android.util.Log
 import android.widget.*
 import androidx.appcompat.app.AppCompatDialogFragment
 import com.miklesam.dotamanager.R
 import com.miklesam.dotamanager.datamodels.Heroes
-import kotlinx.android.synthetic.main.layout_dialog.*
 
 class LineningDialog() : AppCompatDialogFragment() {
     constructor(myListener: NoticeDialogListener, heroes: ArrayList<Int>?) : this() {

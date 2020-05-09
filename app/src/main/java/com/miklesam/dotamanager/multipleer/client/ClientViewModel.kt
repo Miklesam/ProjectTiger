@@ -25,20 +25,24 @@ class ClientViewModel : ViewModel(), getInfo {
     private val allTowers = MutableLiveData<List<Boolean>>()
     fun getradiantTowers(): LiveData<List<Boolean>> = allTowers
     var myString = ""
+    private var turnNumber = 0
 
     init {
         stateGame.value = 0
         progress.value = 0
         gameArray.value = arrayOf(
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0
+            300, 300, 300, 300, 300, 300, 300, 300, 300, 300,
+            300, 300, 300, 300, 300, 300, 300, 300, 300, 300,
+            300, 300, 300
         )
         showMoveToLinning.value = arrayOf(
             7, 0, 0, 0, 0, 0, 0, 0, 0, 0
         )
     }
 
+    fun getTurnNumber():Int{
+        return turnNumber
+    }
 
     fun setPoint(cell: Int) {
         clientThread.sendMessage(cell.toString())
@@ -87,6 +91,7 @@ class ClientViewModel : ViewModel(), getInfo {
                 dots[19].toInt(), dots[20].toInt(), dots[21].toInt(),
                 dots[22].toInt()
             )
+            turnNumber=dots[23].toInt()
             gameArray.postValue(
                 pickArray
             )

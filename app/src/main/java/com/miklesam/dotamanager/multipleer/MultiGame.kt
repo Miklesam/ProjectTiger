@@ -8,9 +8,9 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProviders
-import com.miklesam.dotamanager.EndMatchDialog
-import com.miklesam.dotamanager.GameSimulationView
-import com.miklesam.dotamanager.LineningDialog
+import com.miklesam.dotamanager.dialogs.EndMatchDialog
+import com.miklesam.dotamanager.myviews.GameSimulationView
+import com.miklesam.dotamanager.dialogs.LineningDialog
 import com.miklesam.dotamanager.R
 import com.miklesam.dotamanager.datamodels.Heroes
 import com.miklesam.dotamanager.multipleer.client.ClientViewModel
@@ -25,10 +25,11 @@ class MultiGame(isHost: Boolean) : Fragment(R.layout.fragment_game),
     var radiant = ArrayList<Int>()
     var dire = ArrayList<Int>()
     var gameEnd = false
-    lateinit var menuListener:toMain
+    lateinit var menuListener: toMain
+    var firstInit = true
 
-    interface toMain{
-       fun goToMain()
+    interface toMain {
+        fun goToMain()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -128,10 +129,12 @@ class MultiGame(isHost: Boolean) : Fragment(R.layout.fragment_game),
                 Log.w("Fragment Game", "Current TowerState= $it")
                 gameGame?.setTowers(it)
                 gameEnd = !it[9] || !it[19]
-                if (!it[9]) {
+                if (!it[9] && !it[19]) {
+                    initiateEnd(3)
+                } else if (!it[9]) {
                     initiateEnd(2)
-                } else {
-                    if (!it[19]) initiateEnd(1)
+                } else if ((!it[19])) {
+                    initiateEnd(1)
                 }
 
             })
@@ -166,10 +169,12 @@ class MultiGame(isHost: Boolean) : Fragment(R.layout.fragment_game),
             (myViewModel as ClientViewModel).getradiantTowers().observe(this, Observer {
                 gameGame?.setTowers(it)
                 gameEnd = !it[9] || !it[19]
-                if (!it[9]) {
+                if (!it[9] && !it[19]) {
+                    initiateEnd(3)
+                } else if ((!it[19])) {
                     initiateEnd(2)
-                } else {
-                    if (!it[19]) initiateEnd(1)
+                } else if (!it[9]) {
+                    initiateEnd(1)
                 }
 
             })
@@ -242,27 +247,37 @@ class MultiGame(isHost: Boolean) : Fragment(R.layout.fragment_game),
     }
 
     fun initiateEnd(side: Int) {
-        multiGame?.initiateWin(side)
-        CreateEndMatchDialogDialog(side)
+        if (firstInit) {
+            firstInit = false
+            if (host) {
+                multiGame?.initiateWin(side)
+            } else {
+                if (side == 1) {
+                    multiGame?.initiateWin(2)
+                } else if (side == 2) {
+                    multiGame?.initiateWin(1)
+                } else {
+                    multiGame?.initiateWin(side)
+                }
+            }
+
+            CreateEndMatchDialogDialog(side)
+        }
     }
 
     private fun CreateEndMatchDialogDialog(side: Int) {
-        Log.w("MatchEnd Dialog", "End")
-        val dialog = if (host) {
-            EndMatchDialog(this, side)
-        } else {
-            val value = if (side == 2) 1 else 2
-            EndMatchDialog(this, value)
-        }
+        val dialog = EndMatchDialog(this, side)
         fragmentManager?.let { dialog.show(it, "CreateEndMatchDialogDialog") }
     }
 
     private fun CreateDeskDialog() {
         if (host) {
-            val dialog = LineningDialog(this, radiant)
+            val dialog =
+                LineningDialog(this, radiant)
             fragmentManager?.let { dialog.show(it, "CreateDeskDialog") }
         } else {
-            val dialog = LineningDialog(this, dire)
+            val dialog =
+                LineningDialog(this, dire)
             fragmentManager?.let { dialog.show(it, "CreateDeskDialog") }
         }
 

@@ -1,14 +1,13 @@
-package com.miklesam.dotamanager
+package com.miklesam.dotamanager.myviews
 
 import android.animation.TimeAnimator
 import android.content.Context
 import android.graphics.Canvas
-import android.graphics.Color
-import android.graphics.Paint
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.view.View
 import androidx.core.content.ContextCompat
+import com.miklesam.dotamanager.R
 
 class MorfView : View {
 
@@ -44,8 +43,12 @@ class MorfView : View {
     }
 
     private fun init() {
-        mDrawable = ContextCompat.getDrawable(context, R.drawable.sweden_big)
-        mPartition = ContextCompat.getDrawable(context, R.drawable.morph_transformer)
+        mDrawable = ContextCompat.getDrawable(context,
+            R.drawable.sweden_big
+        )
+        mPartition = ContextCompat.getDrawable(context,
+            R.drawable.morph_transformer
+        )
     }
 
 
