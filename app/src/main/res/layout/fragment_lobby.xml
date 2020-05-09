@@ -162,7 +162,7 @@
             android:layout_height="match_parent"
             android:background="@drawable/kalendar_empty"
             android:textColor="@color/textMain"
-            android:text="0"
+            android:id="@+id/year"
             android:gravity="center"
             android:textSize="16sp"/>
 
@@ -181,7 +181,7 @@
             android:layout_height="match_parent"
             android:textColor="@color/textMain"
             android:background="@drawable/kalendar_empty"
-            android:text="0"
+            android:id="@+id/month"
             android:gravity="center"
             android:textSize="16sp"/>
 
@@ -200,7 +200,7 @@
             android:layout_height="match_parent"
             android:background="@drawable/kalendar_empty"
             android:textColor="@color/textMain"
-            android:text="1"
+            android:id="@+id/day"
             android:gravity="center"
             android:textSize="16sp"/>
 

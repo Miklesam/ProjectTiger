@@ -79,8 +79,27 @@ fun AppCompatActivity.replaceFragmentFromTopToBottom(fragment: Fragment) {
 fun Fragment.hideKeyboard() {
     val view = this.activity?.currentFocus
     if (view != null) {
-        val imm = this.activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        val imm =
+            this.activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(view.windowToken, 0)
     }
+}
+
+fun Fragment.plusDay() {
+    var days = PrefsHelper.read(PrefsHelper.CAREER_DAY, "0")?.toInt()
+    var months = PrefsHelper.read(PrefsHelper.CAREER_MONTH, "0")?.toInt()
+    var years = PrefsHelper.read(PrefsHelper.CAREER_YEAR, "0")?.toInt()
+    days = days?.plus(1)
+    if (days == 31) {
+        days = 0
+        months = months?.plus(1)
+        if (months == 12) {
+            months = 0
+            years = years?.plus(1)
+        }
+    }
+    PrefsHelper.write(PrefsHelper.CAREER_DAY, days.toString())
+    PrefsHelper.write(PrefsHelper.CAREER_MONTH, months.toString())
+    PrefsHelper.write(PrefsHelper.CAREER_YEAR, years.toString())
 }
 

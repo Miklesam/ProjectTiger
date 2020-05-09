@@ -7,10 +7,12 @@ import android.widget.Button
 import androidx.fragment.app.Fragment
 import com.miklesam.dotamanager.R
 import com.miklesam.dotamanager.myviews.WeatherView
+import com.miklesam.dotamanager.utils.PrefsHelper
+import kotlinx.android.synthetic.main.fragment_lobby.*
 
 class FragmentLobby : Fragment(R.layout.fragment_lobby) {
 
-    private var weatherAnim: WeatherView?=null
+    private var weatherAnim: WeatherView? = null
 
     interface LobbyListener {
         fun gameClicked()
@@ -34,25 +36,31 @@ class FragmentLobby : Fragment(R.layout.fragment_lobby) {
             R.id.weatherAnim
         )
         weatherAnim?.start(view)
-        Log.w("Pick"," Freagment Lobby ViewCreated")
+        Log.w("Pick", " Freagment Lobby ViewCreated")
 
+        val days = PrefsHelper.read(PrefsHelper.CAREER_DAY, "0")
+        val months = PrefsHelper.read(PrefsHelper.CAREER_MONTH, "0")
+        val years = PrefsHelper.read(PrefsHelper.CAREER_YEAR, "0")
+        day.text = days
+        month.text = months
+        year.text = years
     }
 
     override fun onResume() {
         weatherAnim?.resume()
         super.onResume()
-        Log.w("Pick"," Freagment Lobby Resume")
+        Log.w("Pick", " Freagment Lobby Resume")
     }
 
     override fun onPause() {
         weatherAnim?.pause()
         super.onPause()
-        Log.w("Pick"," Freagment Lobby Pause")
+        Log.w("Pick", " Freagment Lobby Pause")
     }
 
     override fun onDestroyView() {
-        weatherAnim=null
+        weatherAnim = null
         super.onDestroyView()
-        Log.w("Pick"," Freagment Lobby DestroyView")
+        Log.w("Pick", " Freagment Lobby DestroyView")
     }
 }

@@ -10,6 +10,9 @@ object PrefsHelper {
     private const val PREFS_NAME = "params"
     const val TEAM_NAME = "team_name"
     const val SHOW_CONTINUE = "continue_show"
+    const val CAREER_DAY = "career_day"
+    const val CAREER_MONTH = "career_month"
+    const val CAREER_YEAR = "career_year"
 
     const val POSITION_1 = "position_1"
     const val POSITION_2 = "position_2"

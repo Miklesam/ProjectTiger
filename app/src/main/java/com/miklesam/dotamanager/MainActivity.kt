@@ -253,6 +253,10 @@ class MainActivity : AppCompatActivity(), FragmentMenu.MenuListener, FragmentLob
         transaction.commit()
     }
 
+    override fun soloTrainingClicked() {
+        supportFragmentManager.popBackStack()
+    }
+
     override fun pickEnded(
         radiant: ArrayList<Int>,
         direPicks: ArrayList<Int>

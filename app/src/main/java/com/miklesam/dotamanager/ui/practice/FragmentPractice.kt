@@ -16,52 +16,57 @@ import com.miklesam.dotamanager.adapters.TeamAdapter
 import com.miklesam.dotamanager.adapters.TeamPlayersAdapter
 import com.miklesam.dotamanager.datamodels.Team
 import com.miklesam.dotamanager.simplefragments.FragmentMenu
+import com.miklesam.dotamanager.utils.PrefsHelper
+import com.miklesam.dotamanager.utils.plusDay
 import kotlinx.android.synthetic.main.fragment_menu.*
 import kotlinx.android.synthetic.main.fragment_practice.*
 
 class FragmentPractice : Fragment(R.layout.fragment_practice), OnPlayerListener, OnTeamListener {
 
-    private var practiceViewModel: PracticeViewModel?=null
-    var recycler: RecyclerView?=null
-    var adapter : TeamPlayersAdapter?=null
+    private var practiceViewModel: PracticeViewModel? = null
+    var recycler: RecyclerView? = null
+    var adapter: TeamPlayersAdapter? = null
     var teams: List<Team>? = null
 
     interface PracticeListener {
         fun teamTrainingClicked()
+        fun soloTrainingClicked()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val practiceListener = activity as PracticeListener
-        recycler=view.findViewById(R.id.teamRecycler)
-        recycler?.layoutManager = GridLayoutManager(context,5)
+        recycler = view.findViewById(R.id.teamRecycler)
+        recycler?.layoutManager = GridLayoutManager(context, 5)
         recycler?.setHasFixedSize(true)
-        adapter = TeamPlayersAdapter(context,this)
+        adapter = TeamPlayersAdapter(context, this)
         recycler?.adapter = adapter
 
-        practiceViewModel= ViewModelProviders.of(this).get(PracticeViewModel::class.java)
+        practiceViewModel = ViewModelProviders.of(this).get(PracticeViewModel::class.java)
         practiceViewModel?.getPlayer()?.observe(this, Observer {
             adapter?.setPlayers(it)
 
         })
         practiceViewModel?.getTeams()?.observe(this, Observer {
-            Log.w("Teams Hello",it.toString())
+            Log.w("Teams Hello", it.toString())
         })
 
         teamTraining.setOnClickListener {
             practiceListener.teamTrainingClicked()
         }
         soloTraining.setOnClickListener {
-
+            plusDay()
+            practiceListener.soloTrainingClicked()
         }
 
 
     }
+
     override fun onPlayerClick(position: Int, holder: RecyclerView.ViewHolder) {
-        Log.w("asdasdas","asdasdqq")
+        Log.w("asdasdas", "asdasdqq")
     }
 
     override fun onTeamClick(position: Int, holder: RecyclerView.ViewHolder) {
-        Log.w("asdasdas","asdasdqq")
+        Log.w("asdasdas", "asdasdqq")
     }
 }

@@ -73,6 +73,9 @@ class FragmentChoosePlayers : Fragment(R.layout.fragment_choose_players), OnPlay
 
         nextBttn.setOnClickListener {
             PrefsHelper.write(PrefsHelper.SHOW_CONTINUE, "1")
+            PrefsHelper.write(PrefsHelper.CAREER_DAY, "0")
+            PrefsHelper.write(PrefsHelper.CAREER_MONTH, "0")
+            PrefsHelper.write(PrefsHelper.CAREER_YEAR, "0")
             nextChoosen.nextChoosenClicked()
         }
 
