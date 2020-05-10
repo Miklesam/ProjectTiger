@@ -20,6 +20,7 @@ import com.miklesam.dotamanager.ui.market.FragmentMarket
 import com.miklesam.dotamanager.ui.pickstage.PickStage
 import com.miklesam.dotamanager.ui.plainingstage.PlainingStage
 import com.miklesam.dotamanager.ui.practice.FragmentPractice
+import com.miklesam.dotamanager.ui.prematch.PreMatch
 import com.miklesam.dotamanager.ui.team.FragmentTeam
 import com.miklesam.dotamanager.ui.teams.FragmentTeams
 import com.miklesam.dotamanager.ui.teamsprofile.FragmentTeamsProfile
@@ -248,7 +249,8 @@ class MainActivity : AppCompatActivity(), FragmentMenu.MenuListener, FragmentLob
     }
 
     override fun teamTrainingClicked() {
-        replaceFragment(PickStage())
+        //replaceFragment(PickStage())
+        replaceFragment(PreMatch())
     }
 
     override fun soloTrainingClicked() {

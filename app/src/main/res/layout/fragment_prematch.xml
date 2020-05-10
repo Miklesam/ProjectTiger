@@ -1,0 +1,141 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/fon"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp">
+
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_horizontal15"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.10" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_horizontal55"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.50" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_vertical10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.10" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_vertical40"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.4" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_vertical55"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.6" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_vertical90"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.9" />
+
+
+    <ImageView
+        android:id="@+id/yourTeamImage"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:src="@drawable/yourteamlogo"
+        app:layout_constraintBottom_toBottomOf="@+id/guideline_horizontal55"
+        app:layout_constraintEnd_toEndOf="@+id/guideline_vertical40"
+        app:layout_constraintStart_toStartOf="@+id/guideline_vertical10"
+        app:layout_constraintTop_toTopOf="@+id/guideline_horizontal15"
+        android:background="@drawable/frame_teams"/>
+
+
+    <ImageView
+        android:id="@+id/enemyImage"
+        android:background="@drawable/frame_teams"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:src="@drawable/vp"
+        app:layout_constraintBottom_toBottomOf="@+id/guideline_horizontal55"
+        app:layout_constraintEnd_toEndOf="@+id/guideline_vertical90"
+        app:layout_constraintStart_toStartOf="@+id/guideline_vertical55"
+        app:layout_constraintTop_toTopOf="@+id/guideline_horizontal15" />
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Navi"
+        android:textSize="15sp"
+        android:textColor="@color/colorAccent"
+        app:layout_constraintEnd_toEndOf="@+id/guideline_vertical90"
+        app:layout_constraintStart_toStartOf="@+id/guideline_vertical55"
+        app:layout_constraintTop_toBottomOf="@+id/enemyImage" />
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:id="@+id/yourTeamName"
+        android:text="YourTeamName"
+        android:textSize="15sp"
+        android:maxLines="1"
+        android:textColor="@color/colorAccent"
+        app:layout_constraintEnd_toEndOf="@+id/guideline_vertical40"
+        app:layout_constraintStart_toStartOf="@+id/guideline_vertical10"
+        app:layout_constraintTop_toBottomOf="@+id/yourTeamImage" />
+
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="@+id/guideline_horizontal55"
+        app:layout_constraintEnd_toEndOf="@+id/guideline_vertical55"
+        app:layout_constraintStart_toStartOf="@+id/guideline_vertical40"
+        app:layout_constraintTop_toTopOf="@+id/guideline_horizontal15"
+        android:gravity="center"
+        android:textSize="25sp"
+        android:maxLines="1"
+        android:textColor="@color/colorAccent"
+        android:text="VS"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/playMatch"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_selector"
+        android:text="@string/play_match"
+        android:layout_marginTop="10dp"
+        android:textSize="14sp"
+        android:theme="@style/ButtonSwitchColor"
+        app:layout_constraintTop_toBottomOf="@+id/yourTeamName"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/calculateMatch"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_selector"
+        android:text="@string/calculate_match"
+        android:layout_marginTop="10dp"
+        android:textSize="14sp"
+        android:theme="@style/ButtonSwitchColor"
+        app:layout_constraintTop_toBottomOf="@+id/playMatch"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

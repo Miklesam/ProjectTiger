@@ -42,5 +42,7 @@
 
     <string name="achievement_1">CgkIxOr2vaQaEAIQAQ</string>
 
+    <string name="play_match">Играть</string>
+    <string name="calculate_match">Рассчитать</string>
 
 </resources>
