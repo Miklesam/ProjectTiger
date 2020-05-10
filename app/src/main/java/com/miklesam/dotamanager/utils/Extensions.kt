@@ -76,6 +76,13 @@ fun AppCompatActivity.replaceFragmentFromTopToBottom(fragment: Fragment) {
     transaction.commit()
 }
 
+fun AppCompatActivity.replaceFragment(fragment: Fragment) {
+    val transaction = supportFragmentManager.beginTransaction()
+    transaction.replace(R.id.fragment_holder, fragment)
+    transaction.addToBackStack(null)
+    transaction.commit()
+}
+
 fun Fragment.hideKeyboard() {
     val view = this.activity?.currentFocus
     if (view != null) {

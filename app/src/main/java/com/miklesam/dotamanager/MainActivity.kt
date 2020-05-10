@@ -13,10 +13,6 @@ import com.google.android.gms.games.Games
 import com.google.android.gms.games.LeaderboardsClient
 import com.miklesam.dotamanager.adapters.MarketPlayerHolder
 import com.miklesam.dotamanager.datamodels.Player
-import com.miklesam.dotamanager.multipleer.MultiGame
-import com.miklesam.dotamanager.multipleer.MultiPick
-import com.miklesam.dotamanager.multipleer.client.FragmentClient
-import com.miklesam.dotamanager.multipleer.host.FragmentHost
 import com.miklesam.dotamanager.simplefragments.*
 import com.miklesam.dotamanager.ui.choosePlayers.FragmentChoosePlayers
 import com.miklesam.dotamanager.ui.game.FragmentGame
@@ -28,6 +24,9 @@ import com.miklesam.dotamanager.ui.team.FragmentTeam
 import com.miklesam.dotamanager.ui.teams.FragmentTeams
 import com.miklesam.dotamanager.ui.teamsprofile.FragmentTeamsProfile
 import com.miklesam.dotamanager.utils.*
+import kotlinx.coroutines.*
+
+val scope = CoroutineScope(Dispatchers.IO + SupervisorJob())
 
 
 class MainActivity : AppCompatActivity(), FragmentMenu.MenuListener, FragmentLobby.LobbyListener,
@@ -147,7 +146,7 @@ class MainActivity : AppCompatActivity(), FragmentMenu.MenuListener, FragmentLob
     }
 
     private fun showGame() {
-        replaceFragmentFromRightToLeft(FragmentPractice(), true)
+        replaceFragment(FragmentPractice())
     }
 
     private fun showMarket() {
@@ -169,7 +168,6 @@ class MainActivity : AppCompatActivity(), FragmentMenu.MenuListener, FragmentLob
     private fun showTeams() {
         replaceFragmentFromRightToLeft(FragmentTeams(), true)
     }
-
 
     private fun showNewGame() {
         replaceFragmentFromRightToLeft(FragmentNewGame(), true)
@@ -205,7 +203,11 @@ class MainActivity : AppCompatActivity(), FragmentMenu.MenuListener, FragmentLob
 
     override fun backToLobbyCLicked() {
         Log.w("Activity", "onEnd Clicked")
-        onBackPressed()
+        supportFragmentManager.popBackStack()
+        supportFragmentManager.popBackStack()
+        supportFragmentManager.popBackStack()
+        supportFragmentManager.popBackStack()
+
     }
 
     override fun startClickedClicked() {
@@ -246,11 +248,7 @@ class MainActivity : AppCompatActivity(), FragmentMenu.MenuListener, FragmentLob
     }
 
     override fun teamTrainingClicked() {
-        val transaction = supportFragmentManager.beginTransaction()
-        val fragment = PickStage()
-        transaction.replace(R.id.fragment_holder, fragment)
-            .addToBackStack(null)
-        transaction.commit()
+        replaceFragment(PickStage())
     }
 
     override fun soloTrainingClicked() {

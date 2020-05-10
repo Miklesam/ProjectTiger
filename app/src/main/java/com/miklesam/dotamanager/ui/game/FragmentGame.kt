@@ -17,6 +17,7 @@ import com.miklesam.dotamanager.myviews.GameSimulationView
 import com.miklesam.dotamanager.R
 import com.miklesam.dotamanager.datamodels.Heroes
 import com.miklesam.dotamanager.utils.PrefsHelper
+import com.miklesam.dotamanager.utils.plusDay
 import kotlinx.android.synthetic.main.fragment_game.*
 
 class FragmentGame(myListener: backToLobby) : Fragment(R.layout.fragment_game),
@@ -33,6 +34,7 @@ class FragmentGame(myListener: backToLobby) : Fragment(R.layout.fragment_game),
         arrayOfNulls<ImageView>(5)
     val direHeroName =
         arrayOfNulls<TextView>(5)
+    var timer:CountDownTimer?=null
 
     interface backToLobby {
         fun backToLobbyCLicked()
@@ -68,7 +70,7 @@ class FragmentGame(myListener: backToLobby) : Fragment(R.layout.fragment_game),
                 3
             )
         )
-        val timerAssignLine = object : CountDownTimer(15000, 100) {
+        timer = object : CountDownTimer(15000, 100) {
             override fun onTick(millisUntilFinished: Long) {
             }
 
@@ -76,7 +78,7 @@ class FragmentGame(myListener: backToLobby) : Fragment(R.layout.fragment_game),
                 nextStage()
             }
         }
-        timerAssignLine.start()
+        timer?.start()
 
 
     }
@@ -111,7 +113,7 @@ class FragmentGame(myListener: backToLobby) : Fragment(R.layout.fragment_game),
                 3
             )
         )
-        val timerAssignLine = object : CountDownTimer(8000, 100) {
+        timer = object : CountDownTimer(8000, 100) {
             override fun onTick(millisUntilFinished: Long) {
             }
 
@@ -119,7 +121,7 @@ class FragmentGame(myListener: backToLobby) : Fragment(R.layout.fragment_game),
                 nextStage()
             }
         }
-        timerAssignLine.start()
+        timer?.start()
 
     }
 
@@ -285,6 +287,7 @@ class FragmentGame(myListener: backToLobby) : Fragment(R.layout.fragment_game),
 
     override fun onDestroyView() {
         gameGame = null
+        timer=null
         super.onDestroyView()
     }
 
@@ -314,6 +317,7 @@ class FragmentGame(myListener: backToLobby) : Fragment(R.layout.fragment_game),
 
     override fun goToLobbyClick() {
         Log.w("FragmentGame", "EndGameClicked")
+        plusDay()
         mListener.backToLobbyCLicked()
     }
 

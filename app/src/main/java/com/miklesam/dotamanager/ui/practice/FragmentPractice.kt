@@ -33,6 +33,14 @@ class FragmentPractice : Fragment(R.layout.fragment_practice), OnPlayerListener,
         fun soloTrainingClicked()
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        practiceViewModel=null
+        teams=null
+        recycler=null
+        adapter=null
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val practiceListener = activity as PracticeListener
