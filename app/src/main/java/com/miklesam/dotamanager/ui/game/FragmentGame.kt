@@ -11,6 +11,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.bumptech.glide.Glide
 import com.miklesam.dotamanager.dialogs.EndMatchDialog
 import com.miklesam.dotamanager.dialogs.LineningDialog
 import com.miklesam.dotamanager.myviews.GameSimulationView
@@ -19,6 +20,7 @@ import com.miklesam.dotamanager.datamodels.Heroes
 import com.miklesam.dotamanager.utils.PrefsHelper
 import com.miklesam.dotamanager.utils.plusDay
 import kotlinx.android.synthetic.main.fragment_game.*
+import kotlinx.android.synthetic.main.fragment_prematch.*
 
 class FragmentGame(myListener: backToLobby) : Fragment(R.layout.fragment_game),
     LineningDialog.NoticeDialogListener, EndMatchDialog.toLobbyInterface {
@@ -188,7 +190,27 @@ class FragmentGame(myListener: backToLobby) : Fragment(R.layout.fragment_game),
         direHeroName[2] = heroDire3
         direHeroName[3] = heroDire4
         direHeroName[4] = heroDire5
+        val enemy=PrefsHelper.read(PrefsHelper.ENEMY_NAME,"")
         tagName.text = PrefsHelper.read(PrefsHelper.TEAM_NAME, "")
+        tagName2.text=enemy
+
+        enemy?.let {
+            gameViewModel.getTeamByName(it).observe(this, Observer {
+                Glide.with(this)
+                    .load(it.teamLogo)
+                    .into(tagImage2)
+                firstDirePlayerName.text=it.playerPosition1
+                secondDirePlayerName.text=it.playerPosition2
+                thirdDirePlayerName.text=it.playerPosition3
+                forthDirePlayerName.text=it.playerPosition4
+                fifthDirePlayerName.text=it.playerPosition5
+            })
+
+        }
+
+
+
+
         for (i in 0 until 5) {
             radiantImages[i]?.setImageResource(
                 Heroes.values().find { it.id == heroes?.get(i) ?: 0 }!!.icon

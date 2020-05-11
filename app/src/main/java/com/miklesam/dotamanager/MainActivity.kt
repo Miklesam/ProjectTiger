@@ -182,10 +182,6 @@ class MainActivity : AppCompatActivity(), FragmentMenu.MenuListener, FragmentLob
         val fragment =
             FragmentPlayerProfile()
         fragment.setSharedElementEnterTransition(DetailsTransition())
-        //val fade = Fade()
-        //fragment.enterTransition=fade
-        //fragment.exitTransition=fade
-        //exitTransition = fade
         fragment.setSharedElementReturnTransition(DetailsTransition())
         val transaction =
             supportFragmentManager.beginTransaction()
@@ -208,6 +204,7 @@ class MainActivity : AppCompatActivity(), FragmentMenu.MenuListener, FragmentLob
         supportFragmentManager.popBackStack()
         supportFragmentManager.popBackStack()
         supportFragmentManager.popBackStack()
+        supportFragmentManager.popBackStack()
 
     }
 
@@ -220,10 +217,6 @@ class MainActivity : AppCompatActivity(), FragmentMenu.MenuListener, FragmentLob
     }
 
     override fun nextChoosenClicked() {
-        //val transaction = supportFragmentManager.beginTransaction()
-        //val fragment = FragmentTeamSigning()
-        //transaction.replace(R.id.fragment_holder, fragment)
-        //transaction.commit()
         replaceFragmentFromRightToLeft(FragmentTeamSigning(), false)
 
     }
@@ -249,9 +242,7 @@ class MainActivity : AppCompatActivity(), FragmentMenu.MenuListener, FragmentLob
     }
 
     override fun teamTrainingClicked() {
-        //replaceFragment(PickStage())
-        replaceFragment(PreMatch()
-        )
+        replaceFragment(PreMatch())
     }
 
     override fun soloTrainingClicked() {
@@ -296,5 +287,9 @@ class MainActivity : AppCompatActivity(), FragmentMenu.MenuListener, FragmentLob
     override fun calculateTolobby() {
         supportFragmentManager.popBackStack()
         supportFragmentManager.popBackStack()
+    }
+
+    override fun playGame() {
+        replaceFragment(PickStage())
     }
 }

@@ -5,10 +5,11 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.miklesam.dotamanager.datamodels.Team
+import com.miklesam.dotamanager.ui.teams.TeamsRepository
 
 class PreMatchVM(application: Application) : AndroidViewModel(application){
 
-    //private var repository: TeamsRepository = TeamsRepository(application)
+    private var repository: TeamsRepository = TeamsRepository(application)
     private val calculate = MutableLiveData<Boolean>()
     private val radWin = MutableLiveData<Boolean>()
     private val radScore = MutableLiveData<Int>()
@@ -17,13 +18,18 @@ class PreMatchVM(application: Application) : AndroidViewModel(application){
     fun getWinner(): LiveData<Boolean> = radWin
     fun getRadScore(): LiveData<Int> = radScore
     fun getDireScore(): LiveData<Int> = direScore
-    //fun getTeams(): LiveData<List<Team>> {
-      //  return repository.getTeams()
-    //}
+
+
 
     init{
         //calculate.value=false
         //radWin.value=false
+    }
+
+
+
+    fun getTeamByName(name:String): LiveData<Team> {
+        return repository.getTeamByName(name)
     }
 
     fun setCalculate(calc:Boolean){

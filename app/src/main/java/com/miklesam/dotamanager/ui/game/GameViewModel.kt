@@ -10,7 +10,9 @@ import androidx.lifecycle.ViewModel
 import com.miklesam.dotamanager.datamodels.HeroStats
 import com.miklesam.dotamanager.datamodels.Player
 import com.miklesam.dotamanager.datamodels.Side
+import com.miklesam.dotamanager.datamodels.Team
 import com.miklesam.dotamanager.ui.market.MarketRepository
+import com.miklesam.dotamanager.ui.teams.TeamsRepository
 import com.miklesam.dotamanager.utils.PrefsHelper
 import kotlin.collections.ArrayList
 
@@ -20,6 +22,7 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
     fun getPlayersMatchStatistic(): LiveData<List<String>> = allPlayersStats
     fun getradiantTowers(): LiveData<List<Boolean>> = allTowers
     private var repository: MarketRepository = MarketRepository(application)
+    private var repositoryTeam: TeamsRepository = TeamsRepository(application)
 
     val pos1: String
     val pos2: String
@@ -64,6 +67,10 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
 
     fun getPlayer(): LiveData<List<Player>> {
         return repository.getPlayerByName(listOf(pos1, pos2, pos3, pos4, pos5))
+    }
+
+    fun getTeamByName(name:String): LiveData<Team> {
+        return repositoryTeam.getTeamByName(name)
     }
 
 

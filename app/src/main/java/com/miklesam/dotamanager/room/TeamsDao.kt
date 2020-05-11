@@ -17,4 +17,8 @@ interface TeamsDao {
 
     @Query("SELECT * FROM teams_table ")
     fun getAllTeams(): LiveData<List<Team>>
+
+    @Query("SELECT * FROM teams_table WHERE teamName =:teamName")
+    fun getTeamByName(teamName:String): LiveData<Team>
+
 }

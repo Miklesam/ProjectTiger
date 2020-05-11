@@ -77,6 +77,8 @@ class PickStage : Fragment(R.layout.pick_stage) {
         val endedListener = activity as nextFromPick
         arrayHero = Heroes.values().toMutableList()
         initViews()
+        val enemy=  PrefsHelper.read(PrefsHelper.ENEMY_NAME,"")
+        EnemyteamName.text=enemy
         player = MediaPlayer.create(context, R.raw.pick_music)
         player?.setOnCompletionListener { player?.start() }
         player?.start()

@@ -8,7 +8,9 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.bumptech.glide.Glide
 import com.miklesam.dotamanager.R
+import com.miklesam.dotamanager.utils.PrefsHelper
 import com.miklesam.dotamanager.utils.plusDay
 import kotlinx.android.synthetic.main.fragment_prematch.*
 
@@ -17,13 +19,14 @@ class PreMatch : Fragment(R.layout.fragment_prematch) {
 
     interface afterCalculate {
         fun calculateTolobby()
+        fun playGame()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val menuListener = activity as afterCalculate
         val preVM = ViewModelProviders.of(this).get(PreMatchVM::class.java)
-
+        val enemy=  PrefsHelper.read(PrefsHelper.ENEMY_NAME,"")
         preVM.getState().observe(this, Observer {
             if (!it) {
                 playMatch.visibility = VISIBLE
@@ -41,6 +44,15 @@ class PreMatch : Fragment(R.layout.fragment_prematch) {
                 nextAfterMatch.visibility = VISIBLE
             }
         })
+
+        enemy?.let {
+            preVM.getTeamByName(it).observe(this, Observer {
+                Glide.with(this)
+                    .load(it.teamLogo)
+                    .into(enemyImage)
+                enemyTeamName.text=it.teamName
+            })
+        }
 
         preVM.getWinner().observe(this, Observer {
             if (it) {
@@ -74,5 +86,7 @@ class PreMatch : Fragment(R.layout.fragment_prematch) {
             plusDay()
             menuListener.calculateTolobby()
         }
+
+        playMatch.setOnClickListener { menuListener.playGame() }
     }
 }

@@ -17,4 +17,8 @@ class TeamsRepository(application: Application){
     fun getTeams(): LiveData<List<Team>> {
         return allTeams
     }
+
+    fun getTeamByName(name:String): LiveData<Team> {
+        return teamsDao.getTeamByName(name)
+    }
 }

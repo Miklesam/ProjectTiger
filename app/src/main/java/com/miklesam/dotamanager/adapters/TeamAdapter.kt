@@ -41,8 +41,8 @@ class TeamAdapter(val teamListener: OnTeamListener) : RecyclerView.Adapter<TeamH
         //updatelist(playerOld,players)
     }
 
-    private fun updatelist( old:List<Team>,new:List<Team>){
-        //val callback = DiffCallback(old, new)
-        //DiffUtil.calculateDiff(callback).dispatchUpdatesTo(this)
-    }
+    //private fun updatelist( old:List<Team>,new:List<Team>){
+    //    val callback = DiffCallback(old, new)
+    //    DiffUtil.calculateDiff(callback).dispatchUpdatesTo(this)
+   // }
 }
