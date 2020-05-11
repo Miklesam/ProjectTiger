@@ -1,5 +1,6 @@
 package com.miklesam.dotamanager.room
 
+import com.miklesam.dotamanager.R
 import com.miklesam.dotamanager.datamodels.Heroes
 import com.miklesam.dotamanager.datamodels.Player
 
@@ -956,6 +957,111 @@ class PlayersList {
                 Heroes.RUBICK.id,
                 Heroes.CM.id,
                 Heroes.PHOENIX.id
+            ))
+        val Nigma= listOf(Player(
+            CATEGORY_IMAGE_DIR + "jordan",
+            "Miracle-",
+            "Amer Al-Barkawi",
+            "1",
+            "95000",
+            CATEGORY_IMAGE_DIR + "miracle_face",
+            89,
+            80,
+            79,
+            80,
+            80,
+            75,
+            84,
+            82,
+            79,
+            80,
+            Heroes.INVOKER.id,
+            Heroes.SHADOW_FIEND.id,
+            Heroes.TERROBLADE.id
+        ),
+            Player(
+                CATEGORY_IMAGE_DIR + "romania",
+                "w33",
+                "Aliwi Omar",
+                "2",
+                "80000",
+                CATEGORY_IMAGE_DIR + "w33_face",
+                76,
+                81,
+                73,
+                75,
+                80,
+                74,
+                76,
+                81,
+                85,
+                80,
+                Heroes.MEEPO.id,
+                Heroes.TEMPLAR_ASSASIN.id,
+                Heroes.WINDRANGER.id
+            ),
+            Player(
+                CATEGORY_IMAGE_DIR + "bulgaria",
+                "MinD_ContRoL",
+                "Ivan Ivanov",
+                "3",
+                "83000",
+                CATEGORY_IMAGE_DIR + "mind_control_face",
+                77,
+                79,
+                75,
+                77,
+                80,
+                73,
+                79,
+                80,
+                77,
+                79,
+                Heroes.DARKSEER.id,
+                Heroes.NATURES_PROPHET.id,
+                Heroes.BEASTMASTER.id
+            ),
+            Player(
+                CATEGORY_IMAGE_DIR + "lebanon",
+                "GH",
+                "Maroun Merhej",
+                "4",
+                "75000",
+                CATEGORY_IMAGE_DIR + "gh_faces",
+                81,
+                78,
+                79,
+                83,
+                80,
+                74,
+                82,
+                83,
+                76,
+                86,
+                Heroes.IO.id,
+                Heroes.KEEPER_OF_THE_LIGHT.id,
+                Heroes.EARTH_SHAKER.id
+            ),
+            Player(
+                CATEGORY_IMAGE_DIR + "germany",
+                "KuroKy",
+                "Kuro Salehi Takhasomi",
+                "5",
+                "95000",
+                CATEGORY_IMAGE_DIR + "kuroky_faces",
+                79,
+                85,
+                80,
+                81,
+                80,
+                75,
+                79,
+                80,
+                88,
+                85,
+                Heroes.RUBICK.id,
+                Heroes.VISAGE.id,
+                Heroes.IO.id
             ))
     }
 }

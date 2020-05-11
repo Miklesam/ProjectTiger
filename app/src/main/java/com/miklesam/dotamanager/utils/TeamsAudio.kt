@@ -11,5 +11,6 @@ enum class TeamsAudio (val teamName:String, val voice:Int){
     EVI_GENIUSES("Evil Geniuses",R.raw.evil_geniusis),
     ALLINCE("Alliance",R.raw.alliance),
     TNC("TNC",R.raw.tnc),
-    LIQUID("Liquid",R.raw.liquid);
+    LIQUID("Liquid",R.raw.liquid),
+    NIGMA("Nigma",R.raw.nigma);
 }

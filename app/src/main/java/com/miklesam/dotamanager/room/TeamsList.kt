@@ -14,6 +14,7 @@ class TeamsList {
         val Alliance=getAllianceStructure()
         val TNC=getTNCStructure()
         val Liquid=getLiquidStructure()
+        val Nigma=getNigmaStructure()
 
 
 
@@ -134,5 +135,20 @@ class TeamsList {
                 CATEGORY_IMAGE_DIR + "titrof"
             )
         }
+        private fun getNigmaStructure(): Team {
+            return Team(
+                "Nigma",
+                CATEGORY_IMAGE_DIR + "nigma_logo",
+                "Nigma Description",
+                "Miracle-",
+                "w33",
+                "MinD_ContRoL",
+                "GH",
+                "KuroKy",
+                CATEGORY_IMAGE_DIR + "titrof"
+            )
+        }
+
+
     }
 }

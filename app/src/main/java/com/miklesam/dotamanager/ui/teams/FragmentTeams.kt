@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.miklesam.dotamanager.R
 import com.miklesam.dotamanager.adapters.OnTeamListener
 import com.miklesam.dotamanager.adapters.TeamAdapter
+import com.miklesam.dotamanager.adapters.TeamAdapterShow
 import com.miklesam.dotamanager.datamodels.Team
 
 class FragmentTeams :Fragment(R.layout.fragment_teams),OnTeamListener{
@@ -22,7 +23,7 @@ class FragmentTeams :Fragment(R.layout.fragment_teams),OnTeamListener{
     private var teamsViewModel: TeamsViewModel?=null
     var teams: List<Team>? = null
     var recycler: RecyclerView?=null
-    var adapter : TeamAdapter?=null
+    var adapter : TeamAdapterShow?=null
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         teamsViewModel= ViewModelProviders.of(this).get(TeamsViewModel::class.java)
@@ -30,7 +31,7 @@ class FragmentTeams :Fragment(R.layout.fragment_teams),OnTeamListener{
         recycler=view.findViewById(R.id.recyclerTeams)
         recycler?.layoutManager = LinearLayoutManager(context)
         recycler?.setHasFixedSize(true)
-        adapter = TeamAdapter(this)
+        adapter = TeamAdapterShow(this)
         recycler?.adapter = adapter
 
         teamsViewModel?.getTeams()?.observe(this, Observer {
