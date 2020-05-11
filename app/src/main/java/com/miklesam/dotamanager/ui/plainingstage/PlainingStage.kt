@@ -33,6 +33,14 @@ class PlainingStage : Fragment(R.layout.fragment_plaining_stage), OnPlayerListen
         )
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        recycler  = null
+        adapter = null
+        heroes = null
+        direHeroes = null
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (arguments != null) {

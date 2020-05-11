@@ -21,7 +21,7 @@ import kotlinx.android.synthetic.main.pick_stage.*
 class PickStage : Fragment(R.layout.pick_stage) {
     var Heros_icon =
         arrayOfNulls<ImageView>(117)
-    val Pick_stage =
+    var Pick_stage =
         arrayOfNulls<ImageView>(22)
     var arrayHero: MutableList<Heroes>? = null
     var block = false
@@ -38,6 +38,16 @@ class PickStage : Fragment(R.layout.pick_stage) {
             radiant: ArrayList<Int>,
             direPicks: ArrayList<Int>
         )
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        arrayHero = null
+        timer = null
+        player = null
+        soundPull= null
+        Heros_icon = emptyArray()
+        Pick_stage = emptyArray()
     }
 
     override fun onPause() {
@@ -452,7 +462,6 @@ class PickStage : Fragment(R.layout.pick_stage) {
         }
         timer2.start()
     }
-
 
     private fun randomComputerPick() {
         val rnds = (0 until arrayHero!!.size).random()

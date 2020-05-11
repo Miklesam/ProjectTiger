@@ -25,6 +25,12 @@ class LineningDialog() : AppCompatDialogFragment() {
     lateinit var spiner4: Spinner
     lateinit var spiner5: Spinner
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        mListener = null
+        heroesList = null
+    }
+
     interface NoticeDialogListener {
         fun onDialogPositiveClick(position: Array<Int>)
         fun onDialogDismissClick(position: Array<Int>)
@@ -95,7 +101,6 @@ class LineningDialog() : AppCompatDialogFragment() {
 
     override fun onDismiss(dialog: DialogInterface) {
         super.onDismiss(dialog)
-
         if (Lock) {
             mListener?.onDialogPositiveClick(
                 arrayOf(
