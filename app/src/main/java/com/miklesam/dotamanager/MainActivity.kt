@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity(), FragmentMenu.MenuListener, FragmentLob
     FragmentDescription.nextListener, FragmentChoosePlayers.nextChoosenListener,
     FragmentTeams.teamShow, FragmentTeamSigning.gotoLobby,
     FragmentPractice.PracticeListener, PickStage.nextFromPick, PlainingStage.nextFromPlaining,
-    FragmentMedia.MediaListener {
+    FragmentMedia.MediaListener, PreMatch.afterCalculate {
 
     private var googleSignInClient: GoogleSignInClient? = null
     private var achievementClient: AchievementsClient? = null
@@ -250,7 +250,8 @@ class MainActivity : AppCompatActivity(), FragmentMenu.MenuListener, FragmentLob
 
     override fun teamTrainingClicked() {
         //replaceFragment(PickStage())
-        replaceFragment(PreMatch())
+        replaceFragment(PreMatch()
+        )
     }
 
     override fun soloTrainingClicked() {
@@ -290,5 +291,10 @@ class MainActivity : AppCompatActivity(), FragmentMenu.MenuListener, FragmentLob
 
     override fun morfClicked() {
         replaceFragmentFromRightToLeft(MorfNews(), true)
+    }
+
+    override fun calculateTolobby() {
+        supportFragmentManager.popBackStack()
+        supportFragmentManager.popBackStack()
     }
 }

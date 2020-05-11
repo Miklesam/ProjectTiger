@@ -11,5 +11,8 @@
 
     <color name="lightBrown">#A65F00</color>
 
+    <color name="radiant_victory">#00C618</color>
+    <color name="dire_victory">#A60400</color>
+
 
 </resources>
