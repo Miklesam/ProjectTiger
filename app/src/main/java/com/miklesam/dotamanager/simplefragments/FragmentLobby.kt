@@ -17,7 +17,7 @@ class FragmentLobby : Fragment(R.layout.fragment_lobby) {
     interface LobbyListener {
         fun gameClicked()
         fun marketClicked()
-        fun trainingClicked()
+        fun mediaClicked()
         fun teamClicked()
     }
 
@@ -31,7 +31,7 @@ class FragmentLobby : Fragment(R.layout.fragment_lobby) {
         marketBttn.setOnClickListener { lobbyListener.marketClicked() }
         teamBttn.setOnClickListener { lobbyListener.teamClicked() }
         playBttn.setOnClickListener { lobbyListener.gameClicked() }
-        trainingBttn.setOnClickListener { lobbyListener.trainingClicked() }
+        trainingBttn.setOnClickListener { lobbyListener.mediaClicked() }
         weatherAnim = view.findViewById<WeatherView>(
             R.id.weatherAnim
         )

@@ -15,6 +15,7 @@ import com.miklesam.dotamanager.adapters.MarketPlayerHolder
 import com.miklesam.dotamanager.datamodels.Player
 import com.miklesam.dotamanager.simplefragments.*
 import com.miklesam.dotamanager.ui.choosePlayers.FragmentChoosePlayers
+import com.miklesam.dotamanager.ui.closedquali.ClosedQuali
 import com.miklesam.dotamanager.ui.game.FragmentGame
 import com.miklesam.dotamanager.ui.market.FragmentMarket
 import com.miklesam.dotamanager.ui.pickstage.PickStage
@@ -88,8 +89,8 @@ class MainActivity : AppCompatActivity(), FragmentMenu.MenuListener, FragmentLob
         showMarket()
     }
 
-    override fun trainingClicked() {
-        showTrainning()
+    override fun mediaClicked() {
+        mediaTrainning()
     }
 
     override fun teamClicked() {
@@ -158,8 +159,9 @@ class MainActivity : AppCompatActivity(), FragmentMenu.MenuListener, FragmentLob
         replaceFragmentFromBottomToTop(FragmentTeam())
     }
 
-    private fun showTrainning() {
-        replaceFragmentFromTopToBottom(FragmentMedia())
+    private fun mediaTrainning() {
+        //replaceFragmentFromTopToBottom(FragmentMedia())
+        replaceFragmentFromTopToBottom(ClosedQuali())
     }
 
     private fun showLobby() {
