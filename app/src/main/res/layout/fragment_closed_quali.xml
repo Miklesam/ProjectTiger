@@ -2,8 +2,63 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/closed_group_stage"
+    android:background="@drawable/closed_back"
     android:paddingLeft="16dp"
     android:paddingRight="16dp">
+
+
+
+    <androidx.constraintlayout.widget.Guideline
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        android:id="@+id/horizontal10"
+        app:layout_constraintGuide_percent="0.03" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:id="@+id/vertical48"
+        app:layout_constraintGuide_percent="0.48" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:id="@+id/vertical53"
+        app:layout_constraintGuide_percent="0.52" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:id="@+id/vertival99"
+        app:layout_constraintGuide_percent="0.99" />
+
+    <include
+        android:id="@+id/groupLayoutA"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        layout="@layout/group_stage_layout"
+        app:layout_constraintTop_toTopOf="@+id/horizontal10"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/vertical48"/>
+
+    <include
+        android:id="@+id/groupLayoutB"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        layout="@layout/group_stage_layout"
+        app:layout_constraintTop_toTopOf="@+id/horizontal10"
+        app:layout_constraintStart_toStartOf="@id/vertical53"
+        app:layout_constraintEnd_toEndOf="@+id/vertival99"/>
+
+
+
+
+
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
