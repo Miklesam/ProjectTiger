@@ -14,5 +14,8 @@
     <color name="radiant_victory">#00C618</color>
     <color name="dire_victory">#A60400</color>
 
+    <color name="high_green_group">#ddf4dd</color>
+    <color name="orange_group">#f9f0c7</color>
+    <color name="red_group">#fbdfdf</color>
 
 </resources>
