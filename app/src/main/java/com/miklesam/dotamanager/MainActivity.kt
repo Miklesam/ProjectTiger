@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity(), FragmentMenu.MenuListener, FragmentLob
     FragmentDescription.nextListener, FragmentChoosePlayers.nextChoosenListener,
     FragmentTeams.teamShow, FragmentTeamSigning.gotoLobby,
     FragmentPractice.PracticeListener, PickStage.nextFromPick, PlainingStage.nextFromPlaining,
-    FragmentMedia.MediaListener, PreMatch.afterCalculate {
+    FragmentMedia.MediaListener, PreMatch.afterCalculate, ClosedQuali.ClosedQualListener {
 
     private var googleSignInClient: GoogleSignInClient? = null
     private var achievementClient: AchievementsClient? = null
@@ -293,5 +293,9 @@ class MainActivity : AppCompatActivity(), FragmentMenu.MenuListener, FragmentLob
 
     override fun playGame() {
         replaceFragment(PickStage())
+    }
+
+    override fun preMatchClicked() {
+        replaceFragment(PreMatch())
     }
 }

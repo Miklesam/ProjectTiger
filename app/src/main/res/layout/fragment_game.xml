@@ -60,6 +60,7 @@
             android:layout_marginStart="5dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            android:src="@drawable/yourteamlogo"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
@@ -68,7 +69,6 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
             android:gravity="center"
-            android:text="NAVI"
             android:textColor="#f9fcff"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/tagImage"

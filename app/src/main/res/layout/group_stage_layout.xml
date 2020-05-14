@@ -4,10 +4,10 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#11110f">
+    android:background="@color/fon">
 
     <TextView
-        android:textColor="@color/white"
+        android:textColor="@color/colorAccent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Group A"
@@ -18,7 +18,7 @@
 
 
     <TextView
-        android:textColor="@color/white"
+        android:textColor="@color/colorAccent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="L"
@@ -28,7 +28,7 @@
         android:id="@+id/LosesA"/>
 
     <TextView
-        android:textColor="@color/white"
+        android:textColor="@color/colorAccent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="W"
@@ -41,30 +41,29 @@
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:id="@+id/team1Logo"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="10dp"
         android:src="@drawable/gambit_esports"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/groupA"
         android:layout_marginStart="15dp"/>
 
     <TextView
-        android:textColor="@color/white"
+        android:textColor="@color/colorAccent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Team1"
         android:layout_marginStart="5dp"
         app:layout_constraintStart_toEndOf="@+id/team1Logo"
-        app:layout_constraintTop_toBottomOf="@+id/groupA"
+        app:layout_constraintTop_toTopOf="@+id/team1Logo"
         app:layout_constraintBottom_toBottomOf="@+id/team1Logo"
         android:id="@+id/Team1Name"/>
 
 
     <TextView
-        android:textColor="@color/white"
+        android:textColor="@color/colorAccent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="0"
-        android:layout_marginTop="5dp"
         android:layout_marginEnd="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/team1Logo"
@@ -72,11 +71,10 @@
         android:id="@+id/Loses1"/>
 
     <TextView
-        android:textColor="@color/white"
+        android:textColor="@color/colorAccent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="0"
-        android:layout_marginTop="5dp"
         android:layout_marginEnd="15dp"
         app:layout_constraintEnd_toStartOf="@+id/Loses1"
         app:layout_constraintTop_toTopOf="@+id/team1Logo"
@@ -95,7 +93,7 @@
     android:layout_marginStart="15dp"/>
 
     <TextView
-        android:textColor="@color/white"
+        android:textColor="@color/colorAccent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Team2"
@@ -107,7 +105,7 @@
 
 
     <TextView
-        android:textColor="@color/white"
+        android:textColor="@color/colorAccent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="0"
@@ -118,7 +116,7 @@
         android:id="@+id/Loses2"/>
 
     <TextView
-        android:textColor="@color/white"
+        android:textColor="@color/colorAccent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="0"
@@ -141,7 +139,7 @@
         android:layout_marginStart="15dp"/>
 
     <TextView
-        android:textColor="@color/white"
+        android:textColor="@color/colorAccent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Team3"
@@ -153,7 +151,7 @@
 
 
     <TextView
-        android:textColor="@color/white"
+        android:textColor="@color/colorAccent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="0"
@@ -164,7 +162,7 @@
         android:id="@+id/Loses3"/>
 
     <TextView
-        android:textColor="@color/white"
+        android:textColor="@color/colorAccent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="0"
@@ -186,7 +184,7 @@
         android:layout_marginStart="15dp"/>
 
     <TextView
-        android:textColor="@color/white"
+        android:textColor="@color/colorAccent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Team4"
@@ -198,7 +196,7 @@
 
 
     <TextView
-        android:textColor="@color/white"
+        android:textColor="@color/colorAccent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="0"
@@ -209,7 +207,7 @@
         android:id="@+id/Loses4"/>
 
     <TextView
-        android:textColor="@color/white"
+        android:textColor="@color/colorAccent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="0"
@@ -231,7 +229,7 @@
         android:layout_marginStart="15dp"/>
 
     <TextView
-        android:textColor="@color/white"
+        android:textColor="@color/colorAccent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Team5"
@@ -243,7 +241,7 @@
 
 
     <TextView
-        android:textColor="@color/white"
+        android:textColor="@color/colorAccent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="0"
@@ -254,7 +252,7 @@
         android:id="@+id/Loses5"/>
 
     <TextView
-        android:textColor="@color/white"
+        android:textColor="@color/colorAccent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="0"

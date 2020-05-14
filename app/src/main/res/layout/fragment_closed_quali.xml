@@ -2,18 +2,37 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/closed_back"
+    android:background="@color/colorAccent"
     android:paddingLeft="16dp"
     android:paddingRight="16dp">
 
 
+    <FrameLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/fon"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginBottom="15dp"
+        app:layout_constraintBottom_toBottomOf="@+id/horizontal10">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Major Closed Qualifier"
+            android:textColor="@color/colorAccent"
+            android:textSize="25sp"
+            android:layout_gravity="center"/>
+
+    </FrameLayout>
 
     <androidx.constraintlayout.widget.Guideline
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:orientation="horizontal"
         android:id="@+id/horizontal10"
-        app:layout_constraintGuide_percent="0.03" />
+        app:layout_constraintGuide_percent="0.17" />
 
     <androidx.constraintlayout.widget.Guideline
         android:layout_width="0dp"
@@ -39,24 +58,37 @@
     <include
         android:id="@+id/groupLayoutA"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         layout="@layout/group_stage_layout"
         app:layout_constraintTop_toTopOf="@+id/horizontal10"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/vertical48"/>
 
     <include
         android:id="@+id/groupLayoutB"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         layout="@layout/group_stage_layout"
         app:layout_constraintTop_toTopOf="@+id/horizontal10"
         app:layout_constraintStart_toStartOf="@id/vertical53"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/vertival99"/>
 
 
 
-
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/playGame"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_selector"
+        android:text="Next"
+        android:textSize="14sp"
+        android:theme="@style/ButtonSwitchColor"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="@+id/vertical53"
+        android:layout_marginBottom="15dp"
+        app:layout_constraintRight_toRightOf="@+id/vertival99" />
 
 
 
