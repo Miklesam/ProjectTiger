@@ -3,22 +3,30 @@ package com.miklesam.dotamanager.ui.closedquali
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.bumptech.glide.Glide
 import com.miklesam.dotamanager.R
 import com.miklesam.dotamanager.datamodels.Team
+import com.miklesam.dotamanager.datamodels.TournamentTeam
 import com.miklesam.dotamanager.utils.PrefsHelper
+import com.miklesam.dotamanager.utils.showCustomToast
 import kotlinx.android.synthetic.main.fragment_closed_quali.*
 import kotlinx.android.synthetic.main.fragment_game.*
 import kotlinx.android.synthetic.main.fragment_teams_profile.view.*
 import kotlinx.android.synthetic.main.group_stage_layout.view.*
 import kotlinx.android.synthetic.main.team_in_group_layout.view.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.launch
 
 class ClosedQuali : Fragment(R.layout.fragment_closed_quali) {
 
     var teams: List<Team>? = null
+    val scope = CoroutineScope(Dispatchers.IO + SupervisorJob())
 
     interface ClosedQualListener {
         fun preMatchClicked()
@@ -33,6 +41,23 @@ class ClosedQuali : Fragment(R.layout.fragment_closed_quali) {
 
         closedVM?.getTeams()?.observe(this, Observer {
             teams = it
+            if (!teams.isNullOrEmpty()) {
+                closedVM.getTournamentTeams().observe(this, Observer {
+                    if (it.isEmpty()) {
+                        val tournamentsArr = ArrayList<TournamentTeam>()
+                        for (team in this!!.teams!!) {
+                            tournamentsArr.add(TournamentTeam(team.teamName, 0, 0))
+                        }
+                        scope.launch {
+                            closedVM.initTournamentsTeams(tournamentsArr)
+                        }
+                        showCustomToast("Init succed", Toast.LENGTH_SHORT)
+                    }else{
+                        Log.w("Get Closed", it.toString())
+                    }
+                })
+            }
+
             Log.w("Teams Hello", it.toString())
             groupLayoutA.group1.setBackgroundColor(resources.getColor(R.color.high_green_group))
             groupLayoutA.group2.setBackgroundColor(resources.getColor(R.color.high_green_group))
@@ -41,11 +66,11 @@ class ClosedQuali : Fragment(R.layout.fragment_closed_quali) {
             groupLayoutA.group5.setBackgroundColor(resources.getColor(R.color.red_group))
 
 
-            groupLayoutA.group1.place.text="1."
-            groupLayoutA.group2.place.text="2."
-            groupLayoutA.group3.place.text="3."
-            groupLayoutA.group4.place.text="4."
-            groupLayoutA.group5.place.text="5."
+            groupLayoutA.group1.place.text = "1."
+            groupLayoutA.group2.place.text = "2."
+            groupLayoutA.group3.place.text = "3."
+            groupLayoutA.group4.place.text = "4."
+            groupLayoutA.group5.place.text = "5."
 
             groupLayoutB.group1.setBackgroundColor(resources.getColor(R.color.high_green_group))
             groupLayoutB.group2.setBackgroundColor(resources.getColor(R.color.high_green_group))
@@ -54,11 +79,11 @@ class ClosedQuali : Fragment(R.layout.fragment_closed_quali) {
             groupLayoutB.group5.setBackgroundColor(resources.getColor(R.color.red_group))
 
 
-            groupLayoutB.group1.place.text="1."
-            groupLayoutB.group2.place.text="2."
-            groupLayoutB.group3.place.text="3."
-            groupLayoutB.group4.place.text="4."
-            groupLayoutB.group5.place.text="5."
+            groupLayoutB.group1.place.text = "1."
+            groupLayoutB.group2.place.text = "2."
+            groupLayoutB.group3.place.text = "3."
+            groupLayoutB.group4.place.text = "4."
+            groupLayoutB.group5.place.text = "5."
 
 
 
@@ -111,7 +136,6 @@ class ClosedQuali : Fragment(R.layout.fragment_closed_quali) {
             teamEnemy?.let { PrefsHelper.write(PrefsHelper.ENEMY_NAME, it) }
             listener.preMatchClicked()
         }
-
 
     }
 }

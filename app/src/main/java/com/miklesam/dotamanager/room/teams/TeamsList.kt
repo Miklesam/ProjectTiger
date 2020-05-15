@@ -1,20 +1,30 @@
-package com.miklesam.dotamanager.room
+package com.miklesam.dotamanager.room.teams
 
 import com.miklesam.dotamanager.datamodels.Team
 
 class TeamsList {
     companion object {
         const val CATEGORY_IMAGE_DIR = "android.resource://com.miklesam.dotamanager/drawable/"
-        val Navi = getNaviStructure()
-        val Gambit = getGambitStructure()
-        val VP = getVPStructure()
-        val Secret= getSecretStructure()
-        val ViciGaming=getViciStructure()
-        val EG=getEGStructure()
-        val Alliance=getAllianceStructure()
-        val TNC=getTNCStructure()
-        val Liquid=getLiquidStructure()
-        val Nigma=getNigmaStructure()
+        val Navi =
+            getNaviStructure()
+        val Gambit =
+            getGambitStructure()
+        val VP =
+            getVPStructure()
+        val Secret=
+            getSecretStructure()
+        val ViciGaming=
+            getViciStructure()
+        val EG=
+            getEGStructure()
+        val Alliance=
+            getAllianceStructure()
+        val TNC=
+            getTNCStructure()
+        val Liquid=
+            getLiquidStructure()
+        val Nigma=
+            getNigmaStructure()
 
 
 

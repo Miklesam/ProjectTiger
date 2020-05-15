@@ -3,8 +3,8 @@ package com.miklesam.dotamanager.ui.teams
 import android.app.Application
 import androidx.lifecycle.LiveData
 import com.miklesam.dotamanager.datamodels.Team
-import com.miklesam.dotamanager.room.TeamsDao
-import com.miklesam.dotamanager.room.TeamsDatabase
+import com.miklesam.dotamanager.room.teams.TeamsDao
+import com.miklesam.dotamanager.room.teams.TeamsDatabase
 
 class TeamsRepository(application: Application){
     private var teamsDao: TeamsDao

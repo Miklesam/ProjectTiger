@@ -1,6 +1,5 @@
-package com.miklesam.dotamanager.room
+package com.miklesam.dotamanager.room.players
 
-import com.miklesam.dotamanager.R
 import com.miklesam.dotamanager.datamodels.Heroes
 import com.miklesam.dotamanager.datamodels.Player
 

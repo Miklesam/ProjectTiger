@@ -3,8 +3,8 @@ package com.miklesam.dotamanager.ui.market
 import android.app.Application
 import androidx.lifecycle.LiveData
 import com.miklesam.dotamanager.datamodels.Player
-import com.miklesam.dotamanager.room.PlayersDao
-import com.miklesam.dotamanager.room.PlayersDatabase
+import com.miklesam.dotamanager.room.players.PlayersDao
+import com.miklesam.dotamanager.room.players.PlayersDatabase
 
 class MarketRepository(application: Application){
 

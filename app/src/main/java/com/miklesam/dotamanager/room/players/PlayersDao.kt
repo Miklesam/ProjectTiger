@@ -1,4 +1,4 @@
-package com.miklesam.dotamanager.room
+package com.miklesam.dotamanager.room.players
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
