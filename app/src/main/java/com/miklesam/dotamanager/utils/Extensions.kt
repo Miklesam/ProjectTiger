@@ -1,5 +1,6 @@
 package com.miklesam.dotamanager.utils
 
+import android.app.Activity
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +10,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.miklesam.dotamanager.R
+import com.miklesam.dotamanager.dialogs.MessageDialog
 
 fun Fragment.showCustomToast(message: String, long: Int) {
     val toast = Toast(this.context)
@@ -108,5 +110,17 @@ fun Fragment.plusDay() {
     PrefsHelper.write(PrefsHelper.CAREER_DAY, days.toString())
     PrefsHelper.write(PrefsHelper.CAREER_MONTH, months.toString())
     PrefsHelper.write(PrefsHelper.CAREER_YEAR, years.toString())
+}
+
+fun Activity.showDotaDialog(title: String, message: String, okButtonName: String) {
+    if (isDestroyed) {
+        return
+    }
+    if (this is AppCompatActivity) {
+        MessageDialog.newInstance(title, message, okButtonName, false)
+            .show(supportFragmentManager, "error_dialog")
+    } else {
+        return
+    }
 }
 

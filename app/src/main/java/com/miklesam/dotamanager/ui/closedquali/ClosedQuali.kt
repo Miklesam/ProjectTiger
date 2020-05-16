@@ -14,6 +14,7 @@ import com.miklesam.dotamanager.datamodels.TournamentTeam
 import com.miklesam.dotamanager.room.teams.TeamsList
 import com.miklesam.dotamanager.utils.PrefsHelper
 import com.miklesam.dotamanager.utils.showCustomToast
+import com.miklesam.dotamanager.utils.showDotaDialog
 import kotlinx.android.synthetic.main.fragment_closed_quali.*
 import kotlinx.android.synthetic.main.group_stage_layout.view.*
 import kotlinx.android.synthetic.main.team_in_group_layout.view.*
@@ -33,8 +34,6 @@ class ClosedQuali : Fragment(R.layout.fragment_closed_quali) {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
-
         super.onViewCreated(view, savedInstanceState)
         val closedVM = ViewModelProviders.of(this).get(ClosedQualiVM::class.java)
         val listener = activity as ClosedQualListener
@@ -65,19 +64,22 @@ class ClosedQuali : Fragment(R.layout.fragment_closed_quali) {
                         showCustomToast("Init succed", Toast.LENGTH_SHORT)
                     } else {
                         if (!it.isNullOrEmpty()) {
-                            Log.w("Get Closed", it.toString())
                             teamStats = it
-                            groupLayoutA.group1.ScoreWin.text = it[0].win.toString()
-                            groupLayoutA.group2.ScoreWin.text = it[1].win.toString()
-                            groupLayoutA.group3.ScoreWin.text = it[2].win.toString()
-                            groupLayoutA.group4.ScoreWin.text = it[3].win.toString()
-                            groupLayoutA.group5.ScoreWin.text = it[4].win.toString()
+                            val gropAteams=it.subList(0,5)
+                            val gropBteams=it.subList(5,10)
+                            val sortedA=gropAteams.sortedByDescending { it.win }
+                            val sortedB=gropBteams.sortedByDescending { it.win }
+                            groupLayoutA.group1.ScoreWin.text = sortedA[0].win.toString()
+                            groupLayoutA.group2.ScoreWin.text = sortedA[1].win.toString()
+                            groupLayoutA.group3.ScoreWin.text = sortedA[2].win.toString()
+                            groupLayoutA.group4.ScoreWin.text = sortedA[3].win.toString()
+                            groupLayoutA.group5.ScoreWin.text = sortedA[4].win.toString()
 
-                            groupLayoutA.group1.ScoreLose.text = it[0].lose.toString()
-                            groupLayoutA.group2.ScoreLose.text = it[1].lose.toString()
-                            groupLayoutA.group3.ScoreLose.text = it[2].lose.toString()
-                            groupLayoutA.group4.ScoreLose.text = it[3].lose.toString()
-                            groupLayoutA.group5.ScoreLose.text = it[4].lose.toString()
+                            groupLayoutA.group1.ScoreLose.text = sortedA[0].lose.toString()
+                            groupLayoutA.group2.ScoreLose.text = sortedA[1].lose.toString()
+                            groupLayoutA.group3.ScoreLose.text = sortedA[2].lose.toString()
+                            groupLayoutA.group4.ScoreLose.text = sortedA[3].lose.toString()
+                            groupLayoutA.group5.ScoreLose.text = sortedA[4].lose.toString()
 
                             groupLayoutB.group1.setBackgroundColor(resources.getColor(R.color.high_green_group))
                             groupLayoutB.group2.setBackgroundColor(resources.getColor(R.color.high_green_group))
@@ -86,62 +88,62 @@ class ClosedQuali : Fragment(R.layout.fragment_closed_quali) {
                             groupLayoutB.group5.setBackgroundColor(resources.getColor(R.color.red_group))
 
 
-                            groupLayoutB.group1.ScoreWin.text = it[5].win.toString()
-                            groupLayoutB.group2.ScoreWin.text = it[6].win.toString()
-                            groupLayoutB.group3.ScoreWin.text = it[7].win.toString()
-                            groupLayoutB.group4.ScoreWin.text = it[8].win.toString()
-                            groupLayoutB.group5.ScoreWin.text = it[9].win.toString()
+                            groupLayoutB.group1.ScoreWin.text = sortedB[0].win.toString()
+                            groupLayoutB.group2.ScoreWin.text = sortedB[1].win.toString()
+                            groupLayoutB.group3.ScoreWin.text = sortedB[2].win.toString()
+                            groupLayoutB.group4.ScoreWin.text = sortedB[3].win.toString()
+                            groupLayoutB.group5.ScoreWin.text = sortedB[4].win.toString()
 
-                            groupLayoutB.group1.ScoreLose.text = it[5].lose.toString()
-                            groupLayoutB.group2.ScoreLose.text = it[6].lose.toString()
-                            groupLayoutB.group3.ScoreLose.text = it[7].lose.toString()
-                            groupLayoutB.group4.ScoreLose.text = it[8].lose.toString()
-                            groupLayoutB.group5.ScoreLose.text = it[9].lose.toString()
+                            groupLayoutB.group1.ScoreLose.text = sortedB[0].lose.toString()
+                            groupLayoutB.group2.ScoreLose.text = sortedB[1].lose.toString()
+                            groupLayoutB.group3.ScoreLose.text = sortedB[2].lose.toString()
+                            groupLayoutB.group4.ScoreLose.text = sortedB[3].lose.toString()
+                            groupLayoutB.group5.ScoreLose.text = sortedB[4].lose.toString()
 
 
-                            groupLayoutA.group1.TeamName.text = it[0].TeamName
-                            groupLayoutA.group2.TeamName.text = it[1].TeamName
-                            groupLayoutA.group3.TeamName.text = it[2].TeamName
-                            groupLayoutA.group4.TeamName.text = it[3].TeamName
-                            groupLayoutA.group5.TeamName.text = it[4].TeamName
+                            groupLayoutA.group1.TeamName.text = sortedA[0].TeamName
+                            groupLayoutA.group2.TeamName.text = sortedA[1].TeamName
+                            groupLayoutA.group3.TeamName.text = sortedA[2].TeamName
+                            groupLayoutA.group4.TeamName.text = sortedA[3].TeamName
+                            groupLayoutA.group5.TeamName.text = sortedA[4].TeamName
                             Glide.with(this)
-                                .load(it[0].logo)
+                                .load(sortedA[0].logo)
                                 .into(groupLayoutA.group1.Teamlogo)
                             Glide.with(this)
-                                .load(it[1].logo)
+                                .load(sortedA[1].logo)
                                 .into(groupLayoutA.group2.Teamlogo)
                             Glide.with(this)
-                                .load(it[2].logo)
+                                .load(sortedA[2].logo)
                                 .into(groupLayoutA.group3.Teamlogo)
                             Glide.with(this)
-                                .load(it[3].logo)
+                                .load(sortedA[3].logo)
                                 .into(groupLayoutA.group4.Teamlogo)
                             Glide.with(this)
-                                .load(it[4].logo)
+                                .load(sortedA[4].logo)
                                 .into(groupLayoutA.group5.Teamlogo)
 
                             Glide.with(this)
-                                .load(it[5].logo)
+                                .load(sortedB[0].logo)
                                 .into(groupLayoutB.group1.Teamlogo)
                             Glide.with(this)
-                                .load(it[6].logo)
+                                .load(sortedB[1].logo)
                                 .into(groupLayoutB.group2.Teamlogo)
                             Glide.with(this)
-                                .load(it[7].logo)
+                                .load(sortedB[2].logo)
                                 .into(groupLayoutB.group3.Teamlogo)
                             Glide.with(this)
-                                .load(it[8].logo)
+                                .load(sortedB[3].logo)
                                 .into(groupLayoutB.group4.Teamlogo)
                             Glide.with(this)
-                                .load(it[9].logo)
+                                .load(sortedB[4].logo)
                                 .into(groupLayoutB.group5.Teamlogo)
 
 
-                            groupLayoutB.group1.TeamName.text = it[5].TeamName
-                            groupLayoutB.group2.TeamName.text = it[6].TeamName
-                            groupLayoutB.group3.TeamName.text = it[7].TeamName
-                            groupLayoutB.group4.TeamName.text = it[8].TeamName
-                            groupLayoutB.group5.TeamName.text = it[9].TeamName
+                            groupLayoutB.group1.TeamName.text = sortedB[0].TeamName
+                            groupLayoutB.group2.TeamName.text = sortedB[1].TeamName
+                            groupLayoutB.group3.TeamName.text = sortedB[2].TeamName
+                            groupLayoutB.group4.TeamName.text = sortedB[3].TeamName
+                            groupLayoutB.group5.TeamName.text = sortedB[4].TeamName
 
                         }
 
@@ -179,10 +181,13 @@ class ClosedQuali : Fragment(R.layout.fragment_closed_quali) {
 
         })
         playGame.setOnClickListener {
-            val currebtClosedDay= PrefsHelper.read(PrefsHelper.CLOSED_QUALI_DAY,"1")?.toInt()?:1
-            val teamEnemy = teamStats?.get(currebtClosedDay)?.TeamName
-            teamEnemy?.let { PrefsHelper.write(PrefsHelper.ENEMY_NAME, it) }
-            listener.preMatchClicked()
+
+            activity!!.showDotaDialog("Вы понинули закрытую квалификацию","Возвращайтесь к тренировкам и улучшайте свою игру","вернуться к тренировкам")
+
+            //val currebtClosedDay= PrefsHelper.read(PrefsHelper.CLOSED_QUALI_DAY,"1")?.toInt()?:1
+            //val teamEnemy = teamStats?.get(currebtClosedDay)?.TeamName
+            //teamEnemy?.let { PrefsHelper.write(PrefsHelper.ENEMY_NAME, it) }
+            //listener.preMatchClicked()
             /*
             val updatedTeams=teamStats
             updatedTeams!![0].win= (teamStats?.get(0)?.win ?: 0) +1

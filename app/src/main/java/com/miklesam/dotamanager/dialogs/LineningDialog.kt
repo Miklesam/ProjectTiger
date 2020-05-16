@@ -3,6 +3,8 @@ package com.miklesam.dotamanager.dialogs
 import android.app.AlertDialog
 import android.app.Dialog
 import android.content.DialogInterface
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.widget.*
 import androidx.appcompat.app.AppCompatDialogFragment
@@ -63,7 +65,6 @@ class LineningDialog() : AppCompatDialogFragment() {
 
         }
 
-
         val imaopl = mycustomview.findViewById<ImageView>(R.id.ima1)
         val imaop2 = mycustomview.findViewById<ImageView>(R.id.ima2)
         val imaop3 = mycustomview.findViewById<ImageView>(R.id.ima3)
@@ -95,8 +96,9 @@ class LineningDialog() : AppCompatDialogFragment() {
         spiner4.adapter = mad
         spiner5.adapter = mad
 
-
-        return builder.create()
+        val dialog= builder.create()
+        dialog.setCanceledOnTouchOutside(false)
+        return dialog
     }
 
     override fun onDismiss(dialog: DialogInterface) {

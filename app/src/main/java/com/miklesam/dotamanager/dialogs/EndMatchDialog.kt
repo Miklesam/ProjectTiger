@@ -44,7 +44,9 @@ class EndMatchDialog() : AppCompatDialogFragment() {
             Lock = false
         }
 
-        return builder.create()
+        val dialog= builder.create()
+        dialog.setCanceledOnTouchOutside(false)
+        return dialog
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

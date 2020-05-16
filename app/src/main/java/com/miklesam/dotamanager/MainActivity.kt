@@ -13,6 +13,7 @@ import com.google.android.gms.games.Games
 import com.google.android.gms.games.LeaderboardsClient
 import com.miklesam.dotamanager.adapters.MarketPlayerHolder
 import com.miklesam.dotamanager.datamodels.Player
+import com.miklesam.dotamanager.dialogs.MessageDialog
 import com.miklesam.dotamanager.simplefragments.*
 import com.miklesam.dotamanager.ui.choosePlayers.FragmentChoosePlayers
 import com.miklesam.dotamanager.ui.closedquali.ClosedQuali
@@ -36,7 +37,8 @@ class MainActivity : AppCompatActivity(), FragmentMenu.MenuListener, FragmentLob
     FragmentDescription.nextListener, FragmentChoosePlayers.nextChoosenListener,
     FragmentTeams.teamShow, FragmentTeamSigning.gotoLobby,
     FragmentPractice.PracticeListener, PickStage.nextFromPick, PlainingStage.nextFromPlaining,
-    FragmentMedia.MediaListener, PreMatch.afterCalculate, ClosedQuali.ClosedQualListener {
+    FragmentMedia.MediaListener, PreMatch.afterCalculate, ClosedQuali.ClosedQualListener,
+    MessageDialog.OnDialogClickListener {
 
     private var googleSignInClient: GoogleSignInClient? = null
     private var achievementClient: AchievementsClient? = null
@@ -297,5 +299,10 @@ class MainActivity : AppCompatActivity(), FragmentMenu.MenuListener, FragmentLob
 
     override fun preMatchClicked() {
         replaceFragment(PreMatch())
+    }
+
+    override fun onPositiveButtonClicked() {
+        Log.w("Activity", "OKK")
+        supportFragmentManager.popBackStack()
     }
 }
