@@ -19,5 +19,8 @@ class ClosedQualiVM (application: Application) : AndroidViewModel(application){
     fun initTournamentsTeams(list: List<TournamentTeam>){
         repositoryClosed.initTournamentsTeams(list)
     }
+    fun updateTeams(teams:List<TournamentTeam>){
+        repositoryClosed.updateTeams(teams)
+    }
 
 }

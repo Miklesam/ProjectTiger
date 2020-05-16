@@ -28,4 +28,7 @@ class ClosedRepository(application: Application){
         closedDao.nukeTable()
         Log.w("Nuke","Closed nuked")
     }
+    fun updateTeams(teams:List<TournamentTeam>){
+        closedDao.update(teams)
+    }
 }

@@ -21,6 +21,9 @@ object PrefsHelper {
     const val POSITION_4 = "position_4"
     const val POSITION_5 = "position_5"
 
+    const val CLOSED_QUALI_DAY = "closed_quali_day"
+
+
     fun init(context: Context) {
         prefs = context.getSharedPreferences(
             PREFS_NAME, Context.MODE_PRIVATE)

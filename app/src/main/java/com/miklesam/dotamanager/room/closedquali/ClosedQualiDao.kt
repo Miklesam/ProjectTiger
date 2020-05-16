@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
+import androidx.room.Update
 import com.miklesam.dotamanager.datamodels.TournamentTeam
 
 
@@ -18,5 +19,8 @@ interface ClosedQualiDao {
 
     @Query("DELETE FROM closed_qualifid_table")
     fun nukeTable()
+
+    @Update
+    fun update(closedTeams: List<TournamentTeam>)
 
 }

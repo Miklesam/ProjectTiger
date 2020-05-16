@@ -28,6 +28,7 @@ class PreMatch : Fragment(R.layout.fragment_prematch) {
         fun playGame()
     }
 
+    var didIWin = false
     val scope = CoroutineScope(Dispatchers.IO + SupervisorJob())
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -51,9 +52,10 @@ class PreMatch : Fragment(R.layout.fragment_prematch) {
                 nextAfterMatch.visibility = VISIBLE
             }
         })
-        scope.launch {
-            ClosedRepository(activity!!.application).nukeClosed()
-        }
+        //scope.launch {
+        //    ClosedRepository(activity!!.application).nukeClosed()
+        //    PrefsHelper.write(PrefsHelper.CLOSED_QUALI_DAY, "1")
+        //}
 
         enemy?.let {
             preVM.getTeamByName(it).observe(this, Observer {
@@ -65,6 +67,7 @@ class PreMatch : Fragment(R.layout.fragment_prematch) {
         }
 
         preVM.getWinner().observe(this, Observer {
+            didIWin = it
             if (it) {
                 matchResult.text = "Radiant Victory"
                 matchResult.setTextColor(ContextCompat.getColor(context!!, R.color.radiant_victory))
@@ -93,8 +96,24 @@ class PreMatch : Fragment(R.layout.fragment_prematch) {
         }
 
         nextAfterMatch.setOnClickListener {
-            plusDay()
-            menuListener.calculateTolobby()
+            preVM.getTournamentTeams().observe(this, Observer {
+                val teams = it
+                val currebtClosedDay= PrefsHelper.read(PrefsHelper.CLOSED_QUALI_DAY,"1")?.toInt()?:1
+                if (didIWin) {
+                    teams!![0].win = teams!![0].win + 1
+                    teams!![currebtClosedDay].lose = teams!![currebtClosedDay].lose + 1
+                } else {
+                    teams!![0].lose = teams!![0].lose + 1
+                    teams!![currebtClosedDay].win = teams!![currebtClosedDay].win + 1
+                }
+                scope.launch {
+                    preVM.updateTeams(teams)
+                }
+                plusDay()
+                val closedDay = PrefsHelper.read(PrefsHelper.CLOSED_QUALI_DAY, "1")?.toInt()
+                PrefsHelper.write(PrefsHelper.CLOSED_QUALI_DAY, (closedDay?.plus(1)).toString())
+                menuListener.calculateTolobby()
+            })
         }
 
         playMatch.setOnClickListener { menuListener.playGame() }
