@@ -124,3 +124,23 @@ fun Activity.showDotaDialog(title: String, message: String, okButtonName: String
     }
 }
 
+fun View.Visible() {
+    visibility = View.VISIBLE
+}
+
+fun View.InVisible() {
+    visibility = View.INVISIBLE
+}
+
+fun View.Gone() {
+    visibility = View.GONE
+}
+
+fun View.setVisibility(state: Boolean?) {
+    visibility = when (state) {
+        true -> View.VISIBLE
+        false -> View.INVISIBLE
+        null -> View.GONE
+    }
+}
+

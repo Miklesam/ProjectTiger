@@ -12,9 +12,11 @@ import com.miklesam.dotamanager.R
 import com.miklesam.dotamanager.datamodels.Team
 import com.miklesam.dotamanager.datamodels.TournamentTeam
 import com.miklesam.dotamanager.room.teams.TeamsList
-import com.miklesam.dotamanager.utils.PrefsHelper
-import com.miklesam.dotamanager.utils.showCustomToast
-import com.miklesam.dotamanager.utils.showDotaDialog
+import com.miklesam.dotamanager.utils.*
+import kotlinx.android.synthetic.main.closed_playoff_layout.view.*
+import kotlinx.android.synthetic.main.closed_playoff_stage_layout.view.*
+import kotlinx.android.synthetic.main.closed_playoff_stage_layout.view.teamName
+import kotlinx.android.synthetic.main.closed_playoff_team_layout.view.*
 import kotlinx.android.synthetic.main.fragment_closed_quali.*
 import kotlinx.android.synthetic.main.group_stage_layout.view.*
 import kotlinx.android.synthetic.main.team_in_group_layout.view.*
@@ -50,7 +52,7 @@ class ClosedQuali : Fragment(R.layout.fragment_closed_quali) {
                         tournamentsArr.add(
                             TournamentTeam(
                                 yourTeam ?: "your Team",
-                                TeamsList.CATEGORY_IMAGE_DIR+"yourteamlogo",
+                                TeamsList.CATEGORY_IMAGE_DIR + "yourteamlogo",
                                 0,
                                 0
                             )
@@ -65,10 +67,10 @@ class ClosedQuali : Fragment(R.layout.fragment_closed_quali) {
                     } else {
                         if (!it.isNullOrEmpty()) {
                             teamStats = it
-                            val gropAteams=it.subList(0,5)
-                            val gropBteams=it.subList(5,10)
-                            val sortedA=gropAteams.sortedByDescending { it.win }
-                            val sortedB=gropBteams.sortedByDescending { it.win }
+                            val gropAteams = it.subList(0, 5)
+                            val gropBteams = it.subList(5, 10)
+                            val sortedA = gropAteams.sortedByDescending { it.win }
+                            val sortedB = gropBteams.sortedByDescending { it.win }
                             groupLayoutA.group1.ScoreWin.text = sortedA[0].win.toString()
                             groupLayoutA.group2.ScoreWin.text = sortedA[1].win.toString()
                             groupLayoutA.group3.ScoreWin.text = sortedA[2].win.toString()
@@ -145,6 +147,41 @@ class ClosedQuali : Fragment(R.layout.fragment_closed_quali) {
                             groupLayoutB.group4.TeamName.text = sortedB[3].TeamName
                             groupLayoutB.group5.TeamName.text = sortedB[4].TeamName
 
+
+                            if (PrefsHelper.read(PrefsHelper.CLOSED_QUALI_DAY, "1") == "5") {
+                                playoff.Visible()
+                                playGame.Gone()
+                                playoff.semifinal.teamName.text = "Semi-finals"
+                                playoff.uperfinal.teamName.text = "Upper Bracket Final"
+                                playoff.qualifoed.teamName.text = "Qualified"
+                                playoff.play2.teamName.text = "Lower Bracket R1"
+                                playoff.lower_final.teamName.text = "Lower Bracket Final"
+
+
+
+                                Glide.with(this)
+                                    .load(sortedA[0].logo)
+                                    .into(playoff.team1.teamImage)
+                                playoff.team1.teamName.text = sortedA[0].TeamName
+                                Glide.with(this)
+                                    .load(sortedB[1].logo)
+                                    .into(playoff.team2.teamImage)
+                                playoff.team2.teamName.text = sortedB[1].TeamName
+
+
+                                Glide.with(this)
+                                    .load(sortedA[1].logo)
+                                    .into(playoff.team3.teamImage)
+                                playoff.team3.teamName.text = sortedA[1].TeamName
+                                Glide.with(this)
+                                    .load(sortedB[0].logo)
+                                    .into(playoff.team4.teamImage)
+                                playoff.team4.teamName.text = sortedB[0].TeamName
+
+
+                            }
+
+
                         }
 
                     }
@@ -180,9 +217,15 @@ class ClosedQuali : Fragment(R.layout.fragment_closed_quali) {
 
 
         })
+
+
         playGame.setOnClickListener {
 
-            activity!!.showDotaDialog("Вы понинули закрытую квалификацию","Возвращайтесь к тренировкам и улучшайте свою игру","вернуться к тренировкам")
+            activity!!.showDotaDialog(
+                "Вы понинули закрытую квалификацию",
+                "Возвращайтесь к тренировкам и улучшайте свою игру",
+                "вернуться к тренировкам"
+            )
 
             //val currebtClosedDay= PrefsHelper.read(PrefsHelper.CLOSED_QUALI_DAY,"1")?.toInt()?:1
             //val teamEnemy = teamStats?.get(currebtClosedDay)?.TeamName

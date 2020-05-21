@@ -40,7 +40,7 @@ class ClientViewModel : ViewModel(), getInfo {
         )
     }
 
-    fun getTurnNumber():Int{
+    fun getTurnNumber(): Int {
         return turnNumber
     }
 
@@ -91,7 +91,7 @@ class ClientViewModel : ViewModel(), getInfo {
                 dots[19].toInt(), dots[20].toInt(), dots[21].toInt(),
                 dots[22].toInt()
             )
-            turnNumber=dots[23].toInt()
+            turnNumber = dots[23].toInt()
             gameArray.postValue(
                 pickArray
             )

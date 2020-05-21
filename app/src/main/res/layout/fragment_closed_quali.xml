@@ -99,6 +99,7 @@
 
 
     <include
+        android:visibility="gone"
         android:id="@+id/playoff"
         layout="@layout/closed_playoff_layout"
         app:layout_constraintStart_toStartOf="parent"

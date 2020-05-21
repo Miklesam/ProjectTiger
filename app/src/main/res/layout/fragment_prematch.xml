@@ -55,13 +55,14 @@
         android:id="@+id/yourTeamImage"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:background="@drawable/frame_teams"
         android:src="@drawable/yourteamlogo"
         app:layout_constraintBottom_toBottomOf="@+id/guideline_horizontal55"
         app:layout_constraintEnd_toEndOf="@+id/guideline_vertical40"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/guideline_vertical10"
         app:layout_constraintTop_toTopOf="@+id/guideline_horizontal15"
-        android:background="@drawable/frame_teams"/>
-
+        app:layout_constraintVertical_bias="0.0" />
 
     <ImageView
         android:id="@+id/enemyImage"

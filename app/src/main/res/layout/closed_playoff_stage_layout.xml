@@ -9,7 +9,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/light_grey">
+        android:background="@drawable/frame_layoff_team">
 
         <TextView
             android:id="@+id/teamName"
@@ -17,7 +17,7 @@
             android:layout_height="match_parent"
             android:text="Playoff Stage"
             android:gravity="center"
-            android:textColor="@color/textMain"
+            android:textColor="@color/black"
             app:layout_constraintTop_toTopOf="parent" />
 
     </LinearLayout>
