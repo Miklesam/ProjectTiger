@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal"
     android:background="@color/fon"
+    android:orientation="horizontal"
     android:scrollbars="none">
 
     <HorizontalScrollView
@@ -22,11 +22,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
+                android:paddingBottom="20dp"
                 android:text="Playoffs"
                 android:textColor="@color/colorAccent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                android:paddingBottom="20dp"
                 app:layout_constraintTop_toTopOf="parent" />
 
 
@@ -122,7 +122,7 @@
                 android:layout_width="240dp"
                 android:layout_height="30dp"
                 android:layout_marginStart="5dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="50dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/play2" />
 
@@ -133,8 +133,7 @@
                 android:layout_height="30dp"
                 android:layout_marginStart="5dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/team5"
-                />
+                app:layout_constraintTop_toBottomOf="@+id/team5" />
 
             <include
                 android:id="@+id/team7"
@@ -142,10 +141,9 @@
                 android:layout_width="240dp"
                 android:layout_height="30dp"
                 android:layout_marginStart="5dp"
-                app:layout_constraintStart_toStartOf="@id/uperfinal"
-                app:layout_constraintTop_toBottomOf="@+id/team1"
                 android:layout_marginTop="15dp"
-                />
+                app:layout_constraintStart_toStartOf="@id/uperfinal"
+                app:layout_constraintTop_toBottomOf="@+id/team1" />
 
             <include
                 android:id="@+id/team8"
@@ -154,10 +152,63 @@
                 android:layout_height="30dp"
                 android:layout_marginStart="5dp"
                 app:layout_constraintStart_toStartOf="@id/uperfinal"
-                app:layout_constraintTop_toBottomOf="@+id/team7"
+                app:layout_constraintTop_toBottomOf="@+id/team7" />
+
+
+            <include
+                android:id="@+id/team9"
+                layout="@layout/closed_playoff_team_layout"
+                android:layout_width="240dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginBottom="20dp"
+                app:layout_constraintBottom_toBottomOf="@+id/team6"
+                app:layout_constraintStart_toStartOf="@id/uperfinal" />
+
+            <include
+                android:id="@+id/team10"
+                layout="@layout/closed_playoff_team_layout"
+                android:layout_width="240dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="5dp"
+                app:layout_constraintBottom_toTopOf="@+id/team9"
+                app:layout_constraintStart_toStartOf="@id/uperfinal" />
+
+            <include
+                android:id="@+id/team11"
+                layout="@layout/closed_playoff_team_layout"
+                android:layout_width="240dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="50dp"
+                android:layout_marginBottom="15dp"
+                app:layout_constraintBottom_toBottomOf="@+id/team8"
+                app:layout_constraintStart_toStartOf="@id/qualifoed" />
+
+            <include
+                android:id="@+id/team12"
+                layout="@layout/closed_playoff_team_layout"
+                android:layout_width="240dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginBottom="15dp"
+                app:layout_constraintBottom_toBottomOf="@+id/team9"
+                app:layout_constraintStart_toStartOf="@id/qualifoed" />
+
+
+            <View
+                android:layout_width="400dp"
+                android:layout_height="0dp"
+                app:layout_constraintStart_toStartOf="@id/qualifoed"
+                app:layout_constraintTop_toTopOf="parent"
                 />
 
-
+            <View
+                android:layout_width="0dp"
+                android:layout_height="100dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/team6"
+                />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

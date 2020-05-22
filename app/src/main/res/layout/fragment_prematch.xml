@@ -199,6 +199,32 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
 
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/winMatch"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_selector"
+        android:text="Win"
+        android:layout_marginTop="10dp"
+        android:textSize="14sp"
+        android:theme="@style/ButtonSwitchColor"
+        app:layout_constraintTop_toBottomOf="@+id/calculateMatch"
+        app:layout_constraintLeft_toLeftOf="parent"
+        />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/loseMatch"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_selector"
+        android:text="Lose"
+        android:layout_marginTop="10dp"
+        android:textSize="14sp"
+        android:theme="@style/ButtonSwitchColor"
+        app:layout_constraintTop_toBottomOf="@+id/calculateMatch"
+        app:layout_constraintRight_toRightOf="parent"
+        />
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

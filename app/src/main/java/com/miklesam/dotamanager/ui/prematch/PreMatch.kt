@@ -29,12 +29,15 @@ class PreMatch : Fragment(R.layout.fragment_prematch) {
         fun playGame()
     }
 
+    private lateinit var preVM: PreMatchVM
     var didIWin = false
+    var teams: List<TournamentTeam>? = null
     val scope = CoroutineScope(Dispatchers.IO + SupervisorJob())
+    var menuListener: afterCalculate? = null
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val menuListener = activity as afterCalculate
-        val preVM = ViewModelProviders.of(this).get(PreMatchVM::class.java)
+        menuListener = activity as afterCalculate
+        preVM = ViewModelProviders.of(this).get(PreMatchVM::class.java)
         val enemy = PrefsHelper.read(PrefsHelper.ENEMY_NAME, "")
         preVM.getState().observe(this, Observer {
             if (!it) {
@@ -53,10 +56,14 @@ class PreMatch : Fragment(R.layout.fragment_prematch) {
                 nextAfterMatch.visibility = VISIBLE
             }
         })
-        //scope.launch {
-        //    ClosedRepository(activity!!.application).nukeClosed()
-        //    PrefsHelper.write(PrefsHelper.CLOSED_QUALI_DAY, "1")
-       // }
+        scope.launch {
+            ClosedRepository(activity!!.application).nukeClosed()
+            PrefsHelper.write(PrefsHelper.CLOSED_QUALI_DAY, "1")
+         }
+
+        preVM.getTournamentTeams().observe(this, Observer {
+            teams = it
+        })
 
         enemy?.let {
             preVM.getTeamByName(it).observe(this, Observer {
@@ -95,60 +102,67 @@ class PreMatch : Fragment(R.layout.fragment_prematch) {
                 preVM.setWinner(false)
             }
         }
+        winMatch.setOnClickListener { endMatchFlow(true) }
+        loseMatch.setOnClickListener { endMatchFlow(false) }
 
         nextAfterMatch.setOnClickListener {
-            preVM.getTournamentTeams().observe(this, Observer {
-                val teams = it
-                val currebtClosedDay =
-                    PrefsHelper.read(PrefsHelper.CLOSED_QUALI_DAY, "1")?.toInt() ?: 1
-                if (didIWin) {
-                    teams!![0].win = teams!![0].win + 1
-                    teams!![currebtClosedDay].lose = teams!![currebtClosedDay].lose + 1
-                } else {
-                    teams!![0].lose = teams!![0].lose + 1
-                    teams!![currebtClosedDay].win = teams!![currebtClosedDay].win + 1
-                }
-                when (currebtClosedDay) {
-                    1 -> {
-                        generateMatch(teams[2], teams[3])
-                        generateMatch(teams[7], teams[8])
-                        generateMatch(teams[5], teams[6])
-                    }
-                    2 -> {
-                        generateMatch(teams[1], teams[4])
-                        generateMatch(teams[6], teams[9])
-                        generateMatch(teams[5], teams[7])
-                    }
-                    3 -> {
-                        generateMatch(teams[2], teams[4])
-                        generateMatch(teams[1], teams[3])
-                        generateMatch(teams[7], teams[9])
-                        generateMatch(teams[5], teams[8])
-                        generateMatch(teams[6], teams[8])
-                    }
-                    4 -> {
-                        generateMatch(teams[1], teams[2])
-                        generateMatch(teams[3], teams[4])
-                        generateMatch(teams[6], teams[7])
-                        generateMatch(teams[5], teams[9])
-                        generateMatch(teams[8], teams[9])
-                    }
-                }
-
-
-
-                scope.launch {
-                    preVM.updateTeams(teams)
-                }
-                plusDay()
-                val closedDay = PrefsHelper.read(PrefsHelper.CLOSED_QUALI_DAY, "1")?.toInt()
-                PrefsHelper.write(PrefsHelper.CLOSED_QUALI_DAY, (closedDay?.plus(1)).toString())
-                menuListener.calculateTolobby()
-            })
+            endMatchFlow(didIWin)
         }
 
-        playMatch.setOnClickListener { menuListener.playGame() }
+        playMatch.setOnClickListener { menuListener?.playGame() }
+
+
     }
+
+    fun endMatchFlow(didIWin: Boolean) {
+
+        val currebtClosedDay =
+            PrefsHelper.read(PrefsHelper.CLOSED_QUALI_DAY, "1")?.toInt() ?: 1
+        if (didIWin) {
+            teams!![0].win = teams!![0].win + 1
+            teams!![currebtClosedDay].lose = teams!![currebtClosedDay].lose + 1
+        } else {
+            teams!![0].lose = teams!![0].lose + 1
+            teams!![currebtClosedDay].win = teams!![currebtClosedDay].win + 1
+        }
+        when (currebtClosedDay) {
+            1 -> {
+                generateMatch(teams!![2], teams!![3])
+                generateMatch(teams!![7], teams!![8])
+                generateMatch(teams!![5], teams!![6])
+            }
+            2 -> {
+                generateMatch(teams!![1], teams!![4])
+                generateMatch(teams!![6], teams!![9])
+                generateMatch(teams!![5], teams!![7])
+            }
+            3 -> {
+                generateMatch(teams!![2], teams!![4])
+                generateMatch(teams!![1], teams!![3])
+                generateMatch(teams!![7], teams!![9])
+                generateMatch(teams!![5], teams!![8])
+                generateMatch(teams!![6], teams!![8])
+            }
+            4 -> {
+                generateMatch(teams!![1], teams!![2])
+                generateMatch(teams!![3], teams!![4])
+                generateMatch(teams!![6], teams!![7])
+                generateMatch(teams!![5], teams!![9])
+                generateMatch(teams!![8], teams!![9])
+            }
+        }
+
+
+
+        scope.launch {
+            preVM.updateTeams(teams!!)
+        }
+        plusDay()
+        val closedDay = PrefsHelper.read(PrefsHelper.CLOSED_QUALI_DAY, "1")?.toInt()
+        PrefsHelper.write(PrefsHelper.CLOSED_QUALI_DAY, (closedDay?.plus(1)).toString())
+        menuListener?.calculateTolobby()
+    }
+
 
     fun generateMatch(team1: TournamentTeam, team2: TournamentTeam) {
         val rndsRad = (0..45).random()
