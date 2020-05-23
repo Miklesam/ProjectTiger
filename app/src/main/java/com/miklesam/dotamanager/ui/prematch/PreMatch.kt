@@ -1,14 +1,13 @@
 package com.miklesam.dotamanager.ui.prematch
 
-import android.app.Application
 import android.os.Bundle
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import com.bumptech.glide.Glide
 import com.miklesam.dotamanager.R
 import com.miklesam.dotamanager.datamodels.TournamentTeam
@@ -29,17 +28,17 @@ class PreMatch : Fragment(R.layout.fragment_prematch) {
         fun playGame()
     }
 
-    private lateinit var preVM: PreMatchVM
-    var didIWin = false
+    private val preVM: PreMatchVM by viewModels()
+    private var didIWin = false
     var teams: List<TournamentTeam>? = null
-    val scope = CoroutineScope(Dispatchers.IO + SupervisorJob())
-    var menuListener: afterCalculate? = null
+    private val scope = CoroutineScope(Dispatchers.IO + SupervisorJob())
+    private var menuListener: afterCalculate? = null
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         menuListener = activity as afterCalculate
-        preVM = ViewModelProviders.of(this).get(PreMatchVM::class.java)
         val enemy = PrefsHelper.read(PrefsHelper.ENEMY_NAME, "")
-        preVM.getState().observe(this, Observer {
+        preVM.getState().observe(viewLifecycleOwner, Observer {
             if (!it) {
                 playMatch.visibility = VISIBLE
                 calculateMatch.visibility = VISIBLE
@@ -56,17 +55,17 @@ class PreMatch : Fragment(R.layout.fragment_prematch) {
                 nextAfterMatch.visibility = VISIBLE
             }
         })
-        scope.launch {
-            ClosedRepository(activity!!.application).nukeClosed()
-            PrefsHelper.write(PrefsHelper.CLOSED_QUALI_DAY, "1")
-         }
+        //scope.launch {
+        //    ClosedRepository(requireActivity().application).nukeClosed()
+        //    PrefsHelper.write(PrefsHelper.CLOSED_QUALI_DAY, "1")
+        //}
 
-        preVM.getTournamentTeams().observe(this, Observer {
+        preVM.getTournamentTeams().observe(viewLifecycleOwner, Observer {
             teams = it
         })
 
         enemy?.let {
-            preVM.getTeamByName(it).observe(this, Observer {
+            preVM.getTeamByName(it).observe(viewLifecycleOwner, Observer {
                 Glide.with(this)
                     .load(it.teamLogo)
                     .into(enemyImage)
@@ -74,20 +73,30 @@ class PreMatch : Fragment(R.layout.fragment_prematch) {
             })
         }
 
-        preVM.getWinner().observe(this, Observer {
+        preVM.getWinner().observe(viewLifecycleOwner, Observer {
             didIWin = it
             if (it) {
                 matchResult.text = "Radiant Victory"
-                matchResult.setTextColor(ContextCompat.getColor(context!!, R.color.radiant_victory))
+                matchResult.setTextColor(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.radiant_victory
+                    )
+                )
             } else {
                 matchResult.text = "Dire Victory"
-                matchResult.setTextColor(ContextCompat.getColor(context!!, R.color.dire_victory))
+                matchResult.setTextColor(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.dire_victory
+                    )
+                )
             }
         })
-        preVM.getRadScore().observe(this, Observer {
+        preVM.getRadScore().observe(viewLifecycleOwner, Observer {
             yourTeamScore.text = it.toString()
         })
-        preVM.getDireScore().observe(this, Observer {
+        preVM.getDireScore().observe(viewLifecycleOwner, Observer {
             enemyTeamScore.text = it.toString()
         })
         calculateMatch.setOnClickListener {
@@ -114,18 +123,18 @@ class PreMatch : Fragment(R.layout.fragment_prematch) {
 
     }
 
-    fun endMatchFlow(didIWin: Boolean) {
+    private fun endMatchFlow(didIWin: Boolean) {
 
-        val currebtClosedDay =
+        val currentClosedDay =
             PrefsHelper.read(PrefsHelper.CLOSED_QUALI_DAY, "1")?.toInt() ?: 1
         if (didIWin) {
             teams!![0].win = teams!![0].win + 1
-            teams!![currebtClosedDay].lose = teams!![currebtClosedDay].lose + 1
+            teams!![currentClosedDay].lose = teams!![currentClosedDay].lose + 1
         } else {
             teams!![0].lose = teams!![0].lose + 1
-            teams!![currebtClosedDay].win = teams!![currebtClosedDay].win + 1
+            teams!![currentClosedDay].win = teams!![currentClosedDay].win + 1
         }
-        when (currebtClosedDay) {
+        when (currentClosedDay) {
             1 -> {
                 generateMatch(teams!![2], teams!![3])
                 generateMatch(teams!![7], teams!![8])
@@ -164,7 +173,7 @@ class PreMatch : Fragment(R.layout.fragment_prematch) {
     }
 
 
-    fun generateMatch(team1: TournamentTeam, team2: TournamentTeam) {
+    private fun generateMatch(team1: TournamentTeam, team2: TournamentTeam) {
         val rndsRad = (0..45).random()
         val rndsDire = (0..45).random()
         if (rndsRad > rndsDire) {
