@@ -17,12 +17,40 @@
             android:layout_height="match_parent"
             android:background="@color/fon">
 
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/vertical1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.3" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/vertical2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.7" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/nextPlayOff"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button_selector"
+                android:text="Next"
+                android:textSize="14sp"
+                android:theme="@style/ButtonSwitchColor"
+                app:layout_constraintTop_toBottomOf="@id/groupA"
+                app:layout_constraintStart_toStartOf="@id/vertical1"
+                app:layout_constraintEnd_toEndOf="@+id/vertical2"
+                android:layout_marginTop="10dp"
+                 />
+
             <TextView
                 android:id="@+id/groupA"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:paddingBottom="20dp"
+
                 android:text="Playoffs"
                 android:textColor="@color/colorAccent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -36,8 +64,9 @@
                 android:layout_width="240dp"
                 android:layout_height="30dp"
                 android:layout_marginStart="5dp"
+                android:layout_marginTop="10dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/groupA" />
+                app:layout_constraintTop_toBottomOf="@+id/nextPlayOff" />
 
             <include
                 android:id="@+id/uperfinal"
@@ -45,8 +74,9 @@
                 android:layout_width="240dp"
                 android:layout_height="30dp"
                 android:layout_marginStart="15dp"
+                android:layout_marginTop="10dp"
                 app:layout_constraintStart_toEndOf="@+id/semifinal"
-                app:layout_constraintTop_toBottomOf="@+id/groupA" />
+                app:layout_constraintTop_toBottomOf="@+id/nextPlayOff" />
 
             <include
                 android:id="@+id/qualifoed"
@@ -55,7 +85,8 @@
                 android:layout_height="30dp"
                 android:layout_marginStart="15dp"
                 app:layout_constraintStart_toEndOf="@+id/uperfinal"
-                app:layout_constraintTop_toBottomOf="@+id/groupA" />
+                android:layout_marginTop="10dp"
+                app:layout_constraintTop_toBottomOf="@+id/nextPlayOff" />
 
             <include
                 android:id="@+id/team1"
@@ -197,7 +228,7 @@
 
 
             <View
-                android:layout_width="400dp"
+                android:layout_width="250dp"
                 android:layout_height="0dp"
                 app:layout_constraintStart_toStartOf="@id/qualifoed"
                 app:layout_constraintTop_toTopOf="parent"
@@ -205,7 +236,7 @@
 
             <View
                 android:layout_width="0dp"
-                android:layout_height="100dp"
+                android:layout_height="20dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/team6"
                 />
