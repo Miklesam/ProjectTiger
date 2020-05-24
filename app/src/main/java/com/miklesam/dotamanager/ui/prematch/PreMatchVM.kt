@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.miklesam.dotamanager.datamodels.MatchScore
 import com.miklesam.dotamanager.datamodels.Team
 import com.miklesam.dotamanager.datamodels.TournamentTeam
 import com.miklesam.dotamanager.ui.closedquali.ClosedRepository
@@ -13,6 +14,7 @@ class PreMatchVM(application: Application) : AndroidViewModel(application){
 
     private var repository: TeamsRepository = TeamsRepository(application)
     private var repositoryClosed: ClosedRepository = ClosedRepository(application)
+    private var preMatchRepository: PreMatchRepo = PreMatchRepo(application)
     private val calculate = MutableLiveData<Boolean>()
     private val radWin = MutableLiveData<Boolean>()
     private val radScore = MutableLiveData<Int>()
@@ -53,6 +55,14 @@ class PreMatchVM(application: Application) : AndroidViewModel(application){
 
     fun getTournamentTeams(): LiveData<List<TournamentTeam>> {
         return  repositoryClosed.getTournamentTeams()
+    }
+
+    fun getCLosedPlayoffScore(): LiveData<List<MatchScore>> {
+        return  preMatchRepository.getScore()
+    }
+
+    fun insetNewScore(score :MatchScore){
+        preMatchRepository.insertScore(score)
     }
 
     fun updateTeams(teams:List<TournamentTeam>){

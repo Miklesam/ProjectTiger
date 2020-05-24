@@ -3,6 +3,7 @@ package com.miklesam.dotamanager.ui.closedquali
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -10,11 +11,14 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.bumptech.glide.Glide
 import com.miklesam.dotamanager.R
+import com.miklesam.dotamanager.datamodels.MatchScore
 import com.miklesam.dotamanager.datamodels.Team
 import com.miklesam.dotamanager.datamodels.TournamentTeam
 import com.miklesam.dotamanager.room.teams.TeamsList
 import com.miklesam.dotamanager.utils.*
+import kotlinx.android.synthetic.main.closed_playoff_layout.*
 import kotlinx.android.synthetic.main.closed_playoff_layout.view.*
+import kotlinx.android.synthetic.main.closed_playoff_layout.view.nextPlayOff
 import kotlinx.android.synthetic.main.closed_playoff_stage_layout.view.*
 import kotlinx.android.synthetic.main.closed_playoff_stage_layout.view.teamName
 import kotlinx.android.synthetic.main.closed_playoff_team_layout.view.*
@@ -32,6 +36,10 @@ class ClosedQuali : Fragment(R.layout.fragment_closed_quali) {
     private var teamStats: List<TournamentTeam>? = null
     private val scope = CoroutineScope(Dispatchers.IO + SupervisorJob())
     private val closedVM: ClosedQualiVM by viewModels()
+    private var currentDay = 0
+    private var myGroupPlace = 0
+    private lateinit var playoffScoreList: List<MatchScore>
+
 
     private lateinit var sortedA: List<TournamentTeam>
     private lateinit var sortedB: List<TournamentTeam>
@@ -43,8 +51,14 @@ class ClosedQuali : Fragment(R.layout.fragment_closed_quali) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val listener = activity as ClosedQualListener
-        val day = "Day ${PrefsHelper.read(PrefsHelper.CLOSED_QUALI_DAY, "1")}"
+        currentDay = PrefsHelper.read(PrefsHelper.CLOSED_QUALI_DAY, "1")?.toInt() ?: 1
+        val day = "Day $currentDay"
         closedDay.text = day
+
+        closedVM.getScore().observe(viewLifecycleOwner, Observer {
+            playoffScoreList = it
+        })
+
         closedVM.getTeams().observe(viewLifecycleOwner, Observer {
             teams = it
             if (!teams.isNullOrEmpty()) {
@@ -151,13 +165,6 @@ class ClosedQuali : Fragment(R.layout.fragment_closed_quali) {
                             groupLayoutB.group4.TeamName.text = sortedB[3].TeamName
                             groupLayoutB.group5.TeamName.text = sortedB[4].TeamName
 
-
-                            if (PrefsHelper.read(PrefsHelper.CLOSED_QUALI_DAY, "1") == "5") {
-
-
-                            }
-
-
                         }
 
                     }
@@ -196,10 +203,10 @@ class ClosedQuali : Fragment(R.layout.fragment_closed_quali) {
 
 
         playGame.setOnClickListener {
-            if (PrefsHelper.read(PrefsHelper.CLOSED_QUALI_DAY, "1") == "5") {
+            if (currentDay >= 5) {
                 val team =
                     sortedA.find { it.TeamName == PrefsHelper.read(PrefsHelper.TEAM_NAME, "") }
-                val myGroupPlace = sortedA.indexOf(team)
+                myGroupPlace = sortedA.indexOf(team)
                 if (myGroupPlace == 0 || myGroupPlace == 1) {
                     playoff.Visible()
                     playGame.Gone()
@@ -210,6 +217,19 @@ class ClosedQuali : Fragment(R.layout.fragment_closed_quali) {
                     playoff.play2.teamName.text = "Lower Bracket R1"
                     playoff.lower_final.teamName.text = "Lower Bracket Final"
 
+                }
+                val match1 = Pair(playoff.team1.scoreTeam, playoff.team2.scoreTeam)
+
+                val listMatches = listOf(
+                    Pair(playoff.team1.scoreTeam, playoff.team2.scoreTeam),
+                    Pair(playoff.team3.scoreTeam, playoff.team4.scoreTeam),
+                    Pair(playoff.team5.scoreTeam, playoff.team6.scoreTeam),
+                    Pair(playoff.team7.scoreTeam, playoff.team8.scoreTeam),
+                    Pair(playoff.team9.scoreTeam, playoff.team10.scoreTeam)
+                )
+                for (i in playoffScoreList.indices) {
+                    listMatches[i].first.text = playoffScoreList[i].topTeam.toString()
+                    listMatches[i].second.text = playoffScoreList[i].bottomTeam.toString()
                 }
 
                 when (myGroupPlace) {
@@ -264,14 +284,25 @@ class ClosedQuali : Fragment(R.layout.fragment_closed_quali) {
                     }
                 }
             } else {
-                val currebtClosedDay =
-                    PrefsHelper.read(PrefsHelper.CLOSED_QUALI_DAY, "1")?.toInt() ?: 1
-                val teamEnemy = teamStats?.get(currebtClosedDay)?.TeamName
+                val teamEnemy = teamStats?.get(currentDay)?.TeamName
                 teamEnemy?.let { PrefsHelper.write(PrefsHelper.ENEMY_NAME, it) }
                 listener.preMatchClicked()
             }
 
         }
 
+        nextPlayOff.setOnClickListener {
+            if (currentDay == 5) {
+                val teamEnemy = if (myGroupPlace == 0) {
+                    sortedB[1].TeamName
+                } else {
+                    sortedB[0].TeamName
+                }
+                PrefsHelper.write(PrefsHelper.ENEMY_NAME, teamEnemy)
+                listener.preMatchClicked()
+            }
+        }
+
     }
+
 }

@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
 import com.miklesam.dotamanager.R
+import com.miklesam.dotamanager.datamodels.MatchScore
 import com.miklesam.dotamanager.datamodels.TournamentTeam
 import com.miklesam.dotamanager.ui.closedquali.ClosedRepository
 import com.miklesam.dotamanager.utils.PrefsHelper
@@ -62,6 +63,11 @@ class PreMatch : Fragment(R.layout.fragment_prematch) {
 
         preVM.getTournamentTeams().observe(viewLifecycleOwner, Observer {
             teams = it
+        })
+
+        preVM.getCLosedPlayoffScore().observe(viewLifecycleOwner, Observer {
+            val scoreList = it
+            val zz = 3 + 4
         })
 
         enemy?.let {
@@ -127,49 +133,62 @@ class PreMatch : Fragment(R.layout.fragment_prematch) {
 
         val currentClosedDay =
             PrefsHelper.read(PrefsHelper.CLOSED_QUALI_DAY, "1")?.toInt() ?: 1
-        if (didIWin) {
-            teams!![0].win = teams!![0].win + 1
-            teams!![currentClosedDay].lose = teams!![currentClosedDay].lose + 1
+        if (currentClosedDay <= 4) {
+
+            if (didIWin) {
+                teams!![0].win = teams!![0].win + 1
+                teams!![currentClosedDay].lose = teams!![currentClosedDay].lose + 1
+            } else {
+                teams!![0].lose = teams!![0].lose + 1
+                teams!![currentClosedDay].win = teams!![currentClosedDay].win + 1
+            }
+            when (currentClosedDay) {
+                1 -> {
+                    generateMatch(teams!![2], teams!![3])
+                    generateMatch(teams!![7], teams!![8])
+                    generateMatch(teams!![5], teams!![6])
+                }
+                2 -> {
+                    generateMatch(teams!![1], teams!![4])
+                    generateMatch(teams!![6], teams!![9])
+                    generateMatch(teams!![5], teams!![7])
+                }
+                3 -> {
+                    generateMatch(teams!![2], teams!![4])
+                    generateMatch(teams!![1], teams!![3])
+                    generateMatch(teams!![7], teams!![9])
+                    generateMatch(teams!![5], teams!![8])
+                    generateMatch(teams!![6], teams!![8])
+                }
+                4 -> {
+                    generateMatch(teams!![1], teams!![2])
+                    generateMatch(teams!![3], teams!![4])
+                    generateMatch(teams!![6], teams!![7])
+                    generateMatch(teams!![5], teams!![9])
+                    generateMatch(teams!![8], teams!![9])
+                }
+            }
+
+            scope.launch {
+                preVM.updateTeams(teams!!)
+            }
+            plusDay()
+            val closedDay = PrefsHelper.read(PrefsHelper.CLOSED_QUALI_DAY, "1")?.toInt()
+            PrefsHelper.write(PrefsHelper.CLOSED_QUALI_DAY, (closedDay?.plus(1)).toString())
+            menuListener?.calculateTolobby()
         } else {
-            teams!![0].lose = teams!![0].lose + 1
-            teams!![currentClosedDay].win = teams!![currentClosedDay].win + 1
-        }
-        when (currentClosedDay) {
-            1 -> {
-                generateMatch(teams!![2], teams!![3])
-                generateMatch(teams!![7], teams!![8])
-                generateMatch(teams!![5], teams!![6])
+
+            scope.launch {
+                if (didIWin) {
+                    preVM.insetNewScore(MatchScore(1, 0))
+                } else {
+                    preVM.insetNewScore(MatchScore(0, 1))
+                }
             }
-            2 -> {
-                generateMatch(teams!![1], teams!![4])
-                generateMatch(teams!![6], teams!![9])
-                generateMatch(teams!![5], teams!![7])
-            }
-            3 -> {
-                generateMatch(teams!![2], teams!![4])
-                generateMatch(teams!![1], teams!![3])
-                generateMatch(teams!![7], teams!![9])
-                generateMatch(teams!![5], teams!![8])
-                generateMatch(teams!![6], teams!![8])
-            }
-            4 -> {
-                generateMatch(teams!![1], teams!![2])
-                generateMatch(teams!![3], teams!![4])
-                generateMatch(teams!![6], teams!![7])
-                generateMatch(teams!![5], teams!![9])
-                generateMatch(teams!![8], teams!![9])
-            }
+            menuListener?.calculateTolobby()
+
         }
 
-
-
-        scope.launch {
-            preVM.updateTeams(teams!!)
-        }
-        plusDay()
-        val closedDay = PrefsHelper.read(PrefsHelper.CLOSED_QUALI_DAY, "1")?.toInt()
-        PrefsHelper.write(PrefsHelper.CLOSED_QUALI_DAY, (closedDay?.plus(1)).toString())
-        menuListener?.calculateTolobby()
     }
 
 
