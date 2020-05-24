@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -15,6 +16,7 @@ import com.miklesam.dotamanager.datamodels.TournamentTeam
 import com.miklesam.dotamanager.ui.closedquali.ClosedRepository
 import com.miklesam.dotamanager.utils.PrefsHelper
 import com.miklesam.dotamanager.utils.plusDay
+import com.miklesam.dotamanager.utils.showCustomToast
 import kotlinx.android.synthetic.main.fragment_prematch.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -34,6 +36,7 @@ class PreMatch : Fragment(R.layout.fragment_prematch) {
     var teams: List<TournamentTeam>? = null
     private val scope = CoroutineScope(Dispatchers.IO + SupervisorJob())
     private var menuListener: afterCalculate? = null
+    private lateinit var scoreList: List<MatchScore>
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -56,18 +59,23 @@ class PreMatch : Fragment(R.layout.fragment_prematch) {
                 nextAfterMatch.visibility = VISIBLE
             }
         })
-        //scope.launch {
-        //    ClosedRepository(requireActivity().application).nukeClosed()
-        //    PrefsHelper.write(PrefsHelper.CLOSED_QUALI_DAY, "1")
-        //}
+
+        enemyImage.setOnClickListener {
+            scope.launch {
+                ClosedRepository(requireActivity().application).nukeClosed()
+                PreMatchRepo(requireActivity().application).nukeScore()
+                PrefsHelper.write(PrefsHelper.CLOSED_QUALI_DAY, "1")
+            }
+            showCustomToast("Nuked", Toast.LENGTH_SHORT)
+        }
+
 
         preVM.getTournamentTeams().observe(viewLifecycleOwner, Observer {
             teams = it
         })
 
         preVM.getCLosedPlayoffScore().observe(viewLifecycleOwner, Observer {
-            val scoreList = it
-            val zz = 3 + 4
+            scoreList = it
         })
 
         enemy?.let {
@@ -177,18 +185,48 @@ class PreMatch : Fragment(R.layout.fragment_prematch) {
             PrefsHelper.write(PrefsHelper.CLOSED_QUALI_DAY, (closedDay?.plus(1)).toString())
             menuListener?.calculateTolobby()
         } else {
-
             scope.launch {
-                if (didIWin) {
-                    preVM.insetNewScore(MatchScore(1, 0))
+
+                if (scoreList.isEmpty()) {
+                    if (didIWin) {
+                        preVM.insetNewScore(MatchScore(1, 0))
+                    } else {
+                        preVM.insetNewScore(MatchScore(0, 1))
+                    }
                 } else {
-                    preVM.insetNewScore(MatchScore(0, 1))
+                    if (didIWin) {
+                        scoreList[0].topTeam = scoreList[0].topTeam + 1
+                    } else {
+                        scoreList[0].bottomTeam = scoreList[0].bottomTeam + 1
+                    }
+                    if (scoreList[0].topTeam == 2 || scoreList[0].bottomTeam == 2) {
+                        preVM.insetNewScore(generateOtherScore(MatchScore(0, 0)))
+                        plusDay()
+                        val closedDay = PrefsHelper.read(PrefsHelper.CLOSED_QUALI_DAY, "1")?.toInt()
+                        PrefsHelper.write(PrefsHelper.CLOSED_QUALI_DAY, (closedDay?.plus(1)).toString())
+                    }
+                    preVM.updateScore(scoreList)
                 }
+
+
             }
             menuListener?.calculateTolobby()
 
         }
 
+    }
+
+    private fun generateOtherScore(matchScore: MatchScore): MatchScore {
+        while (matchScore.topTeam != 2 && matchScore.bottomTeam != 2) {
+            val rndsRad = (0..45).random()
+            val rndsDire = (0..45).random()
+            if (rndsRad > rndsDire) {
+                matchScore.topTeam++
+            } else {
+                matchScore.bottomTeam++
+            }
+        }
+        return matchScore
     }
 
 

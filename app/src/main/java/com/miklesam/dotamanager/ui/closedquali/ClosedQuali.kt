@@ -283,6 +283,68 @@ class ClosedQuali : Fragment(R.layout.fragment_closed_quali) {
 
                     }
                 }
+                if (currentDay >= 6) {
+                    if (myGroupPlace == 0) {
+                        if (playoffScoreList[0].topTeam > playoffScoreList[0].bottomTeam) {
+                            Glide.with(this)
+                                .load(sortedA[0].logo)
+                                .into(playoff.team7.teamImage)
+                            playoff.team7.teamName.text = sortedA[0].TeamName
+                            Glide.with(this)
+                                .load(sortedB[1].logo)
+                                .into(playoff.team6.teamImage)
+                            playoff.team6.teamName.text = sortedB[1].TeamName
+                            if(playoffScoreList[1].topTeam > playoffScoreList[1].bottomTeam){
+                                Glide.with(this)
+                                    .load(sortedA[1].logo)
+                                    .into(playoff.team8.teamImage)
+                                playoff.team8.teamName.text = sortedA[1].TeamName
+                                Glide.with(this)
+                                    .load(sortedB[0].logo)
+                                    .into(playoff.team5.teamImage)
+                                playoff.team5.teamName.text = sortedB[0].TeamName
+                                PrefsHelper.write(PrefsHelper.ENEMY_NAME, sortedA[1].TeamName)
+                            }else{
+                                Glide.with(this)
+                                    .load(sortedA[1].logo)
+                                    .into(playoff.team5.teamImage)
+                                playoff.team5.teamName.text = sortedA[1].TeamName
+                                Glide.with(this)
+                                    .load(sortedB[0].logo)
+                                    .into(playoff.team8.teamImage)
+                                playoff.team8.teamName.text = sortedB[0].TeamName
+                                PrefsHelper.write(PrefsHelper.ENEMY_NAME, sortedB[0].TeamName)
+                            }
+                        }else{
+
+                        }
+                    } else {
+                        if (playoffScoreList[0].topTeam > playoffScoreList[0].bottomTeam) {
+                            Glide.with(this)
+                                .load(sortedA[1].logo)
+                                .into(playoff.team7.teamImage)
+                            playoff.team7.teamName.text = sortedA[1].TeamName
+                            Glide.with(this)
+                                .load(sortedB[0].logo)
+                                .into(playoff.team6.teamImage)
+                            playoff.team6.teamName.text = sortedB[0].TeamName
+
+                        } else {
+                            Glide.with(this)
+                                .load(sortedA[1].logo)
+                                .into(playoff.team6.teamImage)
+                            playoff.team6.teamName.text = sortedA[1].TeamName
+                            Glide.with(this)
+                                .load(sortedB[0].logo)
+                                .into(playoff.team7.teamImage)
+                            playoff.team7.teamName.text = sortedB[0].TeamName
+                        }
+
+                    }
+
+
+
+                }
             } else {
                 val teamEnemy = teamStats?.get(currentDay)?.TeamName
                 teamEnemy?.let { PrefsHelper.write(PrefsHelper.ENEMY_NAME, it) }
@@ -299,6 +361,8 @@ class ClosedQuali : Fragment(R.layout.fragment_closed_quali) {
                     sortedB[0].TeamName
                 }
                 PrefsHelper.write(PrefsHelper.ENEMY_NAME, teamEnemy)
+                listener.preMatchClicked()
+            }else if (currentDay==6){
                 listener.preMatchClicked()
             }
         }

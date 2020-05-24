@@ -65,6 +65,10 @@ class PreMatchVM(application: Application) : AndroidViewModel(application){
         preMatchRepository.insertScore(score)
     }
 
+    fun updateScore(score :List<MatchScore>){
+        preMatchRepository.updateScore(score)
+    }
+
     fun updateTeams(teams:List<TournamentTeam>){
         repositoryClosed.updateTeams(teams)
     }

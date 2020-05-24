@@ -7,9 +7,9 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "closed_playoff_table")
 data class MatchScore(
     @ColumnInfo(name = "topTeam")
-    val topTeam: Int,
+    var topTeam: Int,
     @ColumnInfo(name = "bottomTeam")
-    val bottomTeam: Int
+    var bottomTeam: Int
 ){
     @PrimaryKey(autoGenerate = true)
     var id_key:Int=0

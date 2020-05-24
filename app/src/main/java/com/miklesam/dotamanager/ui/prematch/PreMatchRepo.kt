@@ -20,4 +20,12 @@ class PreMatchRepo(application: Application){
     fun insertScore(score:MatchScore) {
         playoffDao.insertData(score)
     }
+
+    fun updateScore(score:List<MatchScore>) {
+        playoffDao.update(score)
+    }
+
+    fun nukeScore() {
+        playoffDao.nukeTable()
+    }
 }
