@@ -1,14 +1,13 @@
 package com.miklesam.dotamanager.ui.closedquali
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import com.bumptech.glide.Glide
 import com.miklesam.dotamanager.R
 import com.miklesam.dotamanager.datamodels.MatchScore
@@ -18,8 +17,6 @@ import com.miklesam.dotamanager.room.teams.TeamsList
 import com.miklesam.dotamanager.utils.*
 import kotlinx.android.synthetic.main.closed_playoff_layout.*
 import kotlinx.android.synthetic.main.closed_playoff_layout.view.*
-import kotlinx.android.synthetic.main.closed_playoff_layout.view.nextPlayOff
-import kotlinx.android.synthetic.main.closed_playoff_stage_layout.view.*
 import kotlinx.android.synthetic.main.closed_playoff_stage_layout.view.teamName
 import kotlinx.android.synthetic.main.closed_playoff_team_layout.view.*
 import kotlinx.android.synthetic.main.fragment_closed_quali.*
@@ -38,6 +35,24 @@ class ClosedQuali : Fragment(R.layout.fragment_closed_quali) {
     private val closedVM: ClosedQualiVM by viewModels()
     private var currentDay = 0
     private var myGroupPlace = 0
+    private var groupAName =
+        arrayOfNulls<TextView>(5)
+    private var groupBName =
+        arrayOfNulls<TextView>(5)
+    private var groupAWin =
+        arrayOfNulls<TextView>(5)
+    private var groupALose =
+        arrayOfNulls<TextView>(5)
+    private var groupBWin =
+        arrayOfNulls<TextView>(5)
+    private var groupBLose =
+        arrayOfNulls<TextView>(5)
+    private var groupALogo =
+        arrayOfNulls<ImageView>(5)
+    private var groupBLogo =
+        arrayOfNulls<ImageView>(5)
+
+
     private lateinit var playoffScoreList: List<MatchScore>
 
 
@@ -59,10 +74,9 @@ class ClosedQuali : Fragment(R.layout.fragment_closed_quali) {
             playoffScoreList = it
         })
 
-        closedVM.getTeams().observe(viewLifecycleOwner, Observer {
-            teams = it
-            if (!teams.isNullOrEmpty()) {
-
+        closedVM.getTeams().observe(viewLifecycleOwner, Observer { teams ->
+            this.teams = teams
+            if (!this.teams.isNullOrEmpty()) {
                 closedVM.getTournamentTeams().observe(viewLifecycleOwner, Observer {
                     if (it.isEmpty()) {
                         val tournamentsArr = ArrayList<TournamentTeam>()
@@ -75,7 +89,7 @@ class ClosedQuali : Fragment(R.layout.fragment_closed_quali) {
                                 0
                             )
                         )
-                        for (team in this!!.teams!!) {
+                        for (team in this.teams!!) {
                             tournamentsArr.add(TournamentTeam(team.teamName, team.teamLogo, 0, 0))
                         }
                         scope.launch {
@@ -89,116 +103,26 @@ class ClosedQuali : Fragment(R.layout.fragment_closed_quali) {
                             val gropBteams = it.subList(5, 10)
                             sortedA = gropAteams.sortedByDescending { it.win }
                             sortedB = gropBteams.sortedByDescending { it.win }
-                            groupLayoutA.group1.ScoreWin.text = sortedA[0].win.toString()
-                            groupLayoutA.group2.ScoreWin.text = sortedA[1].win.toString()
-                            groupLayoutA.group3.ScoreWin.text = sortedA[2].win.toString()
-                            groupLayoutA.group4.ScoreWin.text = sortedA[3].win.toString()
-                            groupLayoutA.group5.ScoreWin.text = sortedA[4].win.toString()
+                            initViews()
+                            for (i in sortedA.indices) {
+                                groupAName[i]?.text = sortedA[i].TeamName
+                                groupAWin[i]?.text = sortedA[i].win.toString()
+                                groupALose[i]?.text = sortedA[i].lose.toString()
+                                groupALogo[i]?.let { it1 -> setImageIn(sortedA[i].logo, it1) }
 
-                            groupLayoutA.group1.ScoreLose.text = sortedA[0].lose.toString()
-                            groupLayoutA.group2.ScoreLose.text = sortedA[1].lose.toString()
-                            groupLayoutA.group3.ScoreLose.text = sortedA[2].lose.toString()
-                            groupLayoutA.group4.ScoreLose.text = sortedA[3].lose.toString()
-                            groupLayoutA.group5.ScoreLose.text = sortedA[4].lose.toString()
+                                groupBName[i]?.text = sortedB[i].TeamName
+                                groupBWin[i]?.text = sortedB[i].win.toString()
+                                groupBLose[i]?.text = sortedB[i].lose.toString()
+                                groupBLogo[i]?.let { it1 -> setImageIn(sortedB[i].logo, it1) }
 
-                            groupLayoutB.group1.setBackgroundColor(resources.getColor(R.color.high_green_group))
-                            groupLayoutB.group2.setBackgroundColor(resources.getColor(R.color.high_green_group))
-                            groupLayoutB.group3.setBackgroundColor(resources.getColor(R.color.orange_group))
-                            groupLayoutB.group4.setBackgroundColor(resources.getColor(R.color.red_group))
-                            groupLayoutB.group5.setBackgroundColor(resources.getColor(R.color.red_group))
-
-
-                            groupLayoutB.group1.ScoreWin.text = sortedB[0].win.toString()
-                            groupLayoutB.group2.ScoreWin.text = sortedB[1].win.toString()
-                            groupLayoutB.group3.ScoreWin.text = sortedB[2].win.toString()
-                            groupLayoutB.group4.ScoreWin.text = sortedB[3].win.toString()
-                            groupLayoutB.group5.ScoreWin.text = sortedB[4].win.toString()
-
-                            groupLayoutB.group1.ScoreLose.text = sortedB[0].lose.toString()
-                            groupLayoutB.group2.ScoreLose.text = sortedB[1].lose.toString()
-                            groupLayoutB.group3.ScoreLose.text = sortedB[2].lose.toString()
-                            groupLayoutB.group4.ScoreLose.text = sortedB[3].lose.toString()
-                            groupLayoutB.group5.ScoreLose.text = sortedB[4].lose.toString()
-
-
-                            groupLayoutA.group1.TeamName.text = sortedA[0].TeamName
-                            groupLayoutA.group2.TeamName.text = sortedA[1].TeamName
-                            groupLayoutA.group3.TeamName.text = sortedA[2].TeamName
-                            groupLayoutA.group4.TeamName.text = sortedA[3].TeamName
-                            groupLayoutA.group5.TeamName.text = sortedA[4].TeamName
-                            Glide.with(this)
-                                .load(sortedA[0].logo)
-                                .into(groupLayoutA.group1.Teamlogo)
-                            Glide.with(this)
-                                .load(sortedA[1].logo)
-                                .into(groupLayoutA.group2.Teamlogo)
-                            Glide.with(this)
-                                .load(sortedA[2].logo)
-                                .into(groupLayoutA.group3.Teamlogo)
-                            Glide.with(this)
-                                .load(sortedA[3].logo)
-                                .into(groupLayoutA.group4.Teamlogo)
-                            Glide.with(this)
-                                .load(sortedA[4].logo)
-                                .into(groupLayoutA.group5.Teamlogo)
-
-                            Glide.with(this)
-                                .load(sortedB[0].logo)
-                                .into(groupLayoutB.group1.Teamlogo)
-                            Glide.with(this)
-                                .load(sortedB[1].logo)
-                                .into(groupLayoutB.group2.Teamlogo)
-                            Glide.with(this)
-                                .load(sortedB[2].logo)
-                                .into(groupLayoutB.group3.Teamlogo)
-                            Glide.with(this)
-                                .load(sortedB[3].logo)
-                                .into(groupLayoutB.group4.Teamlogo)
-                            Glide.with(this)
-                                .load(sortedB[4].logo)
-                                .into(groupLayoutB.group5.Teamlogo)
-
-
-                            groupLayoutB.group1.TeamName.text = sortedB[0].TeamName
-                            groupLayoutB.group2.TeamName.text = sortedB[1].TeamName
-                            groupLayoutB.group3.TeamName.text = sortedB[2].TeamName
-                            groupLayoutB.group4.TeamName.text = sortedB[3].TeamName
-                            groupLayoutB.group5.TeamName.text = sortedB[4].TeamName
+                            }
 
                         }
 
                     }
                 })
             }
-
-            Log.w("Teams Hello", it.toString())
-            groupLayoutA.group1.setBackgroundColor(resources.getColor(R.color.high_green_group))
-            groupLayoutA.group2.setBackgroundColor(resources.getColor(R.color.high_green_group))
-            groupLayoutA.group3.setBackgroundColor(resources.getColor(R.color.orange_group))
-            groupLayoutA.group4.setBackgroundColor(resources.getColor(R.color.red_group))
-            groupLayoutA.group5.setBackgroundColor(resources.getColor(R.color.red_group))
-
-
-            groupLayoutA.group1.place.text = "1."
-            groupLayoutA.group2.place.text = "2."
-            groupLayoutA.group3.place.text = "3."
-            groupLayoutA.group4.place.text = "4."
-            groupLayoutA.group5.place.text = "5."
-
-            groupLayoutB.group1.setBackgroundColor(resources.getColor(R.color.high_green_group))
-            groupLayoutB.group2.setBackgroundColor(resources.getColor(R.color.high_green_group))
-            groupLayoutB.group3.setBackgroundColor(resources.getColor(R.color.orange_group))
-            groupLayoutB.group4.setBackgroundColor(resources.getColor(R.color.red_group))
-            groupLayoutB.group5.setBackgroundColor(resources.getColor(R.color.red_group))
-
-
-            groupLayoutB.group1.place.text = "1."
-            groupLayoutB.group2.place.text = "2."
-            groupLayoutB.group3.place.text = "3."
-            groupLayoutB.group4.place.text = "4."
-            groupLayoutB.group5.place.text = "5."
-
-
+            initGroupColors()
         })
 
 
@@ -218,7 +142,6 @@ class ClosedQuali : Fragment(R.layout.fragment_closed_quali) {
                     playoff.lower_final.teamName.text = "Lower Bracket Final"
 
                 }
-                val match1 = Pair(playoff.team1.scoreTeam, playoff.team2.scoreTeam)
 
                 val listMatches = listOf(
                     Pair(playoff.team1.scoreTeam, playoff.team2.scoreTeam),
@@ -234,44 +157,27 @@ class ClosedQuali : Fragment(R.layout.fragment_closed_quali) {
 
                 when (myGroupPlace) {
                     0 -> {
-                        Glide.with(this)
-                            .load(sortedA[0].logo)
-                            .into(playoff.team1.teamImage)
+                        setImageIn(sortedA[0].logo,playoff.team1.teamImage)
                         playoff.team1.teamName.text = sortedA[0].TeamName
-                        Glide.with(this)
-                            .load(sortedB[1].logo)
-                            .into(playoff.team2.teamImage)
+                        setImageIn(sortedB[1].logo,playoff.team2.teamImage)
                         playoff.team2.teamName.text = sortedB[1].TeamName
 
-
-                        Glide.with(this)
-                            .load(sortedA[1].logo)
-                            .into(playoff.team3.teamImage)
+                        setImageIn(sortedA[1].logo,playoff.team3.teamImage)
                         playoff.team3.teamName.text = sortedA[1].TeamName
-                        Glide.with(this)
-                            .load(sortedB[0].logo)
-                            .into(playoff.team4.teamImage)
+                        setImageIn(sortedB[0].logo,playoff.team4.teamImage)
                         playoff.team4.teamName.text = sortedB[0].TeamName
+
 
                     }
                     1 -> {
-                        Glide.with(this)
-                            .load(sortedA[1].logo)
-                            .into(playoff.team1.teamImage)
+                        setImageIn(sortedA[1].logo,playoff.team1.teamImage)
                         playoff.team1.teamName.text = sortedA[1].TeamName
-                        Glide.with(this)
-                            .load(sortedB[0].logo)
-                            .into(playoff.team2.teamImage)
+                        setImageIn(sortedB[0].logo,playoff.team2.teamImage)
                         playoff.team2.teamName.text = sortedB[0].TeamName
 
-
-                        Glide.with(this)
-                            .load(sortedA[0].logo)
-                            .into(playoff.team3.teamImage)
+                        setImageIn(sortedA[0].logo,playoff.team3.teamImage)
                         playoff.team3.teamName.text = sortedA[0].TeamName
-                        Glide.with(this)
-                            .load(sortedB[1].logo)
-                            .into(playoff.team4.teamImage)
+                        setImageIn(sortedB[1].logo,playoff.team4.teamImage)
                         playoff.team4.teamName.text = sortedB[1].TeamName
                     }
                     else -> {
@@ -285,63 +191,10 @@ class ClosedQuali : Fragment(R.layout.fragment_closed_quali) {
                 }
                 if (currentDay >= 6) {
                     if (myGroupPlace == 0) {
-                        if (playoffScoreList[0].topTeam > playoffScoreList[0].bottomTeam) {
-                            Glide.with(this)
-                                .load(sortedA[0].logo)
-                                .into(playoff.team7.teamImage)
-                            playoff.team7.teamName.text = sortedA[0].TeamName
-                            Glide.with(this)
-                                .load(sortedB[1].logo)
-                                .into(playoff.team6.teamImage)
-                            playoff.team6.teamName.text = sortedB[1].TeamName
-                            if(playoffScoreList[1].topTeam > playoffScoreList[1].bottomTeam){
-                                Glide.with(this)
-                                    .load(sortedA[1].logo)
-                                    .into(playoff.team8.teamImage)
-                                playoff.team8.teamName.text = sortedA[1].TeamName
-                                Glide.with(this)
-                                    .load(sortedB[0].logo)
-                                    .into(playoff.team5.teamImage)
-                                playoff.team5.teamName.text = sortedB[0].TeamName
-                                PrefsHelper.write(PrefsHelper.ENEMY_NAME, sortedA[1].TeamName)
-                            }else{
-                                Glide.with(this)
-                                    .load(sortedA[1].logo)
-                                    .into(playoff.team5.teamImage)
-                                playoff.team5.teamName.text = sortedA[1].TeamName
-                                Glide.with(this)
-                                    .load(sortedB[0].logo)
-                                    .into(playoff.team8.teamImage)
-                                playoff.team8.teamName.text = sortedB[0].TeamName
-                                PrefsHelper.write(PrefsHelper.ENEMY_NAME, sortedB[0].TeamName)
-                            }
-                        }else{
 
-                        }
                     } else {
-                        if (playoffScoreList[0].topTeam > playoffScoreList[0].bottomTeam) {
-                            Glide.with(this)
-                                .load(sortedA[1].logo)
-                                .into(playoff.team7.teamImage)
-                            playoff.team7.teamName.text = sortedA[1].TeamName
-                            Glide.with(this)
-                                .load(sortedB[0].logo)
-                                .into(playoff.team6.teamImage)
-                            playoff.team6.teamName.text = sortedB[0].TeamName
-
-                        } else {
-                            Glide.with(this)
-                                .load(sortedA[1].logo)
-                                .into(playoff.team6.teamImage)
-                            playoff.team6.teamName.text = sortedA[1].TeamName
-                            Glide.with(this)
-                                .load(sortedB[0].logo)
-                                .into(playoff.team7.teamImage)
-                            playoff.team7.teamName.text = sortedB[0].TeamName
-                        }
 
                     }
-
 
 
                 }
@@ -362,11 +215,123 @@ class ClosedQuali : Fragment(R.layout.fragment_closed_quali) {
                 }
                 PrefsHelper.write(PrefsHelper.ENEMY_NAME, teamEnemy)
                 listener.preMatchClicked()
-            }else if (currentDay==6){
+            } else if (currentDay == 6) {
                 listener.preMatchClicked()
             }
         }
 
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        groupAName = emptyArray()
+        groupBName = emptyArray()
+        groupAWin = emptyArray()
+        groupALose = emptyArray()
+        groupBWin = emptyArray()
+        groupBLose = emptyArray()
+        groupALogo = emptyArray()
+        groupBLogo = emptyArray()
+    }
+
+    private fun setImageIn(image:String,imageView:ImageView){
+        Glide.with(this)
+            .load(image)
+            .into(imageView)
+    }
+
+    private fun initViews() {
+        groupAName = arrayOf(
+            groupLayoutA.group1.TeamName,
+            groupLayoutA.group2.TeamName,
+            groupLayoutA.group3.TeamName,
+            groupLayoutA.group4.TeamName,
+            groupLayoutA.group5.TeamName
+        )
+        groupAWin = arrayOf(
+            groupLayoutA.group1.ScoreWin,
+            groupLayoutA.group2.ScoreWin,
+            groupLayoutA.group3.ScoreWin,
+            groupLayoutA.group4.ScoreWin,
+            groupLayoutA.group5.ScoreWin
+        )
+
+        groupALose = arrayOf(
+            groupLayoutA.group1.ScoreLose,
+            groupLayoutA.group2.ScoreLose,
+            groupLayoutA.group3.ScoreLose,
+            groupLayoutA.group4.ScoreLose,
+            groupLayoutA.group5.ScoreLose
+        )
+
+        groupALogo = arrayOf(
+            groupLayoutA.group1.Teamlogo,
+            groupLayoutA.group2.Teamlogo,
+            groupLayoutA.group3.Teamlogo,
+            groupLayoutA.group4.Teamlogo,
+            groupLayoutA.group5.Teamlogo
+        )
+
+
+        groupBName = arrayOf(
+            groupLayoutB.group1.TeamName,
+            groupLayoutB.group2.TeamName,
+            groupLayoutB.group3.TeamName,
+            groupLayoutB.group4.TeamName,
+            groupLayoutB.group5.TeamName
+        )
+        groupBWin = arrayOf(
+            groupLayoutB.group1.ScoreWin,
+            groupLayoutB.group2.ScoreWin,
+            groupLayoutB.group3.ScoreWin,
+            groupLayoutB.group4.ScoreWin,
+            groupLayoutB.group5.ScoreWin
+        )
+
+        groupBLose = arrayOf(
+            groupLayoutB.group1.ScoreLose,
+            groupLayoutB.group2.ScoreLose,
+            groupLayoutB.group3.ScoreLose,
+            groupLayoutB.group4.ScoreLose,
+            groupLayoutB.group5.ScoreLose
+        )
+
+        groupBLogo = arrayOf(
+            groupLayoutB.group1.Teamlogo,
+            groupLayoutB.group2.Teamlogo,
+            groupLayoutB.group3.Teamlogo,
+            groupLayoutB.group4.Teamlogo,
+            groupLayoutB.group5.Teamlogo
+        )
+
+
+    }
+
+    private fun initGroupColors() {
+        groupLayoutA.group1.setBackgroundColor(resources.getColor(R.color.high_green_group))
+        groupLayoutA.group2.setBackgroundColor(resources.getColor(R.color.high_green_group))
+        groupLayoutA.group3.setBackgroundColor(resources.getColor(R.color.orange_group))
+        groupLayoutA.group4.setBackgroundColor(resources.getColor(R.color.red_group))
+        groupLayoutA.group5.setBackgroundColor(resources.getColor(R.color.red_group))
+
+        groupLayoutA.group1.place.text = "1."
+        groupLayoutA.group2.place.text = "2."
+        groupLayoutA.group3.place.text = "3."
+        groupLayoutA.group4.place.text = "4."
+        groupLayoutA.group5.place.text = "5."
+
+        groupLayoutB.group1.setBackgroundColor(resources.getColor(R.color.high_green_group))
+        groupLayoutB.group2.setBackgroundColor(resources.getColor(R.color.high_green_group))
+        groupLayoutB.group3.setBackgroundColor(resources.getColor(R.color.orange_group))
+        groupLayoutB.group4.setBackgroundColor(resources.getColor(R.color.red_group))
+        groupLayoutB.group5.setBackgroundColor(resources.getColor(R.color.red_group))
+
+
+        groupLayoutB.group1.place.text = "1."
+        groupLayoutB.group2.place.text = "2."
+        groupLayoutB.group3.place.text = "3."
+        groupLayoutB.group4.place.text = "4."
+        groupLayoutB.group5.place.text = "5."
     }
 
 }

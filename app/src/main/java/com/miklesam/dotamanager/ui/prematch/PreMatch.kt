@@ -187,6 +187,7 @@ class PreMatch : Fragment(R.layout.fragment_prematch) {
         } else {
             scope.launch {
 
+                /*
                 if (scoreList.isEmpty()) {
                     if (didIWin) {
                         preVM.insetNewScore(MatchScore(1, 0))
@@ -207,6 +208,8 @@ class PreMatch : Fragment(R.layout.fragment_prematch) {
                     }
                     preVM.updateScore(scoreList)
                 }
+
+                 */
 
 
             }
