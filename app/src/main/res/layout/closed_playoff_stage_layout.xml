@@ -12,7 +12,7 @@
         android:background="@drawable/frame_layoff_team">
 
         <TextView
-            android:id="@+id/teamName"
+            android:id="@+id/playoffName"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="Playoff Stage"

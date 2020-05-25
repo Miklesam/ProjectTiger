@@ -10,6 +10,10 @@ data class MatchScore(
     var topTeamName: String,
     @ColumnInfo(name = "bottomTeamName")
     var bottomTeamName: String,
+    @ColumnInfo(name = "topTeamLogo")
+    var topTeamLogo: String,
+    @ColumnInfo(name = "bottomTeamLogo")
+    var bottomTeamLogo: String,
     @ColumnInfo(name = "topTeam")
     var topTeam: Int,
     @ColumnInfo(name = "bottomTeam")

@@ -11,13 +11,14 @@ import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
 import com.miklesam.dotamanager.R
 import com.miklesam.dotamanager.datamodels.MatchScore
+import com.miklesam.dotamanager.datamodels.PlayoffTeam
 import com.miklesam.dotamanager.datamodels.Team
 import com.miklesam.dotamanager.datamodels.TournamentTeam
 import com.miklesam.dotamanager.room.teams.TeamsList
 import com.miklesam.dotamanager.utils.*
 import kotlinx.android.synthetic.main.closed_playoff_layout.*
 import kotlinx.android.synthetic.main.closed_playoff_layout.view.*
-import kotlinx.android.synthetic.main.closed_playoff_stage_layout.view.teamName
+import kotlinx.android.synthetic.main.closed_playoff_stage_layout.view.*
 import kotlinx.android.synthetic.main.closed_playoff_team_layout.view.*
 import kotlinx.android.synthetic.main.fragment_closed_quali.*
 import kotlinx.android.synthetic.main.group_stage_layout.view.*
@@ -54,8 +55,6 @@ class ClosedQuali : Fragment(R.layout.fragment_closed_quali) {
 
 
     private lateinit var playoffScoreList: List<MatchScore>
-
-
     private lateinit var sortedA: List<TournamentTeam>
     private lateinit var sortedB: List<TournamentTeam>
 
@@ -72,6 +71,16 @@ class ClosedQuali : Fragment(R.layout.fragment_closed_quali) {
 
         closedVM.getScore().observe(viewLifecycleOwner, Observer {
             playoffScoreList = it
+            val listMatches = initPlayoffGrid()
+            for (i in playoffScoreList.indices) {
+                listMatches[i].first.score.text = playoffScoreList[i].topTeam.toString()
+                listMatches[i].first.teamName.text = playoffScoreList[i].topTeamName
+                setImageIn(playoffScoreList[i].topTeamLogo,listMatches[i].first.logo)
+
+                listMatches[i].second.score.text = playoffScoreList[i].bottomTeam.toString()
+                listMatches[i].second.teamName.text = playoffScoreList[i].bottomTeamName
+                setImageIn(playoffScoreList[i].bottomTeamLogo,listMatches[i].second.logo)
+            }
         })
 
         closedVM.getTeams().observe(viewLifecycleOwner, Observer { teams ->
@@ -135,28 +144,44 @@ class ClosedQuali : Fragment(R.layout.fragment_closed_quali) {
                     playoff.Visible()
                     playGame.Gone()
 
-                    playoff.semifinal.teamName.text = "Semi-finals"
-                    playoff.uperfinal.teamName.text = "Upper Bracket Final"
-                    playoff.qualifoed.teamName.text = "Qualified"
-                    playoff.play2.teamName.text = "Lower Bracket R1"
-                    playoff.lower_final.teamName.text = "Lower Bracket Final"
+                    playoff.semifinal.playoffName.text = "Semi-finals"
+                    playoff.uperfinal.playoffName.text = "Upper Bracket Final"
+                    playoff.qualifoed.playoffName.text = "Qualified"
+                    playoff.qualifoed2.playoffName.text = "Qualified"
+                    playoff.play2.playoffName.text = "Lower Bracket R1"
+                    playoff.lower_final.playoffName.text = "Lower Bracket Final"
 
-                }
-
-                val listMatches = listOf(
-                    Pair(playoff.team1.scoreTeam, playoff.team2.scoreTeam),
-                    Pair(playoff.team3.scoreTeam, playoff.team4.scoreTeam),
-                    Pair(playoff.team5.scoreTeam, playoff.team6.scoreTeam),
-                    Pair(playoff.team7.scoreTeam, playoff.team8.scoreTeam),
-                    Pair(playoff.team9.scoreTeam, playoff.team10.scoreTeam)
-                )
-                for (i in playoffScoreList.indices) {
-                    listMatches[i].first.text = playoffScoreList[i].topTeam.toString()
-                    listMatches[i].second.text = playoffScoreList[i].bottomTeam.toString()
                 }
 
                 when (myGroupPlace) {
                     0 -> {
+                        if (playoffScoreList.isNullOrEmpty()) {
+                            scope.launch {
+                                closedVM.insertMatch(
+                                    MatchScore(
+                                        sortedA[0].TeamName,
+                                        sortedB[1].TeamName,
+                                        sortedA[0].logo,
+                                        sortedB[1].logo,
+                                        0,
+                                        0,
+                                        PlayOffState.SEMI_FINALS.id
+                                    )
+                                )
+                                closedVM.insertMatch(
+                                    MatchScore(
+                                        sortedB[0].TeamName,
+                                        sortedA[1].TeamName,
+                                        sortedB[0].logo,
+                                        sortedA[1].logo,
+                                        0,
+                                        0,
+                                        PlayOffState.SEMI_FINALS.id
+                                    )
+                                )
+                            }
+                        }
+                        /*
                         setImageIn(sortedA[0].logo,playoff.team1.teamImage)
                         playoff.team1.teamName.text = sortedA[0].TeamName
                         setImageIn(sortedB[1].logo,playoff.team2.teamImage)
@@ -166,10 +191,11 @@ class ClosedQuali : Fragment(R.layout.fragment_closed_quali) {
                         playoff.team3.teamName.text = sortedA[1].TeamName
                         setImageIn(sortedB[0].logo,playoff.team4.teamImage)
                         playoff.team4.teamName.text = sortedB[0].TeamName
-
+                         */
 
                     }
                     1 -> {
+                        /*
                         setImageIn(sortedA[1].logo,playoff.team1.teamImage)
                         playoff.team1.teamName.text = sortedA[1].TeamName
                         setImageIn(sortedB[0].logo,playoff.team2.teamImage)
@@ -179,6 +205,7 @@ class ClosedQuali : Fragment(R.layout.fragment_closed_quali) {
                         playoff.team3.teamName.text = sortedA[0].TeamName
                         setImageIn(sortedB[1].logo,playoff.team4.teamImage)
                         playoff.team4.teamName.text = sortedB[1].TeamName
+                         */
                     }
                     else -> {
                         requireActivity().showDotaDialog(
@@ -234,7 +261,72 @@ class ClosedQuali : Fragment(R.layout.fragment_closed_quali) {
         groupBLogo = emptyArray()
     }
 
-    private fun setImageIn(image:String,imageView:ImageView){
+    private fun initPlayoffGrid(): List<Pair<PlayoffTeam, PlayoffTeam>> {
+        return listOf(
+            Pair(
+                PlayoffTeam(
+                    playoff.team1.teamImage,
+                    playoff.team1.teamName,
+                    playoff.team1.scoreTeam
+                ),
+                PlayoffTeam(
+                    playoff.team2.teamImage,
+                    playoff.team2.teamName,
+                    playoff.team2.scoreTeam
+                )
+            ),
+            Pair(
+                PlayoffTeam(
+                    playoff.team3.teamImage,
+                    playoff.team3.teamName,
+                    playoff.team3.scoreTeam
+                ),
+                PlayoffTeam(
+                    playoff.team4.teamImage,
+                    playoff.team4.teamName,
+                    playoff.team4.scoreTeam
+                )
+            ),
+            Pair(
+                PlayoffTeam(
+                    playoff.team5.teamImage,
+                    playoff.team5.teamName,
+                    playoff.team5.scoreTeam
+                ),
+                PlayoffTeam(
+                    playoff.team6.teamImage,
+                    playoff.team6.teamName,
+                    playoff.team6.scoreTeam
+                )
+            ),
+            Pair(
+                PlayoffTeam(
+                    playoff.team7.teamImage,
+                    playoff.team7.teamName,
+                    playoff.team7.scoreTeam
+                ),
+                PlayoffTeam(
+                    playoff.team8.teamImage,
+                    playoff.team8.teamName,
+                    playoff.team8.scoreTeam
+                )
+            ),
+            Pair(
+                PlayoffTeam(
+                    playoff.team9.teamImage,
+                    playoff.team9.teamName,
+                    playoff.team9.scoreTeam
+                ),
+                PlayoffTeam(
+                    playoff.team10.teamImage,
+                    playoff.team10.teamName,
+                    playoff.team10.scoreTeam
+                )
+            )
+        )
+    }
+
+    private fun setImageIn(image: String, imageView: ImageView) {
         Glide.with(this)
             .load(image)
             .into(imageView)

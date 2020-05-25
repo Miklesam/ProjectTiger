@@ -148,6 +148,16 @@
                 app:layout_constraintTop_toBottomOf="@+id/team4" />
 
             <include
+                android:id="@+id/qualifoed2"
+                layout="@layout/closed_playoff_stage_layout"
+                android:layout_width="240dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="15dp"
+                app:layout_constraintStart_toEndOf="@+id/lower_final"
+                android:layout_marginTop="10dp"
+                app:layout_constraintTop_toBottomOf="@+id/team4" />
+
+            <include
                 android:id="@+id/team5"
                 layout="@layout/closed_playoff_team_layout"
                 android:layout_width="240dp"

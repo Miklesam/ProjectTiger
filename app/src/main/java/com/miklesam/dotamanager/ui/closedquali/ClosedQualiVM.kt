@@ -30,4 +30,8 @@ class ClosedQualiVM (application: Application) : AndroidViewModel(application){
         return preMatchRepo.getScore()
     }
 
+    fun insertMatch(match:MatchScore){
+        preMatchRepo.insertScore(match)
+    }
+
 }
