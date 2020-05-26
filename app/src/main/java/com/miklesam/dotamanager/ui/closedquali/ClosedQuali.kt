@@ -75,11 +75,11 @@ class ClosedQuali : Fragment(R.layout.fragment_closed_quali) {
             for (i in playoffScoreList.indices) {
                 listMatches[i].first.score.text = playoffScoreList[i].topTeam.toString()
                 listMatches[i].first.teamName.text = playoffScoreList[i].topTeamName
-                setImageIn(playoffScoreList[i].topTeamLogo,listMatches[i].first.logo)
+                setImageIn(playoffScoreList[i].topTeamLogo, listMatches[i].first.logo)
 
                 listMatches[i].second.score.text = playoffScoreList[i].bottomTeam.toString()
                 listMatches[i].second.teamName.text = playoffScoreList[i].bottomTeamName
-                setImageIn(playoffScoreList[i].bottomTeamLogo,listMatches[i].second.logo)
+                setImageIn(playoffScoreList[i].bottomTeamLogo, listMatches[i].second.logo)
             }
         })
 
@@ -181,31 +181,32 @@ class ClosedQuali : Fragment(R.layout.fragment_closed_quali) {
                                 )
                             }
                         }
-                        /*
-                        setImageIn(sortedA[0].logo,playoff.team1.teamImage)
-                        playoff.team1.teamName.text = sortedA[0].TeamName
-                        setImageIn(sortedB[1].logo,playoff.team2.teamImage)
-                        playoff.team2.teamName.text = sortedB[1].TeamName
-
-                        setImageIn(sortedA[1].logo,playoff.team3.teamImage)
-                        playoff.team3.teamName.text = sortedA[1].TeamName
-                        setImageIn(sortedB[0].logo,playoff.team4.teamImage)
-                        playoff.team4.teamName.text = sortedB[0].TeamName
-                         */
-
                     }
                     1 -> {
-                        /*
-                        setImageIn(sortedA[1].logo,playoff.team1.teamImage)
-                        playoff.team1.teamName.text = sortedA[1].TeamName
-                        setImageIn(sortedB[0].logo,playoff.team2.teamImage)
-                        playoff.team2.teamName.text = sortedB[0].TeamName
-
-                        setImageIn(sortedA[0].logo,playoff.team3.teamImage)
-                        playoff.team3.teamName.text = sortedA[0].TeamName
-                        setImageIn(sortedB[1].logo,playoff.team4.teamImage)
-                        playoff.team4.teamName.text = sortedB[1].TeamName
-                         */
+                        scope.launch {
+                            closedVM.insertMatch(
+                                MatchScore(
+                                    sortedA[1].TeamName,
+                                    sortedB[0].TeamName,
+                                    sortedA[1].logo,
+                                    sortedB[0].logo,
+                                    0,
+                                    0,
+                                    PlayOffState.SEMI_FINALS.id
+                                )
+                            )
+                            closedVM.insertMatch(
+                                MatchScore(
+                                    sortedB[1].TeamName,
+                                    sortedA[0].TeamName,
+                                    sortedB[1].logo,
+                                    sortedA[0].logo,
+                                    0,
+                                    0,
+                                    PlayOffState.SEMI_FINALS.id
+                                )
+                            )
+                        }
                     }
                     else -> {
                         requireActivity().showDotaDialog(
@@ -217,13 +218,64 @@ class ClosedQuali : Fragment(R.layout.fragment_closed_quali) {
                     }
                 }
                 if (currentDay >= 6) {
-                    if (myGroupPlace == 0) {
+                    if (playoffScoreList.size < 3) {
+                        var match1WinnerName = ""
+                        var match1WinnerLogo = ""
+                        var match1LoserName = ""
+                        var match1LoserLogo = ""
+                        if (playoffScoreList[0].topTeam == 2) {
+                            match1WinnerName = playoffScoreList[0].topTeamName
+                            match1WinnerLogo = playoffScoreList[0].topTeamLogo
+                            match1LoserName = playoffScoreList[0].bottomTeamName
+                            match1LoserLogo = playoffScoreList[0].bottomTeamLogo
+                        } else {
+                            match1WinnerName = playoffScoreList[0].bottomTeamName
+                            match1WinnerLogo = playoffScoreList[0].bottomTeamLogo
+                            match1LoserName = playoffScoreList[0].topTeamName
+                            match1LoserLogo = playoffScoreList[0].topTeamLogo
+                        }
 
-                    } else {
+                        var match2WinnerName = ""
+                        var match2WinnerLogo = ""
+                        var match2LoserName = ""
+                        var match2LoserLogo = ""
+                        if (playoffScoreList[1].topTeam == 2) {
+                            match2WinnerName = playoffScoreList[1].topTeamName
+                            match2WinnerLogo = playoffScoreList[1].topTeamLogo
+                            match2LoserName = playoffScoreList[1].bottomTeamName
+                            match2LoserLogo = playoffScoreList[1].bottomTeamLogo
+                        } else {
+                            match2WinnerName = playoffScoreList[1].bottomTeamName
+                            match2WinnerLogo = playoffScoreList[1].bottomTeamLogo
+                            match2LoserName = playoffScoreList[1].topTeamName
+                            match2LoserLogo = playoffScoreList[1].topTeamLogo
+                        }
+                        scope.launch {
+                            closedVM.insertMatch(
+                                MatchScore(
+                                    match1LoserName,
+                                    match2LoserName,
+                                    match1LoserLogo,
+                                    match2LoserLogo,
+                                    0,
+                                    0,
+                                    PlayOffState.LOWER_BRACKER_R1.id
+                                )
+                            )
+                            closedVM.insertMatch(
+                                MatchScore(
+                                    match1WinnerName,
+                                    match2WinnerName,
+                                    match1WinnerLogo,
+                                    match2WinnerLogo,
+                                    0,
+                                    0,
+                                    PlayOffState.UPPER_BRACKET_FINAL.id
+                                )
+                            )
+                        }
 
                     }
-
-
                 }
             } else {
                 val teamEnemy = teamStats?.get(currentDay)?.TeamName

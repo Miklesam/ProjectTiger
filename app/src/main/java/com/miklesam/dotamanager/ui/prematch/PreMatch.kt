@@ -186,32 +186,31 @@ class PreMatch : Fragment(R.layout.fragment_prematch) {
             menuListener?.calculateTolobby()
         } else {
             scope.launch {
+                val yourTeamName = PrefsHelper.read(PrefsHelper.TEAM_NAME, "") ?: ""
+                val yourEnemyName = PrefsHelper.read(PrefsHelper.ENEMY_NAME, "") ?: ""
+                val myMatch =
+                    scoreList.find { (it.topTeamName == yourTeamName) && (it.bottomTeamName == yourEnemyName) }
+                myMatch?.let { match ->
+                    if (didIWin) {
+                        match.topTeam++
+                    } else {
+                        match.bottomTeam++
+                    }
 
-                /*
-                if (scoreList.isEmpty()) {
-                    if (didIWin) {
-                        preVM.insetNewScore(MatchScore(1, 0))
-                    } else {
-                        preVM.insetNewScore(MatchScore(0, 1))
-                    }
-                } else {
-                    if (didIWin) {
-                        scoreList[0].topTeam = scoreList[0].topTeam + 1
-                    } else {
-                        scoreList[0].bottomTeam = scoreList[0].bottomTeam + 1
-                    }
-                    if (scoreList[0].topTeam == 2 || scoreList[0].bottomTeam == 2) {
-                        preVM.insetNewScore(generateOtherScore(MatchScore(0, 0)))
+                    if (match.topTeam == 2 || match.bottomTeam == 2) {
+                        val otherMatch= scoreList.find { (it.topTeam == 0) && (it.bottomTeam == 0) }
+                        otherMatch?.let{
+                            generateOtherScore(it)
+                        }
                         plusDay()
                         val closedDay = PrefsHelper.read(PrefsHelper.CLOSED_QUALI_DAY, "1")?.toInt()
                         PrefsHelper.write(PrefsHelper.CLOSED_QUALI_DAY, (closedDay?.plus(1)).toString())
                     }
-                    preVM.updateScore(scoreList)
+
                 }
 
-                 */
 
-
+                preVM.updateScore(scoreList)
             }
             menuListener?.calculateTolobby()
 
