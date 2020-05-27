@@ -21,6 +21,7 @@ import kotlinx.android.synthetic.main.closed_playoff_layout.view.*
 import kotlinx.android.synthetic.main.closed_playoff_stage_layout.view.*
 import kotlinx.android.synthetic.main.closed_playoff_team_layout.view.*
 import kotlinx.android.synthetic.main.fragment_closed_quali.*
+import kotlinx.android.synthetic.main.fragment_prematch.*
 import kotlinx.android.synthetic.main.group_stage_layout.view.*
 import kotlinx.android.synthetic.main.team_in_group_layout.view.*
 import kotlinx.coroutines.CoroutineScope
@@ -183,29 +184,31 @@ class ClosedQuali : Fragment(R.layout.fragment_closed_quali) {
                         }
                     }
                     1 -> {
-                        scope.launch {
-                            closedVM.insertMatch(
-                                MatchScore(
-                                    sortedA[1].TeamName,
-                                    sortedB[0].TeamName,
-                                    sortedA[1].logo,
-                                    sortedB[0].logo,
-                                    0,
-                                    0,
-                                    PlayOffState.SEMI_FINALS.id
+                        if (playoffScoreList.isNullOrEmpty()) {
+                            scope.launch {
+                                closedVM.insertMatch(
+                                    MatchScore(
+                                        sortedA[1].TeamName,
+                                        sortedB[0].TeamName,
+                                        sortedA[1].logo,
+                                        sortedB[0].logo,
+                                        0,
+                                        0,
+                                        PlayOffState.SEMI_FINALS.id
+                                    )
                                 )
-                            )
-                            closedVM.insertMatch(
-                                MatchScore(
-                                    sortedB[1].TeamName,
-                                    sortedA[0].TeamName,
-                                    sortedB[1].logo,
-                                    sortedA[0].logo,
-                                    0,
-                                    0,
-                                    PlayOffState.SEMI_FINALS.id
+                                closedVM.insertMatch(
+                                    MatchScore(
+                                        sortedB[1].TeamName,
+                                        sortedA[0].TeamName,
+                                        sortedB[1].logo,
+                                        sortedA[0].logo,
+                                        0,
+                                        0,
+                                        PlayOffState.SEMI_FINALS.id
+                                    )
                                 )
-                            )
+                            }
                         }
                     }
                     else -> {
@@ -277,6 +280,65 @@ class ClosedQuali : Fragment(R.layout.fragment_closed_quali) {
 
                     }
                 }
+                if (currentDay >= 7) {
+                    var match2WinnerName = ""
+                    var match2WinnerLogo = ""
+                    var match1WinnerName = ""
+                    var match1WinnerLogo = ""
+                    if (playoffScoreList[2].topTeam == 2) {
+                        match1WinnerName = playoffScoreList[2].topTeamName
+                        match1WinnerLogo = playoffScoreList[2].topTeamLogo
+                    } else {
+                        match1WinnerName = playoffScoreList[2].bottomTeamName
+                        match1WinnerLogo = playoffScoreList[2].bottomTeamLogo
+                    }
+                    var match2LoserName = ""
+                    var match2LoserLogo = ""
+                    if (playoffScoreList[3].topTeam == 2) {
+                        match2WinnerName = playoffScoreList[3].topTeamName
+                        match2WinnerLogo = playoffScoreList[3].topTeamLogo
+                        match2LoserName = playoffScoreList[3].bottomTeamName
+                        match2LoserLogo = playoffScoreList[3].bottomTeamLogo
+                    } else {
+                        match2WinnerName = playoffScoreList[3].bottomTeamName
+                        match2WinnerLogo = playoffScoreList[3].bottomTeamLogo
+                        match2LoserName = playoffScoreList[3].topTeamName
+                        match2LoserLogo = playoffScoreList[3].topTeamLogo
+                    }
+                    if (playoffScoreList.size < 5) {
+                        scope.launch {
+                            closedVM.insertMatch(
+                                MatchScore(
+                                    match1WinnerName,
+                                    match2LoserName,
+                                    match1WinnerLogo,
+                                    match2LoserLogo,
+                                    0,
+                                    0,
+                                    PlayOffState.LOWER_BRACKET_FINAL.id
+                                )
+                            )
+                        }
+                    }
+                    playoff.team11.teamName.text = match2WinnerName
+                    setImageIn(match2WinnerLogo, playoff.team11.teamImage)
+                }
+                if (currentDay >= 8) {
+                    var matchWinnerName = ""
+                    var matchWinnerLogo = ""
+                    if (playoffScoreList[2].topTeam == 2) {
+                        matchWinnerName = playoffScoreList[2].topTeamName
+                        matchWinnerLogo = playoffScoreList[2].topTeamLogo
+                    } else {
+                        matchWinnerName = playoffScoreList[2].bottomTeamName
+                        matchWinnerLogo = playoffScoreList[2].bottomTeamLogo
+                    }
+
+                    playoff.team12.teamName.text = matchWinnerName
+                    setImageIn(matchWinnerLogo, playoff.team12.teamImage)
+                }
+
+
             } else {
                 val teamEnemy = teamStats?.get(currentDay)?.TeamName
                 teamEnemy?.let { PrefsHelper.write(PrefsHelper.ENEMY_NAME, it) }
@@ -295,7 +357,65 @@ class ClosedQuali : Fragment(R.layout.fragment_closed_quali) {
                 PrefsHelper.write(PrefsHelper.ENEMY_NAME, teamEnemy)
                 listener.preMatchClicked()
             } else if (currentDay == 6) {
+                val newArray = ArrayList<MatchScore>()
+                newArray.add(playoffScoreList[2])
+                newArray.add(playoffScoreList[3])
+                val enemy = newArray.find {
+                    it.topTeamName == PrefsHelper.read(
+                        PrefsHelper.TEAM_NAME,
+                        ""
+                    )
+                }?.bottomTeamName ?: ""
+                PrefsHelper.write(PrefsHelper.ENEMY_NAME, enemy)
                 listener.preMatchClicked()
+            } else if (currentDay == 7) {
+                val myTeam = PrefsHelper.read(
+                    PrefsHelper.TEAM_NAME,
+                    ""
+                )
+                if (playoffScoreList[3].topTeamName == myTeam && playoffScoreList[3].topTeam == 2
+                ) {
+                    requireActivity().showDotaDialog(
+                        "Вы прошли закрытую квалификацию",
+                        "Возвращайтесь к тренировкам и улучшайте свою игру",
+                        "вернуться к тренировкам"
+                    )
+                } else if (playoffScoreList[4].topTeamName == myTeam || playoffScoreList[4].bottomTeamName == myTeam) {
+                    if (playoffScoreList[4].topTeamName == myTeam) {
+                        PrefsHelper.write(
+                            PrefsHelper.ENEMY_NAME,
+                            playoffScoreList[4].bottomTeamName
+                        )
+                    } else {
+                        PrefsHelper.write(PrefsHelper.ENEMY_NAME, playoffScoreList[4].topTeamName)
+                    }
+                    listener.preMatchClicked()
+                } else {
+                    requireActivity().showDotaDialog(
+                        "Вы понинули закрытую квалификацию",
+                        "Возвращайтесь к тренировкам и улучшайте свою игру",
+                        "вернуться к тренировкам"
+                    )
+                }
+            }else if(currentDay==8){
+                val myTeam = PrefsHelper.read(
+                    PrefsHelper.TEAM_NAME,
+                    ""
+                )
+                if((playoffScoreList[4].topTeamName==myTeam && playoffScoreList[4].topTeam==2)||
+                    (playoffScoreList[4].bottomTeamName==myTeam && playoffScoreList[4].bottomTeam==2)){
+                    requireActivity().showDotaDialog(
+                        "Вы выйграли закрытую квалификацию",
+                        "Возвращайтесь к тренировкам и улучшайте свою игру",
+                        "вернуться к тренировкам"
+                    )
+                }else{
+                    requireActivity().showDotaDialog(
+                        "Вы понинули закрытую квалификацию",
+                        "Возвращайтесь к тренировкам и улучшайте свою игру",
+                        "вернуться к тренировкам"
+                    )
+                }
             }
         }
 

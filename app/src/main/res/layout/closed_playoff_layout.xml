@@ -197,7 +197,7 @@
 
 
             <include
-                android:id="@+id/team9"
+                android:id="@+id/team10"
                 layout="@layout/closed_playoff_team_layout"
                 android:layout_width="240dp"
                 android:layout_height="30dp"
@@ -207,12 +207,12 @@
                 app:layout_constraintStart_toStartOf="@id/uperfinal" />
 
             <include
-                android:id="@+id/team10"
+                android:id="@+id/team9"
                 layout="@layout/closed_playoff_team_layout"
                 android:layout_width="240dp"
                 android:layout_height="30dp"
                 android:layout_marginStart="5dp"
-                app:layout_constraintBottom_toTopOf="@+id/team9"
+                app:layout_constraintBottom_toTopOf="@+id/team10"
                 app:layout_constraintStart_toStartOf="@id/uperfinal" />
 
             <include
