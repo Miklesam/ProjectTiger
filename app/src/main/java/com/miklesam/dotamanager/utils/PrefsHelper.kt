@@ -21,6 +21,11 @@ object PrefsHelper {
     const val POSITION_4 = "position_4"
     const val POSITION_5 = "position_5"
 
+    const val MINOR_QUALI1 = "minor_quali_1"
+    const val MINOR_QUALI2 = "minor_quali_2"
+    const val MINOR_QUALI3 = "minor_quali_3"
+    const val MINOR_QUALI4 = "minor_quali_4"
+
     const val CLOSED_QUALI_DAY = "closed_quali_day"
 
 

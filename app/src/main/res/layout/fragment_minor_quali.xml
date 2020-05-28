@@ -1,0 +1,123 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorAccent">
+
+
+    <ImageView
+        android:id="@+id/team1"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:background="@drawable/frame_teams"
+        android:src="@drawable/yourteamlogo"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/team2"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginBottom="100dp"
+        />
+    <ImageView
+        android:id="@+id/team2"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:background="@drawable/frame_teams"
+        android:src="@drawable/yourteamlogo"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/team1"
+        app:layout_constraintEnd_toStartOf="@id/team3"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginBottom="100dp"
+        />
+    <ImageView
+        android:id="@+id/team3"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:background="@drawable/frame_teams"
+        android:src="@drawable/yourteamlogo"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/team2"
+        app:layout_constraintEnd_toStartOf="@id/team4"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginBottom="100dp"
+        />
+    <ImageView
+        android:id="@+id/team4"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:background="@drawable/frame_teams"
+        android:src="@drawable/yourteamlogo"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@id/team3"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="100dp"
+        />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/fon"
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginBottom="15dp"
+        app:layout_constraintBottom_toBottomOf="@+id/horizontal10">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:id="@+id/tourName"
+            android:text="Minor Closed Qualifier"
+            android:textColor="@color/colorAccent"
+            android:textSize="20sp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/closedDay"
+            android:textColor="@color/colorAccent"
+            android:textSize="15sp"
+            android:layout_gravity="center"/>
+
+    </LinearLayout>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        android:id="@+id/horizontal10"
+        app:layout_constraintGuide_percent="0.17" />
+
+
+
+
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/playGame"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_selector"
+        android:text="Next"
+        android:textSize="14sp"
+        android:theme="@style/ButtonSwitchColor"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="@+id/vertical53"
+        android:layout_marginBottom="15dp"
+        app:layout_constraintRight_toRightOf="@+id/vertival99" />
+
+
+    <include
+        android:visibility="gone"
+        android:id="@+id/playoff"
+        layout="@layout/closed_playoff_layout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

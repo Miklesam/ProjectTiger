@@ -31,7 +31,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 
-class ClosedQuali : Fragment(R.layout.fragment_closed_quali){
+class ClosedQuali : Fragment(R.layout.fragment_closed_quali) {
 
     var teams: List<Team>? = null
     private var teamStats: List<TournamentTeam>? = null
@@ -60,6 +60,9 @@ class ClosedQuali : Fragment(R.layout.fragment_closed_quali){
     private lateinit var playoffScoreList: List<MatchScore>
     private lateinit var sortedA: List<TournamentTeam>
     private lateinit var sortedB: List<TournamentTeam>
+
+    private var MinorQuali2ndTeam = ""
+    private var MinorQuali4ndTeam = ""
 
     interface ClosedQualListener {
         fun preMatchClicked()
@@ -285,9 +288,11 @@ class ClosedQuali : Fragment(R.layout.fragment_closed_quali){
                     if (playoffScoreList[2].topTeam == 2) {
                         match1WinnerName = playoffScoreList[2].topTeamName
                         match1WinnerLogo = playoffScoreList[2].topTeamLogo
+                        MinorQuali2ndTeam = playoffScoreList[2].bottomTeamName
                     } else {
                         match1WinnerName = playoffScoreList[2].bottomTeamName
                         match1WinnerLogo = playoffScoreList[2].bottomTeamLogo
+                        MinorQuali2ndTeam = playoffScoreList[2].topTeamName
                     }
                     var match2LoserName = ""
                     var match2LoserLogo = ""
@@ -326,9 +331,11 @@ class ClosedQuali : Fragment(R.layout.fragment_closed_quali){
                     if (playoffScoreList[4].topTeam == 2) {
                         matchWinnerName = playoffScoreList[4].topTeamName
                         matchWinnerLogo = playoffScoreList[4].topTeamLogo
+                        MinorQuali4ndTeam = playoffScoreList[4].bottomTeamName
                     } else {
                         matchWinnerName = playoffScoreList[4].bottomTeamName
                         matchWinnerLogo = playoffScoreList[4].bottomTeamLogo
+                        MinorQuali4ndTeam = playoffScoreList[4].topTeamName
                     }
 
                     playoff.team12.teamName.text = matchWinnerName
@@ -404,6 +411,7 @@ class ClosedQuali : Fragment(R.layout.fragment_closed_quali){
     }
 
     private fun qualifideClosedQuali() {
+        initMinorQualiTeams()
         requireActivity().showDotaDialog(
             "Вы выйграли закрытую квалификацию",
             "Возвращайтесь к тренировкам и улучшайте свою игру",
@@ -411,7 +419,27 @@ class ClosedQuali : Fragment(R.layout.fragment_closed_quali){
         )
     }
 
+    private fun initMinorQualiTeams() {
+        PrefsHelper.write(PrefsHelper.MINOR_QUALI1, sortedA[2].TeamName)
+        PrefsHelper.write(PrefsHelper.MINOR_QUALI3, sortedB[2].TeamName)
+        if(MinorQuali2ndTeam.isEmpty()){
+            PrefsHelper.write(PrefsHelper.MINOR_QUALI2, sortedA[1].TeamName)
+            PrefsHelper.write(PrefsHelper.MINOR_QUALI4, sortedB[1].TeamName)
+        }else{
+            PrefsHelper.write(PrefsHelper.MINOR_QUALI2, MinorQuali2ndTeam)
+            if(MinorQuali4ndTeam.isEmpty()){
+                PrefsHelper.write(PrefsHelper.MINOR_QUALI4, playoffScoreList[4].topTeamName)
+            }else{
+                PrefsHelper.write(PrefsHelper.MINOR_QUALI4, MinorQuali4ndTeam)
+            }
+        }
+
+
+
+    }
+
     private fun loseClosedQuali() {
+        initMinorQualiTeams()
         requireActivity().showDotaDialog(
             "Вы понинули закрытую квалификацию",
             "Возвращайтесь к тренировкам и улучшайте свою игру",
