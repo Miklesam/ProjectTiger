@@ -14,6 +14,7 @@ import com.miklesam.dotamanager.R
 import com.miklesam.dotamanager.datamodels.MatchScore
 import com.miklesam.dotamanager.datamodels.TournamentTeam
 import com.miklesam.dotamanager.ui.closedquali.ClosedRepository
+import com.miklesam.dotamanager.utils.PlayOffState
 import com.miklesam.dotamanager.utils.PrefsHelper
 import com.miklesam.dotamanager.utils.plusDay
 import com.miklesam.dotamanager.utils.showCustomToast
@@ -188,23 +189,68 @@ class PreMatch : Fragment(R.layout.fragment_prematch) {
             scope.launch {
                 val yourTeamName = PrefsHelper.read(PrefsHelper.TEAM_NAME, "") ?: ""
                 val yourEnemyName = PrefsHelper.read(PrefsHelper.ENEMY_NAME, "") ?: ""
-                val myMatch =
-                    scoreList.find { (it.topTeamName == yourTeamName) && (it.bottomTeamName == yourEnemyName) }
+                val myMatch = when (currentClosedDay) {
+                    5 -> {
+                        scoreList.find { (it.topTeamName == yourTeamName) && (it.bottomTeamName == yourEnemyName) }
+                    }
+                    6 -> {
+                        scoreList.find {
+                            (it.topTeamName == yourTeamName) && (it.bottomTeamName == yourEnemyName) &&
+                                    (it.playoffStage == PlayOffState.UPPER_BRACKET_FINAL.id || it.playoffStage == PlayOffState.LOWER_BRACKER_R1.id)
+                        }
+                    }
+                    7 -> {
+                        scoreList.find {
+                            (
+                                    (it.topTeamName == yourTeamName) && (it.bottomTeamName == yourEnemyName)
+                                            || (it.bottomTeamName == yourTeamName) && (it.topTeamName == yourEnemyName)
+                                    )
+                                    && (it.playoffStage == PlayOffState.LOWER_BRACKET_FINAL.id)
+                        }
+                    }
+                    else -> {
+                        null
+                    }
+                }
+
                 myMatch?.let { match ->
                     if (didIWin) {
-                        match.topTeam++
+                        if (currentClosedDay == 7) {
+                            val amITop = scoreList[4].topTeamName == yourTeamName
+                            if (amITop) {
+                                match.topTeam++
+                            } else {
+                                match.bottomTeam++
+                            }
+                        } else {
+                            match.topTeam++
+                        }
                     } else {
-                        match.bottomTeam++
+                        if (currentClosedDay == 7) {
+                            val amITop = scoreList[4].topTeamName == yourTeamName
+                            if (amITop) {
+                                match.bottomTeam++
+                            } else {
+                                match.topTeam++
+                            }
+                        } else {
+                            match.bottomTeam++
+                        }
+
                     }
 
                     if (match.topTeam == 2 || match.bottomTeam == 2) {
-                        val otherMatch= scoreList.find { (it.topTeam == 0) && (it.bottomTeam == 0) }
-                        otherMatch?.let{
+                        val otherMatch =
+                            scoreList.find { (it.topTeam == 0) && (it.bottomTeam == 0) }
+                        otherMatch?.let {
                             generateOtherScore(it)
                         }
                         plusDay()
                         val closedDay = PrefsHelper.read(PrefsHelper.CLOSED_QUALI_DAY, "1")?.toInt()
-                        PrefsHelper.write(PrefsHelper.CLOSED_QUALI_DAY, (closedDay?.plus(1)).toString())
+                        PrefsHelper.write(
+                            PrefsHelper.CLOSED_QUALI_DAY,
+                            (closedDay?.plus(1)).toString()
+                        )
                     }
 
                 }

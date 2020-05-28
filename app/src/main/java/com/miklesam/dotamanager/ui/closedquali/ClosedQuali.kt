@@ -14,7 +14,9 @@ import com.miklesam.dotamanager.datamodels.MatchScore
 import com.miklesam.dotamanager.datamodels.PlayoffTeam
 import com.miklesam.dotamanager.datamodels.Team
 import com.miklesam.dotamanager.datamodels.TournamentTeam
+import com.miklesam.dotamanager.dialogs.MessageDialog
 import com.miklesam.dotamanager.room.teams.TeamsList
+import com.miklesam.dotamanager.ui.prematch.PreMatchRepo
 import com.miklesam.dotamanager.utils.*
 import kotlinx.android.synthetic.main.closed_playoff_layout.*
 import kotlinx.android.synthetic.main.closed_playoff_layout.view.*
@@ -29,7 +31,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 
-class ClosedQuali : Fragment(R.layout.fragment_closed_quali) {
+class ClosedQuali : Fragment(R.layout.fragment_closed_quali){
 
     var teams: List<Team>? = null
     private var teamStats: List<TournamentTeam>? = null
@@ -212,12 +214,7 @@ class ClosedQuali : Fragment(R.layout.fragment_closed_quali) {
                         }
                     }
                     else -> {
-                        requireActivity().showDotaDialog(
-                            "Вы понинули закрытую квалификацию",
-                            "Возвращайтесь к тренировкам и улучшайте свою игру",
-                            "вернуться к тренировкам"
-                        )
-
+                        loseClosedQuali()
                     }
                 }
                 if (currentDay >= 6) {
@@ -326,12 +323,12 @@ class ClosedQuali : Fragment(R.layout.fragment_closed_quali) {
                 if (currentDay >= 8) {
                     var matchWinnerName = ""
                     var matchWinnerLogo = ""
-                    if (playoffScoreList[2].topTeam == 2) {
-                        matchWinnerName = playoffScoreList[2].topTeamName
-                        matchWinnerLogo = playoffScoreList[2].topTeamLogo
+                    if (playoffScoreList[4].topTeam == 2) {
+                        matchWinnerName = playoffScoreList[4].topTeamName
+                        matchWinnerLogo = playoffScoreList[4].topTeamLogo
                     } else {
-                        matchWinnerName = playoffScoreList[2].bottomTeamName
-                        matchWinnerLogo = playoffScoreList[2].bottomTeamLogo
+                        matchWinnerName = playoffScoreList[4].bottomTeamName
+                        matchWinnerLogo = playoffScoreList[4].bottomTeamLogo
                     }
 
                     playoff.team12.teamName.text = matchWinnerName
@@ -375,11 +372,7 @@ class ClosedQuali : Fragment(R.layout.fragment_closed_quali) {
                 )
                 if (playoffScoreList[3].topTeamName == myTeam && playoffScoreList[3].topTeam == 2
                 ) {
-                    requireActivity().showDotaDialog(
-                        "Вы прошли закрытую квалификацию",
-                        "Возвращайтесь к тренировкам и улучшайте свою игру",
-                        "вернуться к тренировкам"
-                    )
+                    qualifideClosedQuali()
                 } else if (playoffScoreList[4].topTeamName == myTeam || playoffScoreList[4].bottomTeamName == myTeam) {
                     if (playoffScoreList[4].topTeamName == myTeam) {
                         PrefsHelper.write(
@@ -391,34 +384,47 @@ class ClosedQuali : Fragment(R.layout.fragment_closed_quali) {
                     }
                     listener.preMatchClicked()
                 } else {
-                    requireActivity().showDotaDialog(
-                        "Вы понинули закрытую квалификацию",
-                        "Возвращайтесь к тренировкам и улучшайте свою игру",
-                        "вернуться к тренировкам"
-                    )
+                    loseClosedQuali()
                 }
-            }else if(currentDay==8){
+            } else if (currentDay == 8) {
                 val myTeam = PrefsHelper.read(
                     PrefsHelper.TEAM_NAME,
                     ""
                 )
-                if((playoffScoreList[4].topTeamName==myTeam && playoffScoreList[4].topTeam==2)||
-                    (playoffScoreList[4].bottomTeamName==myTeam && playoffScoreList[4].bottomTeam==2)){
-                    requireActivity().showDotaDialog(
-                        "Вы выйграли закрытую квалификацию",
-                        "Возвращайтесь к тренировкам и улучшайте свою игру",
-                        "вернуться к тренировкам"
-                    )
-                }else{
-                    requireActivity().showDotaDialog(
-                        "Вы понинули закрытую квалификацию",
-                        "Возвращайтесь к тренировкам и улучшайте свою игру",
-                        "вернуться к тренировкам"
-                    )
+                if ((playoffScoreList[4].topTeamName == myTeam && playoffScoreList[4].topTeam == 2) ||
+                    (playoffScoreList[4].bottomTeamName == myTeam && playoffScoreList[4].bottomTeam == 2)
+                ) {
+                    qualifideClosedQuali()
+                } else {
+                    loseClosedQuali()
                 }
             }
         }
 
+    }
+
+    private fun qualifideClosedQuali() {
+        requireActivity().showDotaDialog(
+            "Вы выйграли закрытую квалификацию",
+            "Возвращайтесь к тренировкам и улучшайте свою игру",
+            "вернуться к тренировкам"
+        )
+    }
+
+    private fun loseClosedQuali() {
+        requireActivity().showDotaDialog(
+            "Вы понинули закрытую квалификацию",
+            "Возвращайтесь к тренировкам и улучшайте свою игру",
+            "вернуться к тренировкам"
+        )
+    }
+
+    private fun clearClosedQuali() {
+        scope.launch {
+            ClosedRepository(requireActivity().application).nukeClosed()
+            PreMatchRepo(requireActivity().application).nukeScore()
+            PrefsHelper.write(PrefsHelper.CLOSED_QUALI_DAY, "1")
+        }
     }
 
     override fun onDestroyView() {
@@ -597,5 +603,4 @@ class ClosedQuali : Fragment(R.layout.fragment_closed_quali) {
         groupLayoutB.group4.place.text = "4."
         groupLayoutB.group5.place.text = "5."
     }
-
 }

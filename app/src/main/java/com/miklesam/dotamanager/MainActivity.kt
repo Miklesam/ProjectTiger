@@ -17,12 +17,14 @@ import com.miklesam.dotamanager.dialogs.MessageDialog
 import com.miklesam.dotamanager.simplefragments.*
 import com.miklesam.dotamanager.ui.choosePlayers.FragmentChoosePlayers
 import com.miklesam.dotamanager.ui.closedquali.ClosedQuali
+import com.miklesam.dotamanager.ui.closedquali.ClosedRepository
 import com.miklesam.dotamanager.ui.game.FragmentGame
 import com.miklesam.dotamanager.ui.market.FragmentMarket
 import com.miklesam.dotamanager.ui.pickstage.PickStage
 import com.miklesam.dotamanager.ui.plainingstage.PlainingStage
 import com.miklesam.dotamanager.ui.practice.FragmentPractice
 import com.miklesam.dotamanager.ui.prematch.PreMatch
+import com.miklesam.dotamanager.ui.prematch.PreMatchRepo
 import com.miklesam.dotamanager.ui.team.FragmentTeam
 import com.miklesam.dotamanager.ui.teams.FragmentTeams
 import com.miklesam.dotamanager.ui.teamsprofile.FragmentTeamsProfile
@@ -302,7 +304,11 @@ class MainActivity : AppCompatActivity(), FragmentMenu.MenuListener, FragmentLob
     }
 
     override fun onPositiveButtonClicked() {
-        Log.w("Activity", "OKK")
+            scope.launch {
+                ClosedRepository(application).nukeClosed()
+                PreMatchRepo(application).nukeScore()
+                PrefsHelper.write(PrefsHelper.CLOSED_QUALI_DAY, "1")
+            }
         supportFragmentManager.popBackStack()
     }
 }
