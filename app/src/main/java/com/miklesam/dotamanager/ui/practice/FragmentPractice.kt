@@ -15,6 +15,7 @@ import com.miklesam.dotamanager.adapters.TeamAdapter
 import com.miklesam.dotamanager.adapters.TeamPlayersAdapter
 import com.miklesam.dotamanager.datamodels.Team
 import com.miklesam.dotamanager.utils.PrefsHelper
+import com.miklesam.dotamanager.utils.TournamentCompetition
 import kotlinx.android.synthetic.main.fragment_practice.*
 
 class FragmentPractice : Fragment(R.layout.fragment_practice), OnPlayerListener, OnTeamListener {
@@ -88,6 +89,7 @@ class FragmentPractice : Fragment(R.layout.fragment_practice), OnPlayerListener,
 
     override fun onTeamClick(position: Int, holder: RecyclerView.ViewHolder) {
         val teamEnemy= teams?.get(position)?.teamName
+        PrefsHelper.write(PrefsHelper.TOURNAMENT_COMPETITION, TournamentCompetition.PRACTICE.id)
         teamEnemy?.let { PrefsHelper.write(PrefsHelper.ENEMY_NAME, it) }
         practiceListener?.teamTrainingClicked()
     }

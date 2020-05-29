@@ -3,6 +3,7 @@ package com.miklesam.dotamanager.ui.minorquali
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -13,16 +14,20 @@ import com.miklesam.dotamanager.datamodels.PlayoffTeam
 import com.miklesam.dotamanager.datamodels.Team
 import com.miklesam.dotamanager.room.teams.TeamsList
 import com.miklesam.dotamanager.scope
-import com.miklesam.dotamanager.utils.Gone
-import com.miklesam.dotamanager.utils.PlayOffState
-import com.miklesam.dotamanager.utils.PrefsHelper
-import com.miklesam.dotamanager.utils.Visible
+import com.miklesam.dotamanager.ui.closedquali.ClosedQuali
+import com.miklesam.dotamanager.utils.*
+import kotlinx.android.synthetic.main.closed_playoff_layout.*
 import kotlinx.android.synthetic.main.closed_playoff_layout.view.*
+import kotlinx.android.synthetic.main.closed_playoff_layout.view.nextPlayOff
 import kotlinx.android.synthetic.main.closed_playoff_team_layout.view.*
 import kotlinx.android.synthetic.main.fragment_closed_quali.*
 import kotlinx.android.synthetic.main.fragment_minor_quali.*
 import kotlinx.android.synthetic.main.fragment_minor_quali.playGame
 import kotlinx.android.synthetic.main.fragment_minor_quali.playoff
+import kotlinx.android.synthetic.main.fragment_minor_quali.team1
+import kotlinx.android.synthetic.main.fragment_minor_quali.team2
+import kotlinx.android.synthetic.main.fragment_minor_quali.team3
+import kotlinx.android.synthetic.main.fragment_minor_quali.team4
 import kotlinx.coroutines.launch
 
 class MinorQuali :Fragment(R.layout.fragment_minor_quali){
@@ -30,6 +35,7 @@ class MinorQuali :Fragment(R.layout.fragment_minor_quali){
     private lateinit var playoffScoreList: List<MatchScore>
     lateinit var teams: List<Team>
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        val listener = activity as ClosedQuali.ClosedQualListener
         super.onViewCreated(view, savedInstanceState)
         minorVM.getMinorTeams().observe(viewLifecycleOwner, Observer {listTeam->
             teams=listTeam
@@ -87,6 +93,19 @@ class MinorQuali :Fragment(R.layout.fragment_minor_quali){
             playGame.Gone()
 
         }
+        nextPlayOff.setOnClickListener {
+            when(PrefsHelper.read(PrefsHelper.MINOR_QUALI_DAY,"0")){
+                "0"->{
+                    PrefsHelper.write(PrefsHelper.ENEMY_NAME, PrefsHelper.read(PrefsHelper.MINOR_QUALI2,"")?:"")
+                    listener.preMatchClicked()
+                }else->{
+
+            }
+            }
+            PrefsHelper.write(PrefsHelper.TOURNAMENT_COMPETITION, TournamentCompetition.MINIR_QUALI.id)
+        }
+
+
 
     }
 

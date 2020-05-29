@@ -26,7 +26,10 @@ object PrefsHelper {
     const val MINOR_QUALI3 = "minor_quali_3"
     const val MINOR_QUALI4 = "minor_quali_4"
 
+    const val TOURNAMENT_COMPETITION = "tournament_competition"
+
     const val CLOSED_QUALI_DAY = "closed_quali_day"
+    const val MINOR_QUALI_DAY = "minor_quali_day"
 
 
     fun init(context: Context) {

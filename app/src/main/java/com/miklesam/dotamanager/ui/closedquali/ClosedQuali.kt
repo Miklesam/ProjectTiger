@@ -348,7 +348,7 @@ class ClosedQuali : Fragment(R.layout.fragment_closed_quali) {
                 teamEnemy?.let { PrefsHelper.write(PrefsHelper.ENEMY_NAME, it) }
                 listener.preMatchClicked()
             }
-
+            PrefsHelper.write(PrefsHelper.TOURNAMENT_COMPETITION, TournamentCompetition.MAJOR_CLOSED_QUALI.id)
         }
 
         nextPlayOff.setOnClickListener {
@@ -406,6 +406,7 @@ class ClosedQuali : Fragment(R.layout.fragment_closed_quali) {
                     loseClosedQuali()
                 }
             }
+            PrefsHelper.write(PrefsHelper.TOURNAMENT_COMPETITION, TournamentCompetition.MAJOR_CLOSED_QUALI.id)
         }
 
     }

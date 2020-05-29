@@ -14,10 +14,7 @@ import com.miklesam.dotamanager.R
 import com.miklesam.dotamanager.datamodels.MatchScore
 import com.miklesam.dotamanager.datamodels.TournamentTeam
 import com.miklesam.dotamanager.ui.closedquali.ClosedRepository
-import com.miklesam.dotamanager.utils.PlayOffState
-import com.miklesam.dotamanager.utils.PrefsHelper
-import com.miklesam.dotamanager.utils.plusDay
-import com.miklesam.dotamanager.utils.showCustomToast
+import com.miklesam.dotamanager.utils.*
 import kotlinx.android.synthetic.main.fragment_prematch.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -139,7 +136,22 @@ class PreMatch : Fragment(R.layout.fragment_prematch) {
     }
 
     private fun endMatchFlow(didIWin: Boolean) {
+        when(PrefsHelper.read(PrefsHelper.TOURNAMENT_COMPETITION,"")){
+            TournamentCompetition.MAJOR_CLOSED_QUALI.id->{
+                closedMajorQualiFlow(didIWin)
+            }
+            TournamentCompetition.MINIR_QUALI.id->{
+                //closedMajorQualiFlow(didIWin)
+            }
+            else->{
+                plusDay()
+                menuListener?.calculateTolobby()
+            }
+        }
+    }
 
+
+    private fun closedMajorQualiFlow(didIWin: Boolean) {
         val currentClosedDay =
             PrefsHelper.read(PrefsHelper.CLOSED_QUALI_DAY, "1")?.toInt() ?: 1
         if (currentClosedDay <= 4) {
@@ -261,8 +273,8 @@ class PreMatch : Fragment(R.layout.fragment_prematch) {
             menuListener?.calculateTolobby()
 
         }
-
     }
+
 
     private fun generateOtherScore(matchScore: MatchScore): MatchScore {
         while (matchScore.topTeam != 2 && matchScore.bottomTeam != 2) {
