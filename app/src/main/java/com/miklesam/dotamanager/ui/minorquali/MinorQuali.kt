@@ -35,6 +35,10 @@ class MinorQuali :Fragment(R.layout.fragment_minor_quali){
     private lateinit var playoffScoreList: List<MatchScore>
     lateinit var teams: List<Team>
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+        val minorDay = PrefsHelper.read(PrefsHelper.MINOR_QUALI_DAY, "1")?.toInt() ?: 1
+        val day = "Day $minorDay"
+        minorDayView.text = day
         val listener = activity as ClosedQuali.ClosedQualListener
         super.onViewCreated(view, savedInstanceState)
         minorVM.getMinorTeams().observe(viewLifecycleOwner, Observer {listTeam->
@@ -44,6 +48,12 @@ class MinorQuali :Fragment(R.layout.fragment_minor_quali){
                 setImageIn(listTeam[1].teamLogo,team3)
                 setImageIn(listTeam[2].teamLogo,team4)
                 setImageIn(TeamsList.CATEGORY_IMAGE_DIR + "yourteamlogo",team1)
+
+                team1Name.text=PrefsHelper.read(PrefsHelper.TEAM_NAME,"")
+                team2Name.text=listTeam[0].teamName
+                team3Name.text=listTeam[1].teamName
+                team4Name.text=listTeam[2].teamName
+
             }
 
         })
@@ -89,16 +99,92 @@ class MinorQuali :Fragment(R.layout.fragment_minor_quali){
                     )
                 }
             }
+            if (minorDay >= 2) {
+                if (playoffScoreList.size < 3) {
+                    var match1WinnerName = ""
+                    var match1WinnerLogo = ""
+                    var match1LoserName = ""
+                    var match1LoserLogo = ""
+                    if (playoffScoreList[0].topTeam == 2) {
+                        match1WinnerName = playoffScoreList[0].topTeamName
+                        match1WinnerLogo = playoffScoreList[0].topTeamLogo
+                        match1LoserName = playoffScoreList[0].bottomTeamName
+                        match1LoserLogo = playoffScoreList[0].bottomTeamLogo
+                    } else {
+                        match1WinnerName = playoffScoreList[0].bottomTeamName
+                        match1WinnerLogo = playoffScoreList[0].bottomTeamLogo
+                        match1LoserName = playoffScoreList[0].topTeamName
+                        match1LoserLogo = playoffScoreList[0].topTeamLogo
+                    }
+
+                    var match2WinnerName = ""
+                    var match2WinnerLogo = ""
+                    var match2LoserName = ""
+                    var match2LoserLogo = ""
+                    if (playoffScoreList[1].topTeam == 2) {
+                        match2WinnerName = playoffScoreList[1].topTeamName
+                        match2WinnerLogo = playoffScoreList[1].topTeamLogo
+                        match2LoserName = playoffScoreList[1].bottomTeamName
+                        match2LoserLogo = playoffScoreList[1].bottomTeamLogo
+                    } else {
+                        match2WinnerName = playoffScoreList[1].bottomTeamName
+                        match2WinnerLogo = playoffScoreList[1].bottomTeamLogo
+                        match2LoserName = playoffScoreList[1].topTeamName
+                        match2LoserLogo = playoffScoreList[1].topTeamLogo
+                    }
+                    scope.launch {
+                        minorVM.insertMatch(
+                            MatchScore(
+                                match1LoserName,
+                                match2LoserName,
+                                match1LoserLogo,
+                                match2LoserLogo,
+                                0,
+                                0,
+                                PlayOffState.LOWER_BRACKER_R1.id
+                            )
+                        )
+                        minorVM.insertMatch(
+                            MatchScore(
+                                match1WinnerName,
+                                match2WinnerName,
+                                match1WinnerLogo,
+                                match2WinnerLogo,
+                                0,
+                                0,
+                                PlayOffState.UPPER_BRACKET_FINAL.id
+                            )
+                        )
+                    }
+
+                }
+            }
+
+
             playoff.Visible()
             playGame.Gone()
 
         }
         nextPlayOff.setOnClickListener {
-            when(PrefsHelper.read(PrefsHelper.MINOR_QUALI_DAY,"0")){
-                "0"->{
+            when(PrefsHelper.read(PrefsHelper.MINOR_QUALI_DAY,"1")){
+                "1"->{
                     PrefsHelper.write(PrefsHelper.ENEMY_NAME, PrefsHelper.read(PrefsHelper.MINOR_QUALI2,"")?:"")
                     listener.preMatchClicked()
-                }else->{
+                }
+                "2"->{
+                    val newArray = ArrayList<MatchScore>()
+                    newArray.add(playoffScoreList[2])
+                    newArray.add(playoffScoreList[3])
+                    val enemy = newArray.find {
+                        it.topTeamName == PrefsHelper.read(
+                            PrefsHelper.TEAM_NAME,
+                            ""
+                        )
+                    }?.bottomTeamName ?: ""
+                    PrefsHelper.write(PrefsHelper.ENEMY_NAME, enemy)
+                    listener.preMatchClicked()
+                }
+                else->{
 
             }
             }

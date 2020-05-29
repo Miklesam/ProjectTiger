@@ -17,6 +17,67 @@
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginBottom="100dp"
         />
+    <TextView
+        android:id="@+id/team1Name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/team1"
+        app:layout_constraintEnd_toEndOf="@id/team1"
+        app:layout_constraintTop_toBottomOf="@id/team1"
+        android:background="@color/fon"
+        android:gravity="center"
+        android:textColor="@color/colorAccent"
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="3dp"
+        android:layout_marginEnd="3dp"
+        />
+    <TextView
+        android:id="@+id/team2Name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/team2"
+        app:layout_constraintEnd_toEndOf="@id/team2"
+        app:layout_constraintTop_toBottomOf="@id/team2"
+        android:background="@color/fon"
+        android:gravity="center"
+        android:textColor="@color/colorAccent"
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="3dp"
+        android:layout_marginEnd="3dp"
+        />
+
+    <TextView
+        android:id="@+id/team3Name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/team3"
+        app:layout_constraintEnd_toEndOf="@id/team3"
+        app:layout_constraintTop_toBottomOf="@id/team3"
+        android:background="@color/fon"
+        android:gravity="center"
+        android:textColor="@color/colorAccent"
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="3dp"
+        android:layout_marginEnd="3dp"
+        />
+
+    <TextView
+        android:id="@+id/team4Name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/team4"
+        app:layout_constraintEnd_toEndOf="@id/team4"
+        app:layout_constraintTop_toBottomOf="@id/team4"
+        android:background="@color/fon"
+        android:gravity="center"
+        android:textColor="@color/colorAccent"
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="3dp"
+        android:layout_marginEnd="3dp"
+        />
+
+
+
     <ImageView
         android:id="@+id/team2"
         android:layout_width="150dp"
@@ -76,7 +137,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/closedDay"
+            android:id="@+id/minorDayView"
             android:textColor="@color/colorAccent"
             android:textSize="15sp"
             android:layout_gravity="center"/>

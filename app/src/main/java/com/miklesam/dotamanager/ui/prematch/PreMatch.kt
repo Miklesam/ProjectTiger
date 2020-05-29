@@ -136,14 +136,14 @@ class PreMatch : Fragment(R.layout.fragment_prematch) {
     }
 
     private fun endMatchFlow(didIWin: Boolean) {
-        when(PrefsHelper.read(PrefsHelper.TOURNAMENT_COMPETITION,"")){
-            TournamentCompetition.MAJOR_CLOSED_QUALI.id->{
+        when (PrefsHelper.read(PrefsHelper.TOURNAMENT_COMPETITION, "")) {
+            TournamentCompetition.MAJOR_CLOSED_QUALI.id -> {
                 closedMajorQualiFlow(didIWin)
             }
-            TournamentCompetition.MINIR_QUALI.id->{
-                //closedMajorQualiFlow(didIWin)
+            TournamentCompetition.MINIR_QUALI.id -> {
+                minorQualiFlow(didIWin)
             }
-            else->{
+            else -> {
                 plusDay()
                 menuListener?.calculateTolobby()
             }
@@ -273,6 +273,50 @@ class PreMatch : Fragment(R.layout.fragment_prematch) {
             menuListener?.calculateTolobby()
 
         }
+    }
+
+
+    private fun minorQualiFlow(didIWin: Boolean) {
+        val currentMinorDay =
+            PrefsHelper.read(PrefsHelper.MINOR_QUALI_DAY, "1")?.toInt() ?: 1
+        scope.launch {
+            val yourTeamName = PrefsHelper.read(PrefsHelper.TEAM_NAME, "") ?: ""
+            val yourEnemyName = PrefsHelper.read(PrefsHelper.ENEMY_NAME, "") ?: ""
+            val myMatch = when (currentMinorDay) {
+                1 -> {
+                    scoreList.find { (it.topTeamName == yourTeamName) && (it.bottomTeamName == yourEnemyName) }
+                }
+                else -> {
+                    null
+                }
+            }
+            myMatch?.let { myMatch ->
+                if (didIWin) {
+                    myMatch.topTeam++
+                } else {
+                    myMatch.bottomTeam++
+                }
+            }
+
+            myMatch?.let { match ->
+                if (match.topTeam == 2 || match.bottomTeam == 2) {
+                    val otherMatch =
+                        scoreList.find { (it.topTeam == 0) && (it.bottomTeam == 0) }
+                    otherMatch?.let {
+                        generateOtherScore(it)
+                    }
+                    plusDay()
+                    val closedDay = PrefsHelper.read(PrefsHelper.MINOR_QUALI_DAY, "1")?.toInt()
+                    PrefsHelper.write(
+                        PrefsHelper.MINOR_QUALI_DAY,
+                        (closedDay?.plus(1)).toString()
+                    )
+                }
+
+            }
+            preVM.updateScore(scoreList)
+        }
+        menuListener?.calculateTolobby()
     }
 
 
