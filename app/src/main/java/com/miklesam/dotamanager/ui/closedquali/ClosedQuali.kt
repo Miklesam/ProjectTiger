@@ -421,6 +421,7 @@ class ClosedQuali : Fragment(R.layout.fragment_closed_quali) {
     }
 
     private fun initMinorQualiTeams() {
+        PrefsHelper.write(PrefsHelper.MINOR_QUALI_DAY, "1")
         PrefsHelper.write(PrefsHelper.MINOR_QUALI1, sortedA[2].TeamName)
         PrefsHelper.write(PrefsHelper.MINOR_QUALI3, sortedB[2].TeamName)
         if(MinorQuali2ndTeam.isEmpty()){
@@ -446,14 +447,6 @@ class ClosedQuali : Fragment(R.layout.fragment_closed_quali) {
             "Возвращайтесь к тренировкам и улучшайте свою игру",
             "вернуться к тренировкам"
         )
-    }
-
-    private fun clearClosedQuali() {
-        scope.launch {
-            ClosedRepository(requireActivity().application).nukeClosed()
-            PreMatchRepo(requireActivity().application).nukeScore()
-            PrefsHelper.write(PrefsHelper.CLOSED_QUALI_DAY, "1")
-        }
     }
 
     override fun onDestroyView() {

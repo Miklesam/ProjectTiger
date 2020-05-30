@@ -286,15 +286,48 @@ class PreMatch : Fragment(R.layout.fragment_prematch) {
                 1 -> {
                     scoreList.find { (it.topTeamName == yourTeamName) && (it.bottomTeamName == yourEnemyName) }
                 }
+                2->{
+                    scoreList.find {
+                        (it.topTeamName == yourTeamName) && (it.bottomTeamName == yourEnemyName) &&
+                                (it.playoffStage == PlayOffState.UPPER_BRACKET_FINAL.id || it.playoffStage == PlayOffState.LOWER_BRACKER_R1.id)
+                    }
+                }
+                3->{
+                    scoreList.find {
+                        (
+                                (it.topTeamName == yourTeamName) && (it.bottomTeamName == yourEnemyName)
+                                        || (it.bottomTeamName == yourTeamName) && (it.topTeamName == yourEnemyName)
+                                )
+                                && (it.playoffStage == PlayOffState.LOWER_BRACKET_FINAL.id)
+                    }
+                }
                 else -> {
                     null
                 }
             }
             myMatch?.let { myMatch ->
                 if (didIWin) {
-                    myMatch.topTeam++
+                    if (currentMinorDay == 3) {
+                        val amITop = scoreList[4].topTeamName == yourTeamName
+                        if (amITop) {
+                            myMatch.topTeam++
+                        } else {
+                            myMatch.bottomTeam++
+                        }
+                    } else {
+                        myMatch.topTeam++
+                    }
                 } else {
-                    myMatch.bottomTeam++
+                    if (currentMinorDay == 3) {
+                        val amITop = scoreList[4].topTeamName == yourTeamName
+                        if (amITop) {
+                            myMatch.bottomTeam++
+                        } else {
+                            myMatch.topTeam++
+                        }
+                    } else {
+                        myMatch.bottomTeam++
+                    }
                 }
             }
 
