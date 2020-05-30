@@ -21,6 +21,7 @@ import com.miklesam.dotamanager.ui.closedquali.ClosedRepository
 import com.miklesam.dotamanager.ui.game.FragmentGame
 import com.miklesam.dotamanager.ui.market.FragmentMarket
 import com.miklesam.dotamanager.ui.minorquali.MinorQuali
+import com.miklesam.dotamanager.ui.minortournament.Minor
 import com.miklesam.dotamanager.ui.pickstage.PickStage
 import com.miklesam.dotamanager.ui.plainingstage.PlainingStage
 import com.miklesam.dotamanager.ui.practice.FragmentPractice
@@ -162,7 +163,9 @@ class MainActivity : AppCompatActivity(), FragmentMenu.MenuListener, FragmentLob
 
     private fun showTeam() {
         //replaceFragmentFromBottomToTop(FragmentTeam())
-        replaceFragmentFromBottomToTop(MinorQuali())
+        //replaceFragmentFromBottomToTop(MinorQuali())
+        replaceFragment(Minor())
+
     }
 
     private fun mediaTrainning() {

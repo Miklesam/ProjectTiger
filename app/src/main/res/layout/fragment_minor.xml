@@ -1,0 +1,111 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorAccent">
+
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/fon"
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginBottom="15dp"
+        app:layout_constraintBottom_toBottomOf="@+id/horizontal10">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:id="@+id/tourName"
+            android:text="Minor"
+            android:textColor="@color/colorAccent"
+            android:textSize="20sp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/closedDay"
+            android:textColor="@color/colorAccent"
+            android:textSize="15sp"
+            android:layout_gravity="center"/>
+
+    </LinearLayout>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        android:id="@+id/horizontal10"
+        app:layout_constraintGuide_percent="0.17" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:id="@+id/vertical48"
+        app:layout_constraintGuide_percent="0.48" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:id="@+id/vertical53"
+        app:layout_constraintGuide_percent="0.52" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:id="@+id/vertival99"
+        app:layout_constraintGuide_percent="0.99" />
+
+    <include
+        android:id="@+id/groupLayoutA"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        layout="@layout/minor_group_stage_layout"
+        app:layout_constraintTop_toTopOf="@+id/horizontal10"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/vertical48"/>
+
+    <include
+        android:id="@+id/groupLayoutB"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        layout="@layout/minor_group_stage_layout"
+        app:layout_constraintTop_toTopOf="@+id/horizontal10"
+        app:layout_constraintStart_toStartOf="@id/vertical53"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/vertival99"/>
+
+
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/playGame"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_selector"
+        android:text="Next"
+        android:textSize="14sp"
+        android:theme="@style/ButtonSwitchColor"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="@+id/vertical53"
+        android:layout_marginBottom="15dp"
+        app:layout_constraintRight_toRightOf="@+id/vertival99" />
+
+
+    <include
+        android:visibility="gone"
+        android:id="@+id/playoff"
+        layout="@layout/closed_playoff_layout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
