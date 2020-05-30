@@ -14,15 +14,18 @@ import com.miklesam.dotamanager.datamodels.Team
 import com.miklesam.dotamanager.datamodels.TournamentTeam
 import com.miklesam.dotamanager.room.teams.TeamsList
 import com.miklesam.dotamanager.scope
+import com.miklesam.dotamanager.ui.closedquali.ClosedQuali
 import com.miklesam.dotamanager.utils.PrefsHelper
+import com.miklesam.dotamanager.utils.TournamentCompetition
 import com.miklesam.dotamanager.utils.showCustomToast
-import kotlinx.android.synthetic.main.fragment_menu.*
 import kotlinx.android.synthetic.main.fragment_minor.*
+import kotlinx.android.synthetic.main.fragment_minor.groupLayoutA
+import kotlinx.android.synthetic.main.fragment_minor.groupLayoutB
 import kotlinx.android.synthetic.main.minor_group_stage_layout.view.*
 import kotlinx.android.synthetic.main.team_in_group_layout.view.*
 import kotlinx.coroutines.launch
 
-class Minor : Fragment(R.layout.fragment_minor){
+class Minor : Fragment(R.layout.fragment_minor) {
     private val minorVM: MinorVM by viewModels()
     var teams: List<Team>? = null
     private var teamStats: List<TournamentTeam>? = null
@@ -45,15 +48,19 @@ class Minor : Fragment(R.layout.fragment_minor){
 
     private lateinit var sortedA: List<TournamentTeam>
     private lateinit var sortedB: List<TournamentTeam>
-
+    private var currentDay = 0
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val listener = activity as ClosedQuali.ClosedQualListener
         initViews()
         initGroupColors()
+        currentDay = PrefsHelper.read(PrefsHelper.MINOR_DAY, "1")?.toInt() ?: 1
+        val day = "Day $currentDay"
+        closedDayMinorTournament.text = day
 
         minorVM.getTeams().observe(viewLifecycleOwner, Observer {
-            teams=it
+            teams = it
             minorVM.getTournamentTeams().observe(viewLifecycleOwner, Observer {
                 if (it.isEmpty()) {
                     val tournamentsArr = ArrayList<TournamentTeam>()
@@ -101,6 +108,17 @@ class Minor : Fragment(R.layout.fragment_minor){
 
 
         })
+        playGameMinor.setOnClickListener {
+            val teamEnemy = teamStats?.get(currentDay)?.TeamName
+            teamEnemy?.let { PrefsHelper.write(PrefsHelper.ENEMY_NAME, it) }
+            listener.preMatchClicked()
+            PrefsHelper.write(
+                PrefsHelper.TOURNAMENT_COMPETITION,
+                TournamentCompetition.MINOR.id
+            )
+
+        }
+
     }
 
     private fun initViews() {
@@ -161,11 +179,13 @@ class Minor : Fragment(R.layout.fragment_minor){
 
 
     }
+
     private fun setImageIn(image: String, imageView: ImageView) {
         Glide.with(this)
             .load(image)
             .into(imageView)
     }
+
     private fun initGroupColors() {
         groupLayoutA.group1.setBackgroundColor(resources.getColor(R.color.high_green_group))
         groupLayoutA.group2.setBackgroundColor(resources.getColor(R.color.high_green_group))

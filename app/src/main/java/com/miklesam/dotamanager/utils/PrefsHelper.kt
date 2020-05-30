@@ -31,6 +31,8 @@ object PrefsHelper {
     const val CLOSED_QUALI_DAY = "closed_quali_day"
     const val MINOR_QUALI_DAY = "minor_quali_day"
 
+    const val MINOR_DAY = "minor_day"
+
 
     fun init(context: Context) {
         prefs = context.getSharedPreferences(

@@ -143,6 +143,9 @@ class PreMatch : Fragment(R.layout.fragment_prematch) {
             TournamentCompetition.MINIR_QUALI.id -> {
                 minorQualiFlow(didIWin)
             }
+            TournamentCompetition.MINOR.id->{
+                minorFlow(didIWin)
+            }
             else -> {
                 plusDay()
                 menuListener?.calculateTolobby()
@@ -274,6 +277,121 @@ class PreMatch : Fragment(R.layout.fragment_prematch) {
 
         }
     }
+
+
+
+    private fun minorFlow(didIWin: Boolean) {
+        val currentClosedDay =
+            PrefsHelper.read(PrefsHelper.MINOR_DAY, "1")?.toInt() ?: 1
+        if (currentClosedDay <= 3) {
+            if (didIWin) {
+                teams!![0].win = teams!![0].win + 1
+                teams!![currentClosedDay].lose = teams!![currentClosedDay].lose + 1
+            } else {
+                teams!![0].lose = teams!![0].lose + 1
+                teams!![currentClosedDay].win = teams!![currentClosedDay].win + 1
+            }
+            when (currentClosedDay) {
+                1 -> {
+                    generateMatch(teams!![2], teams!![3])
+                    generateMatch(teams!![4], teams!![5])
+                    generateMatch(teams!![6], teams!![7])
+                }
+                2 -> {
+                    generateMatch(teams!![1], teams!![3])
+                    generateMatch(teams!![4], teams!![6])
+                    generateMatch(teams!![5], teams!![7])
+                }
+                3 -> {
+                    generateMatch(teams!![1], teams!![2])
+                    generateMatch(teams!![4], teams!![7])
+                    generateMatch(teams!![5], teams!![6])
+                }
+            }
+
+            scope.launch {
+                preVM.updateTeams(teams!!)
+            }
+            plusDay()
+            val closedDay = PrefsHelper.read(PrefsHelper.MINOR_DAY, "1")?.toInt()
+            PrefsHelper.write(PrefsHelper.MINOR_DAY, (closedDay?.plus(1)).toString())
+            menuListener?.calculateTolobby()
+        } else {
+            scope.launch {
+                val yourTeamName = PrefsHelper.read(PrefsHelper.TEAM_NAME, "") ?: ""
+                val yourEnemyName = PrefsHelper.read(PrefsHelper.ENEMY_NAME, "") ?: ""
+                val myMatch = when (currentClosedDay) {
+                    4 -> {
+                        scoreList.find { (it.topTeamName == yourTeamName) && (it.bottomTeamName == yourEnemyName) }
+                    }
+                    5 -> {
+                        scoreList.find {
+                            (it.topTeamName == yourTeamName) && (it.bottomTeamName == yourEnemyName) &&
+                                    (it.playoffStage == PlayOffState.UPPER_BRACKET_FINAL.id || it.playoffStage == PlayOffState.LOWER_BRACKER_R1.id)
+                        }
+                    }
+                    6 -> {
+                        scoreList.find {
+                            (
+                                    (it.topTeamName == yourTeamName) && (it.bottomTeamName == yourEnemyName)
+                                            || (it.bottomTeamName == yourTeamName) && (it.topTeamName == yourEnemyName)
+                                    )
+                                    && (it.playoffStage == PlayOffState.LOWER_BRACKET_FINAL.id)
+                        }
+                    }
+                    else -> {
+                        null
+                    }
+                }
+
+                myMatch?.let { match ->
+                    if (didIWin) {
+                        if (currentClosedDay == 6) {
+                            val amITop = scoreList[4].topTeamName == yourTeamName
+                            if (amITop) {
+                                match.topTeam++
+                            } else {
+                                match.bottomTeam++
+                            }
+                        } else {
+                            match.topTeam++
+                        }
+                    } else {
+                        if (currentClosedDay == 6) {
+                            val amITop = scoreList[4].topTeamName == yourTeamName
+                            if (amITop) {
+                                match.bottomTeam++
+                            } else {
+                                match.topTeam++
+                            }
+                        } else {
+                            match.bottomTeam++
+                        }
+
+                    }
+                    if (match.topTeam == 2 || match.bottomTeam == 2) {
+                        val otherMatch =
+                            scoreList.find { (it.topTeam == 0) && (it.bottomTeam == 0) }
+                        otherMatch?.let {
+                            generateOtherScore(it)
+                        }
+                        plusDay()
+                        val closedDay = PrefsHelper.read(PrefsHelper.MINOR_DAY, "1")?.toInt()
+                        PrefsHelper.write(
+                            PrefsHelper.MINOR_DAY,
+                            (closedDay?.plus(1)).toString()
+                        )
+                    }
+
+                }
+
+                preVM.updateScore(scoreList)
+            }
+            menuListener?.calculateTolobby()
+        }
+    }
+
+
 
 
     private fun minorQualiFlow(didIWin: Boolean) {

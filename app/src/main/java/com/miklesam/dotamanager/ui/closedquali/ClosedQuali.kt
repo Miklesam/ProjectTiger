@@ -140,7 +140,6 @@ class ClosedQuali : Fragment(R.layout.fragment_closed_quali) {
             initGroupColors()
         })
 
-
         playGame.setOnClickListener {
             if (currentDay >= 5) {
                 val team =

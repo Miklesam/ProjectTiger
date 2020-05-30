@@ -27,7 +27,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/closedDay"
+            android:id="@+id/closedDayMinorTournament"
             android:textColor="@color/colorAccent"
             android:textSize="15sp"
             android:layout_gravity="center"/>
@@ -83,20 +83,19 @@
         app:layout_constraintEnd_toEndOf="@+id/vertival99"/>
 
 
-
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/playGame"
+        android:id="@+id/playGameMinor"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
         android:background="@drawable/button_selector"
         android:text="Next"
         android:textSize="14sp"
         android:theme="@style/ButtonSwitchColor"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="@+id/vertical53"
-        android:layout_marginBottom="15dp"
         app:layout_constraintRight_toRightOf="@+id/vertival99" />
-
 
     <include
         android:visibility="gone"
