@@ -63,6 +63,7 @@ class PreMatch : Fragment(R.layout.fragment_prematch) {
                 ClosedRepository(requireActivity().application).nukeClosed()
                 PreMatchRepo(requireActivity().application).nukeScore()
                 PrefsHelper.write(PrefsHelper.CLOSED_QUALI_DAY, "1")
+                PrefsHelper.write(PrefsHelper.MINOR_DAY, "1")
             }
             showCustomToast("Nuked", Toast.LENGTH_SHORT)
         }
@@ -369,19 +370,31 @@ class PreMatch : Fragment(R.layout.fragment_prematch) {
                         }
 
                     }
-                    if (match.topTeam == 2 || match.bottomTeam == 2) {
-                        val otherMatch =
-                            scoreList.find { (it.topTeam == 0) && (it.bottomTeam == 0) }
-                        otherMatch?.let {
-                            generateOtherScore(it)
+                    if(currentClosedDay==7){
+                        if (match.topTeam == 3 || match.bottomTeam == 3) {
+                            plusDay()
+                            val closedDay = PrefsHelper.read(PrefsHelper.MINOR_DAY, "1")?.toInt()
+                            PrefsHelper.write(
+                                PrefsHelper.MINOR_DAY,
+                                (closedDay?.plus(1)).toString()
+                            )
                         }
-                        plusDay()
-                        val closedDay = PrefsHelper.read(PrefsHelper.MINOR_DAY, "1")?.toInt()
-                        PrefsHelper.write(
-                            PrefsHelper.MINOR_DAY,
-                            (closedDay?.plus(1)).toString()
-                        )
+                    }else{
+                        if (match.topTeam == 2 || match.bottomTeam == 2) {
+                            val otherMatch =
+                                scoreList.find { (it.topTeam == 0) && (it.bottomTeam == 0) }
+                            otherMatch?.let {
+                                generateOtherScore(it)
+                            }
+                            plusDay()
+                            val closedDay = PrefsHelper.read(PrefsHelper.MINOR_DAY, "1")?.toInt()
+                            PrefsHelper.write(
+                                PrefsHelper.MINOR_DAY,
+                                (closedDay?.plus(1)).toString()
+                            )
+                        }
                     }
+
 
                 }
 
