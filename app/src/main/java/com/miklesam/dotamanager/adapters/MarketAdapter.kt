@@ -30,7 +30,7 @@ class MarketAdapter(playerListener: OnPlayerListener) : RecyclerView.Adapter<Mar
         holder.nickName.text=currentPlayer.nickname
         holder.name.text=currentPlayer.name
         holder.position.text=currentPlayer.position
-        holder.cost.text=currentPlayer.cost
+        //holder.cost.text=currentPlayer.cost
         Glide.with(holder.itemView.context)
             .load(currentPlayer.flag)
             .into(holder.flag)

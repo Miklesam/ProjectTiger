@@ -10,7 +10,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProviders
 import com.miklesam.dotamanager.dialogs.EndMatchDialog
 import com.miklesam.dotamanager.myviews.GameSimulationView
-import com.miklesam.dotamanager.dialogs.LineningDialog
+import com.miklesam.dotamanager.dialogs.LaningDialog
 import com.miklesam.dotamanager.R
 import com.miklesam.dotamanager.datamodels.Heroes
 import com.miklesam.dotamanager.multipleer.client.ClientViewModel
@@ -18,7 +18,7 @@ import com.miklesam.dotamanager.multipleer.host.HostViewModel
 import kotlinx.android.synthetic.main.fragment_game.*
 
 class MultiGame(isHost: Boolean) : Fragment(R.layout.fragment_game),
-    LineningDialog.NoticeDialogListener, EndMatchDialog.toLobbyInterface {
+    LaningDialog.NoticeDialogListener, EndMatchDialog.toLobbyInterface {
     private lateinit var myViewModel: ViewModel
     var host = isHost
     var multiGame: GameSimulationView? = null
@@ -273,11 +273,11 @@ class MultiGame(isHost: Boolean) : Fragment(R.layout.fragment_game),
     private fun CreateDeskDialog() {
         if (host) {
             val dialog =
-                LineningDialog(this, radiant)
+                LaningDialog(this, radiant)
             fragmentManager?.let { dialog.show(it, "CreateDeskDialog") }
         } else {
             val dialog =
-                LineningDialog(this, dire)
+                LaningDialog(this, dire)
             fragmentManager?.let { dialog.show(it, "CreateDeskDialog") }
         }
 

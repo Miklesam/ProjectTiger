@@ -79,10 +79,10 @@ class FragmentChoosePlayers : Fragment(R.layout.fragment_choose_players), OnPlay
             nextChoosen.nextChoosenClicked()
         }
 
-        choosenViewModel?.getPlayers()?.observe(this, Observer { playerList ->
+        choosenViewModel?.getPlayers()?.observe(viewLifecycleOwner, Observer { playerList ->
             Log.w("Choosen", playerList.toString())
-            playerSortedList = playerList.sortedWith(compareBy { it.cost.toInt() })
-            adapter?.setPlayers(playerSortedList!!)
+            playerSortedList = playerList
+            adapter?.setPlayers(playerList)
         })
         cancelBttn.setOnClickListener {
             recycler?.visibility = VISIBLE
@@ -173,16 +173,16 @@ class FragmentChoosePlayers : Fragment(R.layout.fragment_choose_players), OnPlay
             .load(player!!.photo)
             .into(image)
         playerFullName.text = player!!.name
-        microControlNum.text = player!!.microcontrol.toString()
-        macroControlNum.text = player!!.macrocontrol.toString()
-        creativityNum.text = player!!.creativity.toString()
-        heroPoolNum.text = player!!.heropool.toString()
-        motivationNum.text = player!!.motivation.toString()
-        mediationNum.text = player!!.mediafans.toString()
-        laningNum.text = player!!.laining.toString()
-        fightingNum.text = player!!.fighting.toString()
-        tacticNum.text = player!!.tactics.toString()
-        moralNum.text = player!!.morals.toString()
+        //microControlNum.text = player!!.microcontrol.toString()
+        //macroControlNum.text = player!!.macrocontrol.toString()
+        //creativityNum.text = player!!.creativity.toString()
+        //heroPoolNum.text = player!!.heropool.toString()
+       //motivationNum.text = player!!.motivation.toString()
+        //mediationNum.text = player!!.mediafans.toString()
+      //  laningNum.text = player!!.laining.toString()
+       // fightingNum.text = player!!.fighting.toString()
+      //  tacticNum.text = player!!.tactics.toString()
+      // moralNum.text = player!!.morals.toString()
         val inputStream = context?.contentResolver?.openInputStream(player!!.flag.toUri())
         val drawable = Drawable.createFromStream(inputStream, player!!.flag)
         backFlag.background = drawable

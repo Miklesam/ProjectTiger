@@ -122,7 +122,8 @@ class WeatherView : View {
         val layout = mView?.findViewById<WeatherView>(
             R.id.weatherAnim
         )
-        layout?.setBackgroundResource(R.drawable.panoramanew)
+        //layout?.setBackgroundResource(R.drawable.mars_nasa)
+        layout?.setBackgroundResource(R.drawable.original_space)
         mTimeAnimator = TimeAnimator()
         mTimeAnimator!!.setTimeListener(object : TimeAnimator.TimeListener {
             override fun onTimeUpdate(animation: TimeAnimator, totalTime: Long, deltaTime: Long) {

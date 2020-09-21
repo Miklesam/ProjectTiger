@@ -13,17 +13,16 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.bumptech.glide.Glide
 import com.miklesam.dotamanager.dialogs.EndMatchDialog
-import com.miklesam.dotamanager.dialogs.LineningDialog
+import com.miklesam.dotamanager.dialogs.LaningDialog
 import com.miklesam.dotamanager.myviews.GameSimulationView
 import com.miklesam.dotamanager.R
 import com.miklesam.dotamanager.datamodels.Heroes
 import com.miklesam.dotamanager.utils.PrefsHelper
 import com.miklesam.dotamanager.utils.plusDay
 import kotlinx.android.synthetic.main.fragment_game.*
-import kotlinx.android.synthetic.main.fragment_prematch.*
 
 class FragmentGame(myListener: backToLobby) : Fragment(R.layout.fragment_game),
-    LineningDialog.NoticeDialogListener, EndMatchDialog.toLobbyInterface {
+    LaningDialog.NoticeDialogListener, EndMatchDialog.toLobbyInterface {
     var mListener: backToLobby = myListener
     val radiantImages =
         arrayOfNulls<ImageView>(5)
@@ -297,7 +296,7 @@ class FragmentGame(myListener: backToLobby) : Fragment(R.layout.fragment_game),
 
     private fun CreateDeskDialog() {
         val dialog =
-            LineningDialog(this, heroes)
+            LaningDialog(this, heroes)
         fragmentManager?.let { dialog.show(it, "CreateDeskDialog") }
     }
 

@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatDialogFragment
 import com.miklesam.dotamanager.R
 import com.miklesam.dotamanager.datamodels.Heroes
 
-class LineningDialog() : AppCompatDialogFragment() {
+class LaningDialog() : AppCompatDialogFragment() {
     constructor(myListener: NoticeDialogListener, heroes: ArrayList<Int>?) : this() {
         mListener = myListener
         heroesList = heroes

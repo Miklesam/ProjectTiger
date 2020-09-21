@@ -22,20 +22,21 @@ abstract class PlayersDatabase : RoomDatabase() {
 
     companion object {
         val scope = CoroutineScope(Dispatchers.IO + SupervisorJob())
+
         @Volatile
         private var INSTANCE: PlayersDatabase? = null
-        val MIGRATION_1_2 =
-            Migration1To2()
+        //val MIGRATION_1_2 =
+        //    Migration1To2()
 
         fun getInstance(context: Context): PlayersDatabase =
             INSTANCE
                 ?: synchronized(this) {
-                INSTANCE
-                    ?: buildDatabase(
-                        context
-                    )
-                        .also { INSTANCE = it }
-            }
+                    INSTANCE
+                        ?: buildDatabase(
+                            context
+                        )
+                            .also { INSTANCE = it }
+                }
 
         private fun buildDatabase(context: Context) =
             Room.databaseBuilder(
@@ -53,52 +54,17 @@ abstract class PlayersDatabase : RoomDatabase() {
                                 context
                             )
                                 .noteDao().insertData(PlayersList.VP)
-                            getInstance(
-                                context
-                            )
-                                .noteDao().insertData(PlayersList.NaVi)
-                            getInstance(
-                                context
-                            )
-                                .noteDao().insertData(PlayersList.Gambit)
-                            getInstance(
-                                context
-                            )
-                                .noteDao().insertData(PlayersList.Secret)
-                            getInstance(
-                                context
-                            )
-                                .noteDao().insertData(PlayersList.ViciGaming)
-                            getInstance(
-                                context
-                            )
-                                .noteDao().insertData(PlayersList.EG)
-                            getInstance(
-                                context
-                            )
-                                .noteDao().insertData(PlayersList.Alliance)
-                            getInstance(
-                                context
-                            )
-                                .noteDao().insertData(PlayersList.TNC)
-                            getInstance(
-                                context
-                            )
-                                .noteDao().insertData(PlayersList.Liquid)
-                            getInstance(
-                                context
-                            )
-                                .noteDao().insertData(PlayersList.Nigma)
                         }
                     }
                 })
-                .addMigrations(MIGRATION_1_2)
+                //.addMigrations(MIGRATION_1_2)
                 .build()
 
 
     }
 
-    class Migration1To2() : Migration(1,2) {
+    /*
+    class Migration1To2() : Migration(1, 2) {
         override fun migrate(database: SupportSQLiteDatabase) {
             scope.launch {
                 INSTANCE?.noteDao()?.insertData(
@@ -109,7 +75,7 @@ abstract class PlayersDatabase : RoomDatabase() {
         }
     }
 
-
+     */
 
 
 }

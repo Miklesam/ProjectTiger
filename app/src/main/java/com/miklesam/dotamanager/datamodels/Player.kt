@@ -16,30 +16,8 @@ data class Player(
     var name: String?,
     @ColumnInfo(name = "position")
     var position:String,
-    @ColumnInfo(name = "cost")
-    var cost:String,
     @ColumnInfo(name = "player_photo")
     var photo: String,
-    @ColumnInfo(name = "microcontrol")
-    var microcontrol:Int,
-    @ColumnInfo(name = "macrocontrol")
-    var macrocontrol:Int,
-    @ColumnInfo(name = "creativity")
-    var creativity:Int,
-    @ColumnInfo(name = "heropool")
-    var heropool:Int,
-    @ColumnInfo(name = "motivation")
-    var motivation:Int,
-    @ColumnInfo(name = "mediafans")
-    var mediafans:Int,
-    @ColumnInfo(name = "laining")
-    var laining:Int,
-    @ColumnInfo(name = "fighting")
-    var fighting:Int,
-    @ColumnInfo(name = "tactics")
-    var tactics:Int,
-    @ColumnInfo(name = "morals")
-    var morals:Int,
     @ColumnInfo(name = "signature_1")
     var signature1:Int,
     @ColumnInfo(name = "signature_2")
@@ -58,17 +36,6 @@ data class Player(
         parcel.readString(),
         parcel.readString().toString(),
         parcel.readString().toString(),
-        parcel.readString().toString(),
-        parcel.readInt(),
-        parcel.readInt(),
-        parcel.readInt(),
-        parcel.readInt(),
-        parcel.readInt(),
-        parcel.readInt(),
-        parcel.readInt(),
-        parcel.readInt(),
-        parcel.readInt(),
-        parcel.readInt(),
         parcel.readInt(),
         parcel.readInt(),
         parcel.readInt()
@@ -81,18 +48,7 @@ data class Player(
         parcel.writeString(nickname)
         parcel.writeString(name)
         parcel.writeString(position)
-        parcel.writeString(cost)
         parcel.writeString(photo)
-        parcel.writeInt(microcontrol)
-        parcel.writeInt(macrocontrol)
-        parcel.writeInt(creativity)
-        parcel.writeInt(heropool)
-        parcel.writeInt(motivation)
-        parcel.writeInt(mediafans)
-        parcel.writeInt(laining)
-        parcel.writeInt(fighting)
-        parcel.writeInt(tactics)
-        parcel.writeInt(morals)
         parcel.writeInt(signature1)
         parcel.writeInt(signature2)
         parcel.writeInt(signature3)
