@@ -329,6 +329,326 @@ class PlayersList {
                 Heroes.RUBICK.id,
                 Heroes.IO.id,
                 Heroes.TUSK.id
+            ),
+            Player(
+                CATEGORY_IMAGE_DIR + "russia4020",
+                "AfterLife",
+                "Vasily Shishkin",
+                "3",
+                CATEGORY_IMAGE_DIR + "afterlife_face",
+                Heroes.DARKSEER.id,
+                Heroes.LC.id,
+                Heroes.BATHRIDER.id
+            ),
+            Player(
+                CATEGORY_IMAGE_DIR + "belarus4020",
+                "Stalcat",
+                "Ilya Dorman",
+                "3",
+                CATEGORY_IMAGE_DIR + "stalcat_face",
+                Heroes.DARKSEER.id,
+                Heroes.LC.id,
+                Heroes.BATHRIDER.id
+            ),
+            Player(
+                CATEGORY_IMAGE_DIR + "kazahstan4020",
+                "Blizzy",
+                "Evgeniy Ree",
+                "3",
+                CATEGORY_IMAGE_DIR + "blizzu_face",
+                Heroes.BATHRIDER.id,
+                Heroes.CENTAUR.id,
+                Heroes.MAGNUS.id
+            ),
+            Player(
+                CATEGORY_IMAGE_DIR + "russia4020",
+                "633",
+                "Stanislav Glushan",
+                "3",
+                CATEGORY_IMAGE_DIR + "bzz_face",
+                Heroes.GYROCOPTER.id,
+                Heroes.MIRANA.id,
+                Heroes.PUCK.id
+            ),
+            Player(
+                CATEGORY_IMAGE_DIR + "belarus4020",
+                "chshrct",
+                "Yevgeny Kostroma",
+                "3",
+                CATEGORY_IMAGE_DIR + "chrst_face",
+                Heroes.BATHRIDER.id,
+                Heroes.NATURES_PROPHET.id,
+                Heroes.DARKSEER.id
+            ),
+            Player(
+                CATEGORY_IMAGE_DIR + "ukraine4020",
+                "DkPhobos",
+                "Alexander Kucheria",
+                "3",
+                CATEGORY_IMAGE_DIR + "dkphobos_face",
+                Heroes.PUCK.id,
+                Heroes.DARKSEER.id,
+                Heroes.BREWMASTER.id
+            ),
+            Player(
+                CATEGORY_IMAGE_DIR + "russia4020",
+                "DM",
+                "Dmitry Dorokhin",
+                "3",
+                CATEGORY_IMAGE_DIR + "dm_face",
+                Heroes.SAND_KING.id,
+                Heroes.CENTAUR.id,
+                Heroes.AXE.id
+            ),
+            Player(
+                CATEGORY_IMAGE_DIR + "ukraine4020",
+                "Funn1k",
+                "Gleb Lipatnikov",
+                "3",
+                CATEGORY_IMAGE_DIR + "funnik_face",
+                Heroes.BATHRIDER.id,
+                Heroes.DARKSEER.id,
+                Heroes.CLINKZ.id
+            ),
+            Player(
+                CATEGORY_IMAGE_DIR + "ukraine4020",
+                "GeneRaL",
+                "Victor Nigrini",
+                "3",
+                CATEGORY_IMAGE_DIR + "general_face",
+                Heroes.BATHRIDER.id,
+                Heroes.BEASTMASTER.id,
+                Heroes.CLOCKWERK.id
+            ),
+            Player(
+                CATEGORY_IMAGE_DIR + "ukraine4020",
+                "Ghostik",
+                "Andrey Kadyk",
+                "3",
+                CATEGORY_IMAGE_DIR + "ghostik_face",
+                Heroes.BROODMOTHER.id,
+                Heroes.LC.id,
+                Heroes.BATHRIDER.id
+            ),
+            Player(
+                CATEGORY_IMAGE_DIR + "belarus4020",
+                "LastHero",
+                "Oleg Demidovich",
+                "3",
+                CATEGORY_IMAGE_DIR + "lasthero_face",
+                Heroes.CENTAUR.id,
+                Heroes.BEASTMASTER.id,
+                Heroes.AXE.id
+            ),
+            Player(
+                CATEGORY_IMAGE_DIR + "ukraine4020",
+                "Mag",
+                "Andrey Chipenko",
+                "3",
+                CATEGORY_IMAGE_DIR + "mag_face",
+                Heroes.CLOCKWERK.id,
+                Heroes.BROODMOTHER.id,
+                Heroes.CENTAUR.id
+            ),
+            Player(
+                CATEGORY_IMAGE_DIR + "russia4020",
+                "9pasha",
+                "Pavel Khvastunov",
+                "3",
+                CATEGORY_IMAGE_DIR + "pasha_face",
+                Heroes.DARKSEER.id,
+                Heroes.MAGNUS.id,
+                Heroes.CENTAUR.id
+            ),
+            Player(
+                CATEGORY_IMAGE_DIR + "ukraine4020",
+                "Resolut1on",
+                "Roman Fominok",
+                "3",
+                CATEGORY_IMAGE_DIR + "resolution_face",
+                Heroes.BEASTMASTER.id,
+                Heroes.PUCK.id,
+                Heroes.CENTAUR.id
+            ),
+            Player(
+                CATEGORY_IMAGE_DIR + "russia4020",
+                "Shachlo",
+                "Maxim Abramovskikh",
+                "3",
+                CATEGORY_IMAGE_DIR + "shachlo_face",
+                Heroes.BATHRIDER.id,
+                Heroes.AXE.id,
+                Heroes.LONE_DRUID.id
+            ),
+            Player(
+                CATEGORY_IMAGE_DIR + "russia4020",
+                "XaKoH",
+                "Evgeniy Kochetov",
+                "3",
+                CATEGORY_IMAGE_DIR + "xakoh_face",
+                Heroes.CLOCKWERK.id,
+                Heroes.BATHRIDER.id,
+                Heroes.SLARDAR.id
+            ),
+            Player(
+                CATEGORY_IMAGE_DIR + "russia4020",
+                "Afoninje",
+                "Andrey Afonin",
+                "2",
+                CATEGORY_IMAGE_DIR + "afoninje_face",
+                Heroes.SHADOW_FIEND.id,
+                Heroes.PUCK.id,
+                Heroes.DEATH_PROPHET.id
+            ),
+            Player(
+                CATEGORY_IMAGE_DIR + "ukraine4020",
+                "Dendi",
+                "Danil Ishutin",
+                "2",
+                CATEGORY_IMAGE_DIR + "dendi_face",
+                Heroes.PUDGE.id,
+                Heroes.MAGNUS.id,
+                Heroes.INVOKER.id
+            ),
+            Player(
+                CATEGORY_IMAGE_DIR + "belarus4020",
+                "Ergon",
+                "Egor Kozlov",
+                "2",
+                CATEGORY_IMAGE_DIR + "ergon_face",
+                Heroes.LONE_DRUID.id,
+                Heroes.OD.id,
+                Heroes.INVOKER.id
+            ),
+            Player(
+                CATEGORY_IMAGE_DIR + "ukraine4020",
+                "fn",
+                "Rostislav Lozovoi",
+                "2",
+                CATEGORY_IMAGE_DIR + "fn_face",
+                Heroes.SHADOW_FIEND.id,
+                Heroes.STORM_SPIRIT.id,
+                Heroes.JUGGERNAUT.id
+            ),
+            Player(
+                CATEGORY_IMAGE_DIR + "russia4020",
+                "G",
+                "Rostislav Lozovoi",
+                "2",
+                CATEGORY_IMAGE_DIR + "god_face",
+                Heroes.QOP.id,
+                Heroes.SHADOW_FIEND.id,
+                Heroes.OD.id
+            ),
+            Player(
+                CATEGORY_IMAGE_DIR + "russia4020",
+                "gpk",
+                "Danil Skutin",
+                "2",
+                CATEGORY_IMAGE_DIR + "gpk_face",
+                Heroes.EMBER.id,
+                Heroes.SHADOW_FIEND.id,
+                Heroes.TEMPLAR_ASSASIN.id
+            ),
+            Player(
+                CATEGORY_IMAGE_DIR + "ukraine4020",
+                "Iceberg",
+                "Bogdan Vasylenko",
+                "2",
+                CATEGORY_IMAGE_DIR + "iceberg_face",
+                Heroes.INVOKER.id,
+                Heroes.ZEUS.id,
+                Heroes.TINY.id
+            ),
+            Player(
+                CATEGORY_IMAGE_DIR + "ukraine4020",
+                "MagicaL",
+                "Bogdan Vasylenko",
+                "2",
+                CATEGORY_IMAGE_DIR + "magical_face",
+                Heroes.TEMPLAR_ASSASIN.id,
+                Heroes.RAZOR.id,
+                Heroes.TINKER.id
+            ),
+            Player(
+                CATEGORY_IMAGE_DIR + "ukraine4020",
+                "mellojul",
+                "Maxim Pnyov",
+                "2",
+                CATEGORY_IMAGE_DIR + "mellojul_face",
+                Heroes.MONKEY_KING.id,
+                Heroes.EMBER.id,
+                Heroes.LINA.id
+            ),
+            Player(
+                CATEGORY_IMAGE_DIR + "russia4020",
+                "Nix",
+                "Alexander Levin",
+                "2",
+                CATEGORY_IMAGE_DIR + "nix_face",
+                Heroes.ANTIMAGE.id,
+                Heroes.JUGGERNAUT.id,
+                Heroes.GYROCOPTER.id
+            ),
+            Player(
+                CATEGORY_IMAGE_DIR + "ukraine4020",
+                "No[o]ne",
+                "Vladimir Minenko",
+                "2",
+                CATEGORY_IMAGE_DIR + "noone_face",
+                Heroes.DK.id,
+                Heroes.INVOKER.id,
+                Heroes.STORM_SPIRIT.id
+            ),
+            Player(
+                CATEGORY_IMAGE_DIR + "ukraine4020",
+                "Pikachu",
+                "Yaroslav Vasylenko",
+                "2",
+                CATEGORY_IMAGE_DIR + "pickachu_face",
+                Heroes.INVOKER.id,
+                Heroes.OD.id,
+                Heroes.DEATH_PROPHET.id
+            ),
+            Player(
+                CATEGORY_IMAGE_DIR + "belarus4020",
+                "Sunlight",
+                "Kirill Kachinsky",
+                "2",
+                CATEGORY_IMAGE_DIR + "sunlight_face",
+                Heroes.STORM_SPIRIT.id,
+                Heroes.QOP.id,
+                Heroes.ZEUS.id
+            ),
+            Player(
+                CATEGORY_IMAGE_DIR + "russia4020",
+                "UnderShock",
+                "Dmitry Bolshakov",
+                "2",
+                CATEGORY_IMAGE_DIR + "undershock_face",
+                Heroes.PUCK.id,
+                Heroes.STORM_SPIRIT.id,
+                Heroes.LINA.id
+            ),
+            Player(
+                CATEGORY_IMAGE_DIR + "russia4020",
+                "xannii",
+                "Arslan Shadjanov",
+                "2",
+                CATEGORY_IMAGE_DIR + "xannii_face",
+                Heroes.ALCHEMIC.id,
+                Heroes.EMBER.id,
+                Heroes.TEMPLAR_ASSASIN.id
+            ),
+            Player(
+                CATEGORY_IMAGE_DIR + "belarus4020",
+                "young G",
+                "Nikita Bochko",
+                "2",
+                CATEGORY_IMAGE_DIR + "young_g_face",
+                Heroes.SHADOW_FIEND.id,
+                Heroes.INVOKER.id,
+                Heroes.QOP.id
             )
         )
     }
