@@ -35,7 +35,7 @@
                 android:id="@+id/nextPlayOff"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:background="@drawable/button_selector"
+                android:background="@drawable/button_background"
                 android:text="Next"
                 android:textSize="14sp"
                 android:theme="@style/ButtonSwitchColor"

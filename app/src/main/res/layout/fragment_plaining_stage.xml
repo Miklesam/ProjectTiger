@@ -120,7 +120,7 @@
         android:id="@+id/continue_bttn"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@drawable/button_selector"
+        android:background="@drawable/button_background"
         android:text="@string/continue_str"
         android:layout_margin="20dp"
         android:textSize="14sp"

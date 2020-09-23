@@ -9,11 +9,11 @@
     app:cardElevation="5dp"
     app:cardCornerRadius="3dp"
     app:contentPadding="2dp"
-    app:cardBackgroundColor="@color/textMain"
+    app:cardBackgroundColor="@color/black"
     android:orientation="vertical">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:background="@color/fon"
+        android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 

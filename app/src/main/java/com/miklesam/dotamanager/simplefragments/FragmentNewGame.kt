@@ -25,7 +25,7 @@ class FragmentNewGame :Fragment(R.layout.fragment_newgame){
             val toast = Toast(context)
             toast.duration = Toast.LENGTH_LONG
             val inflater =
-                context!!.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+                requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
             val view: View = inflater.inflate(R.layout.your_custom_layout, null)
             val customToastText = view.findViewById<TextView>(R.id.customToastText)
             toast.view = view

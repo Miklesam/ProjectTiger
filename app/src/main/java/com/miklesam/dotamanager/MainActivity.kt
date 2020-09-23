@@ -174,7 +174,7 @@ class MainActivity : AppCompatActivity(), FragmentMenu.MenuListener, FragmentLob
     }
 
     private fun showLobby() {
-        replaceFragmentFromRightToLeft(FragmentLobby(), true)
+        replaceFragment(FragmentLobby())
     }
 
     private fun showTeams() {
@@ -182,11 +182,11 @@ class MainActivity : AppCompatActivity(), FragmentMenu.MenuListener, FragmentLob
     }
 
     private fun showNewGame() {
-        replaceFragmentFromRightToLeft(FragmentNewGame(), true)
+        replaceFragment(FragmentNewGame())
     }
 
     private fun showNoBackStackLobby() {
-        replaceFragmentFromRightToLeft(FragmentLobby(), false)
+        replaceFragment(FragmentLobby())
     }
 
     override fun onPlayerClickFragment(player: Player, holder: MarketPlayerHolder) {
@@ -220,15 +220,15 @@ class MainActivity : AppCompatActivity(), FragmentMenu.MenuListener, FragmentLob
     }
 
     override fun startClickedClicked() {
-        replaceFragmentFromRightToLeft(FragmentDescription(), false)
+        replaceFragment(FragmentDescription())
     }
 
     override fun nextClicked() {
-        replaceFragmentFromRightToLeft(FragmentChoosePlayers(), false)
+        replaceFragment(FragmentChoosePlayers())
     }
 
     override fun nextChoosenClicked() {
-        replaceFragmentFromRightToLeft(FragmentTeamSigning(), false)
+        replaceFragment(FragmentTeamSigning())
 
     }
 
@@ -309,11 +309,11 @@ class MainActivity : AppCompatActivity(), FragmentMenu.MenuListener, FragmentLob
     }
 
     override fun onPositiveButtonClicked() {
-            scope.launch {
-                ClosedRepository(application).nukeClosed()
-                PreMatchRepo(application).nukeScore()
-                PrefsHelper.write(PrefsHelper.CLOSED_QUALI_DAY, "1")
-            }
+        scope.launch {
+            ClosedRepository(application).nukeClosed()
+            PreMatchRepo(application).nukeScore()
+            PrefsHelper.write(PrefsHelper.CLOSED_QUALI_DAY, "1")
+        }
         supportFragmentManager.popBackStack()
     }
 }

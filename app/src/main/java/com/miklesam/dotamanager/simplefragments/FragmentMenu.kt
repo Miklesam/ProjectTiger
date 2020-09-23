@@ -45,13 +45,13 @@ class FragmentMenu :Fragment(R.layout.fragment_menu){
             PrefsHelper.write(POSITION_5,"")
             menuListener.newGameClicked()
         }
-        teams.setOnClickListener { menuListener.teamsClicked() }
+        //teams.setOnClickListener { menuListener.teamsClicked() }
 
 
-        multipleer.setOnClickListener {
-            menuListener.multipleerClicked()
-        }
-        achievments.setOnClickListener { menuListener.achievementsClicked() }
+        //multipleer.setOnClickListener {
+        //    menuListener.multipleerClicked()
+       // }
+        //achievments.setOnClickListener { menuListener.achievementsClicked() }
         about.setOnClickListener {
             //showCustomToast("In Progress",Toast.LENGTH_SHORT)
             menuListener.aboutClicked()

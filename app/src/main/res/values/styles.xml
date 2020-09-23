@@ -13,11 +13,11 @@
 
     <style name="ButtonSwitchColor" parent="ThemeOverlay.AppCompat">
         <!-- Customize your theme here. -->
-        <item name="android:textSize">25sp</item>
-        <item name="android:layout_marginTop">8dp</item>
-        <item name="android:layout_marginRight">8dp</item>
-        <item name="android:layout_marginLeft">8dp</item>
-        <item name="android:textColor">@color/textMain</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:layout_marginTop">20dp</item>
+        <item name="android:layout_marginRight">58dp</item>
+        <item name="android:layout_marginLeft">58dp</item>
+        <item name="android:textColor">@color/white</item>
 
     </style>
 
