@@ -122,7 +122,7 @@ class MainActivity : AppCompatActivity(), FragmentMenu.MenuListener, FragmentLob
     }
 
     override fun aboutClicked() {
-
+        replaceFragment(PositionsPager())
     }
 
     override fun multipleerClicked() {

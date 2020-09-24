@@ -177,12 +177,12 @@ class FragmentChoosePlayers : Fragment(R.layout.fragment_choose_players), OnPlay
         //macroControlNum.text = player!!.macrocontrol.toString()
         //creativityNum.text = player!!.creativity.toString()
         //heroPoolNum.text = player!!.heropool.toString()
-       //motivationNum.text = player!!.motivation.toString()
+        //motivationNum.text = player!!.motivation.toString()
         //mediationNum.text = player!!.mediafans.toString()
-      //  laningNum.text = player!!.laining.toString()
-       // fightingNum.text = player!!.fighting.toString()
-      //  tacticNum.text = player!!.tactics.toString()
-      // moralNum.text = player!!.morals.toString()
+        //  laningNum.text = player!!.laining.toString()
+        // fightingNum.text = player!!.fighting.toString()
+        //  tacticNum.text = player!!.tactics.toString()
+        // moralNum.text = player!!.morals.toString()
         val inputStream = context?.contentResolver?.openInputStream(player!!.flag.toUri())
         val drawable = Drawable.createFromStream(inputStream, player!!.flag)
         backFlag.background = drawable
@@ -191,5 +191,11 @@ class FragmentChoosePlayers : Fragment(R.layout.fragment_choose_players), OnPlay
         signature3.setImageResource(Heroes.values()[player!!.signature3].image_pick)
 
 
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        recycler = null
+        adapter = null
     }
 }

@@ -649,6 +649,166 @@ class PlayersList {
                 Heroes.SHADOW_FIEND.id,
                 Heroes.INVOKER.id,
                 Heroes.QOP.id
+            ),
+            Player(
+                CATEGORY_IMAGE_DIR + "russia4020",
+                "Chappie",
+                "Vladimir Kuzmenko",
+                "1",
+                CATEGORY_IMAGE_DIR + "chappie_face",
+                Heroes.PA.id,
+                Heroes.MEEPO.id,
+                Heroes.JUGGERNAUT.id
+            ),
+            Player(
+                CATEGORY_IMAGE_DIR + "russia4020",
+                "Cooman",
+                "Zaur Shakhmurzaev",
+                "1",
+                CATEGORY_IMAGE_DIR + "cooman_face",
+                Heroes.ANTIMAGE.id,
+                Heroes.TROLL_WARLORD.id,
+                Heroes.JUGGERNAUT.id
+            ),
+            Player(
+                CATEGORY_IMAGE_DIR + "ukraine4020",
+                "Crystallize",
+                "Vladyslav Krystanek",
+                "1",
+                CATEGORY_IMAGE_DIR + "cristallyze_face",
+                Heroes.LIFESTEALER.id,
+                Heroes.FACELESS_VOID.id,
+                Heroes.SVEN.id
+            ),
+            Player(
+                CATEGORY_IMAGE_DIR + "russia4020",
+                "Daxak",
+                "Nikita Kuzmin",
+                "1",
+                CATEGORY_IMAGE_DIR + "daxak_face",
+                Heroes.WIVER.id,
+                Heroes.URSA.id,
+                Heroes.MEDUSA.id
+            ),
+            Player(
+                CATEGORY_IMAGE_DIR + "kirgistan4020",
+                "dream",
+                "Kiyalbek Tayirov",
+                "1",
+                CATEGORY_IMAGE_DIR + "dream_face",
+                Heroes.JUGGERNAUT.id,
+                Heroes.TERROBLADE.id,
+                Heroes.MORPHLING.id
+            ),
+            Player(
+                CATEGORY_IMAGE_DIR + "russia4020",
+                "DyrachYO",
+                "Anton Shkredov",
+                "1",
+                CATEGORY_IMAGE_DIR + "durach_yo_face",
+                Heroes.LIFESTEALER.id,
+                Heroes.SLARK.id,
+                Heroes.FACELESS_VOID.id
+            ),
+            Player(
+                CATEGORY_IMAGE_DIR + "russia4020",
+                "epileptick1d",
+                "Egor Grigorenko",
+                "1",
+                CATEGORY_IMAGE_DIR + "epilept1ckid_face",
+                Heroes.PHANTOM_LANCER.id,
+                Heroes.GYROCOPTER.id,
+                Heroes.EMBER.id
+            ),
+            Player(
+                CATEGORY_IMAGE_DIR + "russia4020",
+                "Illidan",
+                "Ilya Pivcaev",
+                "1",
+                CATEGORY_IMAGE_DIR + "illidan_face",
+                Heroes.CHAOS.id,
+                Heroes.SLARK.id,
+                Heroes.MORPHLING.id
+            ),
+            Player(
+                CATEGORY_IMAGE_DIR + "russia4020",
+                "iLTW",
+                "Igor Filatov",
+                "1",
+                CATEGORY_IMAGE_DIR + "iltw_face",
+                Heroes.GYROCOPTER.id,
+                Heroes.JUGGERNAUT.id,
+                Heroes.TERROBLADE.id
+            ),
+            Player(
+                CATEGORY_IMAGE_DIR + "kazahstan4020",
+                "Naive-",
+                "Aybek Tokaev",
+                "1",
+                CATEGORY_IMAGE_DIR + "naive_face",
+                Heroes.JUGGERNAUT.id,
+                Heroes.TERROBLADE.id,
+                Heroes.PA.id
+            ),
+            Player(
+                CATEGORY_IMAGE_DIR + "belarus4020",
+                "Palantimos",
+                "Nikita Grinkevich",
+                "1",
+                CATEGORY_IMAGE_DIR + "palantinos_face",
+                Heroes.LIFESTEALER.id,
+                Heroes.WK.id,
+                Heroes.PHANTOM_LANCER.id
+            ),
+            Player(
+                CATEGORY_IMAGE_DIR + "russia4020",
+                "RAMZES666",
+                "Roman Kushnarev",
+                "1",
+                CATEGORY_IMAGE_DIR + "ramzes_face",
+                Heroes.TIMBERSAW.id,
+                Heroes.OMNIKNIGHT.id,
+                Heroes.BEASTMASTER.id
+            ),
+            Player(
+                CATEGORY_IMAGE_DIR + "russia4020",
+                "Sedoy",
+                "Vadim Musorin",
+                "1",
+                CATEGORY_IMAGE_DIR + "sedoy_face",
+                Heroes.JUGGERNAUT.id,
+                Heroes.WIVER.id,
+                Heroes.SVEN.id
+            ),
+            Player(
+                CATEGORY_IMAGE_DIR + "ukraine4020",
+                "V-Tune",
+                "Alik Vorobey",
+                "1",
+                CATEGORY_IMAGE_DIR + "v_tune_face",
+                Heroes.WK.id,
+                Heroes.SLARK.id,
+                Heroes.ANTIMAGE.id
+            ),
+            Player(
+                CATEGORY_IMAGE_DIR + "ukraine4020",
+                "XBOCT",
+                "Oleksandr Dashkevych",
+                "1",
+                CATEGORY_IMAGE_DIR + "xbost_face",
+                Heroes.LIFESTEALER.id,
+                Heroes.GYROCOPTER.id,
+                Heroes.ANTIMAGE.id
+            ),
+            Player(
+                CATEGORY_IMAGE_DIR + "russia4020",
+                "Zitraks",
+                "Alexey Ischenko",
+                "1",
+                CATEGORY_IMAGE_DIR + "zitraks_face",
+                Heroes.SPECTRE.id,
+                Heroes.TERROBLADE.id,
+                Heroes.SVEN.id
             )
         )
     }
