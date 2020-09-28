@@ -14,23 +14,27 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 
 @Database(entities = [Team::class], version = 2)
-abstract class TeamsDatabase :RoomDatabase(){
+abstract class TeamsDatabase : RoomDatabase() {
     abstract fun noteDao(): TeamsDao
+
     companion object {
         val scope = CoroutineScope(Dispatchers.IO + SupervisorJob())
+
         @Volatile
         private var INSTANCE: TeamsDatabase? = null
-        val MIGRATION_1_2 =
-            Migration1To2()
+
+        //val MIGRATION_1_2 =
+        //    Migration1To2()
         fun getInstance(context: Context): TeamsDatabase =
             INSTANCE
                 ?: synchronized(this) {
-                INSTANCE
-                    ?: buildDatabase(
-                        context
-                    )
-                        .also { INSTANCE = it }
-            }
+                    INSTANCE
+                        ?: buildDatabase(
+                            context
+                        )
+                            .also { INSTANCE = it }
+                }
+
         private fun buildDatabase(context: Context) =
             Room.databaseBuilder(
                 context.applicationContext,
@@ -43,60 +47,44 @@ abstract class TeamsDatabase :RoomDatabase(){
                             Log.w("In Market", "Insert Populate")
                             getInstance(
                                 context
-                            )
-                                .noteDao().insertTeam(TeamsList.Navi)
+                            ).noteDao().insertTeam(TeamsList.FantasticFive)
                             getInstance(
                                 context
-                            )
-                                .noteDao().insertTeam(TeamsList.Gambit)
+                            ).noteDao().insertTeam(TeamsList.FRIENDS)
                             getInstance(
                                 context
-                            )
-                                .noteDao().insertTeam(TeamsList.VP)
+                            ).noteDao().insertTeam(TeamsList.IcCup)
                             getInstance(
                                 context
-                            )
-                                .noteDao().insertTeam(TeamsList.Secret)
+                            ).noteDao().insertTeam(TeamsList.OldButGold)
                             getInstance(
                                 context
-                            )
-                                .noteDao().insertTeam(TeamsList.ViciGaming)
+                            ).noteDao().insertTeam(TeamsList.PowerRangers)
                             getInstance(
                                 context
-                            )
-                                .noteDao().insertTeam(TeamsList.EG)
+                            ).noteDao().insertTeam(TeamsList.RoxKis)
                             getInstance(
                                 context
-                            )
-                                .noteDao().insertTeam(TeamsList.Alliance)
+                            ).noteDao().insertTeam(TeamsList.SFZ)
                             getInstance(
                                 context
-                            )
-                                .noteDao().insertTeam(TeamsList.TNC)
-                            getInstance(
-                                context
-                            )
-                                .noteDao().insertTeam(TeamsList.Liquid)
-                            getInstance(
-                                context
-                            )
-                                .noteDao().insertTeam(TeamsList.Nigma)
+                            ).noteDao().insertTeam(TeamsList.VegaSquadron)
                         }
                     }
                 })
-                .addMigrations(MIGRATION_1_2)
+                //.addMigrations(MIGRATION_1_2)
                 .build()
     }
 
-    class Migration1To2() : Migration(1,2) {
-        override fun migrate(database: SupportSQLiteDatabase) {
-            scope.launch {
-                INSTANCE?.noteDao()?.insertTeam(
-                    TeamsList.Nigma
-                )
-            }
+    //class Migration1To2() : Migration(1,2) {
+    //    override fun migrate(database: SupportSQLiteDatabase) {
+    //        scope.launch {
+    //            INSTANCE?.noteDao()?.insertTeam(
+    //                TeamsList.Nigma
+    //            )
+    //        }
 
-        }
-    }
+    //    }
+    //}
 
 }

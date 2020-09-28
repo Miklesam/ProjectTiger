@@ -5,156 +5,131 @@ import com.miklesam.dotamanager.datamodels.Team
 class TeamsList {
     companion object {
         const val CATEGORY_IMAGE_DIR = "android.resource://com.miklesam.dotamanager/drawable/"
-        val Navi =
-            getNaviStructure()
-        val Gambit =
-            getGambitStructure()
-        val VP =
-            getVPStructure()
-        val Secret=
-            getSecretStructure()
-        val ViciGaming=
-            getViciStructure()
-        val EG=
-            getEGStructure()
-        val Alliance=
-            getAllianceStructure()
-        val TNC=
-            getTNCStructure()
-        val Liquid=
-            getLiquidStructure()
-        val Nigma=
-            getNigmaStructure()
+        val FantasticFive =
+            getFantasticFiveStructure()
+        val FRIENDS =
+            getFriendsStructure()
+        val IcCup =
+            getIcCupStructure()
+        val OldButGold =
+            getOldButGoldStructure()
+        val PowerRangers =
+            getPowerRangersStructure()
+        val RoxKis =
+            getRoxKisStructure()
+        val SFZ =
+            getSFZStructure()
+        val VegaSquadron =
+            getVegaSquadronStructure()
 
+        private fun getFantasticFiveStructure(): Team {
+            return Team(
+                "Fantastic Five",
+                CATEGORY_IMAGE_DIR + "fantastic_five",
+                "Fantastic Five Description",
+                null,
+                null,
+                null,
+                null,
+                null,
+                CATEGORY_IMAGE_DIR + "titrof"
+            )
+        }
 
+        private fun getFriendsStructure(): Team {
+            return Team(
+                "F.R.I.E.N.D.S",
+                CATEGORY_IMAGE_DIR + "friends_logo",
+                "F.R.I.E.N.D.S Description",
+                null,
+                null,
+                null,
+                null,
+                null,
+                CATEGORY_IMAGE_DIR + "titrof"
+            )
+        }
 
-        private fun getNaviStructure(): Team {
+        private fun getIcCupStructure(): Team {
             return Team(
-                "NaVi",
-                CATEGORY_IMAGE_DIR + "navi_logo",
-                "Navi Description",
-                "Crystallize",
-                "MagicaL",
-                "9pasha",
-                "CemaTheSlayer",
-                "illias",
+                "iCCup",
+                CATEGORY_IMAGE_DIR + "ic_cup_logo",
+                "iCCupDescription",
+                null,
+                null,
+                null,
+                null,
+                null,
                 CATEGORY_IMAGE_DIR + "titrof"
             )
         }
-        private fun getGambitStructure(): Team {
+
+        private fun getOldButGoldStructure(): Team {
             return Team(
-                "Gambit",
-                CATEGORY_IMAGE_DIR + "gambit_esports",
-                "Gambit Description",
-                "Dream",
-                "gpk",
-                "Shachlo",
-                "XSvamp1Re",
-                "fng",
+                "Old but Gold",
+                CATEGORY_IMAGE_DIR + "old_but_gold_logo",
+                "Old but Gold Description",
+                null,
+                null,
+                null,
+                null,
+                null,
                 CATEGORY_IMAGE_DIR + "titrof"
             )
         }
-        private fun getVPStructure(): Team {
+
+        private fun getPowerRangersStructure(): Team {
             return Team(
-                "Virtus Pro",
-                CATEGORY_IMAGE_DIR + "vp",
-                "VP Description",
-                "Cooman",
-                "No[o]ne",
-                "Resolut1on",
-                "Zayac",
-                "Solo",
+                "Power Rangers",
+                CATEGORY_IMAGE_DIR + "power_rangers_logo",
+                "Power Rangers Description",
+                null,
+                null,
+                null,
+                null,
+                null,
                 CATEGORY_IMAGE_DIR + "titrof"
             )
         }
-        private fun getSecretStructure(): Team {
+
+        private fun getRoxKisStructure(): Team {
             return Team(
-                "Team Secret",
-                CATEGORY_IMAGE_DIR + "team_secret",
-                "Secret Description",
-                "Matumbaman",
-                "Nisha",
-                "Zai",
-                "Yapzor",
-                "Puppey",
+                "RoX",
+                CATEGORY_IMAGE_DIR + "rox_kis_logo",
+                "RoX Description",
+                null,
+                null,
+                null,
+                null,
+                null,
                 CATEGORY_IMAGE_DIR + "titrof"
             )
         }
-        private fun getViciStructure(): Team {
+
+        private fun getSFZStructure(): Team {
             return Team(
-                "Vici Gaming",
-                CATEGORY_IMAGE_DIR + "vici_gaming",
-                "ViciGaming Description",
-                "Paparazi",
-                "Ori",
-                "Yang",
-                "Pyw",
-                "Dy",
+                "ScaryFaceZ",
+                CATEGORY_IMAGE_DIR + "scary_facez_logo",
+                "ScaryFaceZ Description",
+                null,
+                null,
+                null,
+                null,
+                null,
                 CATEGORY_IMAGE_DIR + "titrof"
             )
         }
-        private fun getEGStructure(): Team {
+
+        private fun getVegaSquadronStructure(): Team {
             return Team(
-                "Evil Geniuses",
-                CATEGORY_IMAGE_DIR + "evil_giniuses",
-                "EG Description",
-                "Arteezy",
-                "Abed",
-                "Ramzes",
-                "Cr1t",
-                "Fly",
-                CATEGORY_IMAGE_DIR + "titrof"
-            )
-        }
-        private fun getAllianceStructure(): Team {
-            return Team(
-                "Alliance",
-                CATEGORY_IMAGE_DIR + "alliance",
-                "Alliance Description",
-                "Nikobaby",
-                "Limp",
-                "33",
-                "Handsken",
-                "Fata",
-                CATEGORY_IMAGE_DIR + "titrof"
-            )
-        }
-        private fun getTNCStructure(): Team {
-            return Team(
-                "TNC",
-                CATEGORY_IMAGE_DIR + "tnc_gaming",
-                "TNC Description",
-                "Gabbi",
-                "Armel",
-                "kpii",
-                "Tims",
-                "March",
-                CATEGORY_IMAGE_DIR + "titrof"
-            )
-        }
-        private fun getLiquidStructure(): Team {
-            return Team(
-                "Liquid",
-                CATEGORY_IMAGE_DIR + "team_liquid",
-                "TNC Description",
-                "miCKe",
-                "qojqva",
-                "Boxi",
-                "Taiga",
-                "iNSaNiA",
-                CATEGORY_IMAGE_DIR + "titrof"
-            )
-        }
-        private fun getNigmaStructure(): Team {
-            return Team(
-                "Nigma",
-                CATEGORY_IMAGE_DIR + "nigma_logo",
-                "Nigma Description",
-                "Miracle-",
-                "w33",
-                "MinD_ContRoL",
-                "GH",
-                "KuroKy",
+                "Vega Squadron",
+                CATEGORY_IMAGE_DIR + "vega_logo",
+                "Vega Squadron Description",
+                null,
+                null,
+                null,
+                null,
+                null,
                 CATEGORY_IMAGE_DIR + "titrof"
             )
         }

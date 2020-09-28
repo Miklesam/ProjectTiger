@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
+import androidx.room.Update
 import com.miklesam.dotamanager.datamodels.Team
 
 @Dao
@@ -24,4 +25,6 @@ interface TeamsDao {
     @Query("SELECT * FROM teams_table WHERE teamName IN(:teamName)")
     fun getTeamsByName(teamName:List<String>): LiveData<List<Team>>
 
+    @Update
+    fun updateTeams(data: List<Team>)
 }

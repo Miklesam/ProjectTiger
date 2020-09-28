@@ -11,24 +11,25 @@ data class Player(
     @ColumnInfo(name = "flag")
     var flag: String,
     @ColumnInfo(name = "nickname")
-    var nickname:String,
+    var nickname: String,
     @ColumnInfo(name = "name")
     var name: String?,
     @ColumnInfo(name = "position")
-    var position:String,
+    var position: String,
     @ColumnInfo(name = "player_photo")
     var photo: String,
     @ColumnInfo(name = "signature_1")
-    var signature1:Int,
+    var signature1: Int,
     @ColumnInfo(name = "signature_2")
-    var signature2:Int,
+    var signature2: Int,
     @ColumnInfo(name = "signature_3")
-    var signature3:Int
+    var signature3: Int,
+    @ColumnInfo(name = "currentTeam")
+    var currentTeam: String?
 
-):Parcelable
-{
+) : Parcelable {
     @PrimaryKey(autoGenerate = true)
-    var id_key:Int=0
+    var id_key: Int = 0
 
     constructor(parcel: Parcel) : this(
         parcel.readString().toString(),
@@ -38,7 +39,8 @@ data class Player(
         parcel.readString().toString(),
         parcel.readInt(),
         parcel.readInt(),
-        parcel.readInt()
+        parcel.readInt(),
+        parcel.readString().toString()
     ) {
         id_key = parcel.readInt()
     }
@@ -52,6 +54,7 @@ data class Player(
         parcel.writeInt(signature1)
         parcel.writeInt(signature2)
         parcel.writeInt(signature3)
+        parcel.writeString(currentTeam)
         parcel.writeInt(id_key)
     }
 

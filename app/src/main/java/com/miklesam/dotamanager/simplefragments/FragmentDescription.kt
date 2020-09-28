@@ -2,13 +2,21 @@ package com.miklesam.dotamanager.simplefragments
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.miklesam.dotamanager.R
+import com.miklesam.dotamanager.adapters.TeamGenerateAdapter
+import com.miklesam.dotamanager.ui.choosePlayers.ChoosenPlayersViewModel
 import kotlinx.android.synthetic.main.fragment_description.*
 
-class FragmentDescription :Fragment(R.layout.fragment_description){
-    @SuppressLint("SetTextI18n")
+class FragmentDescription : Fragment(R.layout.fragment_description) {
+
+    private val descViewModel by viewModels<DescriptionViewModel>()
 
     interface nextListener {
         fun nextClicked()
@@ -16,10 +24,40 @@ class FragmentDescription :Fragment(R.layout.fragment_description){
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val next=activity as nextListener
-        nextBttn.setOnClickListener { next.nextClicked() }
+        val next = activity as nextListener
+        nextBttn.setOnClickListener {
+            descViewModel.writePlayers()
+            next.nextClicked()
+        }
 
-        longText.text="Здесь будет описание игры"
+        recycler_generate.layoutManager = GridLayoutManager(requireContext(), 2)
+        val adapter = TeamGenerateAdapter()
+        recycler_generate.adapter = adapter
+
+
+        descViewModel.getAllPlayers().observe(viewLifecycleOwner, Observer {
+            if (it != null && it.size == 80) {
+                descViewModel.generateTeams()
+            }
+        })
+
+        descViewModel.isGenerating().observe(viewLifecycleOwner, Observer {
+            if (it == true) {
+                pb.visibility = View.VISIBLE
+                nextBttn.visibility = View.GONE
+                recycler_generate.visibility = View.GONE
+            } else {
+                pb.visibility = View.GONE
+                nextBttn.visibility = View.VISIBLE
+                recycler_generate.visibility = View.VISIBLE
+            }
+        })
+
+        descViewModel.getTeams().observe(viewLifecycleOwner, Observer {
+            adapter.setTeams(it)
+        })
+
+
 /*
         longText.text="Деньги можно получать за призовые места на турнирах\n"+
                 "Также деньги можно получить в магазине.\n"+

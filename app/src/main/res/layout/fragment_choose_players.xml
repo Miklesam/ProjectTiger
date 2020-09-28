@@ -377,18 +377,39 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerPlayers"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/forthvertical"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        tools:listitem="@layout/player_item" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/AppTheme.AppBarOverlay"
+            tools:ignore="MissingConstraints">
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tabs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/black" />
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/pager_positions"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="?attr/actionBarSize"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
     <TextView
         android:id="@+id/teamName"
@@ -406,8 +427,8 @@
         android:id="@+id/position1"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
         android:layout_marginTop="5dp"
+        android:gravity="center_horizontal"
         android:text="Position 1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -418,58 +439,53 @@
         android:id="@+id/position2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
         android:layout_marginTop="5dp"
+        android:gravity="center_horizontal"
         android:text="Position 2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@id/forthvertical"
-        app:layout_constraintTop_toBottomOf="@+id/position1"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/position1" />
+
     <TextView
         android:id="@+id/position3"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
         android:layout_marginTop="5dp"
+        android:gravity="center_horizontal"
         android:text="Position 3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@id/forthvertical"
-        app:layout_constraintTop_toBottomOf="@+id/position2"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/position2" />
 
     <TextView
         android:id="@+id/position4"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
         android:layout_marginTop="5dp"
+        android:gravity="center_horizontal"
         android:text="Position 4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@id/forthvertical"
-        app:layout_constraintTop_toBottomOf="@+id/position3"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/position3" />
 
     <TextView
         android:id="@+id/position5"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
         android:layout_marginTop="5dp"
+        android:gravity="center_horizontal"
         android:text="Position 5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@id/forthvertical"
-        app:layout_constraintTop_toBottomOf="@+id/position4"
-        />
-
+        app:layout_constraintTop_toBottomOf="@+id/position4" />
 
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/nextBttn"
-        android:visibility="gone"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
@@ -477,16 +493,17 @@
         android:gravity="center"
         android:text="Next"
         android:theme="@style/ButtonSwitchColor"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@id/forthvertical" />
 
     <LinearLayout
-        android:visibility="gone"
-        android:layout_width="0dp"
         android:id="@+id/bttn_layout"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@id/forthvertical"
         app:layout_constraintStart_toStartOf="@id/halfvertical">

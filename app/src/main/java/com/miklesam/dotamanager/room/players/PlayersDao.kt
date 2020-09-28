@@ -14,7 +14,7 @@ interface PlayersDao {
     fun getAllPlayers(): LiveData<List<Player>>
 
     @Query("SELECT * FROM players_main_table WHERE nickname IN(:nickNameList)")
-    fun getPlayerByNickName(nickNameList:List<String>): LiveData<List<Player>>
+    fun getPlayerByNickName(nickNameList: List<String>): LiveData<List<Player>>
 
     //@Query("UPDATE players_main_table SET microcontrol=:micro WHERE nickname =:nickk")
     //fun updaatePlayerByNickName(micro: Int,nickk:String)
@@ -23,7 +23,10 @@ interface PlayersDao {
     fun deletePlayerByNickName(nickName: String)
 
     @Update
-    fun updatePlayer(player:Player)
+    fun updatePlayer(player: Player)
+
+    @Update
+    fun updateAllPlayers(players: List<Player>)
 
     @Delete
     fun deletePlayer(player: Player)

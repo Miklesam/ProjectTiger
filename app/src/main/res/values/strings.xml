@@ -47,11 +47,11 @@
 
 
 
-    <string name="pos1">1</string>
-    <string name="pos2">2</string>
-    <string name="pos3">3</string>
-    <string name="pos4">4</string>
-    <string name="pos5">5</string>
+    <string name="pos1">position 1</string>
+    <string name="pos2">position 2</string>
+    <string name="pos3">position 3</string>
+    <string name="pos4">position 4</string>
+    <string name="pos5">position 5</string>
 
 
 

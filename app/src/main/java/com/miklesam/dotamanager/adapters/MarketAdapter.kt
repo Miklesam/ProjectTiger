@@ -12,13 +12,13 @@ import java.util.ArrayList
 
 class MarketAdapter(playerListener: OnPlayerListener) : RecyclerView.Adapter<MarketPlayerHolder>() {
 
-    private var players:List<Player> = ArrayList()
-    private val mOnPlayerListener=playerListener
+    private var players: List<Player> = ArrayList()
+    private val mOnPlayerListener = playerListener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MarketPlayerHolder {
         val itemView = LayoutInflater.from(parent.context)
-            .inflate(R.layout.player_item,parent,false);
-        return MarketPlayerHolder(itemView,mOnPlayerListener)
+            .inflate(R.layout.player_item, parent, false);
+        return MarketPlayerHolder(itemView, mOnPlayerListener)
     }
 
     override fun getItemCount(): Int {
@@ -26,11 +26,11 @@ class MarketAdapter(playerListener: OnPlayerListener) : RecyclerView.Adapter<Mar
     }
 
     override fun onBindViewHolder(holder: MarketPlayerHolder, position: Int) {
-        val currentPlayer: Player= players.get(position)
-        holder.nickName.text=currentPlayer.nickname
-        holder.name.text=currentPlayer.name
-        holder.position.text=currentPlayer.position
-        //holder.cost.text=currentPlayer.cost
+        val currentPlayer: Player = players.get(position)
+        holder.nickName.text = currentPlayer.nickname
+        holder.name.text = currentPlayer.name
+        holder.position.text = currentPlayer.position
+        holder.cost.text = "${currentPlayer.currentTeam}"
         Glide.with(holder.itemView.context)
             .load(currentPlayer.flag)
             .into(holder.flag)
@@ -43,15 +43,15 @@ class MarketAdapter(playerListener: OnPlayerListener) : RecyclerView.Adapter<Mar
         ViewCompat.setTransitionName(holder.cost, position.toString() + "_cost")
     }
 
-    fun setPlayers(playersSet:List<Player>){
-        players=playersSet
+    fun setPlayers(playersSet: List<Player>) {
+        players = playersSet
         notifyDataSetChanged()
         //playerOld=players
         //players=playersSet
         //updatelist(playerOld,players)
     }
 
-    private fun updatelist( old:List<Player>,new:List<Player>){
+    private fun updatelist(old: List<Player>, new: List<Player>) {
         val callback = DiffCallback(old, new)
         DiffUtil.calculateDiff(callback).dispatchUpdatesTo(this)
     }

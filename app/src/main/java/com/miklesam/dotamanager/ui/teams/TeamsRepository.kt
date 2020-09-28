@@ -6,24 +6,30 @@ import com.miklesam.dotamanager.datamodels.Team
 import com.miklesam.dotamanager.room.teams.TeamsDao
 import com.miklesam.dotamanager.room.teams.TeamsDatabase
 
-class TeamsRepository(application: Application){
+class TeamsRepository(application: Application) {
     private var teamsDao: TeamsDao
     private var allTeams: LiveData<List<Team>>
+
     init {
         val database: TeamsDatabase = TeamsDatabase.getInstance(application.applicationContext)
         teamsDao = database.noteDao()
         allTeams = teamsDao.getAllTeams()
     }
+
     fun getTeams(): LiveData<List<Team>> {
         return allTeams
     }
 
-    fun getTeamByName(name:String): LiveData<Team> {
+    fun getTeamByName(name: String): LiveData<Team> {
         return teamsDao.getTeamByName(name)
     }
 
-    fun getTeamsByName(teamName:List<String>): LiveData<List<Team>> {
+    fun getTeamsByName(teamName: List<String>): LiveData<List<Team>> {
         return teamsDao.getTeamsByName(teamName)
+    }
+
+    fun updateTeams(teams: List<Team>) {
+        return teamsDao.updateTeams(teams)
     }
 
 }

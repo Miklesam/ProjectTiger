@@ -20,14 +20,12 @@ import com.miklesam.dotamanager.ui.closedquali.ClosedQuali
 import com.miklesam.dotamanager.ui.closedquali.ClosedRepository
 import com.miklesam.dotamanager.ui.game.FragmentGame
 import com.miklesam.dotamanager.ui.market.FragmentMarket
-import com.miklesam.dotamanager.ui.minorquali.MinorQuali
 import com.miklesam.dotamanager.ui.minortournament.Minor
 import com.miklesam.dotamanager.ui.pickstage.PickStage
 import com.miklesam.dotamanager.ui.plainingstage.PlainingStage
 import com.miklesam.dotamanager.ui.practice.FragmentPractice
 import com.miklesam.dotamanager.ui.prematch.PreMatch
 import com.miklesam.dotamanager.ui.prematch.PreMatchRepo
-import com.miklesam.dotamanager.ui.team.FragmentTeam
 import com.miklesam.dotamanager.ui.teams.FragmentTeams
 import com.miklesam.dotamanager.ui.teamsprofile.FragmentTeamsProfile
 import com.miklesam.dotamanager.utils.*
@@ -122,7 +120,7 @@ class MainActivity : AppCompatActivity(), FragmentMenu.MenuListener, FragmentLob
     }
 
     override fun aboutClicked() {
-        replaceFragment(PositionsPager())
+
     }
 
     override fun multipleerClicked() {

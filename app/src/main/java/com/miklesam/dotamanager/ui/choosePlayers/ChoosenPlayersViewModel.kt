@@ -3,6 +3,7 @@ package com.miklesam.dotamanager.ui.choosePlayers
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.miklesam.dotamanager.datamodels.Player
 import com.miklesam.dotamanager.ui.market.MarketRepository
 
@@ -12,4 +13,7 @@ class ChoosenPlayersViewModel(application: Application) :AndroidViewModel(applic
     fun getPlayers(): LiveData<List<Player>> {
         return repository.getPlayers()
     }
+
+
+
 }

@@ -17,7 +17,8 @@ class PlayersList {
                 CATEGORY_IMAGE_DIR + "solo_face",
                 Heroes.DISRUPTOR.id,
                 Heroes.BANE.id,
-                Heroes.SHADOW_DEMON.id
+                Heroes.SHADOW_DEMON.id,
+                null
             ),
             Player(
                 CATEGORY_IMAGE_DIR + "ukraine4020",
@@ -27,7 +28,8 @@ class PlayersList {
                 CATEGORY_IMAGE_DIR + "alwayswannafly_face",
                 Heroes.AA.id,
                 Heroes.BANE.id,
-                Heroes.DAZZLE.id
+                Heroes.DAZZLE.id,
+                null
             ),
             Player(
                 CATEGORY_IMAGE_DIR + "kazahstan4020",
@@ -37,7 +39,8 @@ class PlayersList {
                 CATEGORY_IMAGE_DIR + "blackarxangel_face",
                 Heroes.LICH.id,
                 Heroes.BANE.id,
-                Heroes.WITCH_DOCTOR.id
+                Heroes.WITCH_DOCTOR.id,
+                null
             ),
             Player(
                 CATEGORY_IMAGE_DIR + "russia4020",
@@ -47,7 +50,8 @@ class PlayersList {
                 CATEGORY_IMAGE_DIR + "eine_face",
                 Heroes.EARTH_SHAKER.id,
                 Heroes.DISRUPTOR.id,
-                Heroes.UNDYING.id
+                Heroes.UNDYING.id,
+                null
             ),
             Player(
                 CATEGORY_IMAGE_DIR + "belarus4020",
@@ -57,7 +61,8 @@ class PlayersList {
                 CATEGORY_IMAGE_DIR + "fng_face",
                 Heroes.BANE.id,
                 Heroes.VENGEFUL.id,
-                Heroes.TREANT.id
+                Heroes.TREANT.id,
+                null
             ),
             Player(
                 CATEGORY_IMAGE_DIR + "ukraine4020",
@@ -67,7 +72,8 @@ class PlayersList {
                 CATEGORY_IMAGE_DIR + "goblak_face",
                 Heroes.CHEN.id,
                 Heroes.TREANT.id,
-                Heroes.BANE.id
+                Heroes.BANE.id,
+                null
             ),
             Player(
                 CATEGORY_IMAGE_DIR + "russia4020",
@@ -77,7 +83,8 @@ class PlayersList {
                 CATEGORY_IMAGE_DIR + "illias_face",
                 Heroes.CM.id,
                 Heroes.UNDYING.id,
-                Heroes.AA.id
+                Heroes.AA.id,
+                null
             ),
             Player(
                 CATEGORY_IMAGE_DIR + "russia4020",
@@ -87,7 +94,8 @@ class PlayersList {
                 CATEGORY_IMAGE_DIR + "miposhka_faces",
                 Heroes.DOOM.id,
                 Heroes.MIRANA.id,
-                Heroes.OGREMAGI.id
+                Heroes.OGREMAGI.id,
+                null
             ),
             Player(
                 CATEGORY_IMAGE_DIR + "russia4020",
@@ -97,7 +105,8 @@ class PlayersList {
                 CATEGORY_IMAGE_DIR + "misha_face",
                 Heroes.BANE.id,
                 Heroes.CHEN.id,
-                Heroes.ORACLE.id
+                Heroes.ORACLE.id,
+                null
             ),
             Player(
                 CATEGORY_IMAGE_DIR + "russia4020",
@@ -107,7 +116,8 @@ class PlayersList {
                 CATEGORY_IMAGE_DIR + "nofear_face",
                 Heroes.EARTH_SHAKER.id,
                 Heroes.DAZZLE.id,
-                Heroes.CHEN.id
+                Heroes.CHEN.id,
+                null
             ),
             Player(
                 CATEGORY_IMAGE_DIR + "russia4020",
@@ -117,7 +127,8 @@ class PlayersList {
                 CATEGORY_IMAGE_DIR + "ns_face",
                 Heroes.DISRUPTOR.id,
                 Heroes.SHADOW_DEMON.id,
-                Heroes.BANE.id
+                Heroes.BANE.id,
+                null
             ),
             Player(
                 CATEGORY_IMAGE_DIR + "russia4020",
@@ -127,7 +138,8 @@ class PlayersList {
                 CATEGORY_IMAGE_DIR + "pgg_face",
                 Heroes.ENIGMA.id,
                 Heroes.VENGEFUL.id,
-                Heroes.TUSK.id
+                Heroes.TUSK.id,
+                null
             ),
             Player(
                 CATEGORY_IMAGE_DIR + "russia4020",
@@ -137,7 +149,8 @@ class PlayersList {
                 CATEGORY_IMAGE_DIR + "sonneiko_face",
                 Heroes.IO.id,
                 Heroes.WYNTER_WYWERN.id,
-                Heroes.ORACLE.id
+                Heroes.ORACLE.id,
+                null
             ),
             Player(
                 CATEGORY_IMAGE_DIR + "russia4020",
@@ -147,7 +160,8 @@ class PlayersList {
                 CATEGORY_IMAGE_DIR + "sqreen_face",
                 Heroes.TUSK.id,
                 Heroes.NS.id,
-                Heroes.SPIRIT_BREAKER.id
+                Heroes.SPIRIT_BREAKER.id,
+                null
             ),
             Player(
                 CATEGORY_IMAGE_DIR + "russia4020",
@@ -157,7 +171,8 @@ class PlayersList {
                 CATEGORY_IMAGE_DIR + "vanscor_face",
                 Heroes.RUBICK.id,
                 Heroes.IO.id,
-                Heroes.SHADOW_DEMON.id
+                Heroes.SHADOW_DEMON.id,
+                null
             ),
             Player(
                 CATEGORY_IMAGE_DIR + "russia4020",
@@ -167,7 +182,8 @@ class PlayersList {
                 CATEGORY_IMAGE_DIR + "yol_face",
                 Heroes.DAZZLE.id,
                 Heroes.BANE.id,
-                Heroes.SHADOW_DEMON.id
+                Heroes.SHADOW_DEMON.id,
+                null
             )
             ,
             Player(
@@ -178,7 +194,8 @@ class PlayersList {
                 CATEGORY_IMAGE_DIR + "zayc_face",
                 Heroes.EARTH_SPIRIT.id,
                 Heroes.TREANT.id,
-                Heroes.NYX.id
+                Heroes.NYX.id,
+                null
             ),
             Player(
                 CATEGORY_IMAGE_DIR + "kazahstan4020",
@@ -188,7 +205,8 @@ class PlayersList {
                 CATEGORY_IMAGE_DIR + "xsvampire_face",
                 Heroes.TUSK.id,
                 Heroes.EARTH_SPIRIT.id,
-                Heroes.EARTH_SHAKER.id
+                Heroes.EARTH_SHAKER.id,
+                null
             ),
             Player(
                 CATEGORY_IMAGE_DIR + "russia4020",
@@ -198,7 +216,8 @@ class PlayersList {
                 CATEGORY_IMAGE_DIR + "velheor_face",
                 Heroes.TUSK.id,
                 Heroes.RUBICK.id,
-                Heroes.ELDER_TITAN.id
+                Heroes.ELDER_TITAN.id,
+                null
             ),
             Player(
                 CATEGORY_IMAGE_DIR + "belarus4020",
@@ -208,7 +227,8 @@ class PlayersList {
                 CATEGORY_IMAGE_DIR + "so_bad_face",
                 Heroes.DARK_WILLOW.id,
                 Heroes.RUBICK.id,
-                Heroes.SKY_MAG.id
+                Heroes.SKY_MAG.id,
+                null
             ),
             Player(
                 CATEGORY_IMAGE_DIR + "ukraine4020",
@@ -218,7 +238,8 @@ class PlayersList {
                 CATEGORY_IMAGE_DIR + "shadowehhh_face",
                 Heroes.DISRUPTOR.id,
                 Heroes.UNDYING.id,
-                Heroes.ABADON.id
+                Heroes.ABADON.id,
+                null
             ),
             Player(
                 CATEGORY_IMAGE_DIR + "russia4020",
@@ -228,7 +249,8 @@ class PlayersList {
                 CATEGORY_IMAGE_DIR + "sayuw_face",
                 Heroes.TUSK.id,
                 Heroes.WINDRANGER.id,
-                Heroes.EARTH_SPIRIT.id
+                Heroes.EARTH_SPIRIT.id,
+                null
             ),
             Player(
                 CATEGORY_IMAGE_DIR + "russia4020",
@@ -238,7 +260,8 @@ class PlayersList {
                 CATEGORY_IMAGE_DIR + "save_face",
                 Heroes.TINY.id,
                 Heroes.RUBICK.id,
-                Heroes.SHADOW_DEMON.id
+                Heroes.SHADOW_DEMON.id,
+                null
             ),
             Player(
                 CATEGORY_IMAGE_DIR + "russia4020",
@@ -248,7 +271,8 @@ class PlayersList {
                 CATEGORY_IMAGE_DIR + "rofjer_face",
                 Heroes.CHEN.id,
                 Heroes.SAND_KING.id,
-                Heroes.EARTH_SPIRIT.id
+                Heroes.EARTH_SPIRIT.id,
+                null
             ),
             Player(
                 CATEGORY_IMAGE_DIR + "ukraine4020",
@@ -258,7 +282,8 @@ class PlayersList {
                 CATEGORY_IMAGE_DIR + "lil_face",
                 Heroes.VISAGE.id,
                 Heroes.SKY_MAG.id,
-                Heroes.RUBICK.id
+                Heroes.RUBICK.id,
+                null
             ),
             Player(
                 CATEGORY_IMAGE_DIR + "russia4020",
@@ -268,7 +293,8 @@ class PlayersList {
                 CATEGORY_IMAGE_DIR + "kingr_face",
                 Heroes.RUBICK.id,
                 Heroes.DISRUPTOR.id,
-                Heroes.VENGEFUL.id
+                Heroes.VENGEFUL.id,
+                null
             ),
             Player(
                 CATEGORY_IMAGE_DIR + "russia4020",
@@ -278,7 +304,8 @@ class PlayersList {
                 CATEGORY_IMAGE_DIR + "immersion_face",
                 Heroes.EARTH_SPIRIT.id,
                 Heroes.NYX.id,
-                Heroes.TUSK.id
+                Heroes.TUSK.id,
+                null
             ),
             Player(
                 CATEGORY_IMAGE_DIR + "russia4020",
@@ -288,7 +315,8 @@ class PlayersList {
                 CATEGORY_IMAGE_DIR + "chu_face",
                 Heroes.EARTH_SPIRIT.id,
                 Heroes.ELDER_TITAN.id,
-                Heroes.RUBICK.id
+                Heroes.RUBICK.id,
+                null
             ),
             Player(
                 CATEGORY_IMAGE_DIR + "ukraine4020",
@@ -298,7 +326,8 @@ class PlayersList {
                 CATEGORY_IMAGE_DIR + "cema_face",
                 Heroes.DISRUPTOR.id,
                 Heroes.RUBICK.id,
-                Heroes.DAZZLE.id
+                Heroes.DAZZLE.id,
+                null
             ),
             Player(
                 CATEGORY_IMAGE_DIR + "ukraine4020",
@@ -308,7 +337,8 @@ class PlayersList {
                 CATEGORY_IMAGE_DIR + "bignum_face",
                 Heroes.NYX.id,
                 Heroes.RUBICK.id,
-                Heroes.TUSK.id
+                Heroes.TUSK.id,
+                null
             ),
             Player(
                 CATEGORY_IMAGE_DIR + "belarus4020",
@@ -318,7 +348,8 @@ class PlayersList {
                 CATEGORY_IMAGE_DIR + "astral_face",
                 Heroes.DISRUPTOR.id,
                 Heroes.EARTH_SPIRIT.id,
-                Heroes.SHADOW_DEMON.id
+                Heroes.SHADOW_DEMON.id,
+                null
             ),
             Player(
                 CATEGORY_IMAGE_DIR + "ukraine4020",
@@ -328,7 +359,8 @@ class PlayersList {
                 CATEGORY_IMAGE_DIR + "alohadance_face",
                 Heroes.RUBICK.id,
                 Heroes.IO.id,
-                Heroes.TUSK.id
+                Heroes.TUSK.id,
+                null
             ),
             Player(
                 CATEGORY_IMAGE_DIR + "russia4020",
@@ -338,7 +370,8 @@ class PlayersList {
                 CATEGORY_IMAGE_DIR + "afterlife_face",
                 Heroes.DARKSEER.id,
                 Heroes.LC.id,
-                Heroes.BATHRIDER.id
+                Heroes.BATHRIDER.id,
+                null
             ),
             Player(
                 CATEGORY_IMAGE_DIR + "belarus4020",
@@ -348,7 +381,8 @@ class PlayersList {
                 CATEGORY_IMAGE_DIR + "stalcat_face",
                 Heroes.DARKSEER.id,
                 Heroes.LC.id,
-                Heroes.BATHRIDER.id
+                Heroes.BATHRIDER.id,
+                null
             ),
             Player(
                 CATEGORY_IMAGE_DIR + "kazahstan4020",
@@ -358,7 +392,8 @@ class PlayersList {
                 CATEGORY_IMAGE_DIR + "blizzu_face",
                 Heroes.BATHRIDER.id,
                 Heroes.CENTAUR.id,
-                Heroes.MAGNUS.id
+                Heroes.MAGNUS.id,
+                null
             ),
             Player(
                 CATEGORY_IMAGE_DIR + "russia4020",
@@ -368,7 +403,8 @@ class PlayersList {
                 CATEGORY_IMAGE_DIR + "bzz_face",
                 Heroes.GYROCOPTER.id,
                 Heroes.MIRANA.id,
-                Heroes.PUCK.id
+                Heroes.PUCK.id,
+                null
             ),
             Player(
                 CATEGORY_IMAGE_DIR + "belarus4020",
@@ -378,7 +414,8 @@ class PlayersList {
                 CATEGORY_IMAGE_DIR + "chrst_face",
                 Heroes.BATHRIDER.id,
                 Heroes.NATURES_PROPHET.id,
-                Heroes.DARKSEER.id
+                Heroes.DARKSEER.id,
+                null
             ),
             Player(
                 CATEGORY_IMAGE_DIR + "ukraine4020",
@@ -388,7 +425,8 @@ class PlayersList {
                 CATEGORY_IMAGE_DIR + "dkphobos_face",
                 Heroes.PUCK.id,
                 Heroes.DARKSEER.id,
-                Heroes.BREWMASTER.id
+                Heroes.BREWMASTER.id,
+                null
             ),
             Player(
                 CATEGORY_IMAGE_DIR + "russia4020",
@@ -398,7 +436,8 @@ class PlayersList {
                 CATEGORY_IMAGE_DIR + "dm_face",
                 Heroes.SAND_KING.id,
                 Heroes.CENTAUR.id,
-                Heroes.AXE.id
+                Heroes.AXE.id,
+                null
             ),
             Player(
                 CATEGORY_IMAGE_DIR + "ukraine4020",
@@ -408,7 +447,8 @@ class PlayersList {
                 CATEGORY_IMAGE_DIR + "funnik_face",
                 Heroes.BATHRIDER.id,
                 Heroes.DARKSEER.id,
-                Heroes.CLINKZ.id
+                Heroes.CLINKZ.id,
+                null
             ),
             Player(
                 CATEGORY_IMAGE_DIR + "ukraine4020",
@@ -418,7 +458,8 @@ class PlayersList {
                 CATEGORY_IMAGE_DIR + "general_face",
                 Heroes.BATHRIDER.id,
                 Heroes.BEASTMASTER.id,
-                Heroes.CLOCKWERK.id
+                Heroes.CLOCKWERK.id,
+                null
             ),
             Player(
                 CATEGORY_IMAGE_DIR + "ukraine4020",
@@ -428,7 +469,8 @@ class PlayersList {
                 CATEGORY_IMAGE_DIR + "ghostik_face",
                 Heroes.BROODMOTHER.id,
                 Heroes.LC.id,
-                Heroes.BATHRIDER.id
+                Heroes.BATHRIDER.id,
+                null
             ),
             Player(
                 CATEGORY_IMAGE_DIR + "belarus4020",
@@ -438,7 +480,8 @@ class PlayersList {
                 CATEGORY_IMAGE_DIR + "lasthero_face",
                 Heroes.CENTAUR.id,
                 Heroes.BEASTMASTER.id,
-                Heroes.AXE.id
+                Heroes.AXE.id,
+                null
             ),
             Player(
                 CATEGORY_IMAGE_DIR + "ukraine4020",
@@ -448,7 +491,8 @@ class PlayersList {
                 CATEGORY_IMAGE_DIR + "mag_face",
                 Heroes.CLOCKWERK.id,
                 Heroes.BROODMOTHER.id,
-                Heroes.CENTAUR.id
+                Heroes.CENTAUR.id,
+                null
             ),
             Player(
                 CATEGORY_IMAGE_DIR + "russia4020",
@@ -458,7 +502,8 @@ class PlayersList {
                 CATEGORY_IMAGE_DIR + "pasha_face",
                 Heroes.DARKSEER.id,
                 Heroes.MAGNUS.id,
-                Heroes.CENTAUR.id
+                Heroes.CENTAUR.id,
+                null
             ),
             Player(
                 CATEGORY_IMAGE_DIR + "ukraine4020",
@@ -468,7 +513,8 @@ class PlayersList {
                 CATEGORY_IMAGE_DIR + "resolution_face",
                 Heroes.BEASTMASTER.id,
                 Heroes.PUCK.id,
-                Heroes.CENTAUR.id
+                Heroes.CENTAUR.id,
+                null
             ),
             Player(
                 CATEGORY_IMAGE_DIR + "russia4020",
@@ -478,7 +524,8 @@ class PlayersList {
                 CATEGORY_IMAGE_DIR + "shachlo_face",
                 Heroes.BATHRIDER.id,
                 Heroes.AXE.id,
-                Heroes.LONE_DRUID.id
+                Heroes.LONE_DRUID.id,
+                null
             ),
             Player(
                 CATEGORY_IMAGE_DIR + "russia4020",
@@ -488,7 +535,8 @@ class PlayersList {
                 CATEGORY_IMAGE_DIR + "xakoh_face",
                 Heroes.CLOCKWERK.id,
                 Heroes.BATHRIDER.id,
-                Heroes.SLARDAR.id
+                Heroes.SLARDAR.id,
+                null
             ),
             Player(
                 CATEGORY_IMAGE_DIR + "russia4020",
@@ -498,7 +546,8 @@ class PlayersList {
                 CATEGORY_IMAGE_DIR + "afoninje_face",
                 Heroes.SHADOW_FIEND.id,
                 Heroes.PUCK.id,
-                Heroes.DEATH_PROPHET.id
+                Heroes.DEATH_PROPHET.id,
+                null
             ),
             Player(
                 CATEGORY_IMAGE_DIR + "ukraine4020",
@@ -508,7 +557,8 @@ class PlayersList {
                 CATEGORY_IMAGE_DIR + "dendi_face",
                 Heroes.PUDGE.id,
                 Heroes.MAGNUS.id,
-                Heroes.INVOKER.id
+                Heroes.INVOKER.id,
+                null
             ),
             Player(
                 CATEGORY_IMAGE_DIR + "belarus4020",
@@ -518,7 +568,8 @@ class PlayersList {
                 CATEGORY_IMAGE_DIR + "ergon_face",
                 Heroes.LONE_DRUID.id,
                 Heroes.OD.id,
-                Heroes.INVOKER.id
+                Heroes.INVOKER.id,
+                null
             ),
             Player(
                 CATEGORY_IMAGE_DIR + "ukraine4020",
@@ -528,7 +579,8 @@ class PlayersList {
                 CATEGORY_IMAGE_DIR + "fn_face",
                 Heroes.SHADOW_FIEND.id,
                 Heroes.STORM_SPIRIT.id,
-                Heroes.JUGGERNAUT.id
+                Heroes.JUGGERNAUT.id,
+                null
             ),
             Player(
                 CATEGORY_IMAGE_DIR + "russia4020",
@@ -538,7 +590,8 @@ class PlayersList {
                 CATEGORY_IMAGE_DIR + "god_face",
                 Heroes.QOP.id,
                 Heroes.SHADOW_FIEND.id,
-                Heroes.OD.id
+                Heroes.OD.id,
+                null
             ),
             Player(
                 CATEGORY_IMAGE_DIR + "russia4020",
@@ -548,7 +601,8 @@ class PlayersList {
                 CATEGORY_IMAGE_DIR + "gpk_face",
                 Heroes.EMBER.id,
                 Heroes.SHADOW_FIEND.id,
-                Heroes.TEMPLAR_ASSASIN.id
+                Heroes.TEMPLAR_ASSASIN.id,
+                null
             ),
             Player(
                 CATEGORY_IMAGE_DIR + "ukraine4020",
@@ -558,7 +612,8 @@ class PlayersList {
                 CATEGORY_IMAGE_DIR + "iceberg_face",
                 Heroes.INVOKER.id,
                 Heroes.ZEUS.id,
-                Heroes.TINY.id
+                Heroes.TINY.id,
+                null
             ),
             Player(
                 CATEGORY_IMAGE_DIR + "ukraine4020",
@@ -568,7 +623,8 @@ class PlayersList {
                 CATEGORY_IMAGE_DIR + "magical_face",
                 Heroes.TEMPLAR_ASSASIN.id,
                 Heroes.RAZOR.id,
-                Heroes.TINKER.id
+                Heroes.TINKER.id,
+                null
             ),
             Player(
                 CATEGORY_IMAGE_DIR + "ukraine4020",
@@ -578,7 +634,8 @@ class PlayersList {
                 CATEGORY_IMAGE_DIR + "mellojul_face",
                 Heroes.MONKEY_KING.id,
                 Heroes.EMBER.id,
-                Heroes.LINA.id
+                Heroes.LINA.id,
+                null
             ),
             Player(
                 CATEGORY_IMAGE_DIR + "russia4020",
@@ -588,7 +645,8 @@ class PlayersList {
                 CATEGORY_IMAGE_DIR + "nix_face",
                 Heroes.ANTIMAGE.id,
                 Heroes.JUGGERNAUT.id,
-                Heroes.GYROCOPTER.id
+                Heroes.GYROCOPTER.id,
+                null
             ),
             Player(
                 CATEGORY_IMAGE_DIR + "ukraine4020",
@@ -598,7 +656,8 @@ class PlayersList {
                 CATEGORY_IMAGE_DIR + "noone_face",
                 Heroes.DK.id,
                 Heroes.INVOKER.id,
-                Heroes.STORM_SPIRIT.id
+                Heroes.STORM_SPIRIT.id,
+                null
             ),
             Player(
                 CATEGORY_IMAGE_DIR + "ukraine4020",
@@ -608,7 +667,8 @@ class PlayersList {
                 CATEGORY_IMAGE_DIR + "pickachu_face",
                 Heroes.INVOKER.id,
                 Heroes.OD.id,
-                Heroes.DEATH_PROPHET.id
+                Heroes.DEATH_PROPHET.id,
+                null
             ),
             Player(
                 CATEGORY_IMAGE_DIR + "belarus4020",
@@ -618,7 +678,8 @@ class PlayersList {
                 CATEGORY_IMAGE_DIR + "sunlight_face",
                 Heroes.STORM_SPIRIT.id,
                 Heroes.QOP.id,
-                Heroes.ZEUS.id
+                Heroes.ZEUS.id,
+                null
             ),
             Player(
                 CATEGORY_IMAGE_DIR + "russia4020",
@@ -628,7 +689,8 @@ class PlayersList {
                 CATEGORY_IMAGE_DIR + "undershock_face",
                 Heroes.PUCK.id,
                 Heroes.STORM_SPIRIT.id,
-                Heroes.LINA.id
+                Heroes.LINA.id,
+                null
             ),
             Player(
                 CATEGORY_IMAGE_DIR + "russia4020",
@@ -638,7 +700,8 @@ class PlayersList {
                 CATEGORY_IMAGE_DIR + "xannii_face",
                 Heroes.ALCHEMIC.id,
                 Heroes.EMBER.id,
-                Heroes.TEMPLAR_ASSASIN.id
+                Heroes.TEMPLAR_ASSASIN.id,
+                null
             ),
             Player(
                 CATEGORY_IMAGE_DIR + "belarus4020",
@@ -648,7 +711,8 @@ class PlayersList {
                 CATEGORY_IMAGE_DIR + "young_g_face",
                 Heroes.SHADOW_FIEND.id,
                 Heroes.INVOKER.id,
-                Heroes.QOP.id
+                Heroes.QOP.id,
+                null
             ),
             Player(
                 CATEGORY_IMAGE_DIR + "russia4020",
@@ -658,7 +722,8 @@ class PlayersList {
                 CATEGORY_IMAGE_DIR + "chappie_face",
                 Heroes.PA.id,
                 Heroes.MEEPO.id,
-                Heroes.JUGGERNAUT.id
+                Heroes.JUGGERNAUT.id,
+                null
             ),
             Player(
                 CATEGORY_IMAGE_DIR + "russia4020",
@@ -668,7 +733,8 @@ class PlayersList {
                 CATEGORY_IMAGE_DIR + "cooman_face",
                 Heroes.ANTIMAGE.id,
                 Heroes.TROLL_WARLORD.id,
-                Heroes.JUGGERNAUT.id
+                Heroes.JUGGERNAUT.id,
+                null
             ),
             Player(
                 CATEGORY_IMAGE_DIR + "ukraine4020",
@@ -678,7 +744,8 @@ class PlayersList {
                 CATEGORY_IMAGE_DIR + "cristallyze_face",
                 Heroes.LIFESTEALER.id,
                 Heroes.FACELESS_VOID.id,
-                Heroes.SVEN.id
+                Heroes.SVEN.id,
+                null
             ),
             Player(
                 CATEGORY_IMAGE_DIR + "russia4020",
@@ -688,7 +755,8 @@ class PlayersList {
                 CATEGORY_IMAGE_DIR + "daxak_face",
                 Heroes.WIVER.id,
                 Heroes.URSA.id,
-                Heroes.MEDUSA.id
+                Heroes.MEDUSA.id,
+                null
             ),
             Player(
                 CATEGORY_IMAGE_DIR + "kirgistan4020",
@@ -698,7 +766,8 @@ class PlayersList {
                 CATEGORY_IMAGE_DIR + "dream_face",
                 Heroes.JUGGERNAUT.id,
                 Heroes.TERROBLADE.id,
-                Heroes.MORPHLING.id
+                Heroes.MORPHLING.id,
+                null
             ),
             Player(
                 CATEGORY_IMAGE_DIR + "russia4020",
@@ -708,7 +777,8 @@ class PlayersList {
                 CATEGORY_IMAGE_DIR + "durach_yo_face",
                 Heroes.LIFESTEALER.id,
                 Heroes.SLARK.id,
-                Heroes.FACELESS_VOID.id
+                Heroes.FACELESS_VOID.id,
+                null
             ),
             Player(
                 CATEGORY_IMAGE_DIR + "russia4020",
@@ -718,7 +788,8 @@ class PlayersList {
                 CATEGORY_IMAGE_DIR + "epilept1ckid_face",
                 Heroes.PHANTOM_LANCER.id,
                 Heroes.GYROCOPTER.id,
-                Heroes.EMBER.id
+                Heroes.EMBER.id,
+                null
             ),
             Player(
                 CATEGORY_IMAGE_DIR + "russia4020",
@@ -728,7 +799,8 @@ class PlayersList {
                 CATEGORY_IMAGE_DIR + "illidan_face",
                 Heroes.CHAOS.id,
                 Heroes.SLARK.id,
-                Heroes.MORPHLING.id
+                Heroes.MORPHLING.id,
+                null
             ),
             Player(
                 CATEGORY_IMAGE_DIR + "russia4020",
@@ -738,7 +810,8 @@ class PlayersList {
                 CATEGORY_IMAGE_DIR + "iltw_face",
                 Heroes.GYROCOPTER.id,
                 Heroes.JUGGERNAUT.id,
-                Heroes.TERROBLADE.id
+                Heroes.TERROBLADE.id,
+                null
             ),
             Player(
                 CATEGORY_IMAGE_DIR + "kazahstan4020",
@@ -748,7 +821,8 @@ class PlayersList {
                 CATEGORY_IMAGE_DIR + "naive_face",
                 Heroes.JUGGERNAUT.id,
                 Heroes.TERROBLADE.id,
-                Heroes.PA.id
+                Heroes.PA.id,
+                null
             ),
             Player(
                 CATEGORY_IMAGE_DIR + "belarus4020",
@@ -758,7 +832,8 @@ class PlayersList {
                 CATEGORY_IMAGE_DIR + "palantinos_face",
                 Heroes.LIFESTEALER.id,
                 Heroes.WK.id,
-                Heroes.PHANTOM_LANCER.id
+                Heroes.PHANTOM_LANCER.id,
+                null
             ),
             Player(
                 CATEGORY_IMAGE_DIR + "russia4020",
@@ -768,7 +843,8 @@ class PlayersList {
                 CATEGORY_IMAGE_DIR + "ramzes_face",
                 Heroes.TIMBERSAW.id,
                 Heroes.OMNIKNIGHT.id,
-                Heroes.BEASTMASTER.id
+                Heroes.BEASTMASTER.id,
+                null
             ),
             Player(
                 CATEGORY_IMAGE_DIR + "russia4020",
@@ -778,7 +854,8 @@ class PlayersList {
                 CATEGORY_IMAGE_DIR + "sedoy_face",
                 Heroes.JUGGERNAUT.id,
                 Heroes.WIVER.id,
-                Heroes.SVEN.id
+                Heroes.SVEN.id,
+                null
             ),
             Player(
                 CATEGORY_IMAGE_DIR + "ukraine4020",
@@ -788,7 +865,8 @@ class PlayersList {
                 CATEGORY_IMAGE_DIR + "v_tune_face",
                 Heroes.WK.id,
                 Heroes.SLARK.id,
-                Heroes.ANTIMAGE.id
+                Heroes.ANTIMAGE.id,
+                null
             ),
             Player(
                 CATEGORY_IMAGE_DIR + "ukraine4020",
@@ -798,7 +876,8 @@ class PlayersList {
                 CATEGORY_IMAGE_DIR + "xbost_face",
                 Heroes.LIFESTEALER.id,
                 Heroes.GYROCOPTER.id,
-                Heroes.ANTIMAGE.id
+                Heroes.ANTIMAGE.id,
+                null
             ),
             Player(
                 CATEGORY_IMAGE_DIR + "russia4020",
@@ -808,7 +887,8 @@ class PlayersList {
                 CATEGORY_IMAGE_DIR + "zitraks_face",
                 Heroes.SPECTRE.id,
                 Heroes.TERROBLADE.id,
-                Heroes.SVEN.id
+                Heroes.SVEN.id,
+                null
             )
         )
     }
