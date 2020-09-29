@@ -14,6 +14,4 @@ class ChoosenPlayersViewModel(application: Application) :AndroidViewModel(applic
         return repository.getPlayers()
     }
 
-
-
 }

@@ -2,6 +2,7 @@ package com.miklesam.dotamanager.room.players
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
+import androidx.sqlite.db.SupportSQLiteQuery
 import com.miklesam.dotamanager.datamodels.Player
 
 @Dao
@@ -30,5 +31,8 @@ interface PlayersDao {
 
     @Delete
     fun deletePlayer(player: Player)
+
+    @RawQuery
+    fun dropTable(query: SupportSQLiteQuery):Int
 
 }

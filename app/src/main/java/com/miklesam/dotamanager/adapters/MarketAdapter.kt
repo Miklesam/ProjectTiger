@@ -12,8 +12,8 @@ import java.util.ArrayList
 
 class MarketAdapter(playerListener: OnPlayerListener) : RecyclerView.Adapter<MarketPlayerHolder>() {
 
-    private var players: List<Player> = ArrayList()
-    private val mOnPlayerListener = playerListener
+    private var players: List<Player>? = ArrayList()
+    private var mOnPlayerListener = playerListener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MarketPlayerHolder {
         val itemView = LayoutInflater.from(parent.context)
@@ -22,15 +22,22 @@ class MarketAdapter(playerListener: OnPlayerListener) : RecyclerView.Adapter<Mar
     }
 
     override fun getItemCount(): Int {
-        return players.size
+        return players?.size ?: 0
     }
 
     override fun onBindViewHolder(holder: MarketPlayerHolder, position: Int) {
-        val currentPlayer: Player = players.get(position)
+        val currentPlayer: Player =
+            players?.get(position) ?: Player("", "", "", "", "", 0, 0, 0, "")
         holder.nickName.text = currentPlayer.nickname
         holder.name.text = currentPlayer.name
-        holder.position.text = currentPlayer.position
-        holder.cost.text = "${currentPlayer.currentTeam}"
+        //holder.position.text = currentPlayer.position
+        if (currentPlayer.currentTeam == null) {
+            holder.cost.setTextColor(holder.name.context.resources.getColor(R.color.dark_green))
+        } else {
+            holder.cost.setTextColor(holder.name.context.resources.getColor(R.color.colorAccent))
+        }
+        val currentTeam = currentPlayer.currentTeam ?: "Free agent"
+        holder.cost.text = currentTeam
         Glide.with(holder.itemView.context)
             .load(currentPlayer.flag)
             .into(holder.flag)
@@ -39,7 +46,7 @@ class MarketAdapter(playerListener: OnPlayerListener) : RecyclerView.Adapter<Mar
             .into(holder.photo)
         ViewCompat.setTransitionName(holder.photo, position.toString() + "_photo")
         ViewCompat.setTransitionName(holder.name, position.toString() + "_name")
-        ViewCompat.setTransitionName(holder.position, position.toString() + "_position")
+        //ViewCompat.setTransitionName(holder.position, position.toString() + "_position")
         ViewCompat.setTransitionName(holder.cost, position.toString() + "_cost")
     }
 

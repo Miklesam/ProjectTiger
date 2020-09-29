@@ -196,7 +196,7 @@ class MainActivity : AppCompatActivity(), FragmentMenu.MenuListener, FragmentLob
             supportFragmentManager.beginTransaction()
                 .addSharedElement(holder.photo, "playerImage")
                 .addSharedElement(holder.name, "signature1")
-                .addSharedElement(holder.position, "signature2")
+                //.addSharedElement(holder.position, "signature2")
                 .addSharedElement(holder.cost, "signature3")
         //transaction.setCustomAnimations(R.anim.enter_right_to_left,R.anim.exit_right_to_left,R.anim.enter_left_to_right,R.anim.exit_left_to_right)
         val bundle = Bundle()

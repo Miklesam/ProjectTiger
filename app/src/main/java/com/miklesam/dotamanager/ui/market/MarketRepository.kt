@@ -2,6 +2,7 @@ package com.miklesam.dotamanager.ui.market
 
 import android.app.Application
 import androidx.lifecycle.LiveData
+import androidx.sqlite.db.SimpleSQLiteQuery
 import com.miklesam.dotamanager.datamodels.Player
 import com.miklesam.dotamanager.room.players.PlayersDao
 import com.miklesam.dotamanager.room.players.PlayersDatabase
@@ -35,4 +36,8 @@ class MarketRepository(application: Application) {
         playersDao.updateAllPlayers(players)
     }
 
+    fun dropTable() {
+        val query = SimpleSQLiteQuery("DROP TABLE players_main_table")
+        playersDao.dropTable(query);
+    }
 }

@@ -2,6 +2,7 @@ package com.miklesam.dotamanager.ui.teams
 
 import android.app.Application
 import androidx.lifecycle.LiveData
+import androidx.sqlite.db.SimpleSQLiteQuery
 import com.miklesam.dotamanager.datamodels.Team
 import com.miklesam.dotamanager.room.teams.TeamsDao
 import com.miklesam.dotamanager.room.teams.TeamsDatabase
@@ -30,6 +31,11 @@ class TeamsRepository(application: Application) {
 
     fun updateTeams(teams: List<Team>) {
         return teamsDao.updateTeams(teams)
+    }
+
+    fun dropTable() {
+        val query = SimpleSQLiteQuery("DROP TABLE teams_table")
+        teamsDao.dropTable(query);
     }
 
 }

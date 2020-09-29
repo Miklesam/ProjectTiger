@@ -8,6 +8,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.miklesam.dotamanager.datamodels.Player
 import com.miklesam.dotamanager.datamodels.Team
+import com.miklesam.dotamanager.room.players.PlayersDatabase
+import com.miklesam.dotamanager.room.players.PlayersList
+import com.miklesam.dotamanager.room.teams.TeamsDatabase
+import com.miklesam.dotamanager.room.teams.TeamsList
 import com.miklesam.dotamanager.ui.market.MarketRepository
 import com.miklesam.dotamanager.ui.teams.TeamsRepository
 import kotlinx.coroutines.Dispatchers
@@ -23,7 +27,6 @@ class DescriptionViewModel(application: Application) : AndroidViewModel(applicat
     private val listToupdate = MutableLiveData<List<Player>>()
     fun isGenerating(): LiveData<Boolean> = generating
 
-
     fun getTeams(): LiveData<List<Team>> {
         return repository.getTeams()
     }
@@ -37,6 +40,8 @@ class DescriptionViewModel(application: Application) : AndroidViewModel(applicat
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 generating.postValue(true)
+                //playerRepository.addPlayersTable(PlayersList.VP)
+                //repository.insertTeam(TeamsList.FantasticFive)
                 val currentPlayers =
                     playerRepository.getPlayers().value
                 val players1Positions =
@@ -68,6 +73,9 @@ class DescriptionViewModel(application: Application) : AndroidViewModel(applicat
                     val randInt = players2Positions?.size?.let { Random.nextInt(it) }
                     currentTeams?.get(i)?.playerPosition2 =
                         randInt?.let { players2Positions[it].nickname }
+                    randInt?.let {
+                        players2Positions.get(it).currentTeam = currentTeams?.get(i)?.teamName
+                    }
                     randInt?.let { players2Positions.removeAt(it) }
                 }
 
@@ -75,6 +83,9 @@ class DescriptionViewModel(application: Application) : AndroidViewModel(applicat
                     val randInt = players3Positions?.size?.let { Random.nextInt(it) }
                     currentTeams?.get(i)?.playerPosition3 =
                         randInt?.let { players3Positions[it].nickname }
+                    randInt?.let {
+                        players3Positions.get(it).currentTeam = currentTeams?.get(i)?.teamName
+                    }
                     randInt?.let { players3Positions.removeAt(it) }
                 }
 
@@ -82,6 +93,9 @@ class DescriptionViewModel(application: Application) : AndroidViewModel(applicat
                     val randInt = players4Positions?.size?.let { Random.nextInt(it) }
                     currentTeams?.get(i)?.playerPosition4 =
                         randInt?.let { players4Positions[it].nickname }
+                    randInt?.let {
+                        players4Positions.get(it).currentTeam = currentTeams?.get(i)?.teamName
+                    }
                     randInt?.let { players4Positions.removeAt(it) }
                 }
 
@@ -89,6 +103,9 @@ class DescriptionViewModel(application: Application) : AndroidViewModel(applicat
                     val randInt = players5Positions?.size?.let { Random.nextInt(it) }
                     currentTeams?.get(i)?.playerPosition5 =
                         randInt?.let { players5Positions[it].nickname }
+                    randInt?.let {
+                        players5Positions.get(it).currentTeam = currentTeams?.get(i)?.teamName
+                    }
                     randInt?.let { players5Positions.removeAt(it) }
                 }
 

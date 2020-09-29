@@ -1,10 +1,8 @@
 package com.miklesam.dotamanager.room.teams
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.Query
-import androidx.room.Update
+import androidx.room.*
+import androidx.sqlite.db.SupportSQLiteQuery
 import com.miklesam.dotamanager.datamodels.Team
 
 @Dao
@@ -27,4 +25,7 @@ interface TeamsDao {
 
     @Update
     fun updateTeams(data: List<Team>)
+
+    @RawQuery
+    fun dropTable(query: SupportSQLiteQuery):Int
 }

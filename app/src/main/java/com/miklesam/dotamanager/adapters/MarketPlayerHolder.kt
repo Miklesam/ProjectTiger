@@ -14,13 +14,11 @@ class MarketPlayerHolder (itemView:View,var playerListener: OnPlayerListener):Re
     val flag :ImageView
     val nickName:TextView
     val name :TextView
-    val position :TextView
     val cost :TextView
     val photo :ImageView
     init{
         nickName=itemView.playerNickname
         name=itemView.playerName
-        position=itemView.playerPosition
         cost=itemView.playerCost
         photo=itemView.playerPhoto
         flag=itemView.playerCountryImage

@@ -1,17 +1,12 @@
 package com.miklesam.dotamanager.adapters
 
-import android.annotation.SuppressLint
-import android.content.Context
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentPagerAdapter
 import androidx.fragment.app.FragmentStatePagerAdapter
-import com.miklesam.dotamanager.R
 import com.miklesam.dotamanager.simplefragments.PositionsPager
 
-@SuppressLint("WrongConstant")
-class SectionsPagerAdapter(fm: FragmentManager) :
-    FragmentStatePagerAdapter(fm, FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
+class SectionsPagerAdapter(fm: FragmentManager,val listener:OnPlayerChooseListener) :
+    FragmentStatePagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
     private val TAB_TITLES = arrayOf(
         "position 1",
@@ -22,7 +17,7 @@ class SectionsPagerAdapter(fm: FragmentManager) :
     )
 
     override fun getItem(position: Int): Fragment {
-        return PositionsPager(position + 1)
+        return PositionsPager(position + 1,listener)
     }
 
     override fun getPageTitle(position: Int): CharSequence? {
