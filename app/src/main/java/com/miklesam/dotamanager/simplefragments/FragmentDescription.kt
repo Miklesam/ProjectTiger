@@ -34,6 +34,10 @@ class FragmentDescription : Fragment(R.layout.fragment_description) {
         val adapter = TeamGenerateAdapter()
         recycler_generate.adapter = adapter
 
+        descViewModel.getTeams().observe(viewLifecycleOwner, Observer {
+            adapter.setTeams(it)
+        })
+
 
         descViewModel.getAllPlayers().observe(viewLifecycleOwner, Observer {
             if (it != null && it.size == 80) {
@@ -51,10 +55,6 @@ class FragmentDescription : Fragment(R.layout.fragment_description) {
                 nextBttn.visibility = View.VISIBLE
                 recycler_generate.visibility = View.VISIBLE
             }
-        })
-
-        descViewModel.getTeams().observe(viewLifecycleOwner, Observer {
-            adapter.setTeams(it)
         })
 
 

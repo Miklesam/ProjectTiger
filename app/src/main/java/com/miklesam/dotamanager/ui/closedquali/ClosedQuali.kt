@@ -32,7 +32,6 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 
 class ClosedQuali : Fragment(R.layout.fragment_closed_quali) {
-
     var teams: List<Team>? = null
     private var teamStats: List<TournamentTeam>? = null
     private val scope = CoroutineScope(Dispatchers.IO + SupervisorJob())

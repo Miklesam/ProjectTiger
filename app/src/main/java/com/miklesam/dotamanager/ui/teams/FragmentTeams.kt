@@ -34,7 +34,7 @@ class FragmentTeams :Fragment(R.layout.fragment_teams),OnTeamListener{
         adapter = TeamAdapterShow(this)
         recycler?.adapter = adapter
 
-        teamsViewModel?.getTeams()?.observe(this, Observer {
+        teamsViewModel?.getTeams()?.observe(viewLifecycleOwner, Observer {
             Log.w("Teams Hello",it.toString())
             teams=it
             adapter?.setTeams(it)

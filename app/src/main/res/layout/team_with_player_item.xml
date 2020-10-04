@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/card_padding"
+    app:cardElevation="5dp"
+    app:cardCornerRadius="10dp"
+    android:layout_marginTop="@dimen/card_padding"
+    android:layout_marginEnd="@dimen/card_padding"
+    app:contentPadding="3dp"
+    app:cardBackgroundColor="@color/black"
+    android:orientation="vertical">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/horizontal50"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.3" />
+
+
+        <ImageView
+            android:id="@+id/team_logo"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:src="@drawable/solo_face"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/vertical1"
+            app:layout_constraintBottom_toBottomOf="@+id/horizontal50"/>
+
+        <TextView
+            android:id="@+id/team_with_player_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@+id/vertical1"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/horizontal50"
+            android:layout_marginStart="25dp"
+            android:text="Team Name"
+            android:textSize="25sp"
+            android:textColor="@color/black"/>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/vertical1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.2" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/vertical2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.4" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/vertical3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.6" />
+
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/vertical4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.8" />
+
+
+        <FrameLayout
+            android:id="@+id/backFlag1"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/vertical1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/horizontal50">
+
+            <ImageView
+                android:id="@+id/playerPhoto1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/solo_face" />
+
+        </FrameLayout>
+
+
+        <FrameLayout
+            android:id="@+id/backFlag2"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/vertical2"
+            app:layout_constraintStart_toStartOf="@+id/vertical1"
+            app:layout_constraintTop_toTopOf="@+id/horizontal50">
+
+            <ImageView
+                android:id="@+id/playerPhoto2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/solo_face" />
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/backFlag3"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/vertical3"
+            app:layout_constraintStart_toStartOf="@+id/vertical2"
+            app:layout_constraintTop_toTopOf="@+id/horizontal50">
+
+            <ImageView
+                android:id="@+id/playerPhoto3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/solo_face" />
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/backFlag4"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/vertical4"
+            app:layout_constraintStart_toStartOf="@+id/vertical3"
+            app:layout_constraintTop_toTopOf="@+id/horizontal50">
+
+            <ImageView
+                android:id="@+id/playerPhoto4"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/solo_face" />
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/backFlag5"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/vertical4"
+            app:layout_constraintTop_toTopOf="@+id/horizontal50">
+
+            <ImageView
+                android:id="@+id/playerPhoto5"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/solo_face" />
+
+        </FrameLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.cardview.widget.CardView>

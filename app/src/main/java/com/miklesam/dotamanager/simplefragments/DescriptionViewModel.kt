@@ -40,8 +40,6 @@ class DescriptionViewModel(application: Application) : AndroidViewModel(applicat
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 generating.postValue(true)
-                //playerRepository.addPlayersTable(PlayersList.VP)
-                //repository.insertTeam(TeamsList.FantasticFive)
                 val currentPlayers =
                     playerRepository.getPlayers().value
                 val players1Positions =
@@ -56,6 +54,10 @@ class DescriptionViewModel(application: Application) : AndroidViewModel(applicat
                     currentPlayers?.filter { it.position == "5" }?.toMutableList()
 
                 Log.w("Now Players", currentPlayers?.size.toString())
+                while (repository.getTeams().value?.size ?: 0 < 8) {
+                    delay(100)
+                    Log.w("DelayTeams", (repository.getTeams().value?.size ?: 0).toString())
+                }
                 val currentTeams = repository.getTeams().value
                 Log.w("Now Teams", currentTeams?.size.toString())
 

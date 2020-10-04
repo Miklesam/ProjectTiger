@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.View
 import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.miklesam.dotamanager.R
@@ -17,7 +18,7 @@ import java.util.*
 
 class FragmentTeamSigning :Fragment(R.layout.fragment_about),TextToSpeech.OnInitListener{
 
-    private var teamViewModel: TeamViewModel?=null
+    private val teamViewModel by viewModels<TeamViewModel>()
     private var tts: TextToSpeech? = null
 
     interface gotoLobby{
@@ -28,8 +29,7 @@ class FragmentTeamSigning :Fragment(R.layout.fragment_about),TextToSpeech.OnInit
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         tts = TextToSpeech(context, this)
-        teamViewModel= ViewModelProviders.of(this).get(TeamViewModel::class.java)
-        teamViewModel?.getPlayer()?.observe(this, Observer {
+        teamViewModel.getPlayersByNickNames().observe(this, Observer {
              val inputStream1 =  context?.contentResolver?.openInputStream(it[0].photo.toUri())
              val player1 = Drawable.createFromStream(inputStream1, it[0].photo)
             val inputStream2 =  context?.contentResolver?.openInputStream(it[1].photo.toUri())
