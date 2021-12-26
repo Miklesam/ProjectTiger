@@ -499,7 +499,7 @@ class PlayersList {
                 "9pasha",
                 "Pavel Khvastunov",
                 "3",
-                CATEGORY_IMAGE_DIR + "pasha_face",
+                CATEGORY_IMAGE_DIR + "pasha_new",
                 Heroes.DARKSEER.id,
                 Heroes.MAGNUS.id,
                 Heroes.CENTAUR.id,
